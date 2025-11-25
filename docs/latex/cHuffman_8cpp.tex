@@ -1,0 +1,25 @@
+\doxysection{src/core/c\+Huffman.cpp File Reference}
+\hypertarget{cHuffman_8cpp}{}\label{cHuffman_8cpp}\index{src/core/cHuffman.cpp@{src/core/cHuffman.cpp}}
+
+
+Simple Huffman tree implementation used by the pedagogic compressor.  
+
+
+{\ttfamily \#include "{}core/c\+Huffman.\+h"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+Include dependency graph for c\+Huffman.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cHuffman_8cpp__incl}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Detailed Description}
+Simple Huffman tree implementation used by the pedagogic compressor. 
+
+The implementation builds a binary tree from symbol frequencies and provides a traversal helper to print codes. Memory ownership\+: this class owns the copy of the input trame and deletes tree nodes on destruction. 

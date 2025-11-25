@@ -1,0 +1,205 @@
+\doxysection{c\+Huffman Class Reference}
+\hypertarget{classcHuffman}{}\label{classcHuffman}\index{cHuffman@{cHuffman}}
+
+
+Simple Huffman coder/decoder used for exercises.  
+
+
+
+
+{\ttfamily \#include $<$c\+Huffman.\+h$>$}
+
+
+
+Collaboration diagram for c\+Huffman\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=209pt]{classcHuffman__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcHuffman_a7063970c53ebf961e6c564bb67ec418b}{c\+Huffman}} ()
+\item 
+\mbox{\hyperlink{classcHuffman_aedbe1b84c39077d6ddce8f10523355ea}{c\+Huffman}} (char \texorpdfstring{$\ast$}{*}trame, unsigned int longueur)
+\item 
+\mbox{\hyperlink{classcHuffman_a020cbc1d60813593446b43534d038c83}{\texorpdfstring{$\sim$}{\string~}c\+Huffman}} ()
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classcHuffman_a8302add3dc2dff75e99a49e466ce59fb}{get\+Trame}} () const
+\item 
+unsigned int \mbox{\hyperlink{classcHuffman_a2d3c3a51a3dd800b1b26f978b9f1ebf2}{get\+Longueur}} () const
+\item 
+\mbox{\hyperlink{structsNoeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classcHuffman_a041f14899f93a627a8246efb1d54a52e}{get\+Racine}} () const
+\item 
+void \mbox{\hyperlink{classcHuffman_afe4efb5d1cb9c8291942cb4dbf21a645}{set\+Trame}} (char \texorpdfstring{$\ast$}{*}trame, unsigned int longueur)
+\item 
+void \mbox{\hyperlink{classcHuffman_ae4bf4f86320d428b13a91b2c87c9a056}{set\+Racine}} (\mbox{\hyperlink{structsNoeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*}racine)
+\item 
+void \mbox{\hyperlink{classcHuffman_af4e311bc5a00f1d769db38aabe647234}{Huffman\+Codes}} (char \texorpdfstring{$\ast$}{*}Donnee, double \texorpdfstring{$\ast$}{*}Frequence, unsigned int Taille)
+\item 
+void \mbox{\hyperlink{classcHuffman_a017d9f63b21fb7945c773817cf789290}{Afficher\+Huffman}} (\mbox{\hyperlink{structsNoeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*}Racine, std\+::string code="{}"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classcHuffman_a8590a99cf02d0636bdc26de3f05e41f4}{mtrame}}
+\item 
+unsigned int \mbox{\hyperlink{classcHuffman_abd8615092c46069b5772f94c343c21e3}{m\+Longueur}}
+\item 
+\mbox{\hyperlink{structsNoeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classcHuffman_a14ac91985c76b1c8c129c8f8ac5e133c}{m\+Racine}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Simple Huffman coder/decoder used for exercises. 
+
+The class builds a Huffman binary tree from a list of symbols and frequencies and can print or expose the root for traversal. The implementation is intentionally straightforward for teaching purposes. 
+
+\label{doc-constructors}
+\Hypertarget{classcHuffman_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classcHuffman_a7063970c53ebf961e6c564bb67ec418b}\index{cHuffman@{cHuffman}!cHuffman@{cHuffman}}
+\index{cHuffman@{cHuffman}!cHuffman@{cHuffman}}
+\doxysubsubsection{\texorpdfstring{cHuffman()}{cHuffman()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classcHuffman_a7063970c53ebf961e6c564bb67ec418b} 
+c\+Huffman\+::c\+Huffman (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classcHuffman_aedbe1b84c39077d6ddce8f10523355ea}\index{cHuffman@{cHuffman}!cHuffman@{cHuffman}}
+\index{cHuffman@{cHuffman}!cHuffman@{cHuffman}}
+\doxysubsubsection{\texorpdfstring{cHuffman()}{cHuffman()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classcHuffman_aedbe1b84c39077d6ddce8f10523355ea} 
+c\+Huffman\+::c\+Huffman (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{trame}{, }\item[{unsigned int}]{longueur}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classcHuffman_a020cbc1d60813593446b43534d038c83}\index{cHuffman@{cHuffman}!````~cHuffman@{\texorpdfstring{$\sim$}{\string~}cHuffman}}
+\index{````~cHuffman@{\texorpdfstring{$\sim$}{\string~}cHuffman}!cHuffman@{cHuffman}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}cHuffman()}{\string~cHuffman()}}
+{\footnotesize\ttfamily \label{classcHuffman_a020cbc1d60813593446b43534d038c83} 
+c\+Huffman\+::\texorpdfstring{$\sim$}{\string~}c\+Huffman (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classcHuffman_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcHuffman_a017d9f63b21fb7945c773817cf789290}\index{cHuffman@{cHuffman}!AfficherHuffman@{AfficherHuffman}}
+\index{AfficherHuffman@{AfficherHuffman}!cHuffman@{cHuffman}}
+\doxysubsubsection{\texorpdfstring{AfficherHuffman()}{AfficherHuffman()}}
+{\footnotesize\ttfamily \label{classcHuffman_a017d9f63b21fb7945c773817cf789290} 
+void c\+Huffman\+::\+Afficher\+Huffman (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsNoeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*}}]{Racine}{, }\item[{std\+::string}]{code}{ = {\ttfamily "{}"{}}}\end{DoxyParamCaption})}
+
+Print the Huffman tree codes by traversing from the given root. 
+\begin{DoxyParams}{Parameters}
+{\em Racine} & node to start from (usually the tree root) \\
+\hline
+{\em code} & current code string accumulated during recursion \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{classcHuffman_a017d9f63b21fb7945c773817cf789290_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{classcHuffman_a017d9f63b21fb7945c773817cf789290_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcHuffman_a2d3c3a51a3dd800b1b26f978b9f1ebf2}\index{cHuffman@{cHuffman}!getLongueur@{getLongueur}}
+\index{getLongueur@{getLongueur}!cHuffman@{cHuffman}}
+\doxysubsubsection{\texorpdfstring{getLongueur()}{getLongueur()}}
+{\footnotesize\ttfamily \label{classcHuffman_a2d3c3a51a3dd800b1b26f978b9f1ebf2} 
+unsigned int c\+Huffman\+::get\+Longueur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{classcHuffman_a041f14899f93a627a8246efb1d54a52e}\index{cHuffman@{cHuffman}!getRacine@{getRacine}}
+\index{getRacine@{getRacine}!cHuffman@{cHuffman}}
+\doxysubsubsection{\texorpdfstring{getRacine()}{getRacine()}}
+{\footnotesize\ttfamily \label{classcHuffman_a041f14899f93a627a8246efb1d54a52e} 
+\mbox{\hyperlink{structsNoeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*} c\+Huffman\+::get\+Racine (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcHuffman_a041f14899f93a627a8246efb1d54a52e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcHuffman_a8302add3dc2dff75e99a49e466ce59fb}\index{cHuffman@{cHuffman}!getTrame@{getTrame}}
+\index{getTrame@{getTrame}!cHuffman@{cHuffman}}
+\doxysubsubsection{\texorpdfstring{getTrame()}{getTrame()}}
+{\footnotesize\ttfamily \label{classcHuffman_a8302add3dc2dff75e99a49e466ce59fb} 
+char \texorpdfstring{$\ast$}{*} c\+Huffman\+::get\+Trame (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{classcHuffman_af4e311bc5a00f1d769db38aabe647234}\index{cHuffman@{cHuffman}!HuffmanCodes@{HuffmanCodes}}
+\index{HuffmanCodes@{HuffmanCodes}!cHuffman@{cHuffman}}
+\doxysubsubsection{\texorpdfstring{HuffmanCodes()}{HuffmanCodes()}}
+{\footnotesize\ttfamily \label{classcHuffman_af4e311bc5a00f1d769db38aabe647234} 
+void c\+Huffman\+::\+Huffman\+Codes (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{Donnee}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{Frequence}{, }\item[{unsigned int}]{Taille}{}\end{DoxyParamCaption})}
+
+Build Huffman codes from an array of symbols and their frequencies. 
+\begin{DoxyParams}{Parameters}
+{\em Donnee} & array of symbols \\
+\hline
+{\em Frequence} & matching frequency array \\
+\hline
+{\em Taille} & number of symbols \\
+\hline
+\end{DoxyParams}
+Build the Huffman tree using a min-\/priority queue of nodes.Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcHuffman_af4e311bc5a00f1d769db38aabe647234_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcHuffman_ae4bf4f86320d428b13a91b2c87c9a056}\index{cHuffman@{cHuffman}!setRacine@{setRacine}}
+\index{setRacine@{setRacine}!cHuffman@{cHuffman}}
+\doxysubsubsection{\texorpdfstring{setRacine()}{setRacine()}}
+{\footnotesize\ttfamily \label{classcHuffman_ae4bf4f86320d428b13a91b2c87c9a056} 
+void c\+Huffman\+::set\+Racine (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsNoeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*}}]{racine}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classcHuffman_afe4efb5d1cb9c8291942cb4dbf21a645}\index{cHuffman@{cHuffman}!setTrame@{setTrame}}
+\index{setTrame@{setTrame}!cHuffman@{cHuffman}}
+\doxysubsubsection{\texorpdfstring{setTrame()}{setTrame()}}
+{\footnotesize\ttfamily \label{classcHuffman_afe4efb5d1cb9c8291942cb4dbf21a645} 
+void c\+Huffman\+::set\+Trame (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{trame}{, }\item[{unsigned int}]{longueur}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-variable-members}
+\Hypertarget{classcHuffman_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classcHuffman_abd8615092c46069b5772f94c343c21e3}\index{cHuffman@{cHuffman}!mLongueur@{mLongueur}}
+\index{mLongueur@{mLongueur}!cHuffman@{cHuffman}}
+\doxysubsubsection{\texorpdfstring{mLongueur}{mLongueur}}
+{\footnotesize\ttfamily \label{classcHuffman_abd8615092c46069b5772f94c343c21e3} 
+unsigned int c\+Huffman\+::m\+Longueur\hspace{0.3cm}{\ttfamily [private]}}
+
+length of mtrame \Hypertarget{classcHuffman_a14ac91985c76b1c8c129c8f8ac5e133c}\index{cHuffman@{cHuffman}!mRacine@{mRacine}}
+\index{mRacine@{mRacine}!cHuffman@{cHuffman}}
+\doxysubsubsection{\texorpdfstring{mRacine}{mRacine}}
+{\footnotesize\ttfamily \label{classcHuffman_a14ac91985c76b1c8c129c8f8ac5e133c} 
+\mbox{\hyperlink{structsNoeud}{s\+Noeud}}\texorpdfstring{$\ast$}{*} c\+Huffman\+::m\+Racine\hspace{0.3cm}{\ttfamily [private]}}
+
+root of the Huffman tree \Hypertarget{classcHuffman_a8590a99cf02d0636bdc26de3f05e41f4}\index{cHuffman@{cHuffman}!mtrame@{mtrame}}
+\index{mtrame@{mtrame}!cHuffman@{cHuffman}}
+\doxysubsubsection{\texorpdfstring{mtrame}{mtrame}}
+{\footnotesize\ttfamily \label{classcHuffman_a8590a99cf02d0636bdc26de3f05e41f4} 
+char\texorpdfstring{$\ast$}{*} c\+Huffman\+::mtrame\hspace{0.3cm}{\ttfamily [private]}}
+
+raw trame buffer (if used) 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/core/\mbox{\hyperlink{cHuffman_8h}{c\+Huffman.\+h}}\item 
+src/core/\mbox{\hyperlink{cHuffman_8cpp}{c\+Huffman.\+cpp}}\end{DoxyCompactItemize}

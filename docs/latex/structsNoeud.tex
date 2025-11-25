@@ -1,0 +1,87 @@
+\doxysection{s\+Noeud Struct Reference}
+\hypertarget{structsNoeud}{}\label{structsNoeud}\index{sNoeud@{sNoeud}}
+
+
+Node used by the pedagogic Huffman tree implementation.  
+
+
+
+
+{\ttfamily \#include $<$c\+Huffman.\+h$>$}
+
+
+
+Collaboration diagram for s\+Noeud\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{structsNoeud__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structsNoeud_a4159abaca506ae5c4bc293a65cc25516}{s\+Noeud}} (char d, double f)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{structsNoeud_afb8beebdb47f5749baf384aa397b6dba}{mdonnee}}
+\item 
+double \mbox{\hyperlink{structsNoeud_a1d4c243bc55e98c68e0614b7f743ba48}{mfreq}}
+\item 
+\mbox{\hyperlink{structsNoeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structsNoeud_a66b579266d53f46c02268b12237623ed}{mgauche}}
+\item 
+\mbox{\hyperlink{structsNoeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structsNoeud_a920037192f261344e42996fece27e43c}{mdroit}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Node used by the pedagogic Huffman tree implementation. 
+
+Contains a symbol (one byte) and its frequency. Left/right pointers form the binary tree used to derive codes. This is a simple, non-\/owning structure; \doxylink{classcHuffman}{c\+Huffman} is responsible for deleting allocated nodes. 
+
+\label{doc-constructors}
+\Hypertarget{structsNoeud_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structsNoeud_a4159abaca506ae5c4bc293a65cc25516}\index{sNoeud@{sNoeud}!sNoeud@{sNoeud}}
+\index{sNoeud@{sNoeud}!sNoeud@{sNoeud}}
+\doxysubsubsection{\texorpdfstring{sNoeud()}{sNoeud()}}
+{\footnotesize\ttfamily \label{structsNoeud_a4159abaca506ae5c4bc293a65cc25516} 
+s\+Noeud\+::s\+Noeud (\begin{DoxyParamCaption}\item[{char}]{d}{, }\item[{double}]{f}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\label{doc-variable-members}
+\Hypertarget{structsNoeud_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structsNoeud_afb8beebdb47f5749baf384aa397b6dba}\index{sNoeud@{sNoeud}!mdonnee@{mdonnee}}
+\index{mdonnee@{mdonnee}!sNoeud@{sNoeud}}
+\doxysubsubsection{\texorpdfstring{mdonnee}{mdonnee}}
+{\footnotesize\ttfamily \label{structsNoeud_afb8beebdb47f5749baf384aa397b6dba} 
+char s\+Noeud\+::mdonnee}
+
+\Hypertarget{structsNoeud_a920037192f261344e42996fece27e43c}\index{sNoeud@{sNoeud}!mdroit@{mdroit}}
+\index{mdroit@{mdroit}!sNoeud@{sNoeud}}
+\doxysubsubsection{\texorpdfstring{mdroit}{mdroit}}
+{\footnotesize\ttfamily \label{structsNoeud_a920037192f261344e42996fece27e43c} 
+\mbox{\hyperlink{structsNoeud}{s\+Noeud}}\texorpdfstring{$\ast$}{*} s\+Noeud\+::mdroit}
+
+\Hypertarget{structsNoeud_a1d4c243bc55e98c68e0614b7f743ba48}\index{sNoeud@{sNoeud}!mfreq@{mfreq}}
+\index{mfreq@{mfreq}!sNoeud@{sNoeud}}
+\doxysubsubsection{\texorpdfstring{mfreq}{mfreq}}
+{\footnotesize\ttfamily \label{structsNoeud_a1d4c243bc55e98c68e0614b7f743ba48} 
+double s\+Noeud\+::mfreq}
+
+\Hypertarget{structsNoeud_a66b579266d53f46c02268b12237623ed}\index{sNoeud@{sNoeud}!mgauche@{mgauche}}
+\index{mgauche@{mgauche}!sNoeud@{sNoeud}}
+\doxysubsubsection{\texorpdfstring{mgauche}{mgauche}}
+{\footnotesize\ttfamily \label{structsNoeud_a66b579266d53f46c02268b12237623ed} 
+\mbox{\hyperlink{structsNoeud}{s\+Noeud}}\texorpdfstring{$\ast$}{*} s\+Noeud\+::mgauche}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/core/\mbox{\hyperlink{cHuffman_8h}{c\+Huffman.\+h}}\end{DoxyCompactItemize}

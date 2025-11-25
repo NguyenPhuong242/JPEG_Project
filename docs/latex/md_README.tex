@@ -1,0 +1,76 @@
+\chapter{JPEG Compressor }
+\hypertarget{md_README}{}\label{md_README}\index{JPEG Compressor@{JPEG Compressor}}
+\label{md_README_autotoc_md0}%
+\Hypertarget{md_README_autotoc_md0}%
+
+
+Small educational JPEG compression project (DCT + quantification) used for a programming exercise.
+
+Contents
+\begin{DoxyItemize}
+\item {\ttfamily include/} \+: public headers
+\item {\ttfamily src/} \+: implementation (DCT, quantification, core)
+\item {\ttfamily tests/} \+: small manual unit tests for DCT and quantification
+\item {\ttfamily docs/} \+: Doxygen configuration and generated HTML in {\ttfamily docs/html}
+\end{DoxyItemize}
+
+Quick build (Linux)
+
+Install required packages (Debian/\+Ubuntu)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ apt\ update}
+\DoxyCodeLine{sudo\ apt\ install\ build-\/essential\ cmake\ g++\ doxygen\ graphviz}
+
+\end{DoxyCode}
+
+
+Configure and build\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\ -\/S\ .\ -\/B\ build}
+\DoxyCodeLine{cmake\ -\/-\/build\ build\ -\/j}
+
+\end{DoxyCode}
+
+
+Run unit tests (via CTest)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ctest\ -\/-\/test-\/dir\ build\ -\/V}
+
+\end{DoxyCode}
+
+
+Run the demo executable (prints an example DCT block)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./build/jpeg\_compressor}
+
+\end{DoxyCode}
+
+
+Generate documentation
+
+The repo contains a {\ttfamily docs/\+Doxyfile}. To regenerate the Doxygen HTML documentation\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ from\ project\ root}
+\DoxyCodeLine{doxygen\ docs/Doxyfile}
+\DoxyCodeLine{\#\ open\ generated\ docs}
+\DoxyCodeLine{xdg-\/open\ docs/html/index.html}
+
+\end{DoxyCode}
+
+
+Notes
+\begin{DoxyItemize}
+\item Graphs in the Doxygen output require {\ttfamily graphviz} (dot). If you do not want graphs, you can disable them in {\ttfamily docs/\+Doxyfile}.
+\item The project is intentionally minimal and educational; it implements DCT and quantization, with helper tests referencing figures in the course "{}sujet"{} PDF.
+\end{DoxyItemize}
+
+Contributing / Next steps
+\begin{DoxyItemize}
+\item Implement zig-\/zag ordering and run-\/length encoding.
+\item Add Huffman entropy coding and write a minimal valid JPEG file.
+\item Add more unit tests and sample images for end-\/to-\/end validation.
+\end{DoxyItemize}
+
+Author\+: student project 

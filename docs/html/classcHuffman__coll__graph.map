@@ -1,0 +1,6 @@
+<map id="cHuffman" name="cHuffman">
+<area shape="rect" id="Node000001" title="Simple Huffman coder/decoder used for exercises." alt="" coords="5,119,91,144"/>
+<area shape="rect" id="Node000002" href="$structsNoeud.html" title="Node used by the pedagogic Huffman tree implementation." alt="" coords="13,14,83,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="51,53,51,118,45,118,45,53"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="99,15,107,19,110,27,102,37,84,40,84,35,99,32,105,26,103,23,96,20"/>
+</map>

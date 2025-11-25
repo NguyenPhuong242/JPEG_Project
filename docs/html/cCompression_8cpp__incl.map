@@ -1,0 +1,32 @@
+<map id="src/core/cCompression.cpp" name="src/core/cCompression.cpp">
+<area shape="rect" id="Node000001" title="High&#45;level helpers that glue the DCT/quantization/RLE/Huffman pipeline together for the pedagogic JPE..." alt="" coords="524,5,720,31"/>
+<area shape="rect" id="Node000002" href="$cCompression_8h.html" title=" " alt="" coords="5,79,164,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="536,33,178,80,178,75,535,28"/>
+<area shape="rect" id="Node000003" href="$cHuffman_8h.html" title=" " alt="" coords="240,79,369,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="572,33,370,78,368,73,570,28"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="175,152,237,177"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="524,25,441,30,353,40,278,57,249,68,229,81,219,93,213,107,208,138,203,137,208,106,215,90,226,77,247,63,276,52,353,35,440,25,524,19"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="394,79,474,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="593,33,478,76,477,71,591,28"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="498,79,565,104"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="609,33,559,72,555,68,606,29"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="589,79,655,104"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="625,31,625,65,619,65,619,31"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="679,79,730,104"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="637,29,682,67,679,72,634,33"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="755,79,841,104"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="651,28,757,71,755,76,649,33"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="865,79,939,104"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="668,28,853,75,852,80,666,33"/>
+<area shape="rect" id="Node000013" href="$dct_8h.html" title="Discrete Cosine Transform helpers for 8x8 blocks." alt="" coords="963,79,1041,104"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="690,28,949,76,948,81,689,33"/>
+<area shape="rect" id="Node000014" href="$quantification_8h.html" title="Quantization and helper metrics used in the JPEG pipeline." alt="" coords="1066,79,1282,104"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="711,28,1072,74,1071,80,710,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="290,106,235,146,232,142,287,102"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="265,152,328,177"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="306,105,302,139,297,138,301,104"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="353,152,411,177"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="319,102,361,141,357,144,315,106"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="1139,152,1209,177"/>
+<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="1177,104,1177,138,1171,138,1171,104"/>
+</map>

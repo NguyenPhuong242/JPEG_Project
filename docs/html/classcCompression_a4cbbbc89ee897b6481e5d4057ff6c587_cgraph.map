@@ -1,0 +1,9 @@
+<map id="cCompression::Compression_JPEG" name="cCompression::Compression_JPEG">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,249,80"/>
+<area shape="rect" id="Node000002" href="$classcHuffman.html#a041f14899f93a627a8246efb1d54a52e" title=" " alt="" coords="323,5,482,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,52,317,31,318,36,199,57"/>
+<area shape="rect" id="Node000003" href="$classcCompression.html#a0720225210ef1d484f50d25af1586753" title=" " alt="" coords="297,55,508,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="249,65,284,65,284,70,249,70"/>
+<area shape="rect" id="Node000004" href="$classcHuffman.html#af4e311bc5a00f1d769db38aabe647234" title=" " alt="" coords="308,104,497,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="199,77,318,99,317,104,198,83"/>
+</map>

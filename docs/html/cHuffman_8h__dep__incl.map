@@ -1,0 +1,9 @@
+<map id="include/core/cHuffman.h" name="include/core/cHuffman.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="219,5,399,31"/>
+<area shape="rect" id="Node000002" href="$cCompression_8cpp.html" title="High&#45;level helpers that glue the DCT/quantization/RLE/Huffman pipeline together for the pedagogic JPE..." alt="" coords="5,79,201,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="264,38,137,81,136,76,262,33"/>
+<area shape="rect" id="Node000003" href="$cHuffman_8cpp.html" title="Simple Huffman tree implementation used by the pedagogic compressor." alt="" coords="225,79,392,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="311,44,311,79,306,79,306,44"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Small driver exercising the pedagogic JPEG pipeline implemented in this project: DCT/IDCT on 8x8 bloc..." alt="" coords="416,79,521,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="348,34,444,76,441,81,346,39"/>
+</map>

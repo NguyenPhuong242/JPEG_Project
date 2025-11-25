@@ -1,0 +1,47 @@
+\doxysection{c\+Huffman.\+h}
+\hypertarget{cHuffman_8h_source}{}\label{cHuffman_8h_source}\index{include/core/cHuffman.h@{include/core/cHuffman.h}}
+\mbox{\hyperlink{cHuffman_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ JPEG\_COMPRESSOR\_CHUFFMAN\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ JPEG\_COMPRESSOR\_CHUFFMAN\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsNoeud_a4159abaca506ae5c4bc293a65cc25516}{sNoeud}}\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structsNoeud_afb8beebdb47f5749baf384aa397b6dba}{mdonnee}};}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structsNoeud_a1d4c243bc55e98c68e0614b7f743ba48}{mfreq}};}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{structsNoeud_a4159abaca506ae5c4bc293a65cc25516}{sNoeud}}\ *\mbox{\hyperlink{structsNoeud_a66b579266d53f46c02268b12237623ed}{mgauche}};}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{structsNoeud_a4159abaca506ae5c4bc293a65cc25516}{sNoeud}}\ *\mbox{\hyperlink{structsNoeud_a920037192f261344e42996fece27e43c}{mdroit}};}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{structsNoeud_a4159abaca506ae5c4bc293a65cc25516}{sNoeud}}(\textcolor{keywordtype}{char}\ d,\ \textcolor{keywordtype}{double}\ f)\ :\ \mbox{\hyperlink{structsNoeud_afb8beebdb47f5749baf384aa397b6dba}{mdonnee}}(d),\ \mbox{\hyperlink{structsNoeud_a1d4c243bc55e98c68e0614b7f743ba48}{mfreq}}(f),\ \mbox{\hyperlink{structsNoeud_a66b579266d53f46c02268b12237623ed}{mgauche}}(nullptr),\ \mbox{\hyperlink{structsNoeud_a920037192f261344e42996fece27e43c}{mdroit}}(nullptr)\ \{\}}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcompare}{compare}}\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structcompare_a6a01c150278de013a9dc6e80c28afb07}{operator()}}(\mbox{\hyperlink{structsNoeud}{sNoeud}}\ *gauche,\ \mbox{\hyperlink{structsNoeud}{sNoeud}}\ *droit)\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ gauche-\/>\mbox{\hyperlink{structsNoeud_a1d4c243bc55e98c68e0614b7f743ba48}{mfreq}}\ >\ droit-\/>\mbox{\hyperlink{structsNoeud_a1d4c243bc55e98c68e0614b7f743ba48}{mfreq}};}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcHuffman_a7063970c53ebf961e6c564bb67ec418b}{cHuffman}}\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{classcHuffman_a8590a99cf02d0636bdc26de3f05e41f4}{mtrame}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classcHuffman_abd8615092c46069b5772f94c343c21e3}{mLongueur}};\ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{structsNoeud}{sNoeud}}\ *\mbox{\hyperlink{classcHuffman_a14ac91985c76b1c8c129c8f8ac5e133c}{mRacine}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classcHuffman_a7063970c53ebf961e6c564bb67ec418b}{cHuffman}}();}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{classcHuffman_a7063970c53ebf961e6c564bb67ec418b}{cHuffman}}(\textcolor{keywordtype}{char}\ *trame,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ longueur);}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{classcHuffman_a020cbc1d60813593446b43534d038c83}{\string~cHuffman}}();}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{classcHuffman_a8302add3dc2dff75e99a49e466ce59fb}{getTrame}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classcHuffman_a2d3c3a51a3dd800b1b26f978b9f1ebf2}{getLongueur}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{structsNoeud}{sNoeud}}\ *\mbox{\hyperlink{classcHuffman_a041f14899f93a627a8246efb1d54a52e}{getRacine}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcHuffman_afe4efb5d1cb9c8291942cb4dbf21a645}{setTrame}}(\textcolor{keywordtype}{char}\ *trame,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ longueur);}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcHuffman_ae4bf4f86320d428b13a91b2c87c9a056}{setRacine}}(\mbox{\hyperlink{structsNoeud}{sNoeud}}\ *racine);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcHuffman_af4e311bc5a00f1d769db38aabe647234}{HuffmanCodes}}(\textcolor{keywordtype}{char}\ *Donnee,\ \textcolor{keywordtype}{double}\ *Frequence,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ Taille);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcHuffman_a017d9f63b21fb7945c773817cf789290}{AfficherHuffman}}(\mbox{\hyperlink{structsNoeud}{sNoeud}}\ *Racine,\ std::string\ code\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//JPEG\_COMPRESSOR\_CHUFFMAN\_H}}
+
+\end{DoxyCode}

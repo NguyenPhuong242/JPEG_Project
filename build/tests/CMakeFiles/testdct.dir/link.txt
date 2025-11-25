@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/testdct.dir/test_dct.cpp.o -o testdct  ../libjpeg_core.a 

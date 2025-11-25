@@ -1,0 +1,343 @@
+\doxysection{c\+Compression Class Reference}
+\hypertarget{classcCompression}{}\label{classcCompression}\index{cCompression@{cCompression}}
+
+
+High-\/level JPEG compression/decompression helper.  
+
+
+
+
+{\ttfamily \#include $<$c\+Compression.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcCompression_adc5f208bc6974089fea85fec29964be5}{c\+Compression}} ()
+\item 
+\mbox{\hyperlink{classcCompression_af42ae5f329696b26191d515a12126186}{c\+Compression}} (unsigned int largeur, unsigned int hauteur, unsigned int qualite=50)
+\item 
+\mbox{\hyperlink{classcCompression_a9bc895fb3efd36315891b6e179f09c87}{\texorpdfstring{$\sim$}{\string~}c\+Compression}} ()
+\item 
+void \mbox{\hyperlink{classcCompression_a86bae0e51a1607b87467560e8e2c3bbd}{set\+Largeur}} (unsigned int largeur)
+\item 
+void \mbox{\hyperlink{classcCompression_a9f3b424df287aaeb5924ed505b848b9e}{set\+Hauteur}} (unsigned int hauteur)
+\item 
+void \mbox{\hyperlink{classcCompression_a16720d26c29def34f724066455da1ecf}{set\+Qualite}} (unsigned int qualite)
+\item 
+unsigned int \mbox{\hyperlink{classcCompression_a42ce4e36474774a54bf01d404cf59360}{get\+Largeur}} () const
+\item 
+unsigned int \mbox{\hyperlink{classcCompression_ae0f6e3eadd7aa11fd6825f2fd53a4a1c}{get\+Hauteur}} () const
+\item 
+unsigned int \mbox{\hyperlink{classcCompression_a2674e4a02b0f39da23681071f7055e58}{get\+Qualite}} () const
+\item 
+void \mbox{\hyperlink{classcCompression_aefe3add7e9c0017ce292efd1bad96939}{RLE\+\_\+\+Block}} (int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Img\+\_\+\+Quant, int DC\+\_\+precedent, char \texorpdfstring{$\ast$}{*}Trame)
+\item 
+void \mbox{\hyperlink{classcCompression_ae36b8feb1f34c7013905c1fef1934245}{RLE}} (int \texorpdfstring{$\ast$}{*}Trame)
+\item 
+void \mbox{\hyperlink{classcCompression_a4cbbbc89ee897b6481e5d4057ff6c587}{Compression\+\_\+\+JPEG}} (char \texorpdfstring{$\ast$}{*}Trame, unsigned int Longueur\+\_\+\+Trame, char \texorpdfstring{$\ast$}{*}Nom\+\_\+\+Fichier)
+\item 
+char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classcCompression_a23fb296439a9a0f75209a08b86e0c589}{Decompression\+\_\+\+JPEG}} (char \texorpdfstring{$\ast$}{*}Nom\+\_\+\+Fichier\+\_\+compresse)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static unsigned int \mbox{\hyperlink{classcCompression_aa7fe57390f7e2f2532e3389dcef33889}{get\+Qualite\+Globale}} ()
+\item 
+static void \mbox{\hyperlink{classcCompression_ae2b173d0aebc50cedba7e9ac34aafa21}{set\+Qualite\+Globale}} (unsigned int qualite)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{classcCompression_ada5a0cc8bd3a43420cc85b27f6c3652a}{m\+Largeur}}
+\item 
+unsigned int \mbox{\hyperlink{classcCompression_a1a18b17ac1e9fcc50080f13cbbfbddc7}{m\+Hauteur}}
+\item 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classcCompression_a676a807814329e53fdea6bcfb2191e4c}{m\+Buffer}}
+\item 
+unsigned int \mbox{\hyperlink{classcCompression_ab04177da010ea0887a075186166e080f}{m\+Qualite}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{classcCompression_a0720225210ef1d484f50d25af1586753}{Histogramme}} (char \texorpdfstring{$\ast$}{*}Trame, unsigned int Longueur\+\_\+\+Trame, char \texorpdfstring{$\ast$}{*}Donnee, double \texorpdfstring{$\ast$}{*}Frequence)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+High-\/level JPEG compression/decompression helper. 
+
+This class implements the minimal functionality required by the pedagogic sujet\+: RLE encoding of 8x8 quantized blocks, concatenation of block trames, histogram computation, and wrapper functions to perform full compression (RLE + Huffman + write file) and decompression (read file + Huffman decode + RLE decode + dequant + IDCT). Members are intentionally lightweight and follow the original function signatures from the lab. 
+
+\label{doc-constructors}
+\Hypertarget{classcCompression_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classcCompression_adc5f208bc6974089fea85fec29964be5}\index{cCompression@{cCompression}!cCompression@{cCompression}}
+\index{cCompression@{cCompression}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{cCompression()}{cCompression()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classcCompression_adc5f208bc6974089fea85fec29964be5} 
+c\+Compression\+::c\+Compression (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Default ctor. Does not allocate image storage. \Hypertarget{classcCompression_af42ae5f329696b26191d515a12126186}\index{cCompression@{cCompression}!cCompression@{cCompression}}
+\index{cCompression@{cCompression}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{cCompression()}{cCompression()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classcCompression_af42ae5f329696b26191d515a12126186} 
+c\+Compression\+::c\+Compression (\begin{DoxyParamCaption}\item[{unsigned int}]{largeur}{, }\item[{unsigned int}]{hauteur}{, }\item[{unsigned int}]{qualite}{ = {\ttfamily 50}}\end{DoxyParamCaption})}
+
+Construct a compressor tied to an image size and optional quality. 
+\begin{DoxyParams}{Parameters}
+{\em largeur} & image width \\
+\hline
+{\em hauteur} & image height \\
+\hline
+{\em qualite} & initial quality (0-\/100, JPEG-\/style) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classcCompression_a9bc895fb3efd36315891b6e179f09c87}\index{cCompression@{cCompression}!````~cCompression@{\texorpdfstring{$\sim$}{\string~}cCompression}}
+\index{````~cCompression@{\texorpdfstring{$\sim$}{\string~}cCompression}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}cCompression()}{\string~cCompression()}}
+{\footnotesize\ttfamily \label{classcCompression_a9bc895fb3efd36315891b6e179f09c87} 
+c\+Compression\+::\texorpdfstring{$\sim$}{\string~}c\+Compression (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classcCompression_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcCompression_a4cbbbc89ee897b6481e5d4057ff6c587}\index{cCompression@{cCompression}!Compression\_JPEG@{Compression\_JPEG}}
+\index{Compression\_JPEG@{Compression\_JPEG}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{Compression\_JPEG()}{Compression\_JPEG()}}
+{\footnotesize\ttfamily \label{classcCompression_a4cbbbc89ee897b6481e5d4057ff6c587} 
+void c\+Compression\+::\+Compression\+\_\+\+JPEG (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{Trame}{, }\item[{unsigned int}]{Longueur\+\_\+\+Trame}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{Nom\+\_\+\+Fichier}{}\end{DoxyParamCaption})}
+
+Perform full JPEG-\/like compression and write to disk. The function accepts a raw byte trame of length Longueur\+\_\+\+Trame (the RLE concatenation of all blocks) and writes a compressed file named Nom\+\_\+\+Fichier. 
+\begin{DoxyParams}{Parameters}
+{\em Trame} & pointer to bytes (may contain zeros) \\
+\hline
+{\em Longueur\+\_\+\+Trame} & length in bytes \\
+\hline
+{\em Nom\+\_\+\+Fichier} & filename to create on disk \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcCompression_a4cbbbc89ee897b6481e5d4057ff6c587_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{classcCompression_a4cbbbc89ee897b6481e5d4057ff6c587_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcCompression_a23fb296439a9a0f75209a08b86e0c589}\index{cCompression@{cCompression}!Decompression\_JPEG@{Decompression\_JPEG}}
+\index{Decompression\_JPEG@{Decompression\_JPEG}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{Decompression\_JPEG()}{Decompression\_JPEG()}}
+{\footnotesize\ttfamily \label{classcCompression_a23fb296439a9a0f75209a08b86e0c589} 
+char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} c\+Compression\+::\+Decompression\+\_\+\+JPEG (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{Nom\+\_\+\+Fichier\+\_\+compresse}{}\end{DoxyParamCaption})}
+
+Read and decompress a compressed file previously produced by Compression\+\_\+\+JPEG. Returns a newly allocated 2D byte array (row pointers) with dimensions set by the compressor. The caller is responsible for freeing the returned memory with delete\mbox{[}\mbox{]}. 
+\begin{DoxyParams}{Parameters}
+{\em Nom\+\_\+\+Fichier\+\_\+compresse} & compressed filename to read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} image rows (or nullptr on failure) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcCompression_a23fb296439a9a0f75209a08b86e0c589_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcCompression_a23fb296439a9a0f75209a08b86e0c589_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcCompression_ae0f6e3eadd7aa11fd6825f2fd53a4a1c}\index{cCompression@{cCompression}!getHauteur@{getHauteur}}
+\index{getHauteur@{getHauteur}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{getHauteur()}{getHauteur()}}
+{\footnotesize\ttfamily \label{classcCompression_ae0f6e3eadd7aa11fd6825f2fd53a4a1c} 
+unsigned int c\+Compression\+::get\+Hauteur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{classcCompression_a42ce4e36474774a54bf01d404cf59360}\index{cCompression@{cCompression}!getLargeur@{getLargeur}}
+\index{getLargeur@{getLargeur}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{getLargeur()}{getLargeur()}}
+{\footnotesize\ttfamily \label{classcCompression_a42ce4e36474774a54bf01d404cf59360} 
+unsigned int c\+Compression\+::get\+Largeur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{classcCompression_a2674e4a02b0f39da23681071f7055e58}\index{cCompression@{cCompression}!getQualite@{getQualite}}
+\index{getQualite@{getQualite}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{getQualite()}{getQualite()}}
+{\footnotesize\ttfamily \label{classcCompression_a2674e4a02b0f39da23681071f7055e58} 
+unsigned int c\+Compression\+::get\+Qualite (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{classcCompression_aa7fe57390f7e2f2532e3389dcef33889}\index{cCompression@{cCompression}!getQualiteGlobale@{getQualiteGlobale}}
+\index{getQualiteGlobale@{getQualiteGlobale}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{getQualiteGlobale()}{getQualiteGlobale()}}
+{\footnotesize\ttfamily \label{classcCompression_aa7fe57390f7e2f2532e3389dcef33889} 
+unsigned int c\+Compression\+::get\+Qualite\+Globale (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Global quality used by the quantification helpers. This is a process-\/ wide parameter used by the pedagogic functions in this project and can be set/read from anywhere. Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcCompression_aa7fe57390f7e2f2532e3389dcef33889_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcCompression_a0720225210ef1d484f50d25af1586753}\index{cCompression@{cCompression}!Histogramme@{Histogramme}}
+\index{Histogramme@{Histogramme}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{Histogramme()}{Histogramme()}}
+{\footnotesize\ttfamily \label{classcCompression_a0720225210ef1d484f50d25af1586753} 
+unsigned int c\+Compression\+::\+Histogramme (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{Trame}{, }\item[{unsigned int}]{Longueur\+\_\+\+Trame}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{Donnee}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{Frequence}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Compute histogram of bytes after RLE. Used to build Huffman codes. 
+\begin{DoxyParams}{Parameters}
+{\em Trame} & input byte buffer \\
+\hline
+{\em Longueur\+\_\+\+Trame} & number of bytes in Trame \\
+\hline
+{\em Donnee} & output array of distinct symbols found (filled by function) \\
+\hline
+{\em Frequence} & output frequency array matching Donnee \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of distinct symbols 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcCompression_a0720225210ef1d484f50d25af1586753_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcCompression_ae36b8feb1f34c7013905c1fef1934245}\index{cCompression@{cCompression}!RLE@{RLE}}
+\index{RLE@{RLE}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{RLE()}{RLE()}}
+{\footnotesize\ttfamily \label{classcCompression_ae36b8feb1f34c7013905c1fef1934245} 
+void c\+Compression\+::\+RLE (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{Trame}{}\end{DoxyParamCaption})}
+
+Concatenate block trames of the whole image into an integer trame. The pedagogic convention used here stores the concatenated byte count in Trame\mbox{[}0\mbox{]} and the bytes in Trame\mbox{[}1..N\mbox{]}. This is a convenience wrapper matching the exercise\textquotesingle{}s expected signature. 
+\begin{DoxyParams}{Parameters}
+{\em Trame} & integer buffer provided by caller \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcCompression_ae36b8feb1f34c7013905c1fef1934245_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{classcCompression_ae36b8feb1f34c7013905c1fef1934245_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcCompression_aefe3add7e9c0017ce292efd1bad96939}\index{cCompression@{cCompression}!RLE\_Block@{RLE\_Block}}
+\index{RLE\_Block@{RLE\_Block}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{RLE\_Block()}{RLE\_Block()}}
+{\footnotesize\ttfamily \label{classcCompression_aefe3add7e9c0017ce292efd1bad96939} 
+void c\+Compression\+::\+RLE\+\_\+\+Block (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{Img\+\_\+\+Quant}{, }\item[{int}]{DC\+\_\+precedent}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{Trame}{}\end{DoxyParamCaption})}
+
+Encode a single 8x8 quantized block with run-\/length encoding (RLE). The function writes bytes into the caller-\/provided buffer {\ttfamily Trame} and terminates the block with the EOB marker (255,0). The caller must ensure {\ttfamily Trame} has enough capacity (we reserve 128 bytes per block in the driver). 
+\begin{DoxyParams}{Parameters}
+{\em Img\+\_\+\+Quant} & 8x8 quantized coefficients (row-\/major int\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}) \\
+\hline
+{\em DC\+\_\+precedent} & previous DC coefficient (for differential coding) \\
+\hline
+{\em Trame} & caller-\/provided byte buffer \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcCompression_aefe3add7e9c0017ce292efd1bad96939_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcCompression_a9f3b424df287aaeb5924ed505b848b9e}\index{cCompression@{cCompression}!setHauteur@{setHauteur}}
+\index{setHauteur@{setHauteur}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{setHauteur()}{setHauteur()}}
+{\footnotesize\ttfamily \label{classcCompression_a9f3b424df287aaeb5924ed505b848b9e} 
+void c\+Compression\+::set\+Hauteur (\begin{DoxyParamCaption}\item[{unsigned int}]{hauteur}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classcCompression_a86bae0e51a1607b87467560e8e2c3bbd}\index{cCompression@{cCompression}!setLargeur@{setLargeur}}
+\index{setLargeur@{setLargeur}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{setLargeur()}{setLargeur()}}
+{\footnotesize\ttfamily \label{classcCompression_a86bae0e51a1607b87467560e8e2c3bbd} 
+void c\+Compression\+::set\+Largeur (\begin{DoxyParamCaption}\item[{unsigned int}]{largeur}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classcCompression_a16720d26c29def34f724066455da1ecf}\index{cCompression@{cCompression}!setQualite@{setQualite}}
+\index{setQualite@{setQualite}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{setQualite()}{setQualite()}}
+{\footnotesize\ttfamily \label{classcCompression_a16720d26c29def34f724066455da1ecf} 
+void c\+Compression\+::set\+Qualite (\begin{DoxyParamCaption}\item[{unsigned int}]{qualite}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classcCompression_ae2b173d0aebc50cedba7e9ac34aafa21}\index{cCompression@{cCompression}!setQualiteGlobale@{setQualiteGlobale}}
+\index{setQualiteGlobale@{setQualiteGlobale}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{setQualiteGlobale()}{setQualiteGlobale()}}
+{\footnotesize\ttfamily \label{classcCompression_ae2b173d0aebc50cedba7e9ac34aafa21} 
+void c\+Compression\+::set\+Qualite\+Globale (\begin{DoxyParamCaption}\item[{unsigned int}]{qualite}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=299pt]{classcCompression_ae2b173d0aebc50cedba7e9ac34aafa21_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classcCompression_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classcCompression_a676a807814329e53fdea6bcfb2191e4c}\index{cCompression@{cCompression}!mBuffer@{mBuffer}}
+\index{mBuffer@{mBuffer}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{mBuffer}{mBuffer}}
+{\footnotesize\ttfamily \label{classcCompression_a676a807814329e53fdea6bcfb2191e4c} 
+unsigned char\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} c\+Compression\+::m\+Buffer}
+
+Raw image buffer (row pointers). Ownership\+: \doxylink{classcCompression}{c\+Compression} owns this when used as an image container. \Hypertarget{classcCompression_a1a18b17ac1e9fcc50080f13cbbfbddc7}\index{cCompression@{cCompression}!mHauteur@{mHauteur}}
+\index{mHauteur@{mHauteur}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{mHauteur}{mHauteur}}
+{\footnotesize\ttfamily \label{classcCompression_a1a18b17ac1e9fcc50080f13cbbfbddc7} 
+unsigned int c\+Compression\+::m\+Hauteur}
+
+Image height in pixels. \Hypertarget{classcCompression_ada5a0cc8bd3a43420cc85b27f6c3652a}\index{cCompression@{cCompression}!mLargeur@{mLargeur}}
+\index{mLargeur@{mLargeur}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{mLargeur}{mLargeur}}
+{\footnotesize\ttfamily \label{classcCompression_ada5a0cc8bd3a43420cc85b27f6c3652a} 
+unsigned int c\+Compression\+::m\+Largeur}
+
+Image width in pixels. \Hypertarget{classcCompression_ab04177da010ea0887a075186166e080f}\index{cCompression@{cCompression}!mQualite@{mQualite}}
+\index{mQualite@{mQualite}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{mQualite}{mQualite}}
+{\footnotesize\ttfamily \label{classcCompression_ab04177da010ea0887a075186166e080f} 
+unsigned int c\+Compression\+::m\+Qualite}
+
+Instance quality parameter (not the global quantizer). 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/core/\mbox{\hyperlink{cCompression_8h}{c\+Compression.\+h}}\item 
+src/core/\mbox{\hyperlink{cCompression_8cpp}{c\+Compression.\+cpp}}\end{DoxyCompactItemize}

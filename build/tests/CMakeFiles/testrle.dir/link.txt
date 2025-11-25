@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/testrle.dir/test_rle.cpp.o -o testrle  ../libjpeg_core.a 

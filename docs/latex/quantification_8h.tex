@@ -1,0 +1,159 @@
+\doxysection{include/quantification/quantification.h File Reference}
+\hypertarget{quantification_8h}{}\label{quantification_8h}\index{include/quantification/quantification.h@{include/quantification/quantification.h}}
+
+
+Quantization and helper metrics used in the JPEG pipeline.  
+
+
+{\ttfamily \#include $<$cstddef$>$}\newline
+Include dependency graph for quantification.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{quantification_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{quantification_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{quantification_8h_a1ee936c8025fd94265e8eb192a064c4d}{build\+\_\+\+Q\+\_\+table}} (int Qtab\mbox{[}8\mbox{]}\mbox{[}8\mbox{]})
+\item 
+void \mbox{\hyperlink{quantification_8h_a0728fb4c36f2e43ed3a843cd34b07a76}{quant\+\_\+\+JPEG}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}img\+\_\+\+DCT, int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Img\+\_\+\+Quant)
+\item 
+void \mbox{\hyperlink{quantification_8h_ab519eb1e78250a811094c7cad0bb7ec0}{dequant\+\_\+\+JPEG}} (int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Img\+\_\+\+Quant, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}img\+\_\+\+DCT)
+\item 
+double \mbox{\hyperlink{quantification_8h_ae3e1d54f72d1dfb35ee1c659aff58ff2}{EQM}} (int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Bloc8x8)
+\item 
+double \mbox{\hyperlink{quantification_8h_ab60a0995c748bc7ce306adbfcaf213b2}{Taux\+\_\+\+Compression}} (int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Bloc8x8)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Quantization and helper metrics used in the JPEG pipeline. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{quantification_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{quantification_8h_a1ee936c8025fd94265e8eb192a064c4d}\index{quantification.h@{quantification.h}!build\_Q\_table@{build\_Q\_table}}
+\index{build\_Q\_table@{build\_Q\_table}!quantification.h@{quantification.h}}
+\doxysubsubsection{\texorpdfstring{build\_Q\_table()}{build\_Q\_table()}}
+{\footnotesize\ttfamily \label{quantification_8h_a1ee936c8025fd94265e8eb192a064c4d} 
+void build\+\_\+\+Q\+\_\+table (\begin{DoxyParamCaption}\item[{int}]{Qtab}{\mbox{[}8\mbox{]}\mbox{[}8\mbox{]}}\end{DoxyParamCaption})}
+
+Build the 8x8 luminance quantization table for the current global quality. 
+\begin{DoxyParams}{Parameters}
+{\em Qtab} & output 8x8 integer quantization table\\
+\hline
+\end{DoxyParams}
+Build Q table for the global compressor quality. Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{quantification_8h_a1ee936c8025fd94265e8eb192a064c4d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{quantification_8h_ab519eb1e78250a811094c7cad0bb7ec0}\index{quantification.h@{quantification.h}!dequant\_JPEG@{dequant\_JPEG}}
+\index{dequant\_JPEG@{dequant\_JPEG}!quantification.h@{quantification.h}}
+\doxysubsubsection{\texorpdfstring{dequant\_JPEG()}{dequant\_JPEG()}}
+{\footnotesize\ttfamily \label{quantification_8h_ab519eb1e78250a811094c7cad0bb7ec0} 
+void dequant\+\_\+\+JPEG (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{Img\+\_\+\+Quant}{, }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{img\+\_\+\+DCT}{}\end{DoxyParamCaption})}
+
+Dequantize one 8x8 block back to (approximate) DCT domain. 
+\begin{DoxyParams}{Parameters}
+{\em Img\+\_\+\+Quant} & input 8x8 quantized integers \\
+\hline
+{\em img\+\_\+\+DCT} & output 8x8 dequantized DCT coefficients \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{quantification_8h_ab519eb1e78250a811094c7cad0bb7ec0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{quantification_8h_ab519eb1e78250a811094c7cad0bb7ec0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{quantification_8h_ae3e1d54f72d1dfb35ee1c659aff58ff2}\index{quantification.h@{quantification.h}!EQM@{EQM}}
+\index{EQM@{EQM}!quantification.h@{quantification.h}}
+\doxysubsubsection{\texorpdfstring{EQM()}{EQM()}}
+{\footnotesize\ttfamily \label{quantification_8h_ae3e1d54f72d1dfb35ee1c659aff58ff2} 
+double EQM (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{Bloc8x8}{}\end{DoxyParamCaption})}
+
+Mean Squared Error on an 8x8 spatial block. Useful for per-\/block EQM tests. 
+\begin{DoxyParams}{Parameters}
+{\em Bloc8x8} & input 8x8 block in spatial domain \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mean squared error 
+\end{DoxyReturn}
+\Hypertarget{quantification_8h_a0728fb4c36f2e43ed3a843cd34b07a76}\index{quantification.h@{quantification.h}!quant\_JPEG@{quant\_JPEG}}
+\index{quant\_JPEG@{quant\_JPEG}!quantification.h@{quantification.h}}
+\doxysubsubsection{\texorpdfstring{quant\_JPEG()}{quant\_JPEG()}}
+{\footnotesize\ttfamily \label{quantification_8h_a0728fb4c36f2e43ed3a843cd34b07a76} 
+void quant\+\_\+\+JPEG (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{img\+\_\+\+DCT}{, }\item[{int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{Img\+\_\+\+Quant}{}\end{DoxyParamCaption})}
+
+Quantize one 8x8 block in the DCT domain. 
+\begin{DoxyParams}{Parameters}
+{\em img\+\_\+\+DCT} & input 8x8 DCT coefficients \\
+\hline
+{\em Img\+\_\+\+Quant} & output 8x8 quantized integer coefficients\\
+\hline
+\end{DoxyParams}
+Quantize an 8x8 DCT block using the global quality. 
+\begin{DoxyParams}{Parameters}
+{\em img\+\_\+\+DCT} & input DCT coefficients \\
+\hline
+{\em Img\+\_\+\+Quant} & output quantized integers \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=331pt]{quantification_8h_a0728fb4c36f2e43ed3a843cd34b07a76_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{quantification_8h_a0728fb4c36f2e43ed3a843cd34b07a76_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{quantification_8h_ab60a0995c748bc7ce306adbfcaf213b2}\index{quantification.h@{quantification.h}!Taux\_Compression@{Taux\_Compression}}
+\index{Taux\_Compression@{Taux\_Compression}!quantification.h@{quantification.h}}
+\doxysubsubsection{\texorpdfstring{Taux\_Compression()}{Taux\_Compression()}}
+{\footnotesize\ttfamily \label{quantification_8h_ab60a0995c748bc7ce306adbfcaf213b2} 
+double Taux\+\_\+\+Compression (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{Bloc8x8}{}\end{DoxyParamCaption})}
+
+Compression rate heuristic\+: fraction of zeros in an 8x8 quantized block. 
+\begin{DoxyParams}{Parameters}
+{\em Bloc8x8} & quantized block \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+fraction in \mbox{[}0,1\mbox{]} 
+\end{DoxyReturn}
