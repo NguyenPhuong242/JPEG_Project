@@ -1,87 +1,177 @@
-// #include "core/cHuffman.h"
+#include "core/cHuffman.h"
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <string>
 
-// cHuffman::cHuffman() {
-//     mtrame = nullptr;
-//     mLongueur = 0;
-//     mRacine = nullptr;
-// }
+namespace {
 
-// cHuffman::cHuffman(char *trame, unsigned int longueur){
-//     mLongueur = longueur;
-//     mtrame = new char[longueur];
-//     std::memcpy(mtrame, trame, longueur);
-//     mRacine = nullptr;
-// }
+/* ----------------------------------------------------------------------- */
+/*  Helpers in anonymous namespace (not visible outside this file)        */
+/* ----------------------------------------------------------------------- */
 
-// cHuffman::~cHuffman() {
-//     delete[] mtrame;
-//     /**
-//      * Recursively delete tree
-//      */
-//     std::function<void(sNoeud*)> del = [&](sNoeud* n) {
-//         if (!n) return;
-//         del(n->mgauche);
-//         del(n->mdroit);
-//         delete n;
-//     };
-//     del(mRacine);
-// }
+void buildTableRec(sNoeud *node,
+                       const std::string &prefix,
+                       std::map<char, std::string> &table)
+    {
+        if (!node) return;
 
-// char * cHuffman::getTrame() const {
-//     return mtrame;
-// }
+        if (!node->mgauche && !node->mdroit) {
+            table[node->mdonnee] = prefix;    // leaf => final code
+            return;
+        }
 
-// unsigned int cHuffman::getLongueur() const {
-//     return mLongueur;
-// }
+        buildTableRec(node->mgauche, prefix + "0", table);
+        buildTableRec(node->mdroit,  prefix + "1", table);
+    }
+}
 
-// sNoeud * cHuffman::getRacine() const {
-//     return mRacine;
-// }
+// Recursively free all nodes in the tree
+void deleteTree(sNoeud *node)
+{
+    if (!node) return;
+    deleteTree(node->mgauche);
+    deleteTree(node->mdroit);
+    delete node;
+}
 
-// void cHuffman::setTrame(char *trame, unsigned int longueur) {
-//     delete[] mtrame;
-//     mLongueur = longueur;
-//     mtrame = new char[longueur];
-//     std::wmemcpy(mtrame, trame, longueur);
-// }
+// Recursively print codes for each leaf
+void printCodesRec(sNoeud *node, const std::string &prefix)
+{
+    if (!node) return;
 
-// void cHuffman::setRacine(sNoeud *racine) {
-//     mRacine = racine;
-// }
+    // Leaf node: has a symbol and no children
+    if (!node->mgauche && !node->mdroit) {
+        std::cout << "'" << node->mdonnee << "' : " << prefix << '\n';
+        return;
+    }
 
-// void cHuffman::HuffmanCodes(char *Donnee, double *Frequence, unsigned int Taille) {
-//     /**
-//      * Build the Huffman tree using a min-priority queue of nodes.
-//      */
-//     // Declare priority queue with custom comparator
-//     std::priority_queue<sNoeud*, std::vector<sNoeud*>, compare> queue;
-//     // Insert all symbols as leaf nodes
-//     for (unsigned int i = 0; i < Taille; ++i)
-//         queue.push(new sNoeud(Donnee[i], Frequence[i]));
-//     // Build the tree
-//     while (queue.size() > 1) {
-//         sNoeud *gauche = queue.top(); queue.pop();
-//         sNoeud *droit = queue.top(); queue.pop();
-//         sNoeud *parent = new sNoeud('\0', gauche->mfreq + droit->mfreq);
-//         parent->mgauche = gauche;
-//         parent->mdroit = droit;
-//         queue.push(parent);
-//     }
-//     mRacine = queue.top();
-// }
+    // Traverse left with '0'
+    printCodesRec(node->mgauche, prefix + "0");
+    // Traverse right with '1'
+    printCodesRec(node->mdroit, prefix + "1");
+}
 
-// void cHuffman::AfficherHuffman(sNoeud *Racine) {
-//     /** 
-//      * Recursive function to print codes 
-//     */
-//     // Base case for recursion
-//     if (!Racine) return;
-//     // If leaf node, print the symbol and its code
-//     if (Racine->mdonnee != '\0') {
-//         std::cout << Racine->mdonnee << ": " << std::endl;
-//     }
-//     // Recursive for left and right subtrees
-//     AfficherHuffman(Racine->mgauche);
-//     AfficherHuffman(Racine->mdroit);
-// }
+
+/* ======================================================================= */
+/*  Constructors / Destructor                                              */
+/* ======================================================================= */
+
+cHuffman::cHuffman()
+    : mtrame(nullptr),
+      mLongueur(0),
+      mRacine(nullptr)
+{
+}
+
+cHuffman::cHuffman(char *trame, unsigned int longueur)
+    : mtrame(trame),
+      mLongueur(longueur),
+      mRacine(nullptr)
+{
+}
+
+cHuffman::~cHuffman()
+{
+    // The trame pointer is not owned by this class (pedagogic choice),
+    // so we do NOT delete mtrame here.
+    deleteTree(mRacine);
+    mRacine = nullptr;
+}
+
+/* ======================================================================= */
+/*  Getters / Setters                                                      */
+/* ======================================================================= */
+
+char *cHuffman::getTrame() const
+{
+    return mtrame;
+}
+
+unsigned int cHuffman::getLongueur() const
+{
+    return mLongueur;
+}
+
+sNoeud *cHuffman::getRacine() const
+{
+    return mRacine;
+}
+
+void cHuffman::setTrame(char *trame, unsigned int longueur)
+{
+    mtrame    = trame;
+    mLongueur = longueur;
+}
+
+void cHuffman::setRacine(sNoeud *racine)
+{
+    // Free the previous tree, if any
+    deleteTree(mRacine);
+    mRacine = racine;
+}
+
+/* ======================================================================= */
+/*  Huffman building                                                       */
+/* ======================================================================= */
+
+void cHuffman::HuffmanCodes(char *Donnee, double *Frequence, unsigned int Taille)
+{
+    if (!Donnee || !Frequence || Taille == 0) {
+        // nothing to build
+        deleteTree(mRacine);
+        mRacine = nullptr;
+        return;
+    }
+
+    std::priority_queue<
+        sNoeud*,
+        std::vector<sNoeud*>,
+        compare
+    > minHeap;
+
+    // 1) create a leaf node for each symbol and push it in the queue
+    for (unsigned int i = 0; i < Taille; ++i) {
+        sNoeud *n = new sNoeud(Donnee[i], Frequence[i]);
+        minHeap.push(n);
+    }
+
+    // 2) build the tree
+    while (minHeap.size() > 1) {
+        // Take two nodes with smallest frequency
+        sNoeud *gauche = minHeap.top(); minHeap.pop();
+        sNoeud *droit  = minHeap.top(); minHeap.pop();
+
+        // Internal node has no symbol, freq = sum
+        sNoeud *parent = new sNoeud('\0', gauche->mfreq + droit->mfreq);
+        parent->mgauche = gauche;
+        parent->mdroit  = droit;
+
+        minHeap.push(parent);
+    }
+
+    // 3) final remaining node is the root
+    deleteTree(mRacine);   // free old tree if any
+    mRacine = minHeap.top();
+}
+
+void cHuffman::BuildTableCodes(std::map<char, std::string> &table)
+{
+    table.clear();
+    buildTableRec(mRacine, "", table);
+}
+
+/* ======================================================================= */
+/*  Printing the codes                                                     */
+/* ======================================================================= */
+
+void cHuffman::AfficherHuffman(sNoeud *Racine)
+{
+    if (!Racine) {
+        std::cout << "(arbre Huffman vide)\n";
+        return;
+    }
+
+    printCodesRec(Racine, "");
+}
+

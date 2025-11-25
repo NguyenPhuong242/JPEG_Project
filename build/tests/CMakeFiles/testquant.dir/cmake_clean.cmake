@@ -1,7 +1,9 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/testquant.dir/test_quantification.cpp.o"
-  "CMakeFiles/testquant.dir/test_quantification.cpp.o.d"
-  "testquant"
+  "CMakeFiles/testquant.dir/test_quantification.cpp.obj"
+  "CMakeFiles/testquant.dir/test_quantification.cpp.obj.d"
+  "libtestquant.dll.a"
+  "testquant.exe"
+  "testquant.exe.manifest"
   "testquant.pdb"
 )
 

@@ -1,2 +1,2 @@
-/usr/bin/ar qc libjpeg_core.a CMakeFiles/jpeg_core.dir/src/core/cCompression.cpp.o CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.o CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.o CMakeFiles/jpeg_core.dir/src/main.cpp.o CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.o
-/usr/bin/ranlib libjpeg_core.a
+C:\MinGW\bin\ar.exe qc libjpeg_core.a CMakeFiles/jpeg_core.dir/src/core/cCompression.cpp.obj CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.obj CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.obj CMakeFiles/jpeg_core.dir/src/main.cpp.obj CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.obj
+C:\MinGW\bin\ranlib.exe libjpeg_core.a

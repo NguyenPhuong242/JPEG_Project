@@ -5,6 +5,7 @@
 #ifndef JPEG_COMPRESSOR_CCOMPRESSION_H
 #define JPEG_COMPRESSOR_CCOMPRESSION_H
 
+#include "cHuffman.h"
 /**
  * @brief High-level JPEG compression/decompression helper.
  *
@@ -25,6 +26,15 @@ class cCompression {
         unsigned char **mBuffer;
         /** Instance quality parameter (not the global quantizer). */
         unsigned int mQualite;
+        /**
+         * Static global quality parameter used by quantization helpers.
+         * This is a process-wide setting used by the pedagogic functions.
+         * Default is 50.
+         */
+        void Inverse_RLE(const std::vector<char> &trame,
+                     std::vector<std::array<std::array<int,8>,8>> &blocks);
+
+            
     public:
         /** Default ctor. Does not allocate image storage. */
         cCompression();
@@ -78,7 +88,7 @@ class cCompression {
          * @param DC_precedent previous DC coefficient (for differential coding)
          * @param Trame caller-provided byte buffer
          */
-        void RLE_Block(int **Img_Quant, int DC_precedent, char *Trame);
+        void RLE_Block(int **Img_Quant, int DC_precedent, signed char *Trame);
 
         /**
          * Concatenate block trames of the whole image into an integer trame.
@@ -87,7 +97,7 @@ class cCompression {
          * wrapper matching the exercise's expected signature.
          * @param Trame integer buffer provided by caller
          */
-        void RLE(int *Trame);
+        void RLE(signed int *Trame);
 
 
         /**
@@ -105,10 +115,9 @@ class cCompression {
          * accepts a raw byte trame of length Longueur_Trame (the RLE concatenation
          * of all blocks) and writes a compressed file named Nom_Fichier.
          * @param Trame pointer to bytes (may contain zeros)
-         * @param Longueur_Trame length in bytes
          * @param Nom_Fichier filename to create on disk
          */
-        void Compression_JPEG(char *Trame, unsigned int Longueur_Trame, char *Nom_Fichier);
+        void Compression_JPEG(int *Trame_RLE, const char *Nom_Fichier);
 
         /**
          * Read and decompress a compressed file previously produced by
@@ -118,7 +127,7 @@ class cCompression {
          * @param Nom_Fichier_compresse compressed filename to read
          * @return char** image rows (or nullptr on failure)
          */
-        char** Decompression_JPEG(char* Nom_Fichier_compresse);
+        unsigned char** Decompression_JPEG(const char* Nom_Fichier_compresse);
         /**
          * Decompress directly from an RLE trame (concatenation of block trames)
          * produced by RLE_Block. This function assumes the trame contains raw
@@ -133,7 +142,8 @@ class cCompression {
          * @param qualite quality factor used for dequantization (1..100)
          * @return newly allocated image as char** (rows) or nullptr on error
          */
-        char** Decompression_JPEG_from_trame(char* Trame, unsigned int Longueur_Trame, unsigned int imgSize, unsigned int qualite);
+        unsigned char** Decompression_JPEG_from_trame(char* Trame, unsigned int Longueur_Trame, unsigned int imgSize, unsigned int qualite);
+   
 };
 
 #endif //JPEG_COMPRESSOR_CCOMPRESSION_H

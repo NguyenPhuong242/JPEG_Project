@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\testpgm.dir/objects.a
+C:\MinGW\bin\ar.exe qc CMakeFiles\testpgm.dir/objects.a @CMakeFiles\testpgm.dir\objects1.rsp
+C:\MinGW\bin\c++.exe -Wl,--whole-archive CMakeFiles\testpgm.dir/objects.a -Wl,--no-whole-archive -o testpgm.exe -Wl,--out-implib,libtestpgm.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\testpgm.dir\linkLibs.rsp

@@ -1,10 +1,14 @@
-/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles/jpeg_core.dir
-/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles/test.dir
-/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles/edit_cache.dir
-/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles/rebuild_cache.dir
-/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/CMakeFiles/testdct.dir
-/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/CMakeFiles/testquant.dir
-/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/CMakeFiles/testrle.dir
-/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/CMakeFiles/test.dir
-/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/CMakeFiles/edit_cache.dir
-/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/CMakeFiles/rebuild_cache.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/CMakeFiles/jpeg_core.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/CMakeFiles/test.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/CMakeFiles/edit_cache.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/CMakeFiles/rebuild_cache.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/tests/CMakeFiles/testdct.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/tests/CMakeFiles/testquant.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/tests/CMakeFiles/testrle.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/tests/CMakeFiles/testhuffman.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/tests/CMakeFiles/testcompression.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/tests/CMakeFiles/testdecompression.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/tests/CMakeFiles/testpgm.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/tests/CMakeFiles/test.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/tests/CMakeFiles/edit_cache.dir
+C:/Users/Khanh Phuong/Desktop/JPEG_Project/build/tests/CMakeFiles/rebuild_cache.dir
