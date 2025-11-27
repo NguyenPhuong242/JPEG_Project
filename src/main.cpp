@@ -820,14 +820,37 @@ void fullPipeline()
 	std::cout << "  5. Difference image      : " << resolvedDiff << '\n';
 }
 
+/** @brief Print a short usage string for command-line invocations. */
+void printUsage(std::ostream &out)
+{
+	out << "Usage:\n"
+	    << "  jpeg_cli           Launch interactive menu\n"
+	    << "  jpeg_cli --help    Display this help message\n\n"
+	    << "The interactive menu lets you compress, decompress, or run the full pipeline "
+		   "with guided prompts." << '\n';
+}
+
 } // namespace
 
 /**
  * @brief Entry point for the JPEG demo CLI orchestrating interactive workflows.
  */
-int main()
+int main(int argc, char **argv)
 {
 	namespace fs = std::filesystem;
+	if (argc > 1)
+	{
+		std::string arg = argv[1];
+		if (arg == "--help" || arg == "-h")
+		{
+			printUsage(std::cout);
+			return 0;
+		}
+
+		std::cerr << "Unknown argument '" << arg << "'. Use --help to see available options.\n";
+		return 1;
+	}
+
 	const char *TEST_DIR = "tests";
 	std::vector<std::string> cleaned;
 	fs::path current = fs::current_path();

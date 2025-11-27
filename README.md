@@ -35,17 +35,14 @@ ctest --test-dir build -V
 ```
 
 ## CLI Usage
-The CMake build produces `build/jpeg_cli` with three modes:
+The build outputs `build/jpeg_cli`. Run it without arguments to open the interactive menu that guides you through compression, decompression, or the full pipeline.
 
 ```bash
-# Compress a PGM image into a Huffman bitstream
-./build/jpeg_cli compress --input lena.pgm --output lena.huff --quality 80
+# Show a short usage summary
+./build/jpeg_cli --help
 
-# Decompress a previously generated bitstream back into a PGM
-./build/jpeg_cli decompress --input lena.huff --output lena_recon.pgm
-
-# Run the complete pipeline (compress + decompress + metrics)
-./build/jpeg_cli full --input lena.pgm --bitstream lena.huff --recon lena_recon.pgm
+# Start the interactive workflow
+./build/jpeg_cli
 ```
 
 ## Documentation
