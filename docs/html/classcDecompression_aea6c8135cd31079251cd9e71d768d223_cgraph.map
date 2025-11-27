@@ -1,0 +1,5 @@
+<map id="cDecompression::setBuffer" name="cDecompression::setBuffer">
+<area shape="rect" id="Node000001" title="Attach a row buffer managed by the caller." alt="" coords="5,5,203,31"/>
+<area shape="rect" id="Node000002" href="$classcDecompression.html#a55f714dc08f83df795e148b623f4b51e" title="Release the owned buffer when the instance manages memory." alt="" coords="251,5,476,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,15,237,15,237,21,203,21"/>
+</map>

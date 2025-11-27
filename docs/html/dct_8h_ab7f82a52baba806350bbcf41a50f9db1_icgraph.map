@@ -1,8 +1,7 @@
 <map id="Calcul_IDCT_Block" name="Calcul_IDCT_Block">
-<area shape="rect" id="Node000001" title=" " alt="" coords="416,31,559,56"/>
-<area shape="rect" id="Node000002" href="$classcCompression.html#a23fb296439a9a0f75209a08b86e0c589" title=" " alt="" coords="108,5,368,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="402,37,362,33,363,28,403,32"/>
-<area shape="rect" id="Node000003" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,60,56"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="402,46,60,46,60,41,402,41"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="122,35,61,43,60,37,121,30"/>
+<area shape="rect" id="Node000001" title="Compute the inverse 2D DCT of an 8x8 block." alt="" coords="557,13,700,38"/>
+<area shape="rect" id="Node000002" href="$classcDecompression.html#a00586e750a5193933c306f1a5e07a583" title="Perform the full JPEG&#45;like decompression pipeline." alt="" coords="233,13,509,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="544,28,510,28,510,23,544,23"/>
+<area shape="rect" id="Node000003" href="$classcDecompressionCouleur.html#a06ad1db5973a81ea0bcb1d5935fa98bb" title="Reconstruct an RGB buffer from color codec artifacts." alt="" coords="5,5,185,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="219,28,185,28,185,23,219,23"/>
 </map>

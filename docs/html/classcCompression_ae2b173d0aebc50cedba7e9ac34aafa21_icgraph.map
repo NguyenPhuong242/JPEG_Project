@@ -1,5 +1,7 @@
 <map id="cCompression::setQualiteGlobale" name="cCompression::setQualiteGlobale">
-<area shape="rect" id="Node000001" title=" " alt="" coords="108,5,297,45"/>
-<area shape="rect" id="Node000002" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,28,60,28,60,23,95,23"/>
+<area shape="rect" id="Node000001" title="Set the global quality factor used by quantification helpers." alt="" coords="557,5,747,45"/>
+<area shape="rect" id="Node000002" href="$classcDecompression.html#a00586e750a5193933c306f1a5e07a583" title="Perform the full JPEG&#45;like decompression pipeline." alt="" coords="233,13,509,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="544,28,510,28,510,23,544,23"/>
+<area shape="rect" id="Node000003" href="$classcDecompressionCouleur.html#a06ad1db5973a81ea0bcb1d5935fa98bb" title="Reconstruct an RGB buffer from color codec artifacts." alt="" coords="5,5,185,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="219,28,185,28,185,23,219,23"/>
 </map>

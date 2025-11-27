@@ -1,0 +1,25 @@
+<map id="include/core/cCompressionCouleur.h" name="include/core/cCompressionCouleur.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="71,5,268,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,240,64,265"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,47,128,95,50,229,45,226,123,92,154,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="89,240,151,265"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="160,47,139,94,126,166,122,227,117,226,120,165,133,93,155,45"/>
+<area shape="rect" id="Node000004" href="$ColorCodecCommon_8h.html" title=" " alt="" coords="331,93,530,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="233,43,380,87,379,92,231,48"/>
+<area shape="rect" id="Node000006" href="$cCompression_8h.html" title=" " alt="" coords="149,93,307,119"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="186,44,213,80,209,84,181,47"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="397,167,464,192"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="433,119,433,153,428,153,428,119"/>
+<area shape="rect" id="Node000007" href="$cHuffman_8h.html" title=" " alt="" coords="179,167,277,192"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="231,119,231,153,225,153,225,119"/>
+<area shape="poly" id="edge9_Node000007_Node000002" title=" " alt="" coords="198,195,78,238,76,233,196,190"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="212,194,151,235,148,230,209,190"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="362,240,425,265"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="256,190,355,232,353,237,254,194"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="449,240,529,265"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="271,189,437,234,435,239,269,195"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="175,240,262,265"/>
+<area shape="poly" id="edge11_Node000007_Node000010" title=" " alt="" coords="229,193,225,227,219,226,224,192"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="287,240,337,265"/>
+<area shape="poly" id="edge12_Node000007_Node000011" title=" " alt="" coords="243,190,289,229,286,233,240,194"/>
+</map>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['rle_0',['RLE',['../classcCompression.html#ae36b8feb1f34c7013905c1fef1934245',1,'cCompression']]],
-  ['rle_5fblock_1',['RLE_Block',['../classcCompression.html#aefe3add7e9c0017ce292efd1bad96939',1,'cCompression']]]
+  ['operator_28_29_0',['operator()',['../structcompare.html#a1a5e301348caa74e28ef67cb0af553a6',1,'compare']]]
 ];

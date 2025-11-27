@@ -1,0 +1,27 @@
+\doxysection{Color\+Codec\+Common.\+h}
+\hypertarget{ColorCodecCommon_8h_source}{}\label{ColorCodecCommon_8h_source}\index{include/core/ColorCodecCommon.h@{include/core/ColorCodecCommon.h}}
+\mbox{\hyperlink{ColorCodecCommon_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ JPEG\_COMPRESSOR\_COLORCODECCOMMON\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ JPEG\_COMPRESSOR\_COLORCODECCOMMON\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacejpeg}{jpeg}}}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a}{ChromaSubsampling}}\ :\ std::uint32\_t}
+\DoxyCodeLine{00016\ \ \ \ \ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aa7a255d8e8e9b13ab248cbee828a1943b}{Sampling444}}\ =\ 0,\ }
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aa379898b0d9e99d69d4712a384efb8e55}{Sampling422}}\ =\ 1,\ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aaa3948a41b16f3e559cdec58cc8d01ee3}{Sampling420}}\ =\ 2,\ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aac7113bc575fb32a557e4372d377368af}{Sampling411}}\ =\ 3\ \ }
+\DoxyCodeLine{00021\ \ \ \ \ \};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{constexpr}\ std::uint32\_t\ \mbox{\hyperlink{namespacejpeg_aeb9c57e5dc068adea308a6ddb98f58bb}{kColorMetaMagic}}\ =\ 0x59434330;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{constexpr}\ std::uint32\_t\ \mbox{\hyperlink{namespacejpeg_aa0f7b14623b959abd09816c63f3aa197}{kColorMetaVersion}}\ =\ 1;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{constexpr}\ std::uint32\_t\ \mbox{\hyperlink{namespacejpeg_a024791d142132f19a7ce183e9a8af4e1}{kExpectedChannelCount}}\ =\ 3;}
+\DoxyCodeLine{00029\ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ JPEG\_COMPRESSOR\_COLORCODECCOMMON\_H}}
+
+\end{DoxyCode}

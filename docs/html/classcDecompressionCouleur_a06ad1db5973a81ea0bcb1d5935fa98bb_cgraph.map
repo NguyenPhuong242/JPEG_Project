@@ -1,0 +1,28 @@
+<map id="cDecompressionCouleur::decompressRGB" name="cDecompressionCouleur::decompressRGB">
+<area shape="rect" id="Node000001" title="Reconstruct an RGB buffer from color codec artifacts." alt="" coords="5,146,185,186"/>
+<area shape="rect" id="Node000002" href="$classcDecompression.html#a5ef29f903b96bf67f2b0d9ee1e9e24fd" title="Construct an empty decompressor." alt="" coords="248,104,495,129"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,147,286,129,287,134,186,153"/>
+<area shape="rect" id="Node000003" href="$classcDecompression.html#a00586e750a5193933c306f1a5e07a583" title="Perform the full JPEG&#45;like decompression pipeline." alt="" coords="233,153,509,179"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="185,163,219,163,219,169,185,169"/>
+<area shape="rect" id="Node000013" href="$classcCompression.html#aa9cfa8fa6c95559a27de177a67f0a5f3" title="Cache a Huffman table so decompression can reuse the latest encode table." alt="" coords="266,203,477,243"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="186,182,262,198,261,203,185,187"/>
+<area shape="rect" id="Node000004" href="$dct_8cpp.html#ab7f82a52baba806350bbcf41a50f9db1" title="Compute the inverse 2D DCT of an 8x8 block." alt="" coords="599,5,741,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="489,151,508,140,519,129,525,117,531,92,537,65,544,52,556,40,584,25,587,29,559,44,548,55,542,67,536,93,530,119,523,132,511,144,492,155"/>
+<area shape="rect" id="Node000005" href="$quantification_8cpp.html#ab519eb1e78250a811094c7cad0bb7ec0" title="Dequantize one 8x8 block back to (approximate) DCT domain." alt="" coords="614,55,726,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="481,151,508,140,523,129,531,116,540,103,556,90,599,74,601,79,559,95,544,106,536,119,526,132,511,144,483,156"/>
+<area shape="rect" id="Node000007" href="$classcHuffman.html#af4e311bc5a00f1d769db38aabe647234" title="Build the Huffman tree from symbol statistics." alt="" coords="575,104,765,129"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="448,151,579,129,579,134,449,156"/>
+<area shape="rect" id="Node000009" href="$classcDecompression.html#a14be24716af4b8709ffe99d2ecc152f8" title="Expand the RLE byte stream back into quantized 8x8 blocks." alt="" coords="561,153,779,179"/>
+<area shape="poly" id="edge9_Node000003_Node000009" title=" " alt="" coords="509,163,548,163,548,169,509,169"/>
+<area shape="rect" id="Node000010" href="$classcCompression.html#ad7165e2bc5c2deb15bc7e2cf7dc9d265" title="Retrieve the cached Huffman table, if available." alt="" coords="567,203,773,243"/>
+<area shape="poly" id="edge10_Node000003_Node000010" title=" " alt="" coords="443,176,510,189,557,198,556,203,509,194,442,181"/>
+<area shape="rect" id="Node000011" href="$classcDecompression.html#a55f714dc08f83df795e148b623f4b51e" title="Release the owned buffer when the instance manages memory." alt="" coords="557,268,783,293"/>
+<area shape="poly" id="edge11_Node000003_Node000011" title=" " alt="" coords="484,176,511,189,528,205,536,222,544,238,559,253,572,260,569,265,556,257,539,241,531,224,523,208,508,194,481,181"/>
+<area shape="rect" id="Node000012" href="$classcCompression.html#ae2b173d0aebc50cedba7e9ac34aafa21" title="Set the global quality factor used by quantification helpers." alt="" coords="575,318,765,358"/>
+<area shape="poly" id="edge12_Node000003_Node000012" title=" " alt="" coords="490,177,511,189,524,203,532,218,537,247,541,277,547,291,559,304,565,309,562,313,555,308,543,293,536,278,531,248,527,220,520,206,508,193,488,181"/>
+<area shape="rect" id="Node000006" href="$classcCompression.html#aa7fe57390f7e2f2532e3389dcef33889" title="Read the global quality factor shared by quantification helpers." alt="" coords="831,31,1021,71"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="726,61,817,55,817,61,726,67"/>
+<area shape="rect" id="Node000008" href="$cHuffman_8cpp.html#a24a84fde39db5599f3775a435aed0f50" title="Recursively free all nodes in a Huffman tree." alt="" coords="881,120,971,145"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="765,120,868,126,867,132,765,125"/>
+<area shape="poly" id="edge8_Node000008_Node000008" title=" " alt="" coords="885,122,876,112,880,102,897,95,926,93,962,97,972,102,976,108,972,111,969,106,961,102,926,99,898,101,884,106,881,111,888,118"/>
+</map>

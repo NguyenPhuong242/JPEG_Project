@@ -1,0 +1,88 @@
+\doxysection{jpeg Namespace Reference}
+\hypertarget{namespacejpeg}{}\label{namespacejpeg}\index{jpeg@{jpeg}}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a}{Chroma\+Subsampling}} \+: std\+::uint32\+\_\+t \{ \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aa7a255d8e8e9b13ab248cbee828a1943b}{Sampling444}} = 0
+, \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aa379898b0d9e99d69d4712a384efb8e55}{Sampling422}} = 1
+, \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aaa3948a41b16f3e559cdec58cc8d01ee3}{Sampling420}} = 2
+, \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aac7113bc575fb32a557e4372d377368af}{Sampling411}} = 3
+ \}
+\begin{DoxyCompactList}\small\item\em Chroma subsampling patterns supported by the color codec. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr std\+::uint32\+\_\+t \mbox{\hyperlink{namespacejpeg_aeb9c57e5dc068adea308a6ddb98f58bb}{k\+Color\+Meta\+Magic}} = 0x59434330
+\begin{DoxyCompactList}\small\item\em File signature for color metadata sidecar files (\textquotesingle{}YCC0\textquotesingle{}). \end{DoxyCompactList}\item 
+constexpr std\+::uint32\+\_\+t \mbox{\hyperlink{namespacejpeg_aa0f7b14623b959abd09816c63f3aa197}{k\+Color\+Meta\+Version}} = 1
+\begin{DoxyCompactList}\small\item\em Version number of the serialized metadata layout. \end{DoxyCompactList}\item 
+constexpr std\+::uint32\+\_\+t \mbox{\hyperlink{namespacejpeg_a024791d142132f19a7ce183e9a8af4e1}{k\+Expected\+Channel\+Count}} = 3
+\begin{DoxyCompactList}\small\item\em Expected number of channels present in the metadata (Y, Cb, Cr). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-enum-members}
+\Hypertarget{namespacejpeg_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a}\index{jpeg@{jpeg}!ChromaSubsampling@{ChromaSubsampling}}
+\index{ChromaSubsampling@{ChromaSubsampling}!jpeg@{jpeg}}
+\doxysubsubsection{\texorpdfstring{ChromaSubsampling}{ChromaSubsampling}}
+{\footnotesize\ttfamily \label{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a} 
+enum class \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a}{jpeg\+::\+Chroma\+Subsampling}} \+: std\+::uint32\+\_\+t\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Chroma subsampling patterns supported by the color codec. 
+
+Values match the classic JPEG sampling notation where the first digit is the luma sampling rate and the remaining digits describe the chroma decimation ratio. \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Sampling444@{Sampling444}!jpeg@{jpeg}}\index{jpeg@{jpeg}!Sampling444@{Sampling444}}}\Hypertarget{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aa7a255d8e8e9b13ab248cbee828a1943b}\label{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aa7a255d8e8e9b13ab248cbee828a1943b} 
+Sampling444&No subsampling (full resolution chroma). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Sampling422@{Sampling422}!jpeg@{jpeg}}\index{jpeg@{jpeg}!Sampling422@{Sampling422}}}\Hypertarget{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aa379898b0d9e99d69d4712a384efb8e55}\label{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aa379898b0d9e99d69d4712a384efb8e55} 
+Sampling422&Horizontal chroma downsampling by 2. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Sampling420@{Sampling420}!jpeg@{jpeg}}\index{jpeg@{jpeg}!Sampling420@{Sampling420}}}\Hypertarget{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aaa3948a41b16f3e559cdec58cc8d01ee3}\label{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aaa3948a41b16f3e559cdec58cc8d01ee3} 
+Sampling420&Horizontal and vertical downsampling by 2. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Sampling411@{Sampling411}!jpeg@{jpeg}}\index{jpeg@{jpeg}!Sampling411@{Sampling411}}}\Hypertarget{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aac7113bc575fb32a557e4372d377368af}\label{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aac7113bc575fb32a557e4372d377368af} 
+Sampling411&Horizontal chroma downsampling by 4. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-var-members}
+\Hypertarget{namespacejpeg_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacejpeg_aeb9c57e5dc068adea308a6ddb98f58bb}\index{jpeg@{jpeg}!kColorMetaMagic@{kColorMetaMagic}}
+\index{kColorMetaMagic@{kColorMetaMagic}!jpeg@{jpeg}}
+\doxysubsubsection{\texorpdfstring{kColorMetaMagic}{kColorMetaMagic}}
+{\footnotesize\ttfamily \label{namespacejpeg_aeb9c57e5dc068adea308a6ddb98f58bb} 
+std\+::uint32\+\_\+t jpeg\+::k\+Color\+Meta\+Magic = 0x59434330\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+File signature for color metadata sidecar files (\textquotesingle{}YCC0\textquotesingle{}). 
+
+\Hypertarget{namespacejpeg_aa0f7b14623b959abd09816c63f3aa197}\index{jpeg@{jpeg}!kColorMetaVersion@{kColorMetaVersion}}
+\index{kColorMetaVersion@{kColorMetaVersion}!jpeg@{jpeg}}
+\doxysubsubsection{\texorpdfstring{kColorMetaVersion}{kColorMetaVersion}}
+{\footnotesize\ttfamily \label{namespacejpeg_aa0f7b14623b959abd09816c63f3aa197} 
+std\+::uint32\+\_\+t jpeg\+::k\+Color\+Meta\+Version = 1\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Version number of the serialized metadata layout. 
+
+\Hypertarget{namespacejpeg_a024791d142132f19a7ce183e9a8af4e1}\index{jpeg@{jpeg}!kExpectedChannelCount@{kExpectedChannelCount}}
+\index{kExpectedChannelCount@{kExpectedChannelCount}!jpeg@{jpeg}}
+\doxysubsubsection{\texorpdfstring{kExpectedChannelCount}{kExpectedChannelCount}}
+{\footnotesize\ttfamily \label{namespacejpeg_a024791d142132f19a7ce183e9a8af4e1} 
+std\+::uint32\+\_\+t jpeg\+::k\+Expected\+Channel\+Count = 3\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Expected number of channels present in the metadata (Y, Cb, Cr). 
+

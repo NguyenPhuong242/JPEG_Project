@@ -83,10 +83,24 @@ CMakeFiles/jpeg_core.dir/src/core/cCompression.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jpeg_core.dir/src/core/cCompression.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/core/cCompression.cpp -o CMakeFiles/jpeg_core.dir/src/core/cCompression.cpp.s
 
+CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.o: CMakeFiles/jpeg_core.dir/flags.make
+CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.o: ../src/core/cCompressionCouleur.cpp
+CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.o: CMakeFiles/jpeg_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.o -MF CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.o.d -o CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.o -c /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/core/cCompressionCouleur.cpp
+
+CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/core/cCompressionCouleur.cpp > CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.i
+
+CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/core/cCompressionCouleur.cpp -o CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.s
+
 CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.o: CMakeFiles/jpeg_core.dir/flags.make
 CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.o: ../src/core/cDecompression.cpp
 CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.o: CMakeFiles/jpeg_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.o -MF CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.o.d -o CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.o -c /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/core/cDecompression.cpp
 
 CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.i: cmake_force
@@ -97,10 +111,24 @@ CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/core/cDecompression.cpp -o CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.s
 
+CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.o: CMakeFiles/jpeg_core.dir/flags.make
+CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.o: ../src/core/cDecompressionCouleur.cpp
+CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.o: CMakeFiles/jpeg_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.o -MF CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.o.d -o CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.o -c /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/core/cDecompressionCouleur.cpp
+
+CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/core/cDecompressionCouleur.cpp > CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.i
+
+CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/core/cDecompressionCouleur.cpp -o CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.s
+
 CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.o: CMakeFiles/jpeg_core.dir/flags.make
 CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.o: ../src/core/cHuffman.cpp
 CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.o: CMakeFiles/jpeg_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.o -MF CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.o.d -o CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.o -c /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/core/cHuffman.cpp
 
 CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.i: cmake_force
@@ -114,7 +142,7 @@ CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.s: cmake_force
 CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.o: CMakeFiles/jpeg_core.dir/flags.make
 CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.o: ../src/dct/dct.cpp
 CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.o: CMakeFiles/jpeg_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.o -MF CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.o.d -o CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.o -c /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/dct/dct.cpp
 
 CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.i: cmake_force
@@ -125,24 +153,10 @@ CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/dct/dct.cpp -o CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.s
 
-CMakeFiles/jpeg_core.dir/src/main.cpp.o: CMakeFiles/jpeg_core.dir/flags.make
-CMakeFiles/jpeg_core.dir/src/main.cpp.o: ../src/main.cpp
-CMakeFiles/jpeg_core.dir/src/main.cpp.o: CMakeFiles/jpeg_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/jpeg_core.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/jpeg_core.dir/src/main.cpp.o -MF CMakeFiles/jpeg_core.dir/src/main.cpp.o.d -o CMakeFiles/jpeg_core.dir/src/main.cpp.o -c /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/main.cpp
-
-CMakeFiles/jpeg_core.dir/src/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/jpeg_core.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/main.cpp > CMakeFiles/jpeg_core.dir/src/main.cpp.i
-
-CMakeFiles/jpeg_core.dir/src/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jpeg_core.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/main.cpp -o CMakeFiles/jpeg_core.dir/src/main.cpp.s
-
 CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.o: CMakeFiles/jpeg_core.dir/flags.make
 CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.o: ../src/quantification/quantification.cpp
 CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.o: CMakeFiles/jpeg_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.o -MF CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.o.d -o CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.o -c /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/src/quantification/quantification.cpp
 
 CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.i: cmake_force
@@ -156,24 +170,26 @@ CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.s: cmake_force
 # Object files for target jpeg_core
 jpeg_core_OBJECTS = \
 "CMakeFiles/jpeg_core.dir/src/core/cCompression.cpp.o" \
+"CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.o" \
 "CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.o" \
+"CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.o" \
 "CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.o" \
 "CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.o" \
-"CMakeFiles/jpeg_core.dir/src/main.cpp.o" \
 "CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.o"
 
 # External object files for target jpeg_core
 jpeg_core_EXTERNAL_OBJECTS =
 
 libjpeg_core.a: CMakeFiles/jpeg_core.dir/src/core/cCompression.cpp.o
+libjpeg_core.a: CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.o
 libjpeg_core.a: CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.o
+libjpeg_core.a: CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.o
 libjpeg_core.a: CMakeFiles/jpeg_core.dir/src/core/cHuffman.cpp.o
 libjpeg_core.a: CMakeFiles/jpeg_core.dir/src/dct/dct.cpp.o
-libjpeg_core.a: CMakeFiles/jpeg_core.dir/src/main.cpp.o
 libjpeg_core.a: CMakeFiles/jpeg_core.dir/src/quantification/quantification.cpp.o
 libjpeg_core.a: CMakeFiles/jpeg_core.dir/build.make
 libjpeg_core.a: CMakeFiles/jpeg_core.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX static library libjpeg_core.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libjpeg_core.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/jpeg_core.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/jpeg_core.dir/link.txt --verbose=$(VERBOSE)
 

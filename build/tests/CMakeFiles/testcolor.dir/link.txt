@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/testcolor.dir/test_color.cpp.o -o testcolor  ../libjpeg_core.a 

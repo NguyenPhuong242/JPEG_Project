@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quant_0',['quant',['../namespacequant.html',1,'']]]
+  ['jpeg_0',['jpeg',['../namespacejpeg.html',1,'']]]
 ];

@@ -1,10 +1,14 @@
 var namespaces_dup =
 [
-    [ "quant", "namespacequant.html", [
-      [ "build_Q_table", "namespacequant.html#a82c812f742fcb0700a592db504480dc4", null ],
-      [ "dequant_JPEG", "namespacequant.html#a8b1f6e55b10150ae91fa0b3ce593e464", null ],
-      [ "EQM", "namespacequant.html#a8a7ad9348d8b38b8953d63219978d916", null ],
-      [ "quant_JPEG", "namespacequant.html#aff8ee5963f9c21657d6db319624ec2f5", null ],
-      [ "Taux_Compression", "namespacequant.html#a38277aa5b9a70f02eeafd8b021b2fae9", null ]
+    [ "jpeg", "namespacejpeg.html", [
+      [ "ChromaSubsampling", "namespacejpeg.html#a5e21083ede390f5e7957bbad4c86472a", [
+        [ "Sampling444", "namespacejpeg.html#a5e21083ede390f5e7957bbad4c86472aa7a255d8e8e9b13ab248cbee828a1943b", null ],
+        [ "Sampling422", "namespacejpeg.html#a5e21083ede390f5e7957bbad4c86472aa379898b0d9e99d69d4712a384efb8e55", null ],
+        [ "Sampling420", "namespacejpeg.html#a5e21083ede390f5e7957bbad4c86472aaa3948a41b16f3e559cdec58cc8d01ee3", null ],
+        [ "Sampling411", "namespacejpeg.html#a5e21083ede390f5e7957bbad4c86472aac7113bc575fb32a557e4372d377368af", null ]
+      ] ],
+      [ "kColorMetaMagic", "namespacejpeg.html#aeb9c57e5dc068adea308a6ddb98f58bb", null ],
+      [ "kColorMetaVersion", "namespacejpeg.html#aa0f7b14623b959abd09816c63f3aa197", null ],
+      [ "kExpectedChannelCount", "namespacejpeg.html#a024791d142132f19a7ce183e9a8af4e1", null ]
     ] ]
 ];

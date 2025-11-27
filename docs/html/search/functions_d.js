@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['_7eccompression_0',['~cCompression',['../classcCompression.html#a9bc895fb3efd36315891b6e179f09c87',1,'cCompression']]],
-  ['_7echuffman_1',['~cHuffman',['../classcHuffman.html#a020cbc1d60813593446b43534d038c83',1,'cHuffman']]]
+  ['releasebuffer_0',['releaseBuffer',['../classcDecompression.html#a55f714dc08f83df795e148b623f4b51e',1,'cDecompression']]],
+  ['rle_1',['RLE',['../classcCompression.html#a9965020a2ae4099448e1f22a44ea1e30',1,'cCompression']]],
+  ['rle_5fblock_2',['RLE_Block',['../classcCompression.html#a2e220b16455ed12bfae6d66549d61306',1,'cCompression']]]
 ];

@@ -1,0 +1,11 @@
+<map id="cCompression::RLE" name="cCompression::RLE">
+<area shape="rect" id="Node000001" title="Concatenate all block trames into the pedagogic integer trame format." alt="" coords="5,55,152,80"/>
+<area shape="rect" id="Node000002" href="$dct_8cpp.html#aaac66b35e6dbe85d21d08606f862082d" title="Compute the 2D DCT of an 8x8 block." alt="" coords="225,5,364,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,52,225,31,226,36,136,57"/>
+<area shape="rect" id="Node000003" href="$quantification_8cpp.html#a0728fb4c36f2e43ed3a843cd34b07a76" title="Quantize one 8x8 block in the DCT domain." alt="" coords="247,55,343,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="152,65,233,65,233,70,152,70"/>
+<area shape="rect" id="Node000005" href="$classcCompression.html#a2e220b16455ed12bfae6d66549d61306" title="Encode a single quantized block to RLE bytes." alt="" coords="200,104,389,129"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="136,77,226,98,225,104,134,83"/>
+<area shape="rect" id="Node000004" href="$classcCompression.html#aa7fe57390f7e2f2532e3389dcef33889" title="Read the global quality factor shared by quantification helpers." alt="" coords="437,47,628,87"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="343,65,424,65,424,70,343,70"/>
+</map>

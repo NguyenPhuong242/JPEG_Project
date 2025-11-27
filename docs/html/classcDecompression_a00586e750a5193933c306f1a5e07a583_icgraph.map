@@ -1,0 +1,5 @@
+<map id="cDecompression::Decompression_JPEG" name="cDecompression::Decompression_JPEG">
+<area shape="rect" id="Node000001" title="Perform the full JPEG&#45;like decompression pipeline." alt="" coords="233,13,509,38"/>
+<area shape="rect" id="Node000002" href="$classcDecompressionCouleur.html#a06ad1db5973a81ea0bcb1d5935fa98bb" title="Reconstruct an RGB buffer from color codec artifacts." alt="" coords="5,5,185,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,28,185,28,185,23,219,23"/>
+</map>

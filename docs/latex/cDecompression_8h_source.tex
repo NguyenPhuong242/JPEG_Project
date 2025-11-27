@@ -1,0 +1,47 @@
+\doxysection{c\+Decompression.\+h}
+\hypertarget{cDecompression_8h_source}{}\label{cDecompression_8h_source}\index{include/core/cDecompression.h@{include/core/cDecompression.h}}
+\mbox{\hyperlink{cDecompression_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ GitHub\ Copilot\ on\ 27/11/2025.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ JPEG\_COMPRESSOR\_CDECOMPRESSION\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ JPEG\_COMPRESSOR\_CDECOMPRESSION\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcDecompression_a5ef29f903b96bf67f2b0d9ee1e9e24fd}{cDecompression}}\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classcDecompression_ac0171ae6c967f5959b0420fe30e8662a}{mLargeur}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classcDecompression_a8ea693e020ceb03c5b3ec70480da3ef7}{mHauteur}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{classcDecompression_a7eb91152025b8b24fc6cde66b4dea6d0}{mBuffer}};\ \ \ \ \ \ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classcDecompression_aaa44ba0c7b595eda32a857a9413f54a6}{mQualite}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classcDecompression_a478649fc0f351620822d425731c9dd66}{mOwnBuffer}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcDecompression_a14be24716af4b8709ffe99d2ecc152f8}{Inverse\_RLE}}(\textcolor{keyword}{const}\ std::vector<char>\ \&trame,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::array<std::array<int,8>,8>>\ \&blocks);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcDecompression_a55f714dc08f83df795e148b623f4b51e}{releaseBuffer}}();}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcDecompression_a5ef29f903b96bf67f2b0d9ee1e9e24fd}{cDecompression}}();}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcDecompression_a5ef29f903b96bf67f2b0d9ee1e9e24fd}{cDecompression}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ largeur,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ hauteur,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ qualite\ =\ 50,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **buffer\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcDecompression_a559edd2feec4f655611482b36c31bef0}{\string~cDecompression}}();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcDecompression_a7e647d82f7ca2d89c27d8a6d57438a08}{setLargeur}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ largeur);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcDecompression_aa71119af12f288e96ecc2902fd63d6a9}{setHauteur}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ hauteur);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcDecompression_a100a8d55036915438febbd4d69ffdd63}{setQualite}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ qualite);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcDecompression_aea6c8135cd31079251cd9e71d768d223}{setBuffer}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **buffer);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classcDecompression_a0a93f1942223c3569eeaa5213b78c83e}{getLargeur}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classcDecompression_af9299282743fd9b82d9a7216691c26c1}{getHauteur}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classcDecompression_a6eec65060d8aa852af9b00d208ceb73e}{getQualite}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{classcDecompression_a70aa0b5c6d9f106bd37f100f2861c660}{getBuffer}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{classcDecompression_a00586e750a5193933c306f1a5e07a583}{Decompression\_JPEG}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *Nom\_Fichier\_compresse);}
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ JPEG\_COMPRESSOR\_CDECOMPRESSION\_H}}
+
+\end{DoxyCode}

@@ -1,9 +1,9 @@
 <map id="include/dct/dct.h" name="include/dct/dct.h">
-<area shape="rect" id="Node000001" title="Discrete Cosine Transform helpers for 8x8 blocks." alt="" coords="219,5,348,31"/>
-<area shape="rect" id="Node000002" href="$cCompression_8cpp.html" title="High&#45;level helpers that glue the DCT/quantization/RLE/Huffman pipeline together for the pedagogic JPE..." alt="" coords="5,79,201,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,38,134,81,132,76,241,33"/>
-<area shape="rect" id="Node000003" href="$dct_8cpp.html" title=" " alt="" coords="225,79,341,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="286,44,286,79,281,79,281,44"/>
-<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Small driver exercising the pedagogic JPEG pipeline implemented in this project: DCT/IDCT on 8x8 bloc..." alt="" coords="365,79,471,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="318,35,397,76,395,81,316,39"/>
+<area shape="rect" id="Node000001" title="Discrete Cosine Transform helpers for 8x8 blocks." alt="" coords="267,5,396,31"/>
+<area shape="rect" id="Node000002" href="$cCompression_8cpp.html" title="Implementation of the cCompression class." alt="" coords="5,79,201,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="282,37,141,81,139,76,281,32"/>
+<area shape="rect" id="Node000003" href="$cDecompression_8cpp.html" title=" " alt="" coords="225,79,437,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="334,44,334,79,329,79,329,44"/>
+<area shape="rect" id="Node000004" href="$dct_8cpp.html" title=" " alt="" coords="461,79,577,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="375,33,490,76,488,81,373,38"/>
 </map>

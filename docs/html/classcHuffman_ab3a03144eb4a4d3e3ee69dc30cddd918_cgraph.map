@@ -1,0 +1,6 @@
+<map id="cHuffman::AfficherHuffman" name="cHuffman::AfficherHuffman">
+<area shape="rect" id="Node000001" title="Print the binary code for each symbol starting from Racine." alt="" coords="5,29,204,55"/>
+<area shape="rect" id="Node000002" href="$cHuffman_8cpp.html#a116f487d7d387194157da75a394105dc" title="Recursively print codes for each leaf node." alt="" coords="252,29,368,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,39,238,39,238,45,204,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="276,31,269,21,273,11,287,5,310,3,339,6,350,15,347,20,336,11,310,8,288,10,277,15,274,20,280,28"/>
+</map>

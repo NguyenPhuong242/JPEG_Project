@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['readme_2emd_0',['README.md',['../README_8md.html',1,'']]],
-  ['rle_1',['RLE',['../classcCompression.html#ae36b8feb1f34c7013905c1fef1934245',1,'cCompression']]],
-  ['rle_5fblock_2',['RLE_Block',['../classcCompression.html#aefe3add7e9c0017ce292efd1bad96939',1,'cCompression']]]
+  ['layout_0',['Project Layout',['../index.html#autotoc_md2',1,'']]],
+  ['loadhuffmantable_1',['loadHuffmanTable',['../classcCompression.html#ad7165e2bc5c2deb15bc7e2cf7dc9d265',1,'cCompression']]]
 ];

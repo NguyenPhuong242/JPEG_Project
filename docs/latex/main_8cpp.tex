@@ -1,25 +1,17 @@
 \doxysection{src/main.cpp File Reference}
 \hypertarget{main_8cpp}{}\label{main_8cpp}\index{src/main.cpp@{src/main.cpp}}
-
-
-Small driver exercising the pedagogic JPEG pipeline implemented in this project\+: DCT/\+IDCT on 8x8 blocks, quantization, RLE, Huffman, full compression and decompression. The driver also performs the Q.\+18 sweep of compression-\/size vs quality for {\ttfamily lena.\+dat}.  
-
-
-{\ttfamily \#include "{}dct/dct.\+h"{}}\newline
-{\ttfamily \#include "{}quantification/quantification.\+h"{}}\newline
-{\ttfamily \#include "{}core/c\+Compression.\+h"{}}\newline
-{\ttfamily \#include "{}core/c\+Huffman.\+h"{}}\newline
-{\ttfamily \#include $<$sstream$>$}\newline
-{\ttfamily \#include $<$iostream$>$}\newline
-{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
 {\ttfamily \#include $<$cmath$>$}\newline
-{\ttfamily \#include $<$cstring$>$}\newline
-{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$filesystem$>$}\newline
 {\ttfamily \#include $<$fstream$>$}\newline
-{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$initializer\+\_\+list$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
-Include dependency graph for main.\+cpp\+:
-\nopagebreak
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}core/c\+Compression.\+h"{}}\newline
+{\ttfamily \#include "{}core/c\+Decompression.\+h"{}}\newline
+Include dependency graph for main.\+cpp\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -30,12 +22,7 @@ Include dependency graph for main.\+cpp\+:
 \begin{DoxyCompactItemize}
 \item 
 int \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Detailed Description}
-Small driver exercising the pedagogic JPEG pipeline implemented in this project\+: DCT/\+IDCT on 8x8 blocks, quantization, RLE, Huffman, full compression and decompression. The driver also performs the Q.\+18 sweep of compression-\/size vs quality for {\ttfamily lena.\+dat}. 
-
+\begin{DoxyCompactList}\small\item\em Entry point for the JPEG demo CLI orchestrating interactive workflows. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \label{doc-func-members}
@@ -47,11 +34,7 @@ Small driver exercising the pedagogic JPEG pipeline implemented in this project\
 {\footnotesize\ttfamily \label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
 int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph}
-\end{center}
-\end{figure}
+
+
+Entry point for the JPEG demo CLI orchestrating interactive workflows. 
+

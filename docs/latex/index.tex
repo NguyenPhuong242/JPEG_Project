@@ -1,0 +1,82 @@
+\chapter{JPEG Compressor }
+\hypertarget{index}{}\label{index}\index{JPEG Compressor@{JPEG Compressor}}
+\label{index_md_README}%
+\Hypertarget{index_md_README}%
+
+
+Educational grayscale JPEG pipeline that showcases every major step of the codec\+: block extraction, 8x8 DCT, quantization, zig-\/zag + run-\/length encoding, Huffman entropy coding, and a CLI that can compress and decompress sample images.\hypertarget{index_autotoc_md1}{}\doxysection{\texorpdfstring{Features}{Features}}\label{index_autotoc_md1}
+
+\begin{DoxyItemize}
+\item Baseline JPEG-\/style pipeline implemented in modern C++.
+\item Modular headers under {\ttfamily include/} for reuse in other exercises.
+\item CLI ({\ttfamily jpeg\+\_\+cli}) able to compress, decompress, or run a full round trip.
+\item Doxygen documentation with class and file overviews.
+\item Lightweight test binaries covering DCT, quantization, Huffman, and RLE pieces.
+\end{DoxyItemize}\hypertarget{index_autotoc_md2}{}\doxysection{\texorpdfstring{Project Layout}{Project Layout}}\label{index_autotoc_md2}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{include/\ \ \ \ \ \ \ \ \ \ Public\ headers\ for\ the\ core,\ DCT,\ and\ quantization\ modules}
+\DoxyCodeLine{src/\ \ \ \ \ \ \ \ \ \ \ \ \ \ Implementations\ plus\ the\ CLI\ entry\ point}
+\DoxyCodeLine{tests/\ \ \ \ \ \ \ \ \ \ \ \ Simple\ regression\ tests\ and\ fixtures\ (run\ via\ CTest)}
+\DoxyCodeLine{docs/\ \ \ \ \ \ \ \ \ \ \ \ \ Doxygen\ config\ (`Doxyfile`)\ and\ generated\ output\ under\ docs/docs/}
+\DoxyCodeLine{build/\ \ \ \ \ \ \ \ \ \ \ \ Out-\/of-\/tree\ CMake\ build\ products}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md3}{}\doxysection{\texorpdfstring{Prerequisites (Debian/\+Ubuntu)}{Prerequisites (Debian/\+Ubuntu)}}\label{index_autotoc_md3}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ apt\ update}
+\DoxyCodeLine{sudo\ apt\ install\ build-\/essential\ cmake\ g++\ doxygen\ graphviz}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md4}{}\doxysection{\texorpdfstring{Build and Test}{Build and Test}}\label{index_autotoc_md4}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Configure\ \&\ build}
+\DoxyCodeLine{cmake\ -\/S\ .\ -\/B\ build}
+\DoxyCodeLine{cmake\ -\/-\/build\ build\ -\/j}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Run\ unit\ tests}
+\DoxyCodeLine{ctest\ -\/-\/test-\/dir\ build\ -\/V}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md5}{}\doxysection{\texorpdfstring{CLI Usage}{CLI Usage}}\label{index_autotoc_md5}
+The CMake build produces {\ttfamily build/jpeg\+\_\+cli} with three modes\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Compress\ a\ PGM\ image\ into\ a\ Huffman\ bitstream}
+\DoxyCodeLine{./build/jpeg\_cli\ compress\ -\/-\/input\ lena.pgm\ -\/-\/output\ lena.huff\ -\/-\/quality\ 80}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Decompress\ a\ previously\ generated\ bitstream\ back\ into\ a\ PGM}
+\DoxyCodeLine{./build/jpeg\_cli\ decompress\ -\/-\/input\ lena.huff\ -\/-\/output\ lena\_recon.pgm}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Run\ the\ complete\ pipeline\ (compress\ +\ decompress\ +\ metrics)}
+\DoxyCodeLine{./build/jpeg\_cli\ full\ -\/-\/input\ lena.pgm\ -\/-\/bitstream\ lena.huff\ -\/-\/recon\ lena\_recon.pgm}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md6}{}\doxysection{\texorpdfstring{Documentation}{Documentation}}\label{index_autotoc_md6}
+Generate or refresh the API reference with Doxygen\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{doxygen\ docs/Doxyfile}
+\DoxyCodeLine{xdg-\/open\ docs/docs/html/index.html\ \ \ \#\ open\ the\ HTML\ entry\ point}
+
+\end{DoxyCode}
+
+
+\begin{quote}
+Graph visualizations require {\ttfamily graphviz}. Disable them by flipping the relevant {\ttfamily HAVE\+\_\+\+DOT} tags in {\ttfamily docs/\+Doxyfile} if you prefer faster runs. \end{quote}
+
+
+The main page of the HTML output mirrors this README, and navigation exposes the annotated headers, implementation files, and directory diagrams.\hypertarget{index_autotoc_md7}{}\doxysection{\texorpdfstring{Roadmap / Contributions}{Roadmap / Contributions}}\label{index_autotoc_md7}
+
+\begin{DoxyEnumerate}
+\item Expand coverage for color images and chroma subsampling modes.
+\item Produce minimal valid {\ttfamily .jpg} files instead of the custom {\ttfamily .huff} bitstream.
+\item Flesh out automated unit tests and CI.
+\item Document remaining internals that still trigger Doxygen {\ttfamily @param} duplication warnings.
+\end{DoxyEnumerate}
+
+Feel free to open issues or submit pull requests if you extend or fix the pipeline. 

@@ -1,0 +1,364 @@
+\doxysection{c\+Decompression Class Reference}
+\hypertarget{classcDecompression}{}\label{classcDecompression}\index{cDecompression@{cDecompression}}
+
+
+High-\/level JPEG decompression helper.  
+
+
+
+
+{\ttfamily \#include $<$c\+Decompression.\+h$>$}
+
+
+
+Inheritance diagram for c\+Decompression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{classcDecompression__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcDecompression_a5ef29f903b96bf67f2b0d9ee1e9e24fd}{c\+Decompression}} ()
+\begin{DoxyCompactList}\small\item\em Construct an empty decompressor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classcDecompression_a33d6d2ce3ce1275910b95e16d15d7152}{c\+Decompression}} (unsigned int largeur, unsigned int hauteur, unsigned int qualite=50, unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}buffer=nullptr)
+\begin{DoxyCompactList}\small\item\em Construct a decompressor targeting specific dimensions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classcDecompression_a559edd2feec4f655611482b36c31bef0}{\texorpdfstring{$\sim$}{\string~}c\+Decompression}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the instance and release owned memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcDecompression_a7e647d82f7ca2d89c27d8a6d57438a08}{set\+Largeur}} (unsigned int largeur)
+\begin{DoxyCompactList}\small\item\em Set the output image width. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcDecompression_aa71119af12f288e96ecc2902fd63d6a9}{set\+Hauteur}} (unsigned int hauteur)
+\begin{DoxyCompactList}\small\item\em Set the output image height. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcDecompression_a100a8d55036915438febbd4d69ffdd63}{set\+Qualite}} (unsigned int qualite)
+\begin{DoxyCompactList}\small\item\em Set the quality factor used during inverse quantization. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcDecompression_aea6c8135cd31079251cd9e71d768d223}{set\+Buffer}} (unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Attach a row buffer managed by the caller. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classcDecompression_a0a93f1942223c3569eeaa5213b78c83e}{get\+Largeur}} () const
+\begin{DoxyCompactList}\small\item\em Return the current output width. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classcDecompression_af9299282743fd9b82d9a7216691c26c1}{get\+Hauteur}} () const
+\begin{DoxyCompactList}\small\item\em Return the current output height. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classcDecompression_a6eec65060d8aa852af9b00d208ceb73e}{get\+Qualite}} () const
+\begin{DoxyCompactList}\small\item\em Return the quality factor. \end{DoxyCompactList}\item 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classcDecompression_a70aa0b5c6d9f106bd37f100f2861c660}{get\+Buffer}} () const
+\begin{DoxyCompactList}\small\item\em Return the bound row buffer (may be nullptr). \end{DoxyCompactList}\item 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classcDecompression_a00586e750a5193933c306f1a5e07a583}{Decompression\+\_\+\+JPEG}} (const char \texorpdfstring{$\ast$}{*}Nom\+\_\+\+Fichier\+\_\+compresse)
+\begin{DoxyCompactList}\small\item\em Perform the full JPEG-\/like decompression pipeline. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classcDecompression_a14be24716af4b8709ffe99d2ecc152f8}{Inverse\+\_\+\+RLE}} (const std\+::vector$<$ char $>$ \&trame, std\+::vector$<$ std\+::array$<$ std\+::array$<$ int, 8 $>$, 8 $>$ $>$ \&blocks)
+\begin{DoxyCompactList}\small\item\em Expand the RLE byte stream back into quantized 8x8 blocks. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcDecompression_a55f714dc08f83df795e148b623f4b51e}{release\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em Release the owned buffer when the instance manages memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{classcDecompression_ac0171ae6c967f5959b0420fe30e8662a}{m\+Largeur}}
+\item 
+unsigned int \mbox{\hyperlink{classcDecompression_a8ea693e020ceb03c5b3ec70480da3ef7}{m\+Hauteur}}
+\item 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classcDecompression_a7eb91152025b8b24fc6cde66b4dea6d0}{m\+Buffer}}
+\item 
+unsigned int \mbox{\hyperlink{classcDecompression_aaa44ba0c7b595eda32a857a9413f54a6}{m\+Qualite}}
+\item 
+bool \mbox{\hyperlink{classcDecompression_a478649fc0f351620822d425731c9dd66}{m\+Own\+Buffer}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+High-\/level JPEG decompression helper. 
+
+The class mirrors the compression interface but focuses solely on reconstructing images from the Huffman-\/compressed bitstream produced by \doxylink{classcCompression}{c\+Compression}. It performs Huffman decoding, inverse RLE, dequantization, and IDCT to rebuild the spatial domain image. 
+
+\label{doc-constructors}
+\Hypertarget{classcDecompression_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classcDecompression_a5ef29f903b96bf67f2b0d9ee1e9e24fd}\index{cDecompression@{cDecompression}!cDecompression@{cDecompression}}
+\index{cDecompression@{cDecompression}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{cDecompression()}{cDecompression()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classcDecompression_a5ef29f903b96bf67f2b0d9ee1e9e24fd} 
+c\+Decompression\+::c\+Decompression (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Construct an empty decompressor. 
+
+Create an empty decompressor with default quality. Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcDecompression_a5ef29f903b96bf67f2b0d9ee1e9e24fd_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcDecompression_a33d6d2ce3ce1275910b95e16d15d7152}\index{cDecompression@{cDecompression}!cDecompression@{cDecompression}}
+\index{cDecompression@{cDecompression}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{cDecompression()}{cDecompression()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classcDecompression_a33d6d2ce3ce1275910b95e16d15d7152} 
+c\+Decompression\+::c\+Decompression (\begin{DoxyParamCaption}\item[{unsigned int}]{largeur}{, }\item[{unsigned int}]{hauteur}{, }\item[{unsigned int}]{qualite}{ = {\ttfamily 50}, }\item[{unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{buffer}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+
+
+Construct a decompressor targeting specific dimensions. 
+
+Initialise a decompressor with explicit dimensions and buffer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em largeur} & Image width in pixels. \\
+\hline
+{\em hauteur} & Image height in pixels. \\
+\hline
+{\em qualite} & Initial quality factor (mirrors compression quality). \\
+\hline
+{\em buffer} & Optional caller-\/provided row buffer; ownership stays with caller.\\
+\hline
+{\em largeur} & Image width in pixels. \\
+\hline
+{\em hauteur} & Image height in pixels. \\
+\hline
+{\em qualite} & Quality factor for inverse quantization. \\
+\hline
+{\em buffer} & Optional externally managed buffer. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classcDecompression_a559edd2feec4f655611482b36c31bef0}\index{cDecompression@{cDecompression}!````~cDecompression@{\texorpdfstring{$\sim$}{\string~}cDecompression}}
+\index{````~cDecompression@{\texorpdfstring{$\sim$}{\string~}cDecompression}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}cDecompression()}{\string~cDecompression()}}
+{\footnotesize\ttfamily \label{classcDecompression_a559edd2feec4f655611482b36c31bef0} 
+c\+Decompression\+::\texorpdfstring{$\sim$}{\string~}c\+Decompression (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destroy the instance and release owned memory. 
+
+Destroy the decompressor and release owned buffers. Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcDecompression_a559edd2feec4f655611482b36c31bef0_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-func-members}
+\Hypertarget{classcDecompression_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcDecompression_a00586e750a5193933c306f1a5e07a583}\index{cDecompression@{cDecompression}!Decompression\_JPEG@{Decompression\_JPEG}}
+\index{Decompression\_JPEG@{Decompression\_JPEG}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{Decompression\_JPEG()}{Decompression\_JPEG()}}
+{\footnotesize\ttfamily \label{classcDecompression_a00586e750a5193933c306f1a5e07a583} 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} c\+Decompression\+::\+Decompression\+\_\+\+JPEG (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{Nom\+\_\+\+Fichier\+\_\+compresse}{}\end{DoxyParamCaption})}
+
+
+
+Perform the full JPEG-\/like decompression pipeline. 
+
+Perform full decompression of a Huffman file into spatial pixels.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Nom\+\_\+\+Fichier\+\_\+compresse} & Path to the compressed file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Newly allocated row buffer on success, nullptr on failure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em Nom\+\_\+\+Fichier\+\_\+compresse} & Path to the compressed file (bitstream). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to reconstructed image rows; nullptr on failure. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcDecompression_a00586e750a5193933c306f1a5e07a583_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcDecompression_a00586e750a5193933c306f1a5e07a583_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcDecompression_a70aa0b5c6d9f106bd37f100f2861c660}\index{cDecompression@{cDecompression}!getBuffer@{getBuffer}}
+\index{getBuffer@{getBuffer}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{getBuffer()}{getBuffer()}}
+{\footnotesize\ttfamily \label{classcDecompression_a70aa0b5c6d9f106bd37f100f2861c660} 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} c\+Decompression\+::get\+Buffer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Return the bound row buffer (may be nullptr). 
+
+Access the row buffer pointer (may be caller-\/owned). \Hypertarget{classcDecompression_af9299282743fd9b82d9a7216691c26c1}\index{cDecompression@{cDecompression}!getHauteur@{getHauteur}}
+\index{getHauteur@{getHauteur}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{getHauteur()}{getHauteur()}}
+{\footnotesize\ttfamily \label{classcDecompression_af9299282743fd9b82d9a7216691c26c1} 
+unsigned int c\+Decompression\+::get\+Hauteur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Return the current output height. 
+
+\Hypertarget{classcDecompression_a0a93f1942223c3569eeaa5213b78c83e}\index{cDecompression@{cDecompression}!getLargeur@{getLargeur}}
+\index{getLargeur@{getLargeur}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{getLargeur()}{getLargeur()}}
+{\footnotesize\ttfamily \label{classcDecompression_a0a93f1942223c3569eeaa5213b78c83e} 
+unsigned int c\+Decompression\+::get\+Largeur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Return the current output width. 
+
+\Hypertarget{classcDecompression_a6eec65060d8aa852af9b00d208ceb73e}\index{cDecompression@{cDecompression}!getQualite@{getQualite}}
+\index{getQualite@{getQualite}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{getQualite()}{getQualite()}}
+{\footnotesize\ttfamily \label{classcDecompression_a6eec65060d8aa852af9b00d208ceb73e} 
+unsigned int c\+Decompression\+::get\+Qualite (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Return the quality factor. 
+
+Return the quality factor used for dequantization. \Hypertarget{classcDecompression_a14be24716af4b8709ffe99d2ecc152f8}\index{cDecompression@{cDecompression}!Inverse\_RLE@{Inverse\_RLE}}
+\index{Inverse\_RLE@{Inverse\_RLE}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{Inverse\_RLE()}{Inverse\_RLE()}}
+{\footnotesize\ttfamily \label{classcDecompression_a14be24716af4b8709ffe99d2ecc152f8} 
+void c\+Decompression\+::\+Inverse\+\_\+\+RLE (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ char $>$ \&}]{trame}{, }\item[{std\+::vector$<$ std\+::array$<$ std\+::array$<$ int, 8 $>$, 8 $>$ $>$ \&}]{blocks}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Expand the RLE byte stream back into quantized 8x8 blocks. 
+
+Expand an RLE byte stream back into quantized 8x8 blocks.
+
+
+\begin{DoxyParams}{Parameters}
+{\em trame} & Concatenated RLE bytes. \\
+\hline
+{\em blocks} & Output collection receiving quantized blocks.\\
+\hline
+{\em trame} & Input RLE byte stream. \\
+\hline
+{\em blocks} & Output container of quantized blocks. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcDecompression_a14be24716af4b8709ffe99d2ecc152f8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcDecompression_a55f714dc08f83df795e148b623f4b51e}\index{cDecompression@{cDecompression}!releaseBuffer@{releaseBuffer}}
+\index{releaseBuffer@{releaseBuffer}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{releaseBuffer()}{releaseBuffer()}}
+{\footnotesize\ttfamily \label{classcDecompression_a55f714dc08f83df795e148b623f4b51e} 
+void c\+Decompression\+::release\+Buffer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Release the owned buffer when the instance manages memory. 
+
+Release the currently owned buffer, if any. Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcDecompression_a55f714dc08f83df795e148b623f4b51e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcDecompression_aea6c8135cd31079251cd9e71d768d223}\index{cDecompression@{cDecompression}!setBuffer@{setBuffer}}
+\index{setBuffer@{setBuffer}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{setBuffer()}{setBuffer()}}
+{\footnotesize\ttfamily \label{classcDecompression_aea6c8135cd31079251cd9e71d768d223} 
+void c\+Decompression\+::set\+Buffer (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{buffer}{}\end{DoxyParamCaption})}
+
+
+
+Attach a row buffer managed by the caller. 
+
+Attach an externally managed buffer and drop any owned buffer. Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcDecompression_aea6c8135cd31079251cd9e71d768d223_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcDecompression_aa71119af12f288e96ecc2902fd63d6a9}\index{cDecompression@{cDecompression}!setHauteur@{setHauteur}}
+\index{setHauteur@{setHauteur}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{setHauteur()}{setHauteur()}}
+{\footnotesize\ttfamily \label{classcDecompression_aa71119af12f288e96ecc2902fd63d6a9} 
+void c\+Decompression\+::set\+Hauteur (\begin{DoxyParamCaption}\item[{unsigned int}]{hauteur}{}\end{DoxyParamCaption})}
+
+
+
+Set the output image height. 
+
+Update the reconstructed image height. \Hypertarget{classcDecompression_a7e647d82f7ca2d89c27d8a6d57438a08}\index{cDecompression@{cDecompression}!setLargeur@{setLargeur}}
+\index{setLargeur@{setLargeur}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{setLargeur()}{setLargeur()}}
+{\footnotesize\ttfamily \label{classcDecompression_a7e647d82f7ca2d89c27d8a6d57438a08} 
+void c\+Decompression\+::set\+Largeur (\begin{DoxyParamCaption}\item[{unsigned int}]{largeur}{}\end{DoxyParamCaption})}
+
+
+
+Set the output image width. 
+
+Update the reconstructed image width. \Hypertarget{classcDecompression_a100a8d55036915438febbd4d69ffdd63}\index{cDecompression@{cDecompression}!setQualite@{setQualite}}
+\index{setQualite@{setQualite}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{setQualite()}{setQualite()}}
+{\footnotesize\ttfamily \label{classcDecompression_a100a8d55036915438febbd4d69ffdd63} 
+void c\+Decompression\+::set\+Qualite (\begin{DoxyParamCaption}\item[{unsigned int}]{qualite}{}\end{DoxyParamCaption})}
+
+
+
+Set the quality factor used during inverse quantization. 
+
+Update the quality factor guiding inverse quantization. 
+
+\label{doc-variable-members}
+\Hypertarget{classcDecompression_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classcDecompression_a7eb91152025b8b24fc6cde66b4dea6d0}\index{cDecompression@{cDecompression}!mBuffer@{mBuffer}}
+\index{mBuffer@{mBuffer}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{mBuffer}{mBuffer}}
+{\footnotesize\ttfamily \label{classcDecompression_a7eb91152025b8b24fc6cde66b4dea6d0} 
+unsigned char\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} c\+Decompression\+::m\+Buffer\hspace{0.3cm}{\ttfamily [private]}}
+
+Row pointer buffer (may be caller-\/owned). \Hypertarget{classcDecompression_a8ea693e020ceb03c5b3ec70480da3ef7}\index{cDecompression@{cDecompression}!mHauteur@{mHauteur}}
+\index{mHauteur@{mHauteur}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{mHauteur}{mHauteur}}
+{\footnotesize\ttfamily \label{classcDecompression_a8ea693e020ceb03c5b3ec70480da3ef7} 
+unsigned int c\+Decompression\+::m\+Hauteur\hspace{0.3cm}{\ttfamily [private]}}
+
+Output image height in pixels. \Hypertarget{classcDecompression_ac0171ae6c967f5959b0420fe30e8662a}\index{cDecompression@{cDecompression}!mLargeur@{mLargeur}}
+\index{mLargeur@{mLargeur}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{mLargeur}{mLargeur}}
+{\footnotesize\ttfamily \label{classcDecompression_ac0171ae6c967f5959b0420fe30e8662a} 
+unsigned int c\+Decompression\+::m\+Largeur\hspace{0.3cm}{\ttfamily [private]}}
+
+Output image width in pixels. \Hypertarget{classcDecompression_a478649fc0f351620822d425731c9dd66}\index{cDecompression@{cDecompression}!mOwnBuffer@{mOwnBuffer}}
+\index{mOwnBuffer@{mOwnBuffer}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{mOwnBuffer}{mOwnBuffer}}
+{\footnotesize\ttfamily \label{classcDecompression_a478649fc0f351620822d425731c9dd66} 
+bool c\+Decompression\+::m\+Own\+Buffer\hspace{0.3cm}{\ttfamily [private]}}
+
+Whether the instance allocated {\ttfamily m\+Buffer}. \Hypertarget{classcDecompression_aaa44ba0c7b595eda32a857a9413f54a6}\index{cDecompression@{cDecompression}!mQualite@{mQualite}}
+\index{mQualite@{mQualite}!cDecompression@{cDecompression}}
+\doxysubsubsection{\texorpdfstring{mQualite}{mQualite}}
+{\footnotesize\ttfamily \label{classcDecompression_aaa44ba0c7b595eda32a857a9413f54a6} 
+unsigned int c\+Decompression\+::m\+Qualite\hspace{0.3cm}{\ttfamily [private]}}
+
+Quality factor used for dequantization. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/core/\mbox{\hyperlink{cDecompression_8h}{c\+Decompression.\+h}}\item 
+src/core/\mbox{\hyperlink{cDecompression_8cpp}{c\+Decompression.\+cpp}}\end{DoxyCompactItemize}

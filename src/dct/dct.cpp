@@ -7,19 +7,15 @@
 #include <iostream>
 
 /**
- * Compute the 2D DCT of an 8x8 block.
- * @param Bloc8x8 8x8 input block (integers, typically level-shifted by -128)
- * @param DCT_Img 8x8 output buffer of DCT coefficients (double)
+ * @brief Compute the 2D DCT of an 8x8 block.
+ * @param Bloc8x8 8x8 input block (integers, typically level-shifted by -128).
+ * @param DCT_Img 8x8 output buffer of DCT coefficients (double).
  */
 void Calcul_DCT_Block(int **Bloc8x8, double **DCT_Img) {
     const int N = 8;
     for (int u = 0; u < N; ++u) {
         for (int v = 0; v < N; ++v) {
             double sum = 0.0;
-            /**
-             * Calcul la somme des produits cosinus
-             * avec les coefficients de normalisation
-             */
             for (int x = 0; x < N; ++x) {
                 for (int y = 0; y < N; ++y) {
                     sum += Bloc8x8[x][y] *
@@ -29,9 +25,6 @@ void Calcul_DCT_Block(int **Bloc8x8, double **DCT_Img) {
             }
             double Cu;
             double Cv;
-            /**
-             *  Calcul les coefficients de normalisation Cu et Cv
-             */
             if (u == 0) {
                 Cu = 1.0 / sqrt(2.0);
             } else {
@@ -49,26 +42,19 @@ void Calcul_DCT_Block(int **Bloc8x8, double **DCT_Img) {
 }
 
 /**
- * Compute the inverse 2D DCT of an 8x8 block.
- * @param DCT_Img 8x8 input buffer of DCT coefficients (double)
- * @param Bloc8x8 8x8 output block (integers, values will be rounded/clamped by the caller)
+ * @brief Compute the inverse 2D DCT of an 8x8 block.
+ * @param DCT_Img 8x8 input buffer of DCT coefficients (double).
+ * @param Bloc8x8 8x8 output block (integers, values rounded by the caller).
  */
 void Calcul_IDCT_Block(double **DCT_Img, int **Bloc8x8) {
     const int N = 8;
     for (int x = 0; x < N; ++x) {
         for (int y = 0; y < N; ++y) {
             double sum = 0.0;
-            /**
-             * Calcul la somme des produits cosinus
-             * avec les coefficients de normalisation
-             */
             for (int u = 0; u < N; ++u) {
                 for (int v = 0; v < N; ++v) {
                     double Cu;
                     double Cv;
-                    /**
-                     *  Calcul les coefficients de normalisation Cu et Cv
-                     */
                     if (u == 0) {
                         Cu = 1.0 / sqrt(2.0);
                     } else {
@@ -86,17 +72,14 @@ void Calcul_IDCT_Block(double **DCT_Img, int **Bloc8x8) {
                            cos((2 * y + 1) * v * M_PI / (2 * N));
                 }
             }
-            /**
-             *  le bloc reconstruit est arrondi et multiplié par 0.25
-             */
             Bloc8x8[x][y] = static_cast<char>(round(0.25 * sum));
         }
     }
 }
 
 /**
- * Show the dct block (for debugging)
- * @param DCT_Img 8x8 input buffer of DCT coefficients (double)
+ * @brief Dump a DCT block to stdout (debug helper).
+ * @param DCT_Img 8x8 input buffer of DCT coefficients (double).
  */
 void Show_DCT_Block(double **DCT_Img) {
     const int N = 8;

@@ -238,6 +238,20 @@ testtotal/fast:
 	cd /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/testtotal.dir/build.make tests/CMakeFiles/testtotal.dir/build
 .PHONY : testtotal/fast
 
+# Convenience name for target.
+tests/CMakeFiles/testcolor.dir/rule:
+	cd /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/testcolor.dir/rule
+.PHONY : tests/CMakeFiles/testcolor.dir/rule
+
+# Convenience name for target.
+testcolor: tests/CMakeFiles/testcolor.dir/rule
+.PHONY : testcolor
+
+# fast build rule for target.
+testcolor/fast:
+	cd /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/testcolor.dir/build.make tests/CMakeFiles/testcolor.dir/build
+.PHONY : testcolor/fast
+
 dat_to_pgm.o: dat_to_pgm.cpp.o
 .PHONY : dat_to_pgm.o
 
@@ -261,6 +275,30 @@ dat_to_pgm.s: dat_to_pgm.cpp.s
 dat_to_pgm.cpp.s:
 	cd /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/testpgm.dir/build.make tests/CMakeFiles/testpgm.dir/dat_to_pgm.cpp.s
 .PHONY : dat_to_pgm.cpp.s
+
+test_color.o: test_color.cpp.o
+.PHONY : test_color.o
+
+# target to build an object file
+test_color.cpp.o:
+	cd /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/testcolor.dir/build.make tests/CMakeFiles/testcolor.dir/test_color.cpp.o
+.PHONY : test_color.cpp.o
+
+test_color.i: test_color.cpp.i
+.PHONY : test_color.i
+
+# target to preprocess a source file
+test_color.cpp.i:
+	cd /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/testcolor.dir/build.make tests/CMakeFiles/testcolor.dir/test_color.cpp.i
+.PHONY : test_color.cpp.i
+
+test_color.s: test_color.cpp.s
+.PHONY : test_color.s
+
+# target to generate assembly for a file
+test_color.cpp.s:
+	cd /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/testcolor.dir/build.make tests/CMakeFiles/testcolor.dir/test_color.cpp.s
+.PHONY : test_color.cpp.s
 
 test_compression.o: test_compression.cpp.o
 .PHONY : test_compression.o
@@ -439,6 +477,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... testcolor"
 	@echo "... testcompression"
 	@echo "... testdct"
 	@echo "... testdecompression"
@@ -450,6 +489,9 @@ help:
 	@echo "... dat_to_pgm.o"
 	@echo "... dat_to_pgm.i"
 	@echo "... dat_to_pgm.s"
+	@echo "... test_color.o"
+	@echo "... test_color.i"
+	@echo "... test_color.s"
 	@echo "... test_compression.o"
 	@echo "... test_compression.i"
 	@echo "... test_compression.s"

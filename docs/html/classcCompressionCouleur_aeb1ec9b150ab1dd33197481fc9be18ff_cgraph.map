@@ -1,0 +1,5 @@
+<map id="cCompressionCouleur::cCompressionCouleur" name="cCompressionCouleur::cCompressionCouleur">
+<area shape="rect" id="Node000001" title="Construct a color compressor with a quality and subsampling mode." alt="" coords="5,5,177,45"/>
+<area shape="rect" id="Node000002" href="$classcCompression.html#adc5f208bc6974089fea85fec29964be5" title="Default ctor. Does not allocate image storage." alt="" coords="225,13,440,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="177,23,212,23,212,28,177,28"/>
+</map>

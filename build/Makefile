@@ -140,6 +140,19 @@ jpeg_core/fast:
 .PHONY : jpeg_core/fast
 
 #=============================================================================
+# Target rules for targets named jpeg_cli
+
+# Build rule for target.
+jpeg_cli: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 jpeg_cli
+.PHONY : jpeg_cli
+
+# fast build rule for target.
+jpeg_cli/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_cli.dir/build.make CMakeFiles/jpeg_cli.dir/build
+.PHONY : jpeg_cli/fast
+
+#=============================================================================
 # Target rules for targets named testdct
 
 # Build rule for target.
@@ -243,6 +256,19 @@ testtotal/fast:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/testtotal.dir/build.make tests/CMakeFiles/testtotal.dir/build
 .PHONY : testtotal/fast
 
+#=============================================================================
+# Target rules for targets named testcolor
+
+# Build rule for target.
+testcolor: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 testcolor
+.PHONY : testcolor
+
+# fast build rule for target.
+testcolor/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/testcolor.dir/build.make tests/CMakeFiles/testcolor.dir/build
+.PHONY : testcolor/fast
+
 src/core/cCompression.o: src/core/cCompression.cpp.o
 .PHONY : src/core/cCompression.o
 
@@ -267,6 +293,30 @@ src/core/cCompression.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_core.dir/build.make CMakeFiles/jpeg_core.dir/src/core/cCompression.cpp.s
 .PHONY : src/core/cCompression.cpp.s
 
+src/core/cCompressionCouleur.o: src/core/cCompressionCouleur.cpp.o
+.PHONY : src/core/cCompressionCouleur.o
+
+# target to build an object file
+src/core/cCompressionCouleur.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_core.dir/build.make CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.o
+.PHONY : src/core/cCompressionCouleur.cpp.o
+
+src/core/cCompressionCouleur.i: src/core/cCompressionCouleur.cpp.i
+.PHONY : src/core/cCompressionCouleur.i
+
+# target to preprocess a source file
+src/core/cCompressionCouleur.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_core.dir/build.make CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.i
+.PHONY : src/core/cCompressionCouleur.cpp.i
+
+src/core/cCompressionCouleur.s: src/core/cCompressionCouleur.cpp.s
+.PHONY : src/core/cCompressionCouleur.s
+
+# target to generate assembly for a file
+src/core/cCompressionCouleur.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_core.dir/build.make CMakeFiles/jpeg_core.dir/src/core/cCompressionCouleur.cpp.s
+.PHONY : src/core/cCompressionCouleur.cpp.s
+
 src/core/cDecompression.o: src/core/cDecompression.cpp.o
 .PHONY : src/core/cDecompression.o
 
@@ -290,6 +340,30 @@ src/core/cDecompression.s: src/core/cDecompression.cpp.s
 src/core/cDecompression.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_core.dir/build.make CMakeFiles/jpeg_core.dir/src/core/cDecompression.cpp.s
 .PHONY : src/core/cDecompression.cpp.s
+
+src/core/cDecompressionCouleur.o: src/core/cDecompressionCouleur.cpp.o
+.PHONY : src/core/cDecompressionCouleur.o
+
+# target to build an object file
+src/core/cDecompressionCouleur.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_core.dir/build.make CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.o
+.PHONY : src/core/cDecompressionCouleur.cpp.o
+
+src/core/cDecompressionCouleur.i: src/core/cDecompressionCouleur.cpp.i
+.PHONY : src/core/cDecompressionCouleur.i
+
+# target to preprocess a source file
+src/core/cDecompressionCouleur.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_core.dir/build.make CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.i
+.PHONY : src/core/cDecompressionCouleur.cpp.i
+
+src/core/cDecompressionCouleur.s: src/core/cDecompressionCouleur.cpp.s
+.PHONY : src/core/cDecompressionCouleur.s
+
+# target to generate assembly for a file
+src/core/cDecompressionCouleur.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_core.dir/build.make CMakeFiles/jpeg_core.dir/src/core/cDecompressionCouleur.cpp.s
+.PHONY : src/core/cDecompressionCouleur.cpp.s
 
 src/core/cHuffman.o: src/core/cHuffman.cpp.o
 .PHONY : src/core/cHuffman.o
@@ -344,7 +418,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_core.dir/build.make CMakeFiles/jpeg_core.dir/src/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_cli.dir/build.make CMakeFiles/jpeg_cli.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -352,7 +426,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_core.dir/build.make CMakeFiles/jpeg_core.dir/src/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_cli.dir/build.make CMakeFiles/jpeg_cli.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -360,7 +434,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_core.dir/build.make CMakeFiles/jpeg_core.dir/src/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/jpeg_cli.dir/build.make CMakeFiles/jpeg_cli.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 src/quantification/quantification.o: src/quantification/quantification.cpp.o
@@ -396,7 +470,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... jpeg_cli"
 	@echo "... jpeg_core"
+	@echo "... testcolor"
 	@echo "... testcompression"
 	@echo "... testdct"
 	@echo "... testdecompression"
@@ -408,9 +484,15 @@ help:
 	@echo "... src/core/cCompression.o"
 	@echo "... src/core/cCompression.i"
 	@echo "... src/core/cCompression.s"
+	@echo "... src/core/cCompressionCouleur.o"
+	@echo "... src/core/cCompressionCouleur.i"
+	@echo "... src/core/cCompressionCouleur.s"
 	@echo "... src/core/cDecompression.o"
 	@echo "... src/core/cDecompression.i"
 	@echo "... src/core/cDecompression.s"
+	@echo "... src/core/cDecompressionCouleur.o"
+	@echo "... src/core/cDecompressionCouleur.i"
+	@echo "... src/core/cDecompressionCouleur.s"
 	@echo "... src/core/cHuffman.o"
 	@echo "... src/core/cHuffman.i"
 	@echo "... src/core/cHuffman.s"

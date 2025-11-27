@@ -1,0 +1,14 @@
+<map id="cCompression::Compression_JPEG" name="cCompression::Compression_JPEG">
+<area shape="rect" id="Node000001" title="Run the complete JPEG&#45;like encode pipeline and persist the result." alt="" coords="5,80,249,105"/>
+<area shape="rect" id="Node000002" href="$classcHuffman.html#ab001fac32fc01a08c38cfd35f1cfce2d" title="Populate a lookup table mapping symbols to Huffman codes." alt="" coords="303,5,503,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,77,297,39,329,31,330,36,298,45,169,83"/>
+<area shape="rect" id="Node000003" href="$classcCompression.html#a0720225210ef1d484f50d25af1586753" title="Build symbol histogram from an RLE byte stream." alt="" coords="297,55,508,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="249,79,284,76,284,81,250,84"/>
+<area shape="rect" id="Node000004" href="$classcHuffman.html#af4e311bc5a00f1d769db38aabe647234" title="Build the Huffman tree from symbol statistics." alt="" coords="308,104,497,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="250,101,295,105,294,110,249,106"/>
+<area shape="rect" id="Node000006" href="$classcCompression.html#aa9cfa8fa6c95559a27de177a67f0a5f3" title="Cache a Huffman table so decompression can reuse the latest encode table." alt="" coords="297,154,508,194"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="172,103,322,148,320,153,171,108"/>
+<area shape="rect" id="Node000005" href="$cHuffman_8cpp.html#a24a84fde39db5599f3775a435aed0f50" title="Recursively free all nodes in a Huffman tree." alt="" coords="556,104,647,129"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="497,114,542,114,542,119,497,119"/>
+<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="569,105,562,96,565,86,579,80,601,77,628,81,640,90,636,94,626,86,601,83,580,85,569,89,567,95,573,102"/>
+</map>

@@ -1,9 +1,0 @@
-<map id="calculer_q_table" name="calculer_q_table">
-<area shape="rect" id="Node000001" title=" " alt="" coords="209,55,337,80"/>
-<area shape="rect" id="Node000002" href="$namespacequant.html#a82c812f742fcb0700a592db504480dc4" title=" " alt="" coords="5,5,161,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="210,54,133,33,134,28,211,49"/>
-<area shape="rect" id="Node000003" href="$quantification_8cpp.html#ab519eb1e78250a811094c7cad0bb7ec0" title=" " alt="" coords="27,55,139,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,70,140,70,140,65,196,65"/>
-<area shape="rect" id="Node000004" href="$quantification_8cpp.html#a0728fb4c36f2e43ed3a843cd34b07a76" title=" " alt="" coords="35,104,131,129"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="211,86,132,107,131,102,210,81"/>
-</map>

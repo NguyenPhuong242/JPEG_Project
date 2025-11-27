@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 # Remove deleted rle.cpp from SOURCES
 list(REMOVE_ITEM SOURCES "${PROJECT_SOURCE_DIR}/src/entropy/rle.cpp")
+list(REMOVE_ITEM SOURCES "${PROJECT_SOURCE_DIR}/src/main.cpp")
 
 # Create a library from your core source files (e.g., dct.cpp, quant.cpp)
 add_library(jpeg_core STATIC
@@ -18,8 +19,8 @@ add_library(jpeg_core STATIC
 target_include_directories(jpeg_core PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 # Create the main executable for the project
-# add_executable(jpeg_compressor src/main.cpp)
-# target_link_libraries(jpeg_compressor PRIVATE jpeg_core)
+add_executable(jpeg_cli src/main.cpp)
+target_link_libraries(jpeg_cli PRIVATE jpeg_core)
 
 enable_testing()
 add_subdirectory(tests)

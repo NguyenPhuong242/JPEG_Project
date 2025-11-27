@@ -1,4 +1,5 @@
 /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles/jpeg_core.dir
+/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles/jpeg_cli.dir
 /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles/test.dir
 /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles/edit_cache.dir
 /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles/rebuild_cache.dir
@@ -10,6 +11,7 @@
 /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/CMakeFiles/testdecompression.dir
 /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/CMakeFiles/testpgm.dir
 /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/CMakeFiles/testtotal.dir
+/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/CMakeFiles/testcolor.dir
 /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/CMakeFiles/test.dir
 /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/CMakeFiles/edit_cache.dir
 /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/CMakeFiles/rebuild_cache.dir

@@ -92,17 +92,16 @@ $(function(){initNavTree('cCompression_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>High-level helpers that glue the DCT/quantization/RLE/Huffman pipeline together for the pedagogic JPEG implementation.  
+<p>Implementation of the <a class="el" href="classcCompression.html" title="High-level JPEG compression/decompression helper.">cCompression</a> class.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="cCompression_8h_source.html">core/cCompression.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="cHuffman_8h_source.html">core/cHuffman.h</a>&quot;</code><br />
-<code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;cstring&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
 <code>#include &quot;<a class="el" href="dct_8h_source.html">dct/dct.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="quantification_8h_source.html">quantification/quantification.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -110,61 +109,44 @@ Include dependency graph for cCompression.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="cCompression_8cpp__incl.png" border="0" usemap="#asrc_2core_2cCompression_8cpp" loading="lazy" alt=""/></div>
 <map name="asrc_2core_2cCompression_8cpp" id="asrc_2core_2cCompression_8cpp">
-<area shape="rect" title="High&#45;level helpers that glue the DCT/quantization/RLE/Huffman pipeline together for the pedagogic JPE..." alt="" coords="524,5,720,31"/>
-<area shape="rect" href="cCompression_8h.html" title=" " alt="" coords="5,79,164,104"/>
-<area shape="poly" title=" " alt="" coords="536,33,178,80,178,75,535,28"/>
-<area shape="rect" href="cHuffman_8h.html" title=" " alt="" coords="240,79,369,104"/>
-<area shape="poly" title=" " alt="" coords="572,33,370,78,368,73,570,28"/>
-<area shape="rect" title=" " alt="" coords="175,152,237,177"/>
-<area shape="poly" title=" " alt="" coords="524,25,441,30,353,40,278,57,249,68,229,81,219,93,213,107,208,138,203,137,208,106,215,90,226,77,247,63,276,52,353,35,440,25,524,19"/>
-<area shape="rect" title=" " alt="" coords="394,79,474,104"/>
-<area shape="poly" title=" " alt="" coords="593,33,478,76,477,71,591,28"/>
-<area shape="rect" title=" " alt="" coords="498,79,565,104"/>
-<area shape="poly" title=" " alt="" coords="609,33,559,72,555,68,606,29"/>
-<area shape="rect" title=" " alt="" coords="589,79,655,104"/>
-<area shape="poly" title=" " alt="" coords="625,31,625,65,619,65,619,31"/>
-<area shape="rect" title=" " alt="" coords="679,79,730,104"/>
-<area shape="poly" title=" " alt="" coords="637,29,682,67,679,72,634,33"/>
-<area shape="rect" title=" " alt="" coords="755,79,841,104"/>
-<area shape="poly" title=" " alt="" coords="651,28,757,71,755,76,649,33"/>
-<area shape="rect" title=" " alt="" coords="865,79,939,104"/>
-<area shape="poly" title=" " alt="" coords="668,28,853,75,852,80,666,33"/>
-<area shape="rect" href="dct_8h.html" title="Discrete Cosine Transform helpers for 8x8 blocks." alt="" coords="963,79,1041,104"/>
-<area shape="poly" title=" " alt="" coords="690,28,949,76,948,81,689,33"/>
-<area shape="rect" href="quantification_8h.html" title="Quantization and helper metrics used in the JPEG pipeline." alt="" coords="1066,79,1282,104"/>
-<area shape="poly" title=" " alt="" coords="711,28,1072,74,1071,80,710,33"/>
-<area shape="poly" title=" " alt="" coords="290,106,235,146,232,142,287,102"/>
-<area shape="rect" title=" " alt="" coords="265,152,328,177"/>
-<area shape="poly" title=" " alt="" coords="306,105,302,139,297,138,301,104"/>
-<area shape="rect" title=" " alt="" coords="353,152,411,177"/>
-<area shape="poly" title=" " alt="" coords="319,102,361,141,357,144,315,106"/>
-<area shape="rect" title=" " alt="" coords="1139,152,1209,177"/>
-<area shape="poly" title=" " alt="" coords="1177,104,1177,138,1171,138,1171,104"/>
+<area shape="rect" title="Implementation of the cCompression class." alt="" coords="385,5,581,31"/>
+<area shape="rect" href="cCompression_8h.html" title=" " alt="" coords="151,79,309,104"/>
+<area shape="poly" title=" " alt="" coords="443,33,285,77,284,72,442,28"/>
+<area shape="rect" title=" " alt="" coords="5,225,68,251"/>
+<area shape="poly" title=" " alt="" coords="385,30,244,49,182,63,139,81,107,110,80,146,61,182,47,213,43,211,56,180,76,143,103,107,137,76,180,58,243,44,385,25"/>
+<area shape="rect" title=" " alt="" coords="283,225,342,251"/>
+<area shape="poly" title=" " alt="" coords="476,33,333,216,328,212,472,29"/>
+<area shape="rect" title=" " alt="" coords="367,225,453,251"/>
+<area shape="poly" title=" " alt="" coords="482,32,421,213,416,211,477,30"/>
+<area shape="rect" title=" " alt="" coords="478,225,529,251"/>
+<area shape="poly" title=" " alt="" coords="484,31,477,79,477,115,482,152,497,212,492,213,477,153,472,116,471,78,478,31"/>
+<area shape="rect" title=" " alt="" coords="486,79,553,104"/>
+<area shape="poly" title=" " alt="" coords="492,30,510,65,505,68,487,32"/>
+<area shape="rect" title=" " alt="" coords="577,79,651,104"/>
+<area shape="poly" title=" " alt="" coords="506,28,582,70,580,74,503,33"/>
+<area shape="rect" title=" " alt="" coords="675,79,737,104"/>
+<area shape="poly" title=" " alt="" coords="520,28,663,73,661,79,518,33"/>
+<area shape="rect" href="dct_8h.html" title="Discrete Cosine Transform helpers for 8x8 blocks." alt="" coords="761,79,840,104"/>
+<area shape="poly" title=" " alt="" coords="535,28,748,76,747,81,534,33"/>
+<area shape="rect" href="quantification_8h.html" title="Quantization and helper metrics used in the JPEG pipeline." alt="" coords="865,79,1081,104"/>
+<area shape="poly" title=" " alt="" coords="562,28,881,74,880,79,562,33"/>
+<area shape="rect" href="cHuffman_8h.html" title=" " alt="" coords="181,152,279,177"/>
+<area shape="poly" title=" " alt="" coords="233,104,233,138,227,138,227,104"/>
+<area shape="poly" title=" " alt="" coords="200,180,82,223,80,218,198,175"/>
+<area shape="rect" title=" " alt="" coords="92,225,155,251"/>
+<area shape="poly" title=" " alt="" coords="214,180,154,220,151,215,211,175"/>
+<area shape="poly" title=" " alt="" coords="245,175,290,214,287,218,242,179"/>
+<area shape="rect" title=" " alt="" coords="179,225,259,251"/>
+<area shape="poly" title=" " alt="" coords="231,178,226,212,220,211,226,177"/>
+<area shape="poly" title=" " alt="" coords="260,175,369,218,367,223,258,180"/>
+<area shape="poly" title=" " alt="" coords="278,175,465,223,466,223,464,228,464,228,277,180"/>
+<area shape="rect" title=" " alt="" coords="937,152,1008,177"/>
+<area shape="poly" title=" " alt="" coords="975,104,975,138,970,138,970,104"/>
 </map>
 </div>
-</div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:aec0d02e0a108f85c424429e91bc5fb98" id="r_aec0d02e0a108f85c424429e91bc5fb98"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec0d02e0a108f85c424429e91bc5fb98">sCurrentQuality</a> = 50</td></tr>
-</table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>High-level helpers that glue the DCT/quantization/RLE/Huffman pipeline together for the pedagogic JPEG implementation. </p>
-</div><a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="aec0d02e0a108f85c424429e91bc5fb98" name="aec0d02e0a108f85c424429e91bc5fb98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec0d02e0a108f85c424429e91bc5fb98">&#9670;&#160;</a></span>sCurrentQuality</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int sCurrentQuality = 50</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-</div><!-- contents -->
+</div><a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the <a class="el" href="classcCompression.html" title="High-level JPEG compression/decompression helper.">cCompression</a> class. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

@@ -23,9 +23,9 @@ struct sNoeud {
     sNoeud *mdroit;  /**< right child */
 
     /**
-     * Constructor.
-     * @param d symbol (one byte)
-     * @param f frequency of the symbol
+     * @brief Construct a leaf with symbol and frequency.
+     * @param d Huffman symbol.
+     * @param f Corresponding frequency.
      */
     sNoeud(char d, double f)
         : mdonnee(d), mfreq(f), mgauche(nullptr), mdroit(nullptr) {}
@@ -63,75 +63,58 @@ private:
     static std::vector<char> HuffmanDecodeFile(const char *filename,
                                            cHuffman &h);
 public:
-    /**
-     * Default constructor.
-     */
+    /** @brief Default constructor. */
     cHuffman();
 
     /**
-     * Parameterized constructor.
-     * @param trame optional raw trame buffer
-     * @param longueur length of the trame
+     * @brief Construct with an optional raw trame buffer.
+     * @param trame Optional raw trame buffer.
+     * @param longueur Number of bytes inside @p trame.
      */
     cHuffman(char *trame, unsigned int longueur);
 
-    /**
-     * Destructor.
-     */
+    /** @brief Destructor releasing the Huffman tree. */
     ~cHuffman();
 
-    /**
-     * Get the raw trame buffer.
-     * @return mtrame
-     */
+    /** @brief Return the raw trame buffer. */
     char *getTrame() const;
 
-    /**
-     * Get the length of the raw trame buffer.
-     * @return length of mtrame
-     */
+    /** @brief Return the length of the raw trame buffer. */
     unsigned int getLongueur() const;
 
-    /**
-     * Get the root of the Huffman tree.
-     * @return root node
-     */
+    /** @brief Return the root of the Huffman tree. */
     sNoeud *getRacine() const;
 
     /**
-     * Set the raw trame buffer and its length.
-     * @param trame new trame buffer
-     * @param longueur length of the trame
+     * @brief Replace the raw trame buffer and its length.
+     * @param trame New trame buffer.
+     * @param longueur Number of bytes pointed to by @p trame.
      */
     void setTrame(char *trame, unsigned int longueur);
 
     /**
-     * Set the root of the Huffman tree.
-     * @param racine new root node
+     * @brief Set the root node of the Huffman tree.
+     * @param racine Newly built tree root.
      */
     void setRacine(sNoeud *racine);
 
     /**
-     * Build Huffman codes from an array of symbols and their frequencies.
-     * This builds the tree and stores the root in mRacine.
-     *
-     * @param Donnee    array of symbols
-     * @param Frequence matching frequency array
-     * @param Taille    number of symbols
+     * @brief Build the Huffman tree from symbol statistics.
+     * @param Donnee Array of symbols.
+     * @param Frequence Matching array of frequencies.
+     * @param Taille Number of entries in the arrays.
      */
     void HuffmanCodes(char *Donnee, double *Frequence, unsigned int Taille);
 
     /**
-     * Print the Huffman tree codes by traversing from the given root.
-     * Each line: '<symbol>' : <binary-code>
-     *
-     * @param Racine node to start from (usually the tree root)
+     * @brief Print the binary code for each symbol starting from @p Racine.
+     * @param Racine Node to traverse (defaults to the tree root).
      */
     void AfficherHuffman(sNoeud *Racine);
 
     /**
-     * Build a table mapping symbols to their Huffman binary codes.
-     * @param table output map (symbol -> binary code)
+     * @brief Populate a lookup table mapping symbols to Huffman codes.
+     * @param table Output map (symbol -> binary code).
      */
     void BuildTableCodes(std::map<char, std::string> &table);
 };

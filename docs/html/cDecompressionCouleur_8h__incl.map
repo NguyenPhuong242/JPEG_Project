@@ -1,0 +1,16 @@
+<map id="include/core/cDecompressionCouleur.h" name="include/core/cDecompressionCouleur.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="148,5,361,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,64,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,48,78,92,77,87,201,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="311,167,374,192"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="270,44,300,92,333,153,328,155,295,95,265,47"/>
+<area shape="rect" id="Node000004" href="$ColorCodecCommon_8h.html" title=" " alt="" coords="87,93,286,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="240,47,208,84,204,81,236,44"/>
+<area shape="rect" id="Node000006" href="$cDecompression_8h.html" title=" " alt="" coords="361,93,535,119"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="302,43,408,86,406,91,300,48"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="153,167,220,192"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="189,119,189,153,184,153,184,119"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="433,121,372,161,370,157,430,116"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="420,167,476,192"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="451,119,451,153,445,153,445,119"/>
+</map>

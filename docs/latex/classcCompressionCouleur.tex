@@ -1,0 +1,205 @@
+\doxysection{c\+Compression\+Couleur Class Reference}
+\hypertarget{classcCompressionCouleur}{}\label{classcCompressionCouleur}\index{cCompressionCouleur@{cCompressionCouleur}}
+
+
+JPEG-\/like compression front-\/end for RGB images.  
+
+
+
+
+{\ttfamily \#include $<$c\+Compression\+Couleur.\+h$>$}
+
+
+
+Inheritance diagram for c\+Compression\+Couleur\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{classcCompressionCouleur__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for c\+Compression\+Couleur\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{classcCompressionCouleur__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcCompressionCouleur_aeb1ec9b150ab1dd33197481fc9be18ff}{c\+Compression\+Couleur}} (unsigned int qualite=50, \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a}{jpeg\+::\+Chroma\+Subsampling}} mode=\mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aaa3948a41b16f3e559cdec58cc8d01ee3}{jpeg\+::\+Chroma\+Subsampling\+::\+Sampling420}})
+\begin{DoxyCompactList}\small\item\em Construct a color compressor with a quality and subsampling mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcCompressionCouleur_aaa376db472a55340a1e12d40605d2845}{set\+Subsampling}} (\mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a}{jpeg\+::\+Chroma\+Subsampling}} mode)
+\begin{DoxyCompactList}\small\item\em Change the chroma subsampling mode applied during compression. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a}{jpeg\+::\+Chroma\+Subsampling}} \mbox{\hyperlink{classcCompressionCouleur_af0d11a62e412ec97a5cc7915d45d5cba}{get\+Subsampling}} () const
+\begin{DoxyCompactList}\small\item\em Retrieve the currently configured subsampling mode. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classcCompressionCouleur_a3534a3c0e72715d8c10857cfe4cdc042}{compress\+RGB}} (const std\+::vector$<$ unsigned char $>$ \&rgb, unsigned int width, unsigned int height, const std\+::string \&output\+Prefix) const
+\begin{DoxyCompactList}\small\item\em Compress an RGB buffer and write per-\/channel artifacts to disk. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classcCompression}{c\+Compression}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcCompression_adc5f208bc6974089fea85fec29964be5}{c\+Compression}} ()
+\begin{DoxyCompactList}\small\item\em Default ctor. Does not allocate image storage. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classcCompression_a322dad3ba64953aaf53e24a2d392175e}{c\+Compression}} (unsigned int largeur, unsigned int hauteur, unsigned int qualite=50, unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}buffer=nullptr)
+\begin{DoxyCompactList}\small\item\em Construct a compressor tied to an image size and optional quality. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classcCompression_a9bc895fb3efd36315891b6e179f09c87}{\texorpdfstring{$\sim$}{\string~}c\+Compression}} ()
+\begin{DoxyCompactList}\small\item\em Release owned resources (notably the optional row buffer). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcCompression_a86bae0e51a1607b87467560e8e2c3bbd}{set\+Largeur}} (unsigned int largeur)
+\begin{DoxyCompactList}\small\item\em Set image width in pixels. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcCompression_a9f3b424df287aaeb5924ed505b848b9e}{set\+Hauteur}} (unsigned int hauteur)
+\begin{DoxyCompactList}\small\item\em Set image height in pixels. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcCompression_a16720d26c29def34f724066455da1ecf}{set\+Qualite}} (unsigned int qualite)
+\begin{DoxyCompactList}\small\item\em Set per-\/instance quality factor (0-\/100). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcCompression_ae94612d3efd236e71d1c73c84d3a1685}{set\+Buffer}} (unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Attach a caller-\/provided row buffer. The class does not copy the data. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classcCompression_a42ce4e36474774a54bf01d404cf59360}{get\+Largeur}} () const
+\begin{DoxyCompactList}\small\item\em Return current image width in pixels. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classcCompression_ae0f6e3eadd7aa11fd6825f2fd53a4a1c}{get\+Hauteur}} () const
+\begin{DoxyCompactList}\small\item\em Return current image height in pixels. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classcCompression_a2674e4a02b0f39da23681071f7055e58}{get\+Qualite}} () const
+\begin{DoxyCompactList}\small\item\em Return per-\/instance quality factor. \end{DoxyCompactList}\item 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classcCompression_a517f94ea07c7b07aebb99fee7f5fb4b1}{get\+Buffer}} () const
+\begin{DoxyCompactList}\small\item\em Return the attached row buffer pointer (may be nullptr). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcCompression_a2e220b16455ed12bfae6d66549d61306}{RLE\+\_\+\+Block}} (int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Img\+\_\+\+Quant, int DC\+\_\+precedent, signed char \texorpdfstring{$\ast$}{*}Trame)
+\begin{DoxyCompactList}\small\item\em Encode a single quantized block to RLE bytes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcCompression_a9965020a2ae4099448e1f22a44ea1e30}{RLE}} (signed int \texorpdfstring{$\ast$}{*}Trame)
+\begin{DoxyCompactList}\small\item\em Concatenate all block trames into the pedagogic integer trame format. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classcCompression_a0720225210ef1d484f50d25af1586753}{Histogramme}} (char \texorpdfstring{$\ast$}{*}Trame, unsigned int Longueur\+\_\+\+Trame, char \texorpdfstring{$\ast$}{*}Donnee, double \texorpdfstring{$\ast$}{*}Frequence)
+\begin{DoxyCompactList}\small\item\em Build symbol histogram from an RLE byte stream. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcCompression_aee2599c101378e562edf5e2eaed48c52}{Compression\+\_\+\+JPEG}} (int \texorpdfstring{$\ast$}{*}Trame\+\_\+\+RLE, const char \texorpdfstring{$\ast$}{*}Nom\+\_\+\+Fichier)
+\begin{DoxyCompactList}\small\item\em Run the complete JPEG-\/like encode pipeline and persist the result. \end{DoxyCompactList}\item 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classcCompression_a66b859d7eff31e3ba9e2337cb63cc807}{Decompression\+\_\+\+JPEG}} (const char \texorpdfstring{$\ast$}{*}Nom\+\_\+\+Fichier\+\_\+compresse)
+\begin{DoxyCompactList}\small\item\em Decode a previously compressed file and recreate the image rows. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a}{jpeg\+::\+Chroma\+Subsampling}} \mbox{\hyperlink{classcCompressionCouleur_a7370998302525beb861de2bc5086ceab}{m\+Subsampling}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classcCompression}{c\+Compression}}}
+\begin{DoxyCompactItemize}
+\item 
+static unsigned int \mbox{\hyperlink{classcCompression_aa7fe57390f7e2f2532e3389dcef33889}{get\+Qualite\+Globale}} ()
+\begin{DoxyCompactList}\small\item\em Read the global quality factor shared by quantification helpers. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classcCompression_ae2b173d0aebc50cedba7e9ac34aafa21}{set\+Qualite\+Globale}} (unsigned int qualite)
+\begin{DoxyCompactList}\small\item\em Set the global quality factor used by quantification helpers. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classcCompression_aa9cfa8fa6c95559a27de177a67f0a5f3}{store\+Huffman\+Table}} (const char \texorpdfstring{$\ast$}{*}symbols, const double \texorpdfstring{$\ast$}{*}frequencies, unsigned int count)
+\begin{DoxyCompactList}\small\item\em Cache a Huffman table so decompression can reuse the latest encode table. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{classcCompression_ad7165e2bc5c2deb15bc7e2cf7dc9d265}{load\+Huffman\+Table}} (char \texorpdfstring{$\ast$}{*}symbols, double \texorpdfstring{$\ast$}{*}frequencies, unsigned int \&count)
+\begin{DoxyCompactList}\small\item\em Retrieve the cached Huffman table, if available. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{classcCompression_a2e7e1d8e0dff94f10bed1573df09f732}{has\+Stored\+Huffman\+Table}} ()
+\begin{DoxyCompactList}\small\item\em Report whether a Huffman table is currently cached. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+JPEG-\/like compression front-\/end for RGB images. 
+
+The class wraps the grayscale compressor to handle RGB input\+: it performs RGB → YCb\+Cr conversion, chroma subsampling, per-\/channel compression, and persists metadata describing the resulting sidecar files. 
+
+\label{doc-constructors}
+\Hypertarget{classcCompressionCouleur_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classcCompressionCouleur_aeb1ec9b150ab1dd33197481fc9be18ff}\index{cCompressionCouleur@{cCompressionCouleur}!cCompressionCouleur@{cCompressionCouleur}}
+\index{cCompressionCouleur@{cCompressionCouleur}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{cCompressionCouleur()}{cCompressionCouleur()}}
+{\footnotesize\ttfamily \label{classcCompressionCouleur_aeb1ec9b150ab1dd33197481fc9be18ff} 
+c\+Compression\+Couleur\+::c\+Compression\+Couleur (\begin{DoxyParamCaption}\item[{unsigned int}]{qualite}{ = {\ttfamily 50}, }\item[{\mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a}{jpeg\+::\+Chroma\+Subsampling}}}]{mode}{ = {\ttfamily \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aaa3948a41b16f3e559cdec58cc8d01ee3}{jpeg\+::\+Chroma\+Subsampling\+::\+Sampling420}}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construct a color compressor with a quality and subsampling mode. 
+
+Construct a color compressor with quality and subsampling settings.
+
+
+\begin{DoxyParams}{Parameters}
+{\em qualite} & Per-\/instance JPEG quality in \mbox{[}0,100\mbox{]}. \\
+\hline
+{\em mode} & Chroma subsampling pattern to apply to Cb/\+Cr planes. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcCompressionCouleur_aeb1ec9b150ab1dd33197481fc9be18ff_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-func-members}
+\Hypertarget{classcCompressionCouleur_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcCompressionCouleur_a3534a3c0e72715d8c10857cfe4cdc042}\index{cCompressionCouleur@{cCompressionCouleur}!compressRGB@{compressRGB}}
+\index{compressRGB@{compressRGB}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{compressRGB()}{compressRGB()}}
+{\footnotesize\ttfamily \label{classcCompressionCouleur_a3534a3c0e72715d8c10857cfe4cdc042} 
+bool c\+Compression\+Couleur\+::compress\+RGB (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ unsigned char $>$ \&}]{rgb}{, }\item[{unsigned int}]{width}{, }\item[{unsigned int}]{height}{, }\item[{const std\+::string \&}]{output\+Prefix}{}\end{DoxyParamCaption}) const}
+
+
+
+Compress an RGB buffer and write per-\/channel artifacts to disk. 
+
+Compress an RGB image into per-\/channel Huffman bitstreams plus metadata.
+
+
+\begin{DoxyParams}{Parameters}
+{\em rgb} & Interleaved RGB pixels (size width \texorpdfstring{$\ast$}{*} height \texorpdfstring{$\ast$}{*} 3). \\
+\hline
+{\em width} & Image width in pixels. \\
+\hline
+{\em height} & Image height in pixels. \\
+\hline
+{\em output\+Prefix} & Prefix used for generated sidecar files (meta + channels). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, false if compression failed. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcCompressionCouleur_a3534a3c0e72715d8c10857cfe4cdc042_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcCompressionCouleur_af0d11a62e412ec97a5cc7915d45d5cba}\index{cCompressionCouleur@{cCompressionCouleur}!getSubsampling@{getSubsampling}}
+\index{getSubsampling@{getSubsampling}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{getSubsampling()}{getSubsampling()}}
+{\footnotesize\ttfamily \label{classcCompressionCouleur_af0d11a62e412ec97a5cc7915d45d5cba} 
+\mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a}{jpeg\+::\+Chroma\+Subsampling}} c\+Compression\+Couleur\+::get\+Subsampling (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Retrieve the currently configured subsampling mode. 
+
+Inspect the current chroma subsampling mode. \Hypertarget{classcCompressionCouleur_aaa376db472a55340a1e12d40605d2845}\index{cCompressionCouleur@{cCompressionCouleur}!setSubsampling@{setSubsampling}}
+\index{setSubsampling@{setSubsampling}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{setSubsampling()}{setSubsampling()}}
+{\footnotesize\ttfamily \label{classcCompressionCouleur_aaa376db472a55340a1e12d40605d2845} 
+void c\+Compression\+Couleur\+::set\+Subsampling (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a}{jpeg\+::\+Chroma\+Subsampling}}}]{mode}{}\end{DoxyParamCaption})}
+
+
+
+Change the chroma subsampling mode applied during compression. 
+
+Modify the chroma subsampling mode. 
+
+\label{doc-variable-members}
+\Hypertarget{classcCompressionCouleur_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classcCompressionCouleur_a7370998302525beb861de2bc5086ceab}\index{cCompressionCouleur@{cCompressionCouleur}!mSubsampling@{mSubsampling}}
+\index{mSubsampling@{mSubsampling}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{mSubsampling}{mSubsampling}}
+{\footnotesize\ttfamily \label{classcCompressionCouleur_a7370998302525beb861de2bc5086ceab} 
+\mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a}{jpeg\+::\+Chroma\+Subsampling}} c\+Compression\+Couleur\+::m\+Subsampling\hspace{0.3cm}{\ttfamily [private]}}
+
+Active chroma subsampling mode. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/core/\mbox{\hyperlink{cCompressionCouleur_8h}{c\+Compression\+Couleur.\+h}}\item 
+src/core/\mbox{\hyperlink{cCompressionCouleur_8cpp}{c\+Compression\+Couleur.\+cpp}}\end{DoxyCompactItemize}

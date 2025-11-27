@@ -1,15 +1,28 @@
 <map id="src/quantification/quantification.cpp" name="src/quantification/quantification.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="171,5,313,45"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="144,5,287,45"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,93,68,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,48,81,91,79,86,192,43"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,48,76,90,74,85,171,43"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="93,93,178,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="218,48,164,87,161,83,215,43"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="202,93,282,119"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="245,46,245,79,239,79,239,46"/>
-<area shape="rect" id="Node000005" href="$quantification_8h.html" title="Quantization and helper metrics used in the JPEG pipeline." alt="" coords="306,93,522,119"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="284,43,377,85,375,90,282,48"/>
-<area shape="rect" id="Node000007" href="$cCompression_8h.html" title=" " alt="" coords="547,93,705,119"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="314,39,557,88,556,93,313,44"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="379,167,449,192"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="417,119,417,153,411,153,411,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="198,47,159,85,155,82,194,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="219,240,299,265"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="222,45,257,226,252,227,216,46"/>
+<area shape="rect" id="Node000005" href="$quantification_8h.html" title="Quantization and helper metrics used in the JPEG pipeline." alt="" coords="253,93,469,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="251,43,329,84,326,89,249,48"/>
+<area shape="rect" id="Node000007" href="$cCompression_8h.html" title=" " alt="" coords="493,93,652,119"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="287,40,508,88,507,93,286,45"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="325,167,396,192"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="363,119,363,153,358,153,358,119"/>
+<area shape="rect" id="Node000008" href="$cHuffman_8h.html" title=" " alt="" coords="501,167,599,192"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="571,120,560,154,555,153,566,118"/>
+<area shape="poly" id="edge11_Node000008_Node000004" title=" " alt="" coords="504,195,313,241,312,236,503,189"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="347,240,409,265"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="523,194,420,237,418,232,521,190"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="433,240,496,265"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="538,194,491,233,487,229,535,190"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="521,240,579,265"/>
+<area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="553,192,553,226,547,226,547,192"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="604,240,691,265"/>
+<area shape="poly" id="edge12_Node000008_Node000012" title=" " alt="" coords="567,190,622,229,619,234,564,194"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="715,240,766,265"/>
+<area shape="poly" id="edge13_Node000008_Node000013" title=" " alt="" coords="582,190,703,235,701,240,580,195"/>
 </map>

@@ -3,8 +3,7 @@
 {\ttfamily \#include "{}dct/dct.\+h"{}}\newline
 {\ttfamily \#include $<$cmath$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
-Include dependency graph for dct.\+cpp\+:
-\nopagebreak
+Include dependency graph for dct.\+cpp\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -15,9 +14,11 @@ Include dependency graph for dct.\+cpp\+:
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{dct_8cpp_aaac66b35e6dbe85d21d08606f862082d}{Calcul\+\_\+\+DCT\+\_\+\+Block}} (int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Bloc8x8, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}DCT\+\_\+\+Img)
-\item 
+\begin{DoxyCompactList}\small\item\em Compute the 2D DCT of an 8x8 block. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{dct_8cpp_ab7f82a52baba806350bbcf41a50f9db1}{Calcul\+\_\+\+IDCT\+\_\+\+Block}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}DCT\+\_\+\+Img, int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Bloc8x8)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Compute the inverse 2D DCT of an 8x8 block. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{dct_8cpp_ac829e621307408e71a8ea5d683e4da0d}{Show\+\_\+\+DCT\+\_\+\+Block}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}DCT\+\_\+\+Img)
+\begin{DoxyCompactList}\small\item\em Dump a DCT block to stdout (debug helper). \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \label{doc-func-members}
@@ -29,21 +30,22 @@ void \mbox{\hyperlink{dct_8cpp_ab7f82a52baba806350bbcf41a50f9db1}{Calcul\+\_\+\+
 {\footnotesize\ttfamily \label{dct_8cpp_aaac66b35e6dbe85d21d08606f862082d} 
 void Calcul\+\_\+\+DCT\+\_\+\+Block (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{Bloc8x8}{, }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{DCT\+\_\+\+Img}{}\end{DoxyParamCaption})}
 
+
+
 Compute the 2D DCT of an 8x8 block. 
+
+
 \begin{DoxyParams}{Parameters}
-{\em Bloc8x8} & 8x8 input block (integers, typically level-\/shifted by -\/128) \\
+{\em Bloc8x8} & 8x8 input block (integers, typically level-\/shifted by -\/128). \\
 \hline
-{\em DCT\+\_\+\+Img} & 8x8 output buffer of DCT coefficients (double) \\
+{\em DCT\+\_\+\+Img} & 8x8 output buffer of DCT coefficients (double). \\
 \hline
 \end{DoxyParams}
-Calcul la somme des produits cosinus avec les coefficients de normalisation
-
-Calcul les coefficients de normalisation Cu et CvHere is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=261pt]{dct_8cpp_aaac66b35e6dbe85d21d08606f862082d_icgraph}
+\includegraphics[width=330pt]{dct_8cpp_aaac66b35e6dbe85d21d08606f862082d_icgraph}
 \end{center}
 \end{figure}
 \Hypertarget{dct_8cpp_ab7f82a52baba806350bbcf41a50f9db1}\index{dct.cpp@{dct.cpp}!Calcul\_IDCT\_Block@{Calcul\_IDCT\_Block}}
@@ -52,22 +54,38 @@ Calcul les coefficients de normalisation Cu et CvHere is the caller graph for th
 {\footnotesize\ttfamily \label{dct_8cpp_ab7f82a52baba806350bbcf41a50f9db1} 
 void Calcul\+\_\+\+IDCT\+\_\+\+Block (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{DCT\+\_\+\+Img}{, }\item[{int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{Bloc8x8}{}\end{DoxyParamCaption})}
 
+
+
 Compute the inverse 2D DCT of an 8x8 block. 
+
+
 \begin{DoxyParams}{Parameters}
-{\em DCT\+\_\+\+Img} & 8x8 input buffer of DCT coefficients (double) \\
+{\em DCT\+\_\+\+Img} & 8x8 input buffer of DCT coefficients (double). \\
 \hline
-{\em Bloc8x8} & 8x8 output block (integers, values will be rounded/clamped by the caller) \\
+{\em Bloc8x8} & 8x8 output block (integers, values rounded by the caller). \\
 \hline
 \end{DoxyParams}
-Calcul la somme des produits cosinus avec les coefficients de normalisation
-
-Calcul les coefficients de normalisation Cu et Cv
-
-le bloc reconstruit est arrondi et multiplié par 0.\+25Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{dct_8cpp_ab7f82a52baba806350bbcf41a50f9db1_icgraph}
 \end{center}
 \end{figure}
+\Hypertarget{dct_8cpp_ac829e621307408e71a8ea5d683e4da0d}\index{dct.cpp@{dct.cpp}!Show\_DCT\_Block@{Show\_DCT\_Block}}
+\index{Show\_DCT\_Block@{Show\_DCT\_Block}!dct.cpp@{dct.cpp}}
+\doxysubsubsection{\texorpdfstring{Show\_DCT\_Block()}{Show\_DCT\_Block()}}
+{\footnotesize\ttfamily \label{dct_8cpp_ac829e621307408e71a8ea5d683e4da0d} 
+void Show\+\_\+\+DCT\+\_\+\+Block (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{DCT\+\_\+\+Img}{}\end{DoxyParamCaption})}
+
+
+
+Dump a DCT block to stdout (debug helper). 
+
+Dump DCT coefficients to stdout for debugging.
+
+
+\begin{DoxyParams}{Parameters}
+{\em DCT\+\_\+\+Img} & 8x8 input buffer of DCT coefficients (double). \\
+\hline
+\end{DoxyParams}

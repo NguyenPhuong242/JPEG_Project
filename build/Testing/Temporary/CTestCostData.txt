@@ -1,9 +1,11 @@
-testdct 3 0.000754828
-testquant 3 0.000707507
-testrle 3 0.000901275
-testhuffman 3 0.00122868
-testcompression 3 0.0144195
-testdecompression 3 0.0254301
-testpgm 3 0.00130517
-testtotal 1 0.0747965
+testdct 5 0.000454241
+testquant 5 0.000444525
+testrle 5 0.000519914
+testhuffman 5 0.000568876
+testcompression 5 0.00857158
+testdecompression 5 0.0157
+testpgm 5 0.000766313
+testtotal 3 0.024907
+testcolor 0 0
 ---
+testcolor

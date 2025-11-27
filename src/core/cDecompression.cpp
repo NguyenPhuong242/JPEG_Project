@@ -15,6 +15,7 @@
 #include "dct/dct.h"
 #include "quantification/quantification.h"
 
+/** @brief Create an empty decompressor with default quality. */
 cDecompression::cDecompression()
 {
     mLargeur = 0;
@@ -24,6 +25,13 @@ cDecompression::cDecompression()
     mOwnBuffer = false;
 }
 
+/**
+ * @brief Initialise a decompressor with explicit dimensions and buffer.
+ * @param largeur Image width in pixels.
+ * @param hauteur Image height in pixels.
+ * @param qualite Quality factor for inverse quantization.
+ * @param buffer Optional externally managed buffer.
+ */
 cDecompression::cDecompression(unsigned int largeur, unsigned int hauteur,
                                unsigned int qualite, unsigned char **buffer)
 {
@@ -34,11 +42,13 @@ cDecompression::cDecompression(unsigned int largeur, unsigned int hauteur,
     mOwnBuffer = false;
 }
 
+/** @brief Destroy the decompressor and release owned buffers. */
 cDecompression::~cDecompression()
 {
     releaseBuffer();
 }
 
+/** @brief Release the currently owned buffer, if any. */
 void cDecompression::releaseBuffer()
 {
     if (!mBuffer || !mOwnBuffer)
@@ -53,21 +63,25 @@ void cDecompression::releaseBuffer()
     mOwnBuffer = false;
 }
 
+/** @brief Update the reconstructed image width. */
 void cDecompression::setLargeur(unsigned int largeur)
 {
     mLargeur = largeur;
 }
 
+/** @brief Update the reconstructed image height. */
 void cDecompression::setHauteur(unsigned int hauteur)
 {
     mHauteur = hauteur;
 }
 
+/** @brief Update the quality factor guiding inverse quantization. */
 void cDecompression::setQualite(unsigned int qualite)
 {
     mQualite = qualite;
 }
 
+/** @brief Attach an externally managed buffer and drop any owned buffer. */
 void cDecompression::setBuffer(unsigned char **buffer)
 {
     releaseBuffer();
@@ -75,21 +89,25 @@ void cDecompression::setBuffer(unsigned char **buffer)
     mOwnBuffer = false;
 }
 
+/** @brief Return the current output width. */
 unsigned int cDecompression::getLargeur() const
 {
     return mLargeur;
 }
 
+/** @brief Return the current output height. */
 unsigned int cDecompression::getHauteur() const
 {
     return mHauteur;
 }
 
+/** @brief Return the quality factor used for dequantization. */
 unsigned int cDecompression::getQualite() const
 {
     return mQualite;
 }
 
+/** @brief Access the row buffer pointer (may be caller-owned). */
 unsigned char **cDecompression::getBuffer() const
 {
     return mBuffer;
@@ -97,6 +115,7 @@ unsigned char **cDecompression::getBuffer() const
 
 // ===== Helpers for Huffman decoding (local to this translation unit) ====
 
+/** @brief Build symbol ↔ code lookup tables from the Huffman tree. */
 static void buildCodeTables(cHuffman &h,
                             std::map<char, std::string> &codeTable,
                             std::map<std::string, char> &revTable)
@@ -122,6 +141,12 @@ static void buildCodeTables(cHuffman &h,
     rec(h.getRacine(), "");
 }
 
+/**
+ * @brief Decode a Huffman-compressed file back to an RLE byte stream.
+ * @param filename Path to the compressed file.
+ * @param h Huffman instance used for decoding.
+ * @return Recovered RLE bytes.
+ */
 static std::vector<char> HuffmanDecodeFile(const char *filename,
                                            cHuffman &h)
 {
@@ -170,6 +195,11 @@ static std::vector<char> HuffmanDecodeFile(const char *filename,
     return trame;
 }
 
+/**
+ * @brief Expand an RLE byte stream back into quantized 8x8 blocks.
+ * @param trame Input RLE byte stream.
+ * @param blocks Output container of quantized blocks.
+ */
 void cDecompression::Inverse_RLE(const std::vector<char> &trame,
                                  std::vector<std::array<std::array<int, 8>, 8>> &blocks)
 {
@@ -301,6 +331,11 @@ void cDecompression::Inverse_RLE(const std::vector<char> &trame,
     }
 }
 
+/**
+ * @brief Perform full decompression of a Huffman file into spatial pixels.
+ * @param Nom_Fichier_compresse Path to the compressed file (bitstream).
+ * @return Pointer to reconstructed image rows; nullptr on failure.
+ */
 unsigned char **cDecompression::Decompression_JPEG(const char *Nom_Fichier_compresse)
 {
     if (!Nom_Fichier_compresse)

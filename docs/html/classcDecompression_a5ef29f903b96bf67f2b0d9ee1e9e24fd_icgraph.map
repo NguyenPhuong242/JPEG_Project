@@ -1,0 +1,7 @@
+<map id="cDecompression::cDecompression" name="cDecompression::cDecompression">
+<area shape="rect" id="Node000001" title="Construct an empty decompressor." alt="" coords="241,45,488,70"/>
+<area shape="rect" id="Node000002" href="$classcDecompressionCouleur.html#ae555c1d0fb6aade7377c64922d040fba" title="Construct a color decompressor with an optional quality factor." alt="" coords="5,5,193,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="246,46,193,39,194,34,246,40"/>
+<area shape="rect" id="Node000003" href="$classcDecompressionCouleur.html#a06ad1db5973a81ea0bcb1d5935fa98bb" title="Reconstruct an RGB buffer from color codec artifacts." alt="" coords="9,69,189,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="246,74,190,81,189,76,245,69"/>
+</map>

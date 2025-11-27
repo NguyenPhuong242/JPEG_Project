@@ -1,8 +1,0 @@
-<map id="cCompression::RLE_Block" name="cCompression::RLE_Block">
-<area shape="rect" id="Node000001" title=" " alt="" coords="303,5,492,31"/>
-<area shape="rect" id="Node000002" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,21,60,21,60,15,289,15"/>
-<area shape="rect" id="Node000003" href="$classcCompression.html#ae36b8feb1f34c7013905c1fef1934245" title=" " alt="" coords="108,31,255,56"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,33,255,37,255,32,289,28"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="94,31,60,25,61,20,95,26"/>
-</map>

@@ -110,13 +110,13 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="quantification_8h__dep__incl.png" border="0" usemap="#ainclude_2quantification_2quantification_8hdep" loading="lazy" alt=""/></div>
 <map name="ainclude_2quantification_2quantification_8hdep" id="ainclude_2quantification_2quantification_8hdep">
-<area shape="rect" title="Quantization and helper metrics used in the JPEG pipeline." alt="" coords="197,5,359,45"/>
-<area shape="rect" href="cCompression_8cpp.html" title="High&#45;level helpers that glue the DCT/quantization/RLE/Huffman pipeline together for the pedagogic JPE..." alt="" coords="5,101,201,126"/>
-<area shape="poly" title=" " alt="" coords="229,54,128,103,125,98,226,49"/>
-<area shape="rect" href="main_8cpp.html" title="Small driver exercising the pedagogic JPEG pipeline implemented in this project: DCT/IDCT on 8x8 bloc..." alt="" coords="225,101,331,126"/>
-<area shape="poly" title=" " alt="" coords="281,59,281,100,275,100,275,59"/>
-<area shape="rect" href="quantification_8cpp.html" title=" " alt="" coords="355,93,497,133"/>
-<area shape="poly" title=" " alt="" coords="324,50,395,91,392,96,321,55"/>
+<area shape="rect" title="Quantization and helper metrics used in the JPEG pipeline." alt="" coords="250,5,413,45"/>
+<area shape="rect" href="cCompression_8cpp.html" title="Implementation of the cCompression class." alt="" coords="5,101,201,126"/>
+<area shape="poly" title=" " alt="" coords="270,53,135,103,133,98,268,48"/>
+<area shape="rect" href="cDecompression_8cpp.html" title=" " alt="" coords="225,101,437,126"/>
+<area shape="poly" title=" " alt="" coords="334,59,334,100,329,100,329,59"/>
+<area shape="rect" href="quantification_8cpp.html" title=" " alt="" coords="461,93,604,133"/>
+<area shape="poly" title=" " alt="" coords="389,48,490,91,488,96,387,53"/>
 </map>
 </div>
 </div>
@@ -125,10 +125,15 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a1ee936c8025fd94265e8eb192a064c4d" id="r_a1ee936c8025fd94265e8eb192a064c4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ee936c8025fd94265e8eb192a064c4d">build_Q_table</a> (int Qtab[8][8])</td></tr>
+<tr class="memdesc:a1ee936c8025fd94265e8eb192a064c4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build the 8x8 luminance quantization table for the current global quality.  <br /></td></tr>
 <tr class="memitem:a0728fb4c36f2e43ed3a843cd34b07a76" id="r_a0728fb4c36f2e43ed3a843cd34b07a76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0728fb4c36f2e43ed3a843cd34b07a76">quant_JPEG</a> (double **img_DCT, int **Img_Quant)</td></tr>
+<tr class="memdesc:a0728fb4c36f2e43ed3a843cd34b07a76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quantize one 8x8 block in the DCT domain.  <br /></td></tr>
 <tr class="memitem:ab519eb1e78250a811094c7cad0bb7ec0" id="r_ab519eb1e78250a811094c7cad0bb7ec0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab519eb1e78250a811094c7cad0bb7ec0">dequant_JPEG</a> (int **Img_Quant, double **img_DCT)</td></tr>
+<tr class="memdesc:ab519eb1e78250a811094c7cad0bb7ec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dequantize one 8x8 block back to (approximate) DCT domain.  <br /></td></tr>
 <tr class="memitem:ae3e1d54f72d1dfb35ee1c659aff58ff2" id="r_ae3e1d54f72d1dfb35ee1c659aff58ff2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3e1d54f72d1dfb35ee1c659aff58ff2">EQM</a> (int **Bloc8x8)</td></tr>
+<tr class="memdesc:ae3e1d54f72d1dfb35ee1c659aff58ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mean squared error on an 8x8 spatial block.  <br /></td></tr>
 <tr class="memitem:ab60a0995c748bc7ce306adbfcaf213b2" id="r_ab60a0995c748bc7ce306adbfcaf213b2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab60a0995c748bc7ce306adbfcaf213b2">Taux_Compression</a> (int **Bloc8x8)</td></tr>
+<tr class="memdesc:ab60a0995c748bc7ce306adbfcaf213b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compression rate heuristic: fraction of zeros in an 8x8 quantized block.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Quantization and helper metrics used in the JPEG pipeline. </p>
@@ -147,20 +152,21 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Build the 8x8 luminance quantization table for the current global quality. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Build the 8x8 luminance quantization table for the current global quality. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Qtab</td><td>output 8x8 integer quantization table</td></tr>
+    <tr><td class="paramname">Qtab</td><td>Output 8x8 integer quantization table. </td></tr>
   </table>
   </dd>
 </dl>
-<p>Build Q table for the global compressor quality. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="quantification_8h_a1ee936c8025fd94265e8eb192a064c4d_cgraph.png" border="0" usemap="#aquantification_8h_a1ee936c8025fd94265e8eb192a064c4d_cgraph" loading="lazy" alt=""/></div>
 <map name="aquantification_8h_a1ee936c8025fd94265e8eb192a064c4d_cgraph" id="aquantification_8h_a1ee936c8025fd94265e8eb192a064c4d_cgraph">
-<area shape="rect" title=" " alt="" coords="5,13,116,38"/>
-<area shape="rect" href="classcCompression.html#aa7fe57390f7e2f2532e3389dcef33889" title=" " alt="" coords="164,5,355,45"/>
+<area shape="rect" title="Build the 8x8 luminance quantization table for the current global quality." alt="" coords="5,13,116,38"/>
+<area shape="rect" href="classcCompression.html#aa7fe57390f7e2f2532e3389dcef33889" title="Read the global quality factor shared by quantification helpers." alt="" coords="164,5,355,45"/>
 <area shape="poly" title=" " alt="" coords="116,23,150,23,150,28,116,28"/>
 </map>
 </div>
@@ -185,10 +191,20 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Dequantize one 8x8 block back to (approximate) DCT domain. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Dequantize one 8x8 block back to (approximate) DCT domain. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Img_Quant</td><td>input 8x8 quantized integers </td></tr>
-    <tr><td class="paramname">img_DCT</td><td>output 8x8 dequantized DCT coefficients </td></tr>
+    <tr><td class="paramname">Img_Quant</td><td>Input 8x8 quantized integers. </td></tr>
+    <tr><td class="paramname">img_DCT</td><td>Output 8x8 dequantized DCT coefficients.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Dequantize one 8x8 block back to (approximate) DCT domain.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Img_Quant</td><td>Input quantized integers. </td></tr>
+    <tr><td class="paramname">img_DCT</td><td>Output dequantized DCT coefficients. </td></tr>
   </table>
   </dd>
 </dl>
@@ -197,8 +213,8 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="quantification_8h_ab519eb1e78250a811094c7cad0bb7ec0_cgraph.png" border="0" usemap="#aquantification_8h_ab519eb1e78250a811094c7cad0bb7ec0_cgraph" loading="lazy" alt=""/></div>
 <map name="aquantification_8h_ab519eb1e78250a811094c7cad0bb7ec0_cgraph" id="aquantification_8h_ab519eb1e78250a811094c7cad0bb7ec0_cgraph">
-<area shape="rect" title=" " alt="" coords="5,13,117,38"/>
-<area shape="rect" href="classcCompression.html#aa7fe57390f7e2f2532e3389dcef33889" title=" " alt="" coords="165,5,356,45"/>
+<area shape="rect" title="Dequantize one 8x8 block back to (approximate) DCT domain." alt="" coords="5,13,117,38"/>
+<area shape="rect" href="classcCompression.html#aa7fe57390f7e2f2532e3389dcef33889" title="Read the global quality factor shared by quantification helpers." alt="" coords="165,5,356,45"/>
 <area shape="poly" title=" " alt="" coords="117,23,152,23,152,28,117,28"/>
 </map>
 </div>
@@ -207,12 +223,11 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="quantification_8h_ab519eb1e78250a811094c7cad0bb7ec0_icgraph.png" border="0" usemap="#aquantification_8h_ab519eb1e78250a811094c7cad0bb7ec0_icgraph" loading="lazy" alt=""/></div>
 <map name="aquantification_8h_ab519eb1e78250a811094c7cad0bb7ec0_icgraph" id="aquantification_8h_ab519eb1e78250a811094c7cad0bb7ec0_icgraph">
-<area shape="rect" title=" " alt="" coords="416,31,528,56"/>
-<area shape="rect" href="classcCompression.html#a23fb296439a9a0f75209a08b86e0c589" title=" " alt="" coords="108,5,368,31"/>
-<area shape="poly" title=" " alt="" coords="402,39,355,33,356,28,403,33"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,60,56"/>
-<area shape="poly" title=" " alt="" coords="402,46,60,46,60,41,402,41"/>
-<area shape="poly" title=" " alt="" coords="122,35,61,43,60,37,121,30"/>
+<area shape="rect" title="Dequantize one 8x8 block back to (approximate) DCT domain." alt="" coords="557,13,669,38"/>
+<area shape="rect" href="classcDecompression.html#a00586e750a5193933c306f1a5e07a583" title="Perform the full JPEG&#45;like decompression pipeline." alt="" coords="233,13,509,38"/>
+<area shape="poly" title=" " alt="" coords="544,28,510,28,510,23,544,23"/>
+<area shape="rect" href="classcDecompressionCouleur.html#a06ad1db5973a81ea0bcb1d5935fa98bb" title="Reconstruct an RGB buffer from color codec artifacts." alt="" coords="5,5,185,45"/>
+<area shape="poly" title=" " alt="" coords="219,28,185,28,185,23,219,23"/>
 </map>
 </div>
 
@@ -232,13 +247,15 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Mean Squared Error on an 8x8 spatial block. Useful for per-block EQM tests. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Mean squared error on an 8x8 spatial block. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Bloc8x8</td><td>input 8x8 block in spatial domain </td></tr>
+    <tr><td class="paramname">Bloc8x8</td><td>Input 8x8 block in spatial domain. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mean squared error </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Mean squared error. </dd></dl>
 
 </div>
 </div>
@@ -260,17 +277,20 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Quantize one 8x8 block in the DCT domain. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Quantize one 8x8 block in the DCT domain. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">img_DCT</td><td>input 8x8 DCT coefficients </td></tr>
-    <tr><td class="paramname">Img_Quant</td><td>output 8x8 quantized integer coefficients</td></tr>
+    <tr><td class="paramname">img_DCT</td><td>Input 8x8 DCT coefficients. </td></tr>
+    <tr><td class="paramname">Img_Quant</td><td>Output 8x8 quantized integer coefficients.</td></tr>
   </table>
   </dd>
 </dl>
-<p>Quantize an 8x8 DCT block using the global quality. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Quantize one 8x8 block in the DCT domain.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">img_DCT</td><td>input DCT coefficients </td></tr>
-    <tr><td class="paramname">Img_Quant</td><td>output quantized integers </td></tr>
+    <tr><td class="paramname">img_DCT</td><td>Input DCT coefficients. </td></tr>
+    <tr><td class="paramname">Img_Quant</td><td>Output quantized integers. </td></tr>
   </table>
   </dd>
 </dl>
@@ -279,8 +299,8 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="quantification_8h_a0728fb4c36f2e43ed3a843cd34b07a76_cgraph.png" border="0" usemap="#aquantification_8h_a0728fb4c36f2e43ed3a843cd34b07a76_cgraph" loading="lazy" alt=""/></div>
 <map name="aquantification_8h_a0728fb4c36f2e43ed3a843cd34b07a76_cgraph" id="aquantification_8h_a0728fb4c36f2e43ed3a843cd34b07a76_cgraph">
-<area shape="rect" title=" " alt="" coords="5,13,101,38"/>
-<area shape="rect" href="classcCompression.html#aa7fe57390f7e2f2532e3389dcef33889" title=" " alt="" coords="149,5,340,45"/>
+<area shape="rect" title="Quantize one 8x8 block in the DCT domain." alt="" coords="5,13,101,38"/>
+<area shape="rect" href="classcCompression.html#aa7fe57390f7e2f2532e3389dcef33889" title="Read the global quality factor shared by quantification helpers." alt="" coords="149,5,340,45"/>
 <area shape="poly" title=" " alt="" coords="102,23,136,23,136,28,102,28"/>
 </map>
 </div>
@@ -289,9 +309,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="quantification_8h_a0728fb4c36f2e43ed3a843cd34b07a76_icgraph.png" border="0" usemap="#aquantification_8h_a0728fb4c36f2e43ed3a843cd34b07a76_icgraph" loading="lazy" alt=""/></div>
 <map name="aquantification_8h_a0728fb4c36f2e43ed3a843cd34b07a76_icgraph" id="aquantification_8h_a0728fb4c36f2e43ed3a843cd34b07a76_icgraph">
-<area shape="rect" title=" " alt="" coords="108,5,204,31"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,31"/>
-<area shape="poly" title=" " alt="" coords="94,21,60,21,60,15,94,15"/>
+<area shape="rect" title="Quantize one 8x8 block in the DCT domain." alt="" coords="200,5,296,31"/>
+<area shape="rect" href="classcCompression.html#a9965020a2ae4099448e1f22a44ea1e30" title="Concatenate all block trames into the pedagogic integer trame format." alt="" coords="5,5,152,31"/>
+<area shape="poly" title=" " alt="" coords="186,21,152,21,152,15,186,15"/>
 </map>
 </div>
 
@@ -311,13 +331,23 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Compression rate heuristic: fraction of zeros in an 8x8 quantized block. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Compression rate heuristic: fraction of zeros in an 8x8 quantized block. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Bloc8x8</td><td>quantized block </td></tr>
+    <tr><td class="paramname">Bloc8x8</td><td>Quantized block. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>fraction in [0,1] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Fraction in [0,1].</dd></dl>
+<p>Compression rate heuristic: fraction of zeros in an 8x8 quantized block.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Bloc8x8</td><td>Quantized block. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Fraction in [0,1]. </dd></dl>
 
 </div>
 </div>

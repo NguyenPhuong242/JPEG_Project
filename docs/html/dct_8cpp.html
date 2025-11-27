@@ -112,7 +112,11 @@ Include dependency graph for dct.cpp:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aaac66b35e6dbe85d21d08606f862082d" id="r_aaac66b35e6dbe85d21d08606f862082d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaac66b35e6dbe85d21d08606f862082d">Calcul_DCT_Block</a> (int **Bloc8x8, double **DCT_Img)</td></tr>
+<tr class="memdesc:aaac66b35e6dbe85d21d08606f862082d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the 2D DCT of an 8x8 block.  <br /></td></tr>
 <tr class="memitem:ab7f82a52baba806350bbcf41a50f9db1" id="r_ab7f82a52baba806350bbcf41a50f9db1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7f82a52baba806350bbcf41a50f9db1">Calcul_IDCT_Block</a> (double **DCT_Img, int **Bloc8x8)</td></tr>
+<tr class="memdesc:ab7f82a52baba806350bbcf41a50f9db1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the inverse 2D DCT of an 8x8 block.  <br /></td></tr>
+<tr class="memitem:ac829e621307408e71a8ea5d683e4da0d" id="r_ac829e621307408e71a8ea5d683e4da0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac829e621307408e71a8ea5d683e4da0d">Show_DCT_Block</a> (double **DCT_Img)</td></tr>
+<tr class="memdesc:ac829e621307408e71a8ea5d683e4da0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump a DCT block to stdout (debug helper).  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="aaac66b35e6dbe85d21d08606f862082d" name="aaac66b35e6dbe85d21d08606f862082d"></a>
@@ -133,23 +137,23 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Compute the 2D DCT of an 8x8 block. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Compute the 2D DCT of an 8x8 block. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Bloc8x8</td><td>8x8 input block (integers, typically level-shifted by -128) </td></tr>
-    <tr><td class="paramname">DCT_Img</td><td>8x8 output buffer of DCT coefficients (double) </td></tr>
+    <tr><td class="paramname">Bloc8x8</td><td>8x8 input block (integers, typically level-shifted by -128). </td></tr>
+    <tr><td class="paramname">DCT_Img</td><td>8x8 output buffer of DCT coefficients (double). </td></tr>
   </table>
   </dd>
 </dl>
-<p>Calcul la somme des produits cosinus avec les coefficients de normalisation</p>
-<p>Calcul les coefficients de normalisation Cu et Cv</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="dct_8cpp_aaac66b35e6dbe85d21d08606f862082d_icgraph.png" border="0" usemap="#adct_8cpp_aaac66b35e6dbe85d21d08606f862082d_icgraph" loading="lazy" alt=""/></div>
 <map name="adct_8cpp_aaac66b35e6dbe85d21d08606f862082d_icgraph" id="adct_8cpp_aaac66b35e6dbe85d21d08606f862082d_icgraph">
-<area shape="rect" title=" " alt="" coords="108,5,247,31"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,31"/>
-<area shape="poly" title=" " alt="" coords="94,21,60,21,60,15,94,15"/>
+<area shape="rect" title="Compute the 2D DCT of an 8x8 block." alt="" coords="200,5,339,31"/>
+<area shape="rect" href="classcCompression.html#a9965020a2ae4099448e1f22a44ea1e30" title="Concatenate all block trames into the pedagogic integer trame format." alt="" coords="5,5,152,31"/>
+<area shape="poly" title=" " alt="" coords="186,21,152,21,152,15,186,15"/>
 </map>
 </div>
 
@@ -173,29 +177,53 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Compute the inverse 2D DCT of an 8x8 block. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Compute the inverse 2D DCT of an 8x8 block. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DCT_Img</td><td>8x8 input buffer of DCT coefficients (double) </td></tr>
-    <tr><td class="paramname">Bloc8x8</td><td>8x8 output block (integers, values will be rounded/clamped by the caller) </td></tr>
+    <tr><td class="paramname">DCT_Img</td><td>8x8 input buffer of DCT coefficients (double). </td></tr>
+    <tr><td class="paramname">Bloc8x8</td><td>8x8 output block (integers, values rounded by the caller). </td></tr>
   </table>
   </dd>
 </dl>
-<p>Calcul la somme des produits cosinus avec les coefficients de normalisation</p>
-<p>Calcul les coefficients de normalisation Cu et Cv</p>
-<p>le bloc reconstruit est arrondi et multiplié par 0.25</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="dct_8cpp_ab7f82a52baba806350bbcf41a50f9db1_icgraph.png" border="0" usemap="#adct_8cpp_ab7f82a52baba806350bbcf41a50f9db1_icgraph" loading="lazy" alt=""/></div>
 <map name="adct_8cpp_ab7f82a52baba806350bbcf41a50f9db1_icgraph" id="adct_8cpp_ab7f82a52baba806350bbcf41a50f9db1_icgraph">
-<area shape="rect" title=" " alt="" coords="416,31,559,56"/>
-<area shape="rect" href="classcCompression.html#a23fb296439a9a0f75209a08b86e0c589" title=" " alt="" coords="108,5,368,31"/>
-<area shape="poly" title=" " alt="" coords="402,37,362,33,363,28,403,32"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,60,56"/>
-<area shape="poly" title=" " alt="" coords="402,46,60,46,60,41,402,41"/>
-<area shape="poly" title=" " alt="" coords="122,35,61,43,60,37,121,30"/>
+<area shape="rect" title="Compute the inverse 2D DCT of an 8x8 block." alt="" coords="557,13,700,38"/>
+<area shape="rect" href="classcDecompression.html#a00586e750a5193933c306f1a5e07a583" title="Perform the full JPEG&#45;like decompression pipeline." alt="" coords="233,13,509,38"/>
+<area shape="poly" title=" " alt="" coords="544,28,510,28,510,23,544,23"/>
+<area shape="rect" href="classcDecompressionCouleur.html#a06ad1db5973a81ea0bcb1d5935fa98bb" title="Reconstruct an RGB buffer from color codec artifacts." alt="" coords="5,5,185,45"/>
+<area shape="poly" title=" " alt="" coords="219,28,185,28,185,23,219,23"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="ac829e621307408e71a8ea5d683e4da0d" name="ac829e621307408e71a8ea5d683e4da0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac829e621307408e71a8ea5d683e4da0d">&#9670;&#160;</a></span>Show_DCT_Block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Show_DCT_Block </td>
+          <td>(</td>
+          <td class="paramtype">double **</td>          <td class="paramname"><span class="paramname"><em>DCT_Img</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dump a DCT block to stdout (debug helper). </p>
+<p>Dump DCT coefficients to stdout for debugging.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">DCT_Img</td><td>8x8 input buffer of DCT coefficients (double). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

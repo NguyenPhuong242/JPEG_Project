@@ -1,55 +1,69 @@
 # JPEG Compressor
 
-Small educational JPEG compression project (DCT + quantification) used for a programming exercise.
+Educational grayscale JPEG pipeline that showcases every major step of the codec: block extraction, 8x8 DCT, quantization, zig-zag + run-length encoding, Huffman entropy coding, and a CLI that can compress and decompress sample images.
 
-Contents
-- `include/` : public headers
-- `src/` : implementation (DCT, quantification, core)
-- `tests/` : small manual unit tests for DCT and quantification
-- `docs/` : Doxygen configuration and generated HTML in `docs/html`
+## Features
+- Baseline JPEG-style pipeline implemented in modern C++.
+- Modular headers under `include/` for reuse in other exercises.
+- CLI (`jpeg_cli`) able to compress, decompress, or run a full round trip.
+- Doxygen documentation with class and file overviews.
+- Lightweight test binaries covering DCT, quantization, Huffman, and RLE pieces.
 
-Quick build (Linux)
+## Project Layout
+```
+include/          Public headers for the core, DCT, and quantization modules
+src/              Implementations plus the CLI entry point
+tests/            Simple regression tests and fixtures (run via CTest)
+docs/             Doxygen config (`Doxyfile`) and generated output under docs/docs/
+build/            Out-of-tree CMake build products
+```
 
-Install required packages (Debian/Ubuntu):
+## Prerequisites (Debian/Ubuntu)
 ```bash
 sudo apt update
 sudo apt install build-essential cmake g++ doxygen graphviz
 ```
 
-Configure and build:
+## Build and Test
 ```bash
+# Configure & build
 cmake -S . -B build
 cmake --build build -j
-```
 
-Run unit tests (via CTest):
-```bash
+# Run unit tests
 ctest --test-dir build -V
 ```
 
-Run the demo executable (prints an example DCT block):
+## CLI Usage
+The CMake build produces `build/jpeg_cli` with three modes:
+
 ```bash
-./build/jpeg_compressor
+# Compress a PGM image into a Huffman bitstream
+./build/jpeg_cli compress --input lena.pgm --output lena.huff --quality 80
+
+# Decompress a previously generated bitstream back into a PGM
+./build/jpeg_cli decompress --input lena.huff --output lena_recon.pgm
+
+# Run the complete pipeline (compress + decompress + metrics)
+./build/jpeg_cli full --input lena.pgm --bitstream lena.huff --recon lena_recon.pgm
 ```
 
-Generate documentation
-
-The repo contains a `docs/Doxyfile`. To regenerate the Doxygen HTML documentation:
+## Documentation
+Generate or refresh the API reference with Doxygen:
 
 ```bash
-# from project root
 doxygen docs/Doxyfile
-# open generated docs
-xdg-open docs/html/index.html
+xdg-open docs/docs/html/index.html   # open the HTML entry point
 ```
 
-Notes
-- Graphs in the Doxygen output require `graphviz` (dot). If you do not want graphs, you can disable them in `docs/Doxyfile`.
-- The project is intentionally minimal and educational; it implements DCT and quantization, with helper tests referencing figures in the course "sujet" PDF.
+> Graph visualizations require `graphviz`. Disable them by flipping the relevant `HAVE_DOT` tags in `docs/Doxyfile` if you prefer faster runs.
 
-Contributing / Next steps
-- Implement zig-zag ordering and run-length encoding.
-- Add Huffman entropy coding and write a minimal valid JPEG file.
-- Add more unit tests and sample images for end-to-end validation.
+The main page of the HTML output mirrors this README, and navigation exposes the annotated headers, implementation files, and directory diagrams.
 
-Author: student project
+## Roadmap / Contributions
+1. Expand coverage for color images and chroma subsampling modes.
+2. Produce minimal valid `.jpg` files instead of the custom `.huff` bitstream.
+3. Flesh out automated unit tests and CI.
+4. Document remaining internals that still trigger Doxygen `@param` duplication warnings.
+
+Feel free to open issues or submit pull requests if you extend or fix the pipeline.

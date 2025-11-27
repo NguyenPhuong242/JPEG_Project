@@ -1,0 +1,16 @@
+<map id="deleteTree" name="deleteTree">
+<area shape="rect" id="Node000001" title="Recursively free all nodes in a Huffman tree." alt="" coords="795,79,885,104"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="873,68,864,60,840,57,820,59,810,64,808,70,813,77,809,80,803,70,806,60,819,54,840,52,866,56,876,64"/>
+<area shape="rect" id="Node000002" href="$classcHuffman.html#af4e311bc5a00f1d769db38aabe647234" title="Build the Huffman tree from symbol statistics." alt="" coords="557,29,747,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="780,78,746,69,703,57,704,52,747,63,782,73"/>
+<area shape="rect" id="Node000006" href="$classcHuffman.html#ae4bf4f86320d428b13a91b2c87c9a056" title="Set the root node of the Huffman tree." alt="" coords="573,79,731,104"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="781,94,731,94,731,89,781,89"/>
+<area shape="rect" id="Node000007" href="$classcHuffman.html#a020cbc1d60813593446b43534d038c83" title="Destructor releasing the Huffman tree." alt="" coords="569,128,735,153"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="782,109,702,130,701,125,781,104"/>
+<area shape="rect" id="Node000003" href="$classcCompression.html#aee2599c101378e562edf5e2eaed48c52" title="Run the complete JPEG&#45;like encode pipeline and persist the result." alt="" coords="249,5,493,31"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="543,35,493,31,494,26,544,30"/>
+<area shape="rect" id="Node000004" href="$classcDecompression.html#a00586e750a5193933c306f1a5e07a583" title="Perform the full JPEG&#45;like decompression pipeline." alt="" coords="233,55,509,80"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="544,54,510,57,510,52,544,49"/>
+<area shape="rect" id="Node000005" href="$classcDecompressionCouleur.html#a06ad1db5973a81ea0bcb1d5935fa98bb" title="Reconstruct an RGB buffer from color codec artifacts." alt="" coords="5,47,185,87"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="219,70,185,70,185,65,219,65"/>
+</map>

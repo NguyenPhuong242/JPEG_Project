@@ -1,0 +1,7 @@
+<map id="cCompression::storeHuffmanTable" name="cCompression::storeHuffmanTable">
+<area shape="rect" id="Node000001" title="Cache a Huffman table so decompression can reuse the latest encode table." alt="" coords="297,27,508,67"/>
+<area shape="rect" id="Node000002" href="$classcCompression.html#aee2599c101378e562edf5e2eaed48c52" title="Run the complete JPEG&#45;like encode pipeline and persist the result." alt="" coords="5,5,249,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="283,37,246,33,247,28,284,32"/>
+<area shape="rect" id="Node000003" href="$classcDecompressionCouleur.html#a06ad1db5973a81ea0bcb1d5935fa98bb" title="Reconstruct an RGB buffer from color codec artifacts." alt="" coords="37,55,217,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="284,62,218,69,217,64,283,57"/>
+</map>

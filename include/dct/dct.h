@@ -14,22 +14,22 @@
  */
 
 /**
- * Compute the 2D DCT of an 8x8 block.
- * @param Bloc8x8 8x8 input block (integers, typically level-shifted by -128)
- * @param DCT_Img 8x8 output buffer of DCT coefficients (double)
+ * @brief Compute the 2D DCT of an 8x8 block.
+ * @param Bloc8x8 8x8 input block (integers, typically level-shifted by -128).
+ * @param DCT_Img 8x8 output buffer of DCT coefficients (double).
  */
 void Calcul_DCT_Block(int **Bloc8x8, double **DCT_Img);
 
 /**
- * Compute the inverse 2D DCT of an 8x8 block.
- * @param DCT_Img 8x8 input buffer of DCT coefficients (double)
- * @param Bloc8x8 8x8 output block (integers, values will be rounded/clamped by the caller)
+ * @brief Compute the inverse 2D DCT of an 8x8 block.
+ * @param DCT_Img 8x8 input buffer of DCT coefficients (double).
+ * @param Bloc8x8 8x8 output block (integers, values will be rounded/clamped by the caller).
  */
 void Calcul_IDCT_Block(double **DCT_Img, int **Bloc8x8);
 
 /**
- * Show the dct block (for debugging)
- * @param DCT_Img 8x8 input buffer of DCT coefficients (double)
+ * @brief Dump DCT coefficients to stdout for debugging.
+ * @param DCT_Img 8x8 input buffer of DCT coefficients (double).
  */
 void Show_DCT_Block(double **DCT_Img);
 

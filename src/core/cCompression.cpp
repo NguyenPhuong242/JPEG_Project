@@ -16,8 +16,10 @@
  */
 
 /**
- * Default constructor. Initializes members to default values.
- * Sets width and height to 0, quality to 50, and buffer to nullptr.
+ * @brief Default constructor initializing members to safe defaults.
+ *
+ * Width/height start at zero, quality defaults to 50, and the buffer pointer
+ * is nulled until an image is attached.
  */
 cCompression::cCompression()
 {
@@ -28,11 +30,11 @@ cCompression::cCompression()
 }
 
 /**
- * Construct a compressor tied to an image size and optional quality.
- * @param largeur image width
- * @param hauteur image height
- * @param qualite initial quality (0-100, JPEG-style)
- * @param buffer optional image buffer (row pointers). If nullptr, no image is owned.
+ * @brief Construct a compressor tied to image dimensions and optional buffer.
+ * @param largeur Image width in pixels.
+ * @param hauteur Image height in pixels.
+ * @param qualite Quality factor in [0,100].
+ * @param buffer Optional image buffer (row pointers). Ownership stays with caller.
  */
 cCompression::cCompression(unsigned int largeur, unsigned int hauteur, unsigned int qualite, unsigned char **buffer)
 {
@@ -41,19 +43,15 @@ cCompression::cCompression(unsigned int largeur, unsigned int hauteur, unsigned 
     this->mQualite = qualite;
     this->mBuffer = buffer;
 }
-/**
- * Destructor.
- */
+/** @brief Destructor; no ownership unless a buffer was attached explicitly. */
 cCompression::~cCompression()
 {
 }
 
-/**
- * Setters for image dimensions and quality.
- * @param largeur image width
- * @param hauteur image height
- * @param qualite quality (0-100)
- */
+/** @brief Set the image width managed by the compressor. */
+/** @brief Set the image height managed by the compressor. */
+/** @brief Set the per-instance quality factor. */
+/** @brief Attach a caller-provided row buffer (no copy performed). */
 void cCompression::setLargeur(unsigned int largeur)
 {
     this->mLargeur = largeur;
@@ -74,10 +72,10 @@ void cCompression::setBuffer(unsigned char **buffer)
     this->mBuffer = buffer;
 }
 
-/**
- * Getters for image dimensions and quality.
- * @return corresponding member value
- */
+/** @brief Read back the configured image width. */
+/** @brief Read back the configured image height. */
+/** @brief Read the per-instance quality factor. */
+/** @brief Access the attached row buffer pointer (may be nullptr). */
 unsigned int cCompression::getLargeur() const
 {
     return this->mLargeur;
@@ -98,17 +96,18 @@ unsigned char **cCompression::getBuffer() const
     return this->mBuffer;
 }
 
-/**
- * Getters and setters for the global quality parameter used by quantification helpers.
- */
+/** @brief Global quality parameter backing quantization helpers. */
 static unsigned int gQualiteGlobale = 50;
+/** @brief Cached Huffman symbols from the most recent encode. */
 static char   gHuffSymbols[256];
+/** @brief Cached Huffman frequencies from the most recent encode. */
 static double gHuffFreqs[256];
+/** @brief Number of cached Huffman entries. */
 static unsigned int gHuffCount = 0;
 
 /**
- * Get the global quality parameter.
- * @return current global quality (1..100)
+ * @brief Get the process-wide quality parameter used in quantization helpers.
+ * @return Global quality clamped to [1,100].
  */
 unsigned int cCompression::getQualiteGlobale()
 {
@@ -116,8 +115,8 @@ unsigned int cCompression::getQualiteGlobale()
 }
 
 /**
- * Set the global quality parameter.
- * @param qualite new global quality (clamped to 1..100)
+ * @brief Set the process-wide quality parameter used in quantization helpers.
+ * @param qualite Desired quality; internally clamped to [1,100].
  */
 void cCompression::setQualiteGlobale(unsigned int qualite)
 {
@@ -129,6 +128,12 @@ void cCompression::setQualiteGlobale(unsigned int qualite)
     gQualiteGlobale = qualite;
 }
 
+/**
+ * @brief Persist a Huffman table so future encode/decode stages can reuse it.
+ * @param symbols Input symbol array.
+ * @param frequencies Input frequency array.
+ * @param count Number of valid entries in the arrays.
+ */
 void cCompression::storeHuffmanTable(const char *symbols, const double *frequencies, unsigned int count)
 {
     if (!symbols || !frequencies) {
@@ -144,6 +149,13 @@ void cCompression::storeHuffmanTable(const char *symbols, const double *frequenc
     }
 }
 
+/**
+ * @brief Retrieve the cached Huffman table, if available.
+ * @param symbols Output buffer for symbols (must have capacity for cached data).
+ * @param frequencies Output buffer for frequencies.
+ * @param count Receives the number of entries copied.
+ * @return true when a table was available and copied.
+ */
 bool cCompression::loadHuffmanTable(char *symbols, double *frequencies, unsigned int &count)
 {
     if (!symbols || !frequencies || gHuffCount == 0) {
@@ -159,15 +171,16 @@ bool cCompression::loadHuffmanTable(char *symbols, double *frequencies, unsigned
     return true;
 }
 
+/** @brief Indicate whether a Huffman table is currently cached. */
 bool cCompression::hasStoredHuffmanTable()
 {
     return gHuffCount != 0;
 }
 
 /**
- * Encode a single 8x8 quantized block with run-length encoding (RLE).
- * This version does NOT rely on a static zigzag table — it computes
- * zigzag traversal dynamically.
+ * @brief Encode a single quantized 8x8 block using run-length encoding.
+ *
+ * Zigzag traversal is generated on the fly so no static table is required.
  */
 void cCompression::RLE_Block(int **Img_Quant, int DC_precedent, signed char *Trame)
 {
@@ -262,11 +275,8 @@ void cCompression::RLE_Block(int **Img_Quant, int DC_precedent, signed char *Tra
 }
 
 /**
- * Concatenate block trames of the whole image into an integer trame.
- * The pedagogic convention used here stores the concatenated byte count
- * in Trame[0] and the bytes in Trame[1..N]. This is a convenience
- * wrapper matching the exercise's expected signature.
- * @param Trame integer buffer provided by caller
+ * @brief Concatenate every block RLE stream into the pedagogic integer trame.
+ * @param Trame Caller-provided integer buffer receiving length + data bytes.
  */
 void cCompression::RLE(signed int *Trame)
 {
@@ -344,6 +354,14 @@ void cCompression::RLE(signed int *Trame)
     }
 }
 
+/**
+ * @brief Compute the symbol histogram for an RLE byte stream.
+ * @param Trame Input byte stream.
+ * @param Longueur_Trame Number of bytes in @p Trame.
+ * @param Donnee Output array receiving distinct symbols.
+ * @param Frequence Output array receiving counts per symbol.
+ * @return Number of unique symbols discovered.
+ */
 unsigned int cCompression::Histogramme(char *Trame, unsigned int Longueur_Trame, char *Donnee, double *Frequence)
 {
     if (!Trame || !Donnee || !Frequence)
@@ -373,6 +391,11 @@ unsigned int cCompression::Histogramme(char *Trame, unsigned int Longueur_Trame,
     return nbSymboles;
 }
 
+/**
+ * @brief Execute the full JPEG-like compression and write the bitstream to disk.
+ * @param Trame_RLE Integer trame produced by RLE().
+ * @param Nom_Fichier Destination filename.
+ */
 void cCompression::Compression_JPEG(int *Trame_RLE, const char *Nom_Fichier)
 {
     if (!Trame_RLE || !Nom_Fichier)

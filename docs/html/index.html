@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.14.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>JPEG Compressor: Main Page</title>
+<title>JPEG Compressor: JPEG Compressor</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,10 +87,70 @@ $(function(){initNavTree('index.html','',''); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">JPEG Compressor Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">JPEG Compressor </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a></p>
+<p>Educational grayscale JPEG pipeline that showcases every major step of the codec: block extraction, 8x8 DCT, quantization, zig-zag + run-length encoding, Huffman entropy coding, and a CLI that can compress and decompress sample images.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
+Features</h1>
+<ul>
+<li>Baseline JPEG-style pipeline implemented in modern C++.</li>
+<li>Modular headers under <span class="tt">include/</span> for reuse in other exercises.</li>
+<li>CLI (<span class="tt">jpeg_cli</span>) able to compress, decompress, or run a full round trip.</li>
+<li>Doxygen documentation with class and file overviews.</li>
+<li>Lightweight test binaries covering DCT, quantization, Huffman, and RLE pieces.</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
+Project Layout</h1>
+<div class="fragment"><div class="line">include/          Public headers for the core, DCT, and quantization modules</div>
+<div class="line">src/              Implementations plus the CLI entry point</div>
+<div class="line">tests/            Simple regression tests and fixtures (run via CTest)</div>
+<div class="line">docs/             Doxygen config (`Doxyfile`) and generated output under docs/docs/</div>
+<div class="line">build/            Out-of-tree CMake build products</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+Prerequisites (Debian/Ubuntu)</h1>
+<div class="fragment"><div class="line">sudo apt update</div>
+<div class="line">sudo apt install build-essential cmake g++ doxygen graphviz</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
+Build and Test</h1>
+<div class="fragment"><div class="line"># Configure &amp; build</div>
+<div class="line">cmake -S . -B build</div>
+<div class="line">cmake --build build -j</div>
+<div class="line"> </div>
+<div class="line"># Run unit tests</div>
+<div class="line">ctest --test-dir build -V</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+CLI Usage</h1>
+<p>The CMake build produces <span class="tt">build/jpeg_cli</span> with three modes:</p>
+<div class="fragment"><div class="line"># Compress a PGM image into a Huffman bitstream</div>
+<div class="line">./build/jpeg_cli compress --input lena.pgm --output lena.huff --quality 80</div>
+<div class="line"> </div>
+<div class="line"># Decompress a previously generated bitstream back into a PGM</div>
+<div class="line">./build/jpeg_cli decompress --input lena.huff --output lena_recon.pgm</div>
+<div class="line"> </div>
+<div class="line"># Run the complete pipeline (compress + decompress + metrics)</div>
+<div class="line">./build/jpeg_cli full --input lena.pgm --bitstream lena.huff --recon lena_recon.pgm</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
+Documentation</h1>
+<p>Generate or refresh the API reference with Doxygen:</p>
+<div class="fragment"><div class="line">doxygen docs/Doxyfile</div>
+<div class="line">xdg-open docs/docs/html/index.html   # open the HTML entry point</div>
+</div><!-- fragment --><blockquote class="doxtable">
+<p>Graph visualizations require <span class="tt">graphviz</span>. Disable them by flipping the relevant <span class="tt">HAVE_DOT</span> tags in <span class="tt">docs/Doxyfile</span> if you prefer faster runs. </p>
+</blockquote>
+<p>The main page of the HTML output mirrors this README, and navigation exposes the annotated headers, implementation files, and directory diagrams.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
+Roadmap / Contributions</h1>
+<ol type="1">
+<li>Expand coverage for color images and chroma subsampling modes.</li>
+<li>Produce minimal valid <span class="tt">.jpg</span> files instead of the custom <span class="tt">.huff</span> bitstream.</li>
+<li>Flesh out automated unit tests and CI.</li>
+<li>Document remaining internals that still trigger Doxygen <span class="tt">@param</span> duplication warnings.</li>
+</ol>
+<p>Feel free to open issues or submit pull requests if you extend or fix the pipeline. </p>
+</div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['_7eccompression_0',['~cCompression',['../classcCompression.html#a9bc895fb3efd36315891b6e179f09c87',1,'cCompression']]],
-  ['_7echuffman_1',['~cHuffman',['../classcHuffman.html#a020cbc1d60813593446b43534d038c83',1,'cHuffman']]]
+  ['prerequisites_20debian_20ubuntu_0',['Prerequisites (Debian/Ubuntu)',['../index.html#autotoc_md3',1,'']]],
+  ['printcodesrec_1',['printCodesRec',['../cHuffman_8cpp.html#a116f487d7d387194157da75a394105dc',1,'cHuffman.cpp']]],
+  ['project_20layout_2',['Project Layout',['../index.html#autotoc_md2',1,'']]]
 ];

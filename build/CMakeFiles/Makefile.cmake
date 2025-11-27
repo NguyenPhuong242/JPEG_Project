@@ -42,6 +42,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/jpeg_core.dir/DependInfo.cmake"
+  "CMakeFiles/jpeg_cli.dir/DependInfo.cmake"
   "tests/CMakeFiles/testdct.dir/DependInfo.cmake"
   "tests/CMakeFiles/testquant.dir/DependInfo.cmake"
   "tests/CMakeFiles/testrle.dir/DependInfo.cmake"
@@ -50,4 +51,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "tests/CMakeFiles/testdecompression.dir/DependInfo.cmake"
   "tests/CMakeFiles/testpgm.dir/DependInfo.cmake"
   "tests/CMakeFiles/testtotal.dir/DependInfo.cmake"
+  "tests/CMakeFiles/testcolor.dir/DependInfo.cmake"
   )

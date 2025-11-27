@@ -1,0 +1,40 @@
+\doxysection{include/core/\+Color\+Codec\+Common.h File Reference}
+\hypertarget{ColorCodecCommon_8h}{}\label{ColorCodecCommon_8h}\index{include/core/ColorCodecCommon.h@{include/core/ColorCodecCommon.h}}
+{\ttfamily \#include $<$cstdint$>$}\newline
+Include dependency graph for Color\+Codec\+Common.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{ColorCodecCommon_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ColorCodecCommon_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacejpeg}{jpeg}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472a}{jpeg\+::\+Chroma\+Subsampling}} \+: std\+::uint32\+\_\+t \{ \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aa7a255d8e8e9b13ab248cbee828a1943b}{jpeg\+::\+Sampling444}} = 0
+, \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aa379898b0d9e99d69d4712a384efb8e55}{jpeg\+::\+Sampling422}} = 1
+, \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aaa3948a41b16f3e559cdec58cc8d01ee3}{jpeg\+::\+Sampling420}} = 2
+, \mbox{\hyperlink{namespacejpeg_a5e21083ede390f5e7957bbad4c86472aac7113bc575fb32a557e4372d377368af}{jpeg\+::\+Sampling411}} = 3
+ \}
+\begin{DoxyCompactList}\small\item\em Chroma subsampling patterns supported by the color codec. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr std\+::uint32\+\_\+t \mbox{\hyperlink{namespacejpeg_aeb9c57e5dc068adea308a6ddb98f58bb}{jpeg\+::k\+Color\+Meta\+Magic}} = 0x59434330
+\begin{DoxyCompactList}\small\item\em File signature for color metadata sidecar files (\textquotesingle{}YCC0\textquotesingle{}). \end{DoxyCompactList}\item 
+constexpr std\+::uint32\+\_\+t \mbox{\hyperlink{namespacejpeg_aa0f7b14623b959abd09816c63f3aa197}{jpeg\+::k\+Color\+Meta\+Version}} = 1
+\begin{DoxyCompactList}\small\item\em Version number of the serialized metadata layout. \end{DoxyCompactList}\item 
+constexpr std\+::uint32\+\_\+t \mbox{\hyperlink{namespacejpeg_a024791d142132f19a7ce183e9a8af4e1}{jpeg\+::k\+Expected\+Channel\+Count}} = 3
+\begin{DoxyCompactList}\small\item\em Expected number of channels present in the metadata (Y, Cb, Cr). \end{DoxyCompactList}\end{DoxyCompactItemize}

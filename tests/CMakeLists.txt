@@ -37,3 +37,8 @@ add_executable(testtotal test_total.cpp)
 target_include_directories(testtotal PRIVATE ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(testtotal PRIVATE jpeg_core)
 add_test(NAME testtotal COMMAND testtotal)
+
+add_executable(testcolor test_color.cpp)
+target_include_directories(testcolor PRIVATE ${PROJECT_SOURCE_DIR}/include)
+target_link_libraries(testcolor PRIVATE jpeg_core)
+add_test(NAME testcolor COMMAND testcolor)

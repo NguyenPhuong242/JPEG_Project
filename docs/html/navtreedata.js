@@ -25,10 +25,25 @@
 var NAVTREE =
 [
   [ "JPEG Compressor", "index.html", [
-    [ "JPEG Compressor", "md_README.html", null ],
+    [ "Features", "index.html#autotoc_md1", null ],
+    [ "Project Layout", "index.html#autotoc_md2", null ],
+    [ "Prerequisites (Debian/Ubuntu)", "index.html#autotoc_md3", null ],
+    [ "Build and Test", "index.html#autotoc_md4", null ],
+    [ "CLI Usage", "index.html#autotoc_md5", null ],
+    [ "Documentation", "index.html#autotoc_md6", null ],
+    [ "Roadmap / Contributions", "index.html#autotoc_md7", null ],
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Variables", "namespacemembers_vars.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ]
+      ] ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
@@ -39,8 +54,7 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", null ]
+        [ "Functions", "globals_func.html", null ]
       ] ]
     ] ]
   ] ]
@@ -48,7 +62,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"ColorCodecCommon_8h.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

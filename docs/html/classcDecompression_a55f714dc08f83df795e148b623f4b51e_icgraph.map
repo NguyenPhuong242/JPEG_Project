@@ -1,0 +1,11 @@
+<map id="cDecompression::releaseBuffer" name="cDecompression::releaseBuffer">
+<area shape="rect" id="Node000001" title="Release the owned buffer when the instance manages memory." alt="" coords="557,62,783,87"/>
+<area shape="rect" id="Node000002" href="$classcDecompression.html#a00586e750a5193933c306f1a5e07a583" title="Perform the full JPEG&#45;like decompression pipeline." alt="" coords="233,13,509,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="579,62,449,41,450,35,580,57"/>
+<area shape="rect" id="Node000004" href="$classcDecompression.html#aea6c8135cd31079251cd9e71d768d223" title="Attach a row buffer managed by the caller." alt="" coords="273,62,470,87"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="544,77,470,77,470,72,544,72"/>
+<area shape="rect" id="Node000005" href="$classcDecompression.html#a559edd2feec4f655611482b36c31bef0" title="Destroy the instance and release owned memory." alt="" coords="243,111,500,137"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="580,92,450,114,449,109,579,87"/>
+<area shape="rect" id="Node000003" href="$classcDecompressionCouleur.html#a06ad1db5973a81ea0bcb1d5935fa98bb" title="Reconstruct an RGB buffer from color codec artifacts." alt="" coords="5,5,185,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="219,28,185,28,185,23,219,23"/>
+</map>

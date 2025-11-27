@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/jpeg_cli.dir/src/main.cpp.o -o jpeg_cli  libjpeg_core.a 

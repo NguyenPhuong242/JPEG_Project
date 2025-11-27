@@ -1,0 +1,5 @@
+<map id="cCompressionCouleur::compressRGB" name="cCompressionCouleur::compressRGB">
+<area shape="rect" id="Node000001" title="Compress an RGB buffer and write per&#45;channel artifacts to disk." alt="" coords="5,5,169,45"/>
+<area shape="rect" id="Node000002" href="$classcCompression.html#a2674e4a02b0f39da23681071f7055e58" title="Return per&#45;instance quality factor." alt="" coords="217,13,408,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,23,204,23,204,28,170,28"/>
+</map>

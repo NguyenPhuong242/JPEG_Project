@@ -1,0 +1,5 @@
+<map id="cCompression::RLE_Block" name="cCompression::RLE_Block">
+<area shape="rect" id="Node000001" title="Encode a single quantized block to RLE bytes." alt="" coords="200,5,389,31"/>
+<area shape="rect" id="Node000002" href="$classcCompression.html#a9965020a2ae4099448e1f22a44ea1e30" title="Concatenate all block trames into the pedagogic integer trame format." alt="" coords="5,5,152,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,21,152,21,152,15,186,15"/>
+</map>

@@ -111,15 +111,32 @@ Collaboration diagram for cHuffman:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a7063970c53ebf961e6c564bb67ec418b" id="r_a7063970c53ebf961e6c564bb67ec418b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7063970c53ebf961e6c564bb67ec418b">cHuffman</a> ()</td></tr>
+<tr class="memdesc:a7063970c53ebf961e6c564bb67ec418b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <br /></td></tr>
 <tr class="memitem:aedbe1b84c39077d6ddce8f10523355ea" id="r_aedbe1b84c39077d6ddce8f10523355ea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aedbe1b84c39077d6ddce8f10523355ea">cHuffman</a> (char *trame, unsigned int longueur)</td></tr>
+<tr class="memdesc:aedbe1b84c39077d6ddce8f10523355ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct with an optional raw trame buffer.  <br /></td></tr>
 <tr class="memitem:a020cbc1d60813593446b43534d038c83" id="r_a020cbc1d60813593446b43534d038c83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a020cbc1d60813593446b43534d038c83">~cHuffman</a> ()</td></tr>
+<tr class="memdesc:a020cbc1d60813593446b43534d038c83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor releasing the Huffman tree.  <br /></td></tr>
 <tr class="memitem:a8302add3dc2dff75e99a49e466ce59fb" id="r_a8302add3dc2dff75e99a49e466ce59fb"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8302add3dc2dff75e99a49e466ce59fb">getTrame</a> () const</td></tr>
+<tr class="memdesc:a8302add3dc2dff75e99a49e466ce59fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the raw trame buffer.  <br /></td></tr>
 <tr class="memitem:a2d3c3a51a3dd800b1b26f978b9f1ebf2" id="r_a2d3c3a51a3dd800b1b26f978b9f1ebf2"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d3c3a51a3dd800b1b26f978b9f1ebf2">getLongueur</a> () const</td></tr>
+<tr class="memdesc:a2d3c3a51a3dd800b1b26f978b9f1ebf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the length of the raw trame buffer.  <br /></td></tr>
 <tr class="memitem:a041f14899f93a627a8246efb1d54a52e" id="r_a041f14899f93a627a8246efb1d54a52e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsNoeud.html">sNoeud</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a041f14899f93a627a8246efb1d54a52e">getRacine</a> () const</td></tr>
+<tr class="memdesc:a041f14899f93a627a8246efb1d54a52e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the root of the Huffman tree.  <br /></td></tr>
 <tr class="memitem:afe4efb5d1cb9c8291942cb4dbf21a645" id="r_afe4efb5d1cb9c8291942cb4dbf21a645"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe4efb5d1cb9c8291942cb4dbf21a645">setTrame</a> (char *trame, unsigned int longueur)</td></tr>
+<tr class="memdesc:afe4efb5d1cb9c8291942cb4dbf21a645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace the raw trame buffer and its length.  <br /></td></tr>
 <tr class="memitem:ae4bf4f86320d428b13a91b2c87c9a056" id="r_ae4bf4f86320d428b13a91b2c87c9a056"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae4bf4f86320d428b13a91b2c87c9a056">setRacine</a> (<a class="el" href="structsNoeud.html">sNoeud</a> *racine)</td></tr>
+<tr class="memdesc:ae4bf4f86320d428b13a91b2c87c9a056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the root node of the Huffman tree.  <br /></td></tr>
 <tr class="memitem:af4e311bc5a00f1d769db38aabe647234" id="r_af4e311bc5a00f1d769db38aabe647234"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4e311bc5a00f1d769db38aabe647234">HuffmanCodes</a> (char *Donnee, double *Frequence, unsigned int Taille)</td></tr>
-<tr class="memitem:a017d9f63b21fb7945c773817cf789290" id="r_a017d9f63b21fb7945c773817cf789290"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a017d9f63b21fb7945c773817cf789290">AfficherHuffman</a> (<a class="el" href="structsNoeud.html">sNoeud</a> *Racine, std::string code=&quot;&quot;)</td></tr>
+<tr class="memdesc:af4e311bc5a00f1d769db38aabe647234"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build the Huffman tree from symbol statistics.  <br /></td></tr>
+<tr class="memitem:ab3a03144eb4a4d3e3ee69dc30cddd918" id="r_ab3a03144eb4a4d3e3ee69dc30cddd918"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3a03144eb4a4d3e3ee69dc30cddd918">AfficherHuffman</a> (<a class="el" href="structsNoeud.html">sNoeud</a> *Racine)</td></tr>
+<tr class="memdesc:ab3a03144eb4a4d3e3ee69dc30cddd918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the binary code for each symbol starting from <code class="param">Racine</code>.  <br /></td></tr>
+<tr class="memitem:ab001fac32fc01a08c38cfd35f1cfce2d" id="r_ab001fac32fc01a08c38cfd35f1cfce2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab001fac32fc01a08c38cfd35f1cfce2d">BuildTableCodes</a> (std::map&lt; char, std::string &gt; &amp;table)</td></tr>
+<tr class="memdesc:ab001fac32fc01a08c38cfd35f1cfce2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populate a lookup table mapping symbols to Huffman codes.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a92feaae6752e2151a6ae6c0da86244b7" id="r_a92feaae6752e2151a6ae6c0da86244b7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92feaae6752e2151a6ae6c0da86244b7">buildHuffmanCodeTable</a> (<a class="el" href="classcHuffman.html">cHuffman</a> &amp;h, std::map&lt; char, std::string &gt; &amp;codeTable, std::map&lt; std::string, char &gt; &amp;revTable)</td></tr>
+<tr class="memitem:adb7054bd9be02909efccde7f748a5708" id="r_adb7054bd9be02909efccde7f748a5708"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb7054bd9be02909efccde7f748a5708">HuffmanDecodeFile</a> (const char *filename, <a class="el" href="classcHuffman.html">cHuffman</a> &amp;h)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -146,6 +163,21 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Default constructor. </p>
+<p>Default constructor, initialises members to null. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcHuffman_a7063970c53ebf961e6c564bb67ec418b_icgraph.png" border="0" usemap="#aclasscHuffman_a7063970c53ebf961e6c564bb67ec418b_icgraph" loading="lazy" alt=""/></div>
+<map name="aclasscHuffman_a7063970c53ebf961e6c564bb67ec418b_icgraph" id="aclasscHuffman_a7063970c53ebf961e6c564bb67ec418b_icgraph">
+<area shape="rect" title="Default constructor." alt="" coords="275,42,431,67"/>
+<area shape="rect" href="classcHuffman.html#a92feaae6752e2151a6ae6c0da86244b7" title=" " alt="" coords="9,5,223,45"/>
+<area shape="poly" title=" " alt="" coords="260,46,223,41,224,36,261,41"/>
+<area shape="rect" href="classcHuffman.html#adb7054bd9be02909efccde7f748a5708" title=" " alt="" coords="5,70,227,95"/>
+<area shape="poly" title=" " alt="" coords="261,68,224,73,223,67,260,63"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="aedbe1b84c39077d6ddce8f10523355ea" name="aedbe1b84c39077d6ddce8f10523355ea"></a>
@@ -167,6 +199,18 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Construct with an optional raw trame buffer. </p>
+<p>Construct the helper with an optional raw trame buffer.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trame</td><td>Optional raw trame buffer. </td></tr>
+    <tr><td class="paramname">longueur</td><td>Number of bytes inside <code class="param">trame</code>.</td></tr>
+    <tr><td class="paramname">trame</td><td>Pointer to raw data (not owned). </td></tr>
+    <tr><td class="paramname">longueur</td><td>Number of bytes referenced by <code class="param">trame</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a020cbc1d60813593446b43534d038c83" name="a020cbc1d60813593446b43534d038c83"></a>
@@ -184,11 +228,25 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Destructor releasing the Huffman tree. </p>
+<p>Destructor releases the current Huffman tree (but not mtrame). </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcHuffman_a020cbc1d60813593446b43534d038c83_cgraph.png" border="0" usemap="#aclasscHuffman_a020cbc1d60813593446b43534d038c83_cgraph" loading="lazy" alt=""/></div>
+<map name="aclasscHuffman_a020cbc1d60813593446b43534d038c83_cgraph" id="aclasscHuffman_a020cbc1d60813593446b43534d038c83_cgraph">
+<area shape="rect" title="Destructor releasing the Huffman tree." alt="" coords="5,29,172,55"/>
+<area shape="rect" href="cHuffman_8cpp.html#a24a84fde39db5599f3775a435aed0f50" title="Recursively free all nodes in a Huffman tree." alt="" coords="220,29,311,55"/>
+<area shape="poly" title=" " alt="" coords="172,39,206,39,206,45,172,45"/>
+<area shape="poly" title=" " alt="" coords="236,31,230,21,233,11,245,5,265,3,290,6,300,15,296,19,287,11,265,8,247,10,237,15,235,20,240,28"/>
+</map>
+</div>
+
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a017d9f63b21fb7945c773817cf789290" name="a017d9f63b21fb7945c773817cf789290"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a017d9f63b21fb7945c773817cf789290">&#9670;&#160;</a></span>AfficherHuffman()</h2>
+<a id="ab3a03144eb4a4d3e3ee69dc30cddd918" name="ab3a03144eb4a4d3e3ee69dc30cddd918"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3a03144eb4a4d3e3ee69dc30cddd918">&#9670;&#160;</a></span>AfficherHuffman()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,40 +254,109 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void cHuffman::AfficherHuffman </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structsNoeud.html">sNoeud</a> *</td>          <td class="paramname"><span class="paramname"><em>Racine</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structsNoeud.html">sNoeud</a> *</td>          <td class="paramname"><span class="paramname"><em>Racine</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>code</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Print the Huffman tree codes by traversing from the given root. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Print the binary code for each symbol starting from <code class="param">Racine</code>. </p>
+<p>Print all Huffman codes starting from the provided root.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Racine</td><td>node to start from (usually the tree root) </td></tr>
-    <tr><td class="paramname">code</td><td>current code string accumulated during recursion </td></tr>
+    <tr><td class="paramname">Racine</td><td>Node to traverse (defaults to the tree root). </td></tr>
   </table>
   </dd>
 </dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classcHuffman_a017d9f63b21fb7945c773817cf789290_cgraph.png" border="0" usemap="#aclasscHuffman_a017d9f63b21fb7945c773817cf789290_cgraph" loading="lazy" alt=""/></div>
-<map name="aclasscHuffman_a017d9f63b21fb7945c773817cf789290_cgraph" id="aclasscHuffman_a017d9f63b21fb7945c773817cf789290_cgraph">
-<area shape="rect" title=" " alt="" coords="5,29,204,55"/>
-<area shape="poly" title=" " alt="" coords="72,31,65,21,69,11,82,5,105,3,132,6,143,15,140,19,130,11,105,8,84,10,73,15,70,20,76,28"/>
+<div class="center"><img src="classcHuffman_ab3a03144eb4a4d3e3ee69dc30cddd918_cgraph.png" border="0" usemap="#aclasscHuffman_ab3a03144eb4a4d3e3ee69dc30cddd918_cgraph" loading="lazy" alt=""/></div>
+<map name="aclasscHuffman_ab3a03144eb4a4d3e3ee69dc30cddd918_cgraph" id="aclasscHuffman_ab3a03144eb4a4d3e3ee69dc30cddd918_cgraph">
+<area shape="rect" title="Print the binary code for each symbol starting from Racine." alt="" coords="5,29,204,55"/>
+<area shape="rect" href="cHuffman_8cpp.html#a116f487d7d387194157da75a394105dc" title="Recursively print codes for each leaf node." alt="" coords="252,29,368,55"/>
+<area shape="poly" title=" " alt="" coords="204,39,238,39,238,45,204,45"/>
+<area shape="poly" title=" " alt="" coords="276,31,269,21,273,11,287,5,310,3,339,6,350,15,347,20,336,11,310,8,288,10,277,15,274,20,280,28"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="a92feaae6752e2151a6ae6c0da86244b7" name="a92feaae6752e2151a6ae6c0da86244b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92feaae6752e2151a6ae6c0da86244b7">&#9670;&#160;</a></span>buildHuffmanCodeTable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cHuffman::buildHuffmanCodeTable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcHuffman.html">cHuffman</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::map&lt; char, std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>codeTable</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::map&lt; std::string, char &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>revTable</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcHuffman_a92feaae6752e2151a6ae6c0da86244b7_cgraph.png" border="0" usemap="#aclasscHuffman_a92feaae6752e2151a6ae6c0da86244b7_cgraph" loading="lazy" alt=""/></div>
+<map name="aclasscHuffman_a92feaae6752e2151a6ae6c0da86244b7_cgraph" id="aclasscHuffman_a92feaae6752e2151a6ae6c0da86244b7_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,220,45"/>
+<area shape="rect" href="classcHuffman.html#a7063970c53ebf961e6c564bb67ec418b" title="Default constructor." alt="" coords="268,13,424,38"/>
+<area shape="poly" title=" " alt="" coords="220,23,254,23,254,28,220,28"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ab001fac32fc01a08c38cfd35f1cfce2d" name="ab001fac32fc01a08c38cfd35f1cfce2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab001fac32fc01a08c38cfd35f1cfce2d">&#9670;&#160;</a></span>BuildTableCodes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cHuffman::BuildTableCodes </td>
+          <td>(</td>
+          <td class="paramtype">std::map&lt; char, std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>table</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Populate a lookup table mapping symbols to Huffman codes. </p>
+<p>Generate the code table from the built Huffman tree.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">table</td><td>Output map (symbol -&gt; binary code). </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classcHuffman_a017d9f63b21fb7945c773817cf789290_icgraph.png" border="0" usemap="#aclasscHuffman_a017d9f63b21fb7945c773817cf789290_icgraph" loading="lazy" alt=""/></div>
-<map name="aclasscHuffman_a017d9f63b21fb7945c773817cf789290_icgraph" id="aclasscHuffman_a017d9f63b21fb7945c773817cf789290_icgraph">
-<area shape="rect" title=" " alt="" coords="108,29,307,55"/>
-<area shape="poly" title=" " alt="" coords="238,19,229,11,207,8,189,10,180,15,178,20,183,28,178,31,172,21,176,11,188,5,207,3,231,6,241,15"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,29,60,55"/>
-<area shape="poly" title=" " alt="" coords="94,45,60,45,60,39,94,39"/>
+<div class="center"><img src="classcHuffman_ab001fac32fc01a08c38cfd35f1cfce2d_icgraph.png" border="0" usemap="#aclasscHuffman_ab001fac32fc01a08c38cfd35f1cfce2d_icgraph" loading="lazy" alt=""/></div>
+<map name="aclasscHuffman_ab001fac32fc01a08c38cfd35f1cfce2d_icgraph" id="aclasscHuffman_ab001fac32fc01a08c38cfd35f1cfce2d_icgraph">
+<area shape="rect" title="Populate a lookup table mapping symbols to Huffman codes." alt="" coords="297,5,497,31"/>
+<area shape="rect" href="classcCompression.html#aee2599c101378e562edf5e2eaed48c52" title="Run the complete JPEG&#45;like encode pipeline and persist the result." alt="" coords="5,5,249,31"/>
+<area shape="poly" title=" " alt="" coords="284,21,250,21,250,15,284,15"/>
 </map>
 </div>
 
@@ -250,6 +377,9 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p>Return the length of the raw trame buffer. </p>
+<p>Return the trame length. </p>
+
 </div>
 </div>
 <a id="a041f14899f93a627a8246efb1d54a52e" name="a041f14899f93a627a8246efb1d54a52e"></a>
@@ -266,19 +396,9 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classcHuffman_a041f14899f93a627a8246efb1d54a52e_icgraph.png" border="0" usemap="#aclasscHuffman_a041f14899f93a627a8246efb1d54a52e_icgraph" loading="lazy" alt=""/></div>
-<map name="aclasscHuffman_a041f14899f93a627a8246efb1d54a52e_icgraph" id="aclasscHuffman_a041f14899f93a627a8246efb1d54a52e_icgraph">
-<area shape="rect" title=" " alt="" coords="400,31,559,56"/>
-<area shape="rect" href="classcCompression.html#a4cbbbc89ee897b6481e5d4057ff6c587" title=" " alt="" coords="108,5,352,31"/>
-<area shape="poly" title=" " alt="" coords="386,37,352,33,352,28,387,31"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,60,56"/>
-<area shape="poly" title=" " alt="" coords="386,46,60,46,60,41,386,41"/>
-<area shape="poly" title=" " alt="" coords="118,35,60,43,60,37,117,30"/>
-</map>
-</div>
+
+<p>Return the root of the Huffman tree. </p>
+<p>Return the root node of the Huffman tree. </p>
 
 </div>
 </div>
@@ -296,6 +416,9 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Return the raw trame buffer. </p>
+<p>Return the raw trame pointer. </p>
 
 </div>
 </div>
@@ -322,26 +445,81 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Build Huffman codes from an array of symbols and their frequencies. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Build the Huffman tree from symbol statistics. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Donnee</td><td>array of symbols </td></tr>
-    <tr><td class="paramname">Frequence</td><td>matching frequency array </td></tr>
-    <tr><td class="paramname">Taille</td><td>number of symbols </td></tr>
+    <tr><td class="paramname">Donnee</td><td>Array of symbols. </td></tr>
+    <tr><td class="paramname">Frequence</td><td>Matching array of frequencies. </td></tr>
+    <tr><td class="paramname">Taille</td><td>Number of entries in the arrays.</td></tr>
+    <tr><td class="paramname">Donnee</td><td>Symbol array. </td></tr>
+    <tr><td class="paramname">Frequence</td><td>Matching frequencies. </td></tr>
+    <tr><td class="paramname">Taille</td><td>Number of symbols. </td></tr>
   </table>
   </dd>
 </dl>
-<p>Build the Huffman tree using a min-priority queue of nodes.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcHuffman_af4e311bc5a00f1d769db38aabe647234_cgraph.png" border="0" usemap="#aclasscHuffman_af4e311bc5a00f1d769db38aabe647234_cgraph" loading="lazy" alt=""/></div>
+<map name="aclasscHuffman_af4e311bc5a00f1d769db38aabe647234_cgraph" id="aclasscHuffman_af4e311bc5a00f1d769db38aabe647234_cgraph">
+<area shape="rect" title="Build the Huffman tree from symbol statistics." alt="" coords="5,29,195,55"/>
+<area shape="rect" href="cHuffman_8cpp.html#a24a84fde39db5599f3775a435aed0f50" title="Recursively free all nodes in a Huffman tree." alt="" coords="243,29,333,55"/>
+<area shape="poly" title=" " alt="" coords="195,39,229,39,229,45,195,45"/>
+<area shape="poly" title=" " alt="" coords="257,31,251,21,254,11,267,5,288,3,314,6,324,15,321,19,312,11,288,8,268,10,258,15,256,20,261,28"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcHuffman_af4e311bc5a00f1d769db38aabe647234_icgraph.png" border="0" usemap="#aclasscHuffman_af4e311bc5a00f1d769db38aabe647234_icgraph" loading="lazy" alt=""/></div>
 <map name="aclasscHuffman_af4e311bc5a00f1d769db38aabe647234_icgraph" id="aclasscHuffman_af4e311bc5a00f1d769db38aabe647234_icgraph">
-<area shape="rect" title=" " alt="" coords="400,31,589,56"/>
-<area shape="rect" href="classcCompression.html#a4cbbbc89ee897b6481e5d4057ff6c587" title=" " alt="" coords="108,5,352,31"/>
-<area shape="poly" title=" " alt="" coords="386,36,352,32,353,27,387,30"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,60,56"/>
-<area shape="poly" title=" " alt="" coords="386,46,60,46,60,41,386,41"/>
-<area shape="poly" title=" " alt="" coords="118,35,60,43,60,37,117,30"/>
+<area shape="rect" title="Build the Huffman tree from symbol statistics." alt="" coords="557,31,747,56"/>
+<area shape="rect" href="classcCompression.html#aee2599c101378e562edf5e2eaed48c52" title="Run the complete JPEG&#45;like encode pipeline and persist the result." alt="" coords="249,5,493,31"/>
+<area shape="poly" title=" " alt="" coords="543,36,493,32,494,26,544,31"/>
+<area shape="rect" href="classcDecompression.html#a00586e750a5193933c306f1a5e07a583" title="Perform the full JPEG&#45;like decompression pipeline." alt="" coords="233,55,509,80"/>
+<area shape="poly" title=" " alt="" coords="544,55,510,58,510,53,544,50"/>
+<area shape="rect" href="classcDecompressionCouleur.html#a06ad1db5973a81ea0bcb1d5935fa98bb" title="Reconstruct an RGB buffer from color codec artifacts." alt="" coords="5,47,185,87"/>
+<area shape="poly" title=" " alt="" coords="219,70,185,70,185,65,219,65"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="adb7054bd9be02909efccde7f748a5708" name="adb7054bd9be02909efccde7f748a5708"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb7054bd9be02909efccde7f748a5708">&#9670;&#160;</a></span>HuffmanDecodeFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; char &gt; cHuffman::HuffmanDecodeFile </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>filename</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcHuffman.html">cHuffman</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcHuffman_adb7054bd9be02909efccde7f748a5708_cgraph.png" border="0" usemap="#aclasscHuffman_adb7054bd9be02909efccde7f748a5708_cgraph" loading="lazy" alt=""/></div>
+<map name="aclasscHuffman_adb7054bd9be02909efccde7f748a5708_cgraph" id="aclasscHuffman_adb7054bd9be02909efccde7f748a5708_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,227,31"/>
+<area shape="rect" href="classcHuffman.html#a7063970c53ebf961e6c564bb67ec418b" title="Default constructor." alt="" coords="275,5,431,31"/>
+<area shape="poly" title=" " alt="" coords="227,15,261,15,261,21,227,21"/>
 </map>
 </div>
 
@@ -361,6 +539,26 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Set the root node of the Huffman tree. </p>
+<p>Assign a new Huffman tree root, deleting any existing tree.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">racine</td><td>Newly built tree root. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcHuffman_ae4bf4f86320d428b13a91b2c87c9a056_cgraph.png" border="0" usemap="#aclasscHuffman_ae4bf4f86320d428b13a91b2c87c9a056_cgraph" loading="lazy" alt=""/></div>
+<map name="aclasscHuffman_ae4bf4f86320d428b13a91b2c87c9a056_cgraph" id="aclasscHuffman_ae4bf4f86320d428b13a91b2c87c9a056_cgraph">
+<area shape="rect" title="Set the root node of the Huffman tree." alt="" coords="5,29,163,55"/>
+<area shape="rect" href="cHuffman_8cpp.html#a24a84fde39db5599f3775a435aed0f50" title="Recursively free all nodes in a Huffman tree." alt="" coords="211,29,301,55"/>
+<area shape="poly" title=" " alt="" coords="163,39,197,39,197,45,163,45"/>
+<area shape="poly" title=" " alt="" coords="227,31,221,21,225,11,237,5,256,3,279,6,289,15,286,19,277,11,256,8,238,10,229,15,227,20,232,28"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -382,6 +580,16 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Replace the raw trame buffer and its length. </p>
+<p>Update the raw trame pointer and its length.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trame</td><td>New trame buffer. </td></tr>
+    <tr><td class="paramname">longueur</td><td>Number of bytes pointed to by <code class="param">trame</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
