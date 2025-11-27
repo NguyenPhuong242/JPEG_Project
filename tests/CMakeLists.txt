@@ -32,3 +32,8 @@ add_executable(testpgm dat_to_pgm.cpp)
 target_include_directories(testpgm PRIVATE ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(testpgm PRIVATE jpeg_core)
 add_test(NAME testpgm COMMAND testpgm)
+
+add_executable(testtotal test_total.cpp)
+target_include_directories(testtotal PRIVATE ${PROJECT_SOURCE_DIR}/include)
+target_link_libraries(testtotal PRIVATE jpeg_core)
+add_test(NAME testtotal COMMAND testtotal)

@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/testtotal.dir/test_total.cpp.o -o testtotal  ../libjpeg_core.a 

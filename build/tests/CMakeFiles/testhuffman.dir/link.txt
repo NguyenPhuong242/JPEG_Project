@@ -1,3 +1,1 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\testhuffman.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\testhuffman.dir/objects.a @CMakeFiles\testhuffman.dir\objects1.rsp
-C:\MinGW\bin\c++.exe -Wl,--whole-archive CMakeFiles\testhuffman.dir/objects.a -Wl,--no-whole-archive -o testhuffman.exe -Wl,--out-implib,libtesthuffman.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\testhuffman.dir\linkLibs.rsp
+/usr/bin/c++ CMakeFiles/testhuffman.dir/test_huffman.cpp.o -o testhuffman  ../libjpeg_core.a 

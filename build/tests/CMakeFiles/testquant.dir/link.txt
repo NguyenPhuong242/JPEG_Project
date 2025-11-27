@@ -1,3 +1,1 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\testquant.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\testquant.dir/objects.a @CMakeFiles\testquant.dir\objects1.rsp
-C:\MinGW\bin\c++.exe -Wl,--whole-archive CMakeFiles\testquant.dir/objects.a -Wl,--no-whole-archive -o testquant.exe -Wl,--out-implib,libtestquant.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\testquant.dir\linkLibs.rsp
+/usr/bin/c++ CMakeFiles/testquant.dir/test_quantification.cpp.o -o testquant  ../libjpeg_core.a 

@@ -1,9 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/testpgm.dir/dat_to_pgm.cpp.obj"
-  "CMakeFiles/testpgm.dir/dat_to_pgm.cpp.obj.d"
-  "libtestpgm.dll.a"
-  "testpgm.exe"
-  "testpgm.exe.manifest"
+  "CMakeFiles/testpgm.dir/dat_to_pgm.cpp.o"
+  "CMakeFiles/testpgm.dir/dat_to_pgm.cpp.o.d"
+  "testpgm"
   "testpgm.pdb"
 )
 

@@ -1,9 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/testdecompression.dir/test_decompression.cpp.obj"
-  "CMakeFiles/testdecompression.dir/test_decompression.cpp.obj.d"
-  "libtestdecompression.dll.a"
-  "testdecompression.exe"
-  "testdecompression.exe.manifest"
+  "CMakeFiles/testdecompression.dir/test_decompression.cpp.o"
+  "CMakeFiles/testdecompression.dir/test_decompression.cpp.o.d"
+  "testdecompression"
   "testdecompression.pdb"
 )
 

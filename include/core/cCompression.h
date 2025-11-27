@@ -31,9 +31,6 @@ class cCompression {
          * This is a process-wide setting used by the pedagogic functions.
          * Default is 50.
          */
-        void Inverse_RLE(const std::vector<char> &trame,
-                     std::vector<std::array<std::array<int,8>,8>> &blocks);
-
             
     public:
         /** Default ctor. Does not allocate image storage. */
@@ -77,6 +74,9 @@ class cCompression {
          */
         static unsigned int getQualiteGlobale();
         static void setQualiteGlobale(unsigned int qualite);
+        static void storeHuffmanTable(const char *symbols, const double *frequencies, unsigned int count);
+        static bool loadHuffmanTable(char *symbols, double *frequencies, unsigned int &count);
+        static bool hasStoredHuffmanTable();
 
         /**
          * Encode a single 8x8 quantized block with run-length encoding (RLE).
@@ -127,22 +127,6 @@ class cCompression {
          * @param Nom_Fichier_compresse compressed filename to read
          * @return char** image rows (or nullptr on failure)
          */
-        unsigned char** Decompression_JPEG(const char* Nom_Fichier_compresse);
-        /**
-         * Decompress directly from an RLE trame (concatenation of block trames)
-         * produced by RLE_Block. This function assumes the trame contains raw
-         * run-length encoded blocks (no Huffman header). The original image is
-         * assumed square with side length `imgSize` (pixels) and composed of
-         * 8x8 blocks. The quality parameter is used to rebuild the quantization
-         * table during dequantization.
-         *
-         * @param Trame pointer to the concatenated RLE bytes
-         * @param Longueur_Trame number of bytes in Trame
-         * @param imgSize side length (pixels) of the square image (must be multiple of 8)
-         * @param qualite quality factor used for dequantization (1..100)
-         * @return newly allocated image as char** (rows) or nullptr on error
-         */
-        unsigned char** Decompression_JPEG_from_trame(char* Trame, unsigned int Longueur_Trame, unsigned int imgSize, unsigned int qualite);
    
 };
 

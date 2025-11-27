@@ -1,3 +1,1 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\testdecompression.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\testdecompression.dir/objects.a @CMakeFiles\testdecompression.dir\objects1.rsp
-C:\MinGW\bin\c++.exe -Wl,--whole-archive CMakeFiles\testdecompression.dir/objects.a -Wl,--no-whole-archive -o testdecompression.exe -Wl,--out-implib,libtestdecompression.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\testdecompression.dir\linkLibs.rsp
+/usr/bin/c++ CMakeFiles/testdecompression.dir/test_decompression.cpp.o -o testdecompression  ../libjpeg_core.a 

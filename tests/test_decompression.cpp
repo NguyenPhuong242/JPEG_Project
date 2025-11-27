@@ -4,6 +4,7 @@
 #include <cmath>        // std::sqrt
 #include <cstdio>       // std::remove (optional)
 #include "core/cCompression.h"
+#include "core/cDecompression.h"
 
 bool loadLena(const char *filename,
               std::vector<unsigned char> &image,
@@ -90,7 +91,9 @@ int main()
     comp.Compression_JPEG(Trame.data(), "lena.huff");
 
     // 4) Decompression in the SAME process
-    unsigned char **decoded = comp.Decompression_JPEG("lena.huff");
+    cDecompression dec;
+    dec.setQualite(50);
+    unsigned char **decoded = dec.Decompression_JPEG("lena.huff");
     if (!decoded)
     {
         std::cerr << "Decompression failed.\n";

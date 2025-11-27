@@ -1,3 +1,1 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\testrle.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\testrle.dir/objects.a @CMakeFiles\testrle.dir\objects1.rsp
-C:\MinGW\bin\c++.exe -Wl,--whole-archive CMakeFiles\testrle.dir/objects.a -Wl,--no-whole-archive -o testrle.exe -Wl,--out-implib,libtestrle.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\testrle.dir\linkLibs.rsp
+/usr/bin/c++ CMakeFiles/testrle.dir/test_rle.cpp.o -o testrle  ../libjpeg_core.a 

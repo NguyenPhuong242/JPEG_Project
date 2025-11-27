@@ -1,9 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/testrle.dir/test_rle.cpp.obj"
-  "CMakeFiles/testrle.dir/test_rle.cpp.obj.d"
-  "libtestrle.dll.a"
-  "testrle.exe"
-  "testrle.exe.manifest"
+  "CMakeFiles/testrle.dir/test_rle.cpp.o"
+  "CMakeFiles/testrle.dir/test_rle.cpp.o.d"
+  "testrle"
   "testrle.pdb"
 )
 

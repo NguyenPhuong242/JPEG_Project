@@ -2,7 +2,6 @@
 #include <vector>
 #include <cstring>
 #include <fstream>
-#include <array>
 #include <map>
 #include <string>
 #include <functional>
@@ -128,6 +127,41 @@ void cCompression::setQualiteGlobale(unsigned int qualite)
     if (qualite > 100)
         qualite = 100;
     gQualiteGlobale = qualite;
+}
+
+void cCompression::storeHuffmanTable(const char *symbols, const double *frequencies, unsigned int count)
+{
+    if (!symbols || !frequencies) {
+        gHuffCount = 0;
+        return;
+    }
+
+    if (count > 256) count = 256;
+    gHuffCount = count;
+    for (unsigned int i = 0; i < gHuffCount; ++i) {
+        gHuffSymbols[i] = symbols[i];
+        gHuffFreqs[i] = frequencies[i];
+    }
+}
+
+bool cCompression::loadHuffmanTable(char *symbols, double *frequencies, unsigned int &count)
+{
+    if (!symbols || !frequencies || gHuffCount == 0) {
+        count = 0;
+        return false;
+    }
+
+    for (unsigned int i = 0; i < gHuffCount; ++i) {
+        symbols[i] = gHuffSymbols[i];
+        frequencies[i] = gHuffFreqs[i];
+    }
+    count = gHuffCount;
+    return true;
+}
+
+bool cCompression::hasStoredHuffmanTable()
+{
+    return gHuffCount != 0;
 }
 
 /**
@@ -360,13 +394,7 @@ void cCompression::Compression_JPEG(int *Trame_RLE, const char *Nom_Fichier)
     unsigned int nbSym =
         Histogramme(trame.data(), len, Donnee, Frequence);
 
-    // keep this table globally for decompression
-    gHuffCount = nbSym;
-    for (unsigned int i = 0; i < nbSym; ++i)
-    {
-        gHuffSymbols[i] = Donnee[i];
-        gHuffFreqs[i] = Frequence[i];
-    }
+    storeHuffmanTable(Donnee, Frequence, nbSym);
 
     // 4) build Huffman tree
     cHuffman h(trame.data(), len);
@@ -416,303 +444,5 @@ void cCompression::Compression_JPEG(int *Trame_RLE, const char *Nom_Fichier)
     }
 
     out.close();
-}
-
-// ===== Helpers for Huffman decoding (free functions, not class members) ====
-
-static void buildCodeTables(cHuffman &h,
-                            std::map<char, std::string> &codeTable,
-                            std::map<std::string, char> &revTable)
-{
-    codeTable.clear();
-    revTable.clear();
-
-    std::function<void(sNoeud *, std::string)> rec =
-        [&](sNoeud *n, std::string code)
-    {
-        if (!n)
-            return;
-        if (!n->mgauche && !n->mdroit)
-        {
-            codeTable[n->mdonnee] = code;
-            revTable[code] = n->mdonnee;
-            return;
-        }
-        rec(n->mgauche, code + "0");
-        rec(n->mdroit, code + "1");
-    };
-
-    rec(h.getRacine(), "");
-}
-
-static std::vector<char> HuffmanDecodeFile(const char *filename,
-                                           cHuffman &h)
-{
-    std::vector<char> trame;
-
-    std::ifstream in(filename, std::ios::binary);
-    if (!in)
-    {
-        std::cerr << "Cannot open compressed file " << filename << "\n";
-        return trame;
-    }
-
-    std::vector<unsigned char> data(
-        (std::istreambuf_iterator<char>(in)),
-        std::istreambuf_iterator<char>());
-    in.close();
-
-    std::map<char, std::string> codeTable;
-    std::map<std::string, char> revTable;
-    buildCodeTables(h, codeTable, revTable);
-
-    sNoeud *root = h.getRacine();
-    sNoeud *node = root;
-
-    for (unsigned char byte : data)
-    {
-        for (int bitPos = 7; bitPos >= 0; --bitPos)
-        {
-            int bit = (byte >> bitPos) & 1;
-            node = (bit == 0) ? node->mgauche : node->mdroit;
-
-            if (!node)
-            { // defensive
-                node = root;
-                continue;
-            }
-
-            if (!node->mgauche && !node->mdroit)
-            {
-                trame.push_back(node->mdonnee); // decoded symbol
-                node = root;
-            }
-        }
-    }
-
-    return trame;
-}
-
-void cCompression::Inverse_RLE(const std::vector<char> &trame,
-                               std::vector<std::array<std::array<int, 8>, 8>> &blocks)
-{
-    blocks.clear();
-    if (trame.empty())
-        return;
-
-    constexpr int N = 8;
-
-    int idx = 0;
-    int previous_DC = 0;
-
-    while (idx < static_cast<int>(trame.size()))
-    {
-        // new 8x8 block, all zeros
-        std::array<std::array<int, 8>, 8> block{};
-        for (int r = 0; r < N; ++r)
-            for (int c = 0; c < N; ++c)
-                block[r][c] = 0;
-
-        // zigzag state
-        int i = 0, j = 0;
-        bool up = true;
-        int k = 0; // coefficient index in zigzag order (0..63)
-
-        // DC
-        int DCdiff = static_cast<signed char>(trame[idx++]);
-        int DC = previous_DC + DCdiff;
-        previous_DC = DC;
-        block[0][0] = DC;
-        k = 1;
-
-        // decode AC coefficients until (0,0)
-        while (idx + 1 <= static_cast<int>(trame.size()) && k < N * N)
-        {
-            signed char run = trame[idx++];
-            signed char coeff = trame[idx++];
-
-            if (run == 0 && coeff == 0)
-            {
-                // EOB -> remaining coefficients are zeros
-                break;
-            }
-
-            // advance 'run' zero positions in zigzag
-            for (int step = 0; step < run && k < N * N; ++step)
-            {
-                // move to next zigzag position
-                if (up)
-                {
-                    if (j == N - 1)
-                    {
-                        ++i;
-                        up = false;
-                    }
-                    else if (i == 0)
-                    {
-                        ++j;
-                        up = false;
-                    }
-                    else
-                    {
-                        --i;
-                        ++j;
-                    }
-                }
-                else
-                {
-                    if (i == N - 1)
-                    {
-                        ++j;
-                        up = true;
-                    }
-                    else if (j == 0)
-                    {
-                        ++i;
-                        up = true;
-                    }
-                    else
-                    {
-                        ++i;
-                        --j;
-                    }
-                }
-                ++k;
-            }
-
-            // now place the non-zero coeff at current (i,j)
-            if (k < N * N)
-            {
-                if (up)
-                {
-                    if (j == N - 1)
-                    {
-                        ++i;
-                        up = false;
-                    }
-                    else if (i == 0)
-                    {
-                        ++j;
-                        up = false;
-                    }
-                    else
-                    {
-                        --i;
-                        ++j;
-                    }
-                }
-                else
-                {
-                    if (i == N - 1)
-                    {
-                        ++j;
-                        up = true;
-                    }
-                    else if (j == 0)
-                    {
-                        ++i;
-                        up = true;
-                    }
-                    else
-                    {
-                        ++i;
-                        --j;
-                    }
-                }
-                ++k;
-
-                if (i >= 0 && i < N && j >= 0 && j < N)
-                {
-                    block[i][j] = coeff;
-                }
-            }
-        }
-
-        blocks.push_back(block);
-    }
-}
-
-
-unsigned char **cCompression::Decompression_JPEG(const char *Nom_Fichier_compresse)
-{
-    if (!Nom_Fichier_compresse) return nullptr;
-
-    // We must have compressed something before (Huffman table known)
-    if (gHuffCount == 0) {
-        std::cerr << "No Huffman table available. Call Compression_JPEG first.\n";
-        return nullptr;
-    }
-
-    // 1) rebuild the same Huffman tree as in Compression_JPEG
-    cHuffman h;
-    h.HuffmanCodes(gHuffSymbols, gHuffFreqs, gHuffCount);
-
-    // 2) Huffman decode file -> RLE bytes
-    std::vector<char> rleBytes = HuffmanDecodeFile(Nom_Fichier_compresse, h);
-    if (rleBytes.empty()) return nullptr;
-
-    // 3) inverse RLE -> quantized 8x8 blocks
-    std::vector<std::array<std::array<int,8>,8>> qBlocks;
-    Inverse_RLE(rleBytes, qBlocks);
-
-    const unsigned int nbBlocks = static_cast<unsigned int>(qBlocks.size());
-    if (nbBlocks == 0) return nullptr;
-
-    // 4) image is square, each block = 8x8
-    unsigned int blocksPerSide =
-        static_cast<unsigned int>(std::sqrt(static_cast<double>(nbBlocks)) + 0.5);
-
-    mLargeur = blocksPerSide * 8;
-    mHauteur = blocksPerSide * 8;
-
-    // allocate image buffer
-    mBuffer = new unsigned char*[mHauteur];
-    for (unsigned int y = 0; y < mHauteur; ++y)
-        mBuffer[y] = new unsigned char[mLargeur];
-
-    // temp arrays for dequant + IDCT
-    int    quant[8][8];
-    double dct[8][8];
-    int    spat[8][8];
-
-    int    *quant_rows[8];
-    double *dct_rows[8];
-    int    *spat_rows[8];
-
-    for (int i = 0; i < 8; ++i) {
-        quant_rows[i] = quant[i];
-        dct_rows[i]   = dct[i];
-        spat_rows[i]  = spat[i];
-    }
-
-    unsigned int b = 0;
-    for (unsigned int by = 0; by < mHauteur; by += 8) {
-        for (unsigned int bx = 0; bx < mLargeur; bx += 8) {
-
-            // copy quantized block
-            for (int r = 0; r < 8; ++r)
-                for (int c = 0; c < 8; ++c)
-                    quant[r][c] = qBlocks[b][r][c];
-
-            // inverse quantization + inverse DCT
-            dequant_JPEG(quant_rows, dct_rows);
-            Calcul_IDCT_Block(dct_rows, spat_rows);
-
-            // level shift + clamp
-            for (int r = 0; r < 8; ++r) {
-                for (int c = 0; c < 8; ++c) {
-                    int val = spat[r][c] + 128;
-                    if (val < 0)   val = 0;
-                    if (val > 255) val = 255;
-                    mBuffer[by + r][bx + c] =
-                        static_cast<unsigned char>(val);
-                }
-            }
-
-            ++b;
-        }
-    }
-
-    return mBuffer;
 }
 
