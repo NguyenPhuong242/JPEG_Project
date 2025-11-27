@@ -41,18 +41,15 @@ Educational grayscale JPEG pipeline that showcases every major step of the codec
 
 \end{DoxyCode}
 \hypertarget{index_autotoc_md5}{}\doxysection{\texorpdfstring{CLI Usage}{CLI Usage}}\label{index_autotoc_md5}
-The CMake build produces {\ttfamily build/jpeg\+\_\+cli} with three modes\+:
+The build outputs {\ttfamily build/jpeg\+\_\+cli}. Run it without arguments to open the interactive menu that guides you through compression, decompression, or the full pipeline.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\#\ Compress\ a\ PGM\ image\ into\ a\ Huffman\ bitstream}
-\DoxyCodeLine{./build/jpeg\_cli\ compress\ -\/-\/input\ lena.pgm\ -\/-\/output\ lena.huff\ -\/-\/quality\ 80}
+\DoxyCodeLine{\#\ Show\ a\ short\ usage\ summary}
+\DoxyCodeLine{./build/jpeg\_cli\ -\/-\/help}
 \DoxyCodeLine{}
-\DoxyCodeLine{\#\ Decompress\ a\ previously\ generated\ bitstream\ back\ into\ a\ PGM}
-\DoxyCodeLine{./build/jpeg\_cli\ decompress\ -\/-\/input\ lena.huff\ -\/-\/output\ lena\_recon.pgm}
-\DoxyCodeLine{}
-\DoxyCodeLine{\#\ Run\ the\ complete\ pipeline\ (compress\ +\ decompress\ +\ metrics)}
-\DoxyCodeLine{./build/jpeg\_cli\ full\ -\/-\/input\ lena.pgm\ -\/-\/bitstream\ lena.huff\ -\/-\/recon\ lena\_recon.pgm}
+\DoxyCodeLine{\#\ Start\ the\ interactive\ workflow}
+\DoxyCodeLine{./build/jpeg\_cli}
 
 \end{DoxyCode}
 \hypertarget{index_autotoc_md6}{}\doxysection{\texorpdfstring{Documentation}{Documentation}}\label{index_autotoc_md6}

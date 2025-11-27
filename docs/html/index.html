@@ -123,15 +123,12 @@ Build and Test</h1>
 <div class="line">ctest --test-dir build -V</div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 CLI Usage</h1>
-<p>The CMake build produces <span class="tt">build/jpeg_cli</span> with three modes:</p>
-<div class="fragment"><div class="line"># Compress a PGM image into a Huffman bitstream</div>
-<div class="line">./build/jpeg_cli compress --input lena.pgm --output lena.huff --quality 80</div>
+<p>The build outputs <span class="tt">build/jpeg_cli</span>. Run it without arguments to open the interactive menu that guides you through compression, decompression, or the full pipeline.</p>
+<div class="fragment"><div class="line"># Show a short usage summary</div>
+<div class="line">./build/jpeg_cli --help</div>
 <div class="line"> </div>
-<div class="line"># Decompress a previously generated bitstream back into a PGM</div>
-<div class="line">./build/jpeg_cli decompress --input lena.huff --output lena_recon.pgm</div>
-<div class="line"> </div>
-<div class="line"># Run the complete pipeline (compress + decompress + metrics)</div>
-<div class="line">./build/jpeg_cli full --input lena.pgm --bitstream lena.huff --recon lena_recon.pgm</div>
+<div class="line"># Start the interactive workflow</div>
+<div class="line">./build/jpeg_cli</div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
 Documentation</h1>
 <p>Generate or refresh the API reference with Doxygen:</p>

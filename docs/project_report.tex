@@ -1,0 +1,342 @@
+\documentclass[11pt,a4paper]{report}
+
+% ============================================================
+% PACKAGES
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% =====================
+% TITRE
+% =====================
+\title{Compression d\textquotesingle{}images JPEG\\[2mm]
+       \large Problématique, modèle théorique et compromis qualité/taille}
+
+\author{Khanh-Phuong NGUYEN}
+\date{Année universitaire 2025--2026}
+
+\begin{document}
+
+\maketitle
+	tableofcontents
+\clearpage
+
+% ============================================================
+\chapter{Introduction : Problématique de la compression d\textquotesingle{}images}
+% ============================================================
+
+Les images numériques occupent une place centrale dans les échanges actuels
+(photographie, vidéo, réseaux sociaux, archives médicales, etc.). Une image en
+niveaux de gris de taille $N\times M$ codée sur 8 bits par pixel nécessite
+\mbox{$N\times M$ octets} de stockage. Pour des résolutions élevées, le
+volume devient vite incompatible avec les contraintes de bande passante et de
+mémoire.
+
+Le problème général posé est le suivant~:
+\begin{itemize}
+  \item \textbf{Entrée}~: une image discrète $I(x,y)$ définie sur une grille
+        $0\le x < N$, $0\le y < M$, avec $I(x,y)\in\{0,\dots,255\}$.
+  \item \textbf{Objectif}~: construire un fichier compressé $C$ tel que
+        \begin{equation*}
+          |C| \ll |I| \quad \text{tout en préservant la qualité visuelle}. 
+        \end{equation*}
+\end{itemize}
+
+JPEG choisit délibérément une \emph{compression avec perte}~: l\textquotesingle{}image reconstruite
+$\hat I$ diffère de l\textquotesingle{}originale, mais l\textquotesingle{}erreur est principalement portée sur des
+composantes peu sensibles pour l\textquotesingle{}œil humain (hautes fréquences, détails
+chromatiques fins). Le but de ce rapport est de présenter le cadre théorique
+de cette approche, les outils mathématiques utilisés et le compromis obtenu
+entre qualité et taux de compression.
+
+\section*{Remarques personnelles}
+
+Travailler sur JPEG m\textquotesingle{}a permis de relier des notions assez abstraites
+(transformées, quantification, entropie) à un problème très concret~: stocker
+et transmettre des images dans un contexte de ressources limitées. J\textquotesingle{}ai été
+particulièrement surpris par le fait qu\textquotesingle{}une transformée relativement simple
+comme la DCT, associée à une bonne stratégie de quantification, permette
+d\textquotesingle{}obtenir des fichiers beaucoup plus petits sans dégradation flagrante à
+première vue. Cela montre à quel point la perception humaine joue un rôle
+central dans la conception de ces algorithmes.
+
+% ============================================================
+\chapter{Cadre théorique et outils mathématiques}
+% ============================================================
+
+\section{Modèle de l\textquotesingle{}image}
+
+On modélise l\textquotesingle{}image par une matrice de niveaux de gris
+\begin{equation*}
+  I = [I(x,y)]_{0\le x<N,\,0\le y<M}, \qquad I(x,y)\in[0,255].
+\end{equation*}
+Les pixels voisins sont fortement corrélés~: cette redondance spatiale rend
+possible une représentation plus compacte dans un domaine transformé.
+
+Dans le cas couleur, la norme JPEG recommande de travailler dans l\textquotesingle{}espace
+YCbCr plutôt que RGB. La composante de luminance $Y$ concentre l\textquotesingle{}information
+perçue, les composantes chrominance $Cb$ et $Cr$ pouvant être sous-échantillonnées
+sans gêne visuelle notable.
+
+\section{Transformée en cosinus discrète (DCT) 2D}
+
+L\textquotesingle{}outil central de JPEG est la transformée en cosinus discrète (DCT) appliquée
+bloc par bloc. Chaque bloc de taille $8\times8$ est d\textquotesingle{}abord recentré autour de
+zéro~:
+\begin{equation*}
+  f(x,y) = I(x,y) - 128, \qquad 0\le x,y<8.
+\end{equation*}
+
+La DCT 2D d\textquotesingle{}un bloc $f$ est définie par
+\begin{equation*}
+  F(u,v) = \frac{1}{4}C(u)C(v)
+  \sum_{x=0}^{7}\sum_{y=0}^{7}
+  f(x,y)\cos\left(\frac{(2x+1)u\pi}{16}\right)
+                    \cos\left(\frac{(2y+1)v\pi}{16}\right),
+\end{equation*}
+où
+\begin{equation*}
+  C(k)=\begin{cases}
+    1/\sqrt{2} & \text{si } k=0,\\
+    1          & \text{sinon}.
+  \end{cases}
+\end{equation*}
+
+Le coefficient $(u,v)=(0,0)$, dit coefficient DC, représente la moyenne du bloc.
+Les autres coefficients (AC) décrivent les variations plus ou moins rapides.
+
+\subsection*{Propriété de concentration d\textquotesingle{}énergie}
+
+Pour de nombreuses images naturelles, l\textquotesingle{}énergie est fortement concentrée dans
+quelques coefficients de basse fréquence. Autrement dit, $|F(u,v)|$ décroît en
+moyenne lorsqu\textquotesingle{}on s\textquotesingle{}éloigne du coin haut-gauche. Cette propriété justifie une
+approximation agressive des hautes fréquences dans la suite du traitement.
+
+\section{Quantification des coefficients}
+
+Après transformation, chaque bloc est quantifié par une table $Q(u,v)$ qui
+pondère différemment les fréquences~:
+\begin{equation*}
+  F_q(u,v) = \operatorname{round}\Bigl(\frac{F(u,v)}{Q(u,v)}\Bigr).
+\end{equation*}
+
+Les valeurs de $Q(u,v)$ sont faibles pour les basses fréquences (préservées) et
+plus élevées pour les hautes fréquences (fortement atténuées). Cette étape est
+irréversible~: plusieurs valeurs de $F(u,v)$ donnent le même $F_q(u,v)$.
+
+\subsection*{Facteur de qualité}
+
+Dans JPEG, une table de base $Q_{\text{base}}$ est fournie pour la luminance.
+Un facteur de qualité $F_q\in[1,100]$ permet de l\textquotesingle{}adapter~; un schéma
+classique est
+\begin{equation*}
+  \lambda(F_q) =
+  \begin{cases}
+    5000/F_q      & \text{si } F_q<50,\\
+    200-2F_q      & \text{si } F_q\ge 50,
+  \end{cases}
+\end{equation*}
+puis
+\begin{equation*}
+  Q(u,v) = \max\Bigl(1,\min\bigl(255,\tfrac{Q_{\text{base}}(u,v)\,\lambda(F_q)+50}{100}\bigr)\Bigr).
+\end{equation*}
+
+Un faible $F_q$ produit une très forte quantification (compression élevée mais
+perte de qualité), tandis qu\textquotesingle{}un $F_q$ proche de $100$ se rapproche d\textquotesingle{}un
+codage presque sans perte.
+
+\section*{Remarques personnelles}
+
+Sur le plan mathématique, j\textquotesingle{}ai trouvé la DCT assez naturelle dès lors que l\textquotesingle{}on
+la voit comme une décomposition de l\textquotesingle{}image en motifs plus ou moins rapides.
+En revanche, la quantification m\textquotesingle{}a demandé un changement de point de vue~:
+accepter d\textquotesingle{}introduire volontairement de l\textquotesingle{}erreur peut sembler contre-intuitif
+quand on a l\textquotesingle{}habitude de chercher des représentations fidèles. Ici, tout
+repose sur l\textquotesingle{}idée que certaines informations sont «~moins utiles~» pour
+la perception et peuvent être sacrifiées pour gagner en compression.
+
+\section{Réduction de redondance : zig--zag, RLE et Huffman}
+
+Les coefficients quantifiés contiennent de nombreuses valeurs nulles, surtout
+dans les hautes fréquences. JPEG exploite cette structure en trois sous-étapes.
+
+\subsection*{Parcours zig--zag}
+
+Les 64 coefficients du bloc sont parcourus suivant un ordre zig--zag qui
+commence par les basses fréquences et termine par les plus hautes. Cette
+linéarisation tend à regrouper les suites de zéros en fin de vecteur.
+
+\subsection*{Codage différentiel et RLE}
+
+Le premier coefficient (DC) est codé par différence entre blocs successifs~:
+\begin{equation*}
+  \Delta DC = DC_{k} - DC_{k-1}.
+\end{equation*}
+Les coefficients AC sont codés par \emph{Run-Length Encoding} (RLE)~: chaque
+valeur non nulle est représentée par un couple
+\mbox{$(r, v)$} où $r$ est le nombre de zéros qui la précèdent.
+
+\subsection*{Codage entropique de Huffman}
+
+Les symboles issus du RLE (et du différentiel DC) sont enfin compressés par un
+code de Huffman. Cet algorithme assigne des mots binaires plus courts aux
+symboles fréquents et plus longs aux symboles rares. La longueur moyenne du
+code se rapproche alors de la borne donnée par l\textquotesingle{}entropie de Shannon.
+
+% ============================================================
+\chapter{Chaîne de traitement JPEG}
+% ============================================================
+
+On peut maintenant résumer la stratégie de résolution du problème initial sous
+la forme d\textquotesingle{}une chaîne de traitement en plusieurs blocs.
+
+\section{Encodage}
+
+\begin{enumerate}
+  \item \textbf{Prétraitement}~: conversion éventuelle en YCbCr, découpage en
+        blocs $8\times8$, recentrage $I\mapsto f = I-128$.
+  \item \textbf{DCT bloc par bloc}~: calcul des coefficients $F(u,v)$ pour
+        chaque bloc.
+  \item \textbf{Quantification}~: application de la table $Q(u,v)$ ajustée par
+        le facteur de qualité $F_q$ pour obtenir $F_q(u,v)$.
+  \item \textbf{Réordonnancement}~: balayage zig--zag pour former un vecteur
+        1D par bloc.
+  \item \textbf{RLE et différentiel DC}~: réduction de la redondance de
+        longueurs de zéros.
+  \item \textbf{Codage de Huffman}~: obtention du flux binaire compressé.
+\end{enumerate}
+
+Le résultat est un bitstream où la plupart des degrés de liberté inutiles ont
+été supprimés soit par approximation (quantification), soit par compression
+entropique (Huffman).
+
+\section{Décodage}
+
+La décompression applique symétriquement les opérations inverses~:
+\begin{enumerate}
+  \item décodage de Huffman puis dé-RLE pour retrouver les coefficients
+        quantifiés ;
+  \item déquantification $\hat F(u,v) = F_q(u,v)\,Q(u,v)$ ;
+  \item IDCT bloc par bloc pour revenir dans le domaine spatial ;
+  \item ajout de 128 et réassemblage des blocs pour reconstruire $\hat I$.
+\end{enumerate}
+
+À chaque étape, les erreurs introduites par la quantification se propagent~:
+JPEG est donc par nature un schéma à pertes contrôlées.
+
+% ============================================================
+\chapter{Évaluation de la qualité et du taux de compression}
+% ============================================================
+
+Pour juger du compromis atteint par JPEG, on utilise des métriques
+quantitatives et une analyse qualitative.
+
+\section{Métriques objectives}
+
+\subsection*{Écart quadratique moyen (EQM)}
+
+Soit $N$ le nombre total de pixels. L\textquotesingle{}EQM entre l\textquotesingle{}image originale $I$ et
+la reconstruite $\hat I$ est
+\begin{equation*}
+  EQM = \frac{1}{N}\sum_{x,y}\bigl(I(x,y)-\hat I(x,y)\bigr)^2.
+\end{equation*}
+
+\subsection*{PSNR}
+
+Le \textit{Peak Signal-to-Noise Ratio} est défini par
+\begin{equation*}
+  PSNR = 10\log_{10}\left(\frac{255^2}{EQM}\right)\;\text{dB}.
+\end{equation*}
+Des valeurs supérieures à $35$ dB sont généralement perçues comme
+\mbox{«~très bonnes~»} pour des images naturelles.
+
+\subsection*{Taux de compression}
+
+Le taux de compression global est
+\begin{equation*}
+  T = \frac{\text{taille brute de l\textquotesingle{}image}}{\text{taille du fichier JPEG}}.
+\end{equation*}
+En pratique, l\textquotesingle{}utilisation combinée de la quantification, du zig--zag, du
+RLE et de Huffman permet d\textquotesingle{}atteindre des valeurs de $T$ de l\textquotesingle{}ordre de
+10 à 20 sur des photographies, tout en conservant une qualité satisfaisante.
+
+\section*{Remarques personnelles}
+
+Les métriques comme l\textquotesingle{}EQM et le PSNR donnent un repère chiffré utile, mais
+j\textquotesingle{}ai constaté qu\textquotesingle{}elles ne reflètent pas toujours exactement la perception
+visuelle. Deux images avec un PSNR proche peuvent donner une impression de
+qualité assez différente, notamment si les artefacts sont localisés dans des
+zones importantes (visage, texte, etc.). Pour juger JPEG, il me semble donc
+important de combiner ces indicateurs objectifs avec une évaluation visuelle
+simple~: observer les zones uniformes, les contours, les textures fines, et
+varier le facteur de qualité pour voir à partir de quand les défauts deviennent
+vraiment gênants.
+
+\section{Influence du facteur de qualité}
+
+Lorsque $F_q$ augmente~:
+\begin{itemize}
+  \item la quantification devient plus fine, l\textquotesingle{}EQM diminue et le PSNR
+        augmente ;
+  \item le nombre de coefficients nuls se réduit, ce qui diminue le taux de
+        compression.
+\end{itemize}
+
+Inversement, pour de faibles valeurs de $F_q$, on observe un très bon taux de
+compression mais l\textquotesingle{}apparition d\textquotesingle{}artefacts caractéristiques (effet de blocs,
+perte de textures fines).
+
+% ============================================================
+\chapter{Discussion et conclusion}
+% ============================================================
+
+Le schéma JPEG répond à la problématique initiale en combinant trois idées
+fortes~:
+\begin{enumerate}
+  \item \textbf{Décorrélation}~: la DCT projette l\textquotesingle{}image sur une base où les
+        coefficients sont moins corrélés et plus faciles à approximer.
+  \item \textbf{Réduction perceptuelle de l\textquotesingle{}information}~: la quantification s\textquotesingle{}attaque
+        en priorité aux composantes les moins visibles pour l\textquotesingle{}œil humain.
+  \item \textbf{Compression entropique proche de l\textquotesingle{}optimum}~: le codage de Huffman
+        exploite les redondances résiduelles pour s\textquotesingle{}approcher de la borne
+        d\textquotesingle{}entropie.
+\end{enumerate}
+
+Cette architecture, introduite au début des années 1990, reste largement
+utilisée aujourd\textquotesingle{}hui car elle offre un excellent compromis entre complexité
+algorithmique, qualité visuelle et taux de compression. Ses principales
+limitations concernent la présence d\textquotesingle{}artefacts de blocs à très faible
+débit et une certaine rigidité liée à la taille fixe des blocs $8\times8$.
+
+Des standards plus récents (JPEG 2000, HEIC, AVIF) remplacent la DCT bloc par
+des ondelettes ou des blocs plus flexibles, mais conservent la même philosophie
+générale~: transformer, quantifier, puis compresser entropiquement.
+
+Au niveau personnel, je retiens de ce travail que JPEG est à la fois un
+compromis technique et une forme de négociation avec la perception humaine~:
+on accepte de sacrifier des détails que l\textquotesingle{}œil ne remarquera presque pas,
+en échange d\textquotesingle{}un gain significatif en stockage et en débit. Même si des
+standards plus récents offrent aujourd\textquotesingle{}hui de meilleures performances
+théoriques, je trouve intéressant que JPEG reste massivement utilisé, ce qui
+montre la robustesse des idées de base et leur adéquation avec de nombreux
+usages quotidiens.
+
+\begin{thebibliography}{9}
+
+\bibitem{itut81}
+  ITU-T Recommendation T.81, \emph{Digital Compression and Coding of
+  Continuous-Tone Still Images (JPEG)}, 1992.
+
+\bibitem{jpegNotes}
+  Notes de cours ``JPEG 25--26'', support pédagogique sur la chaîne JPEG,
+  Université de Poitiers, 2025.
+
+\end{thebibliography}
+
+\end{document}
