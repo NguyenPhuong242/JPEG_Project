@@ -53,8 +53,6 @@ cCompression::~cCompression()
     // Destructor is empty as the class does not assume ownership of the mBuffer data.
 }
 
-
-
 void cCompression::setLargeur(unsigned int largeur)
 {
     this->mLargeur = largeur;
@@ -383,6 +381,16 @@ void cCompression::Compression_JPEG(int *Trame_RLE, const char *Nom_Fichier)
     if (!bitBytes.empty()) { // Payload data
         out.write(reinterpret_cast<const char*>(bitBytes.data()), bitBytes.size());
     }
+
+    // Optional width/height trailer to avoid guessing during decompression.
+    // Old files do not include this, so the reader treats it as optional.
+    if (mLargeur != 0 && mHauteur != 0) {
+        uint32_t w = mLargeur;
+        uint32_t h = mHauteur;
+        out.write(reinterpret_cast<const char*>(&w), sizeof(w));
+        out.write(reinterpret_cast<const char*>(&h), sizeof(h));
+    }
+
     out.close();
 }
 
@@ -428,6 +436,18 @@ unsigned char **cCompression::Decompression_JPEG(const char *Nom_Fichier_compres
         payload = filedata.data() + pos;
         payload_size = payload_bytes;
         std::cerr << "[Decompression_JPEG] Parsed HUF1 header: nbSym=" << nbSym << " payload_bytes=" << payload_bytes << " payload_bits=" << payload_bits << "\n";
+
+        // Optional width/height trailer (added for correctness). If absent, fall back to inference later.
+        size_t trailer_pos = pos + payload_bytes;
+        if (trailer_pos + sizeof(uint32_t) * 2 <= filedata.size()) {
+            uint32_t w = 0, h = 0;
+            std::memcpy(&w, filedata.data() + trailer_pos, sizeof(uint32_t));
+            std::memcpy(&h, filedata.data() + trailer_pos + sizeof(uint32_t), sizeof(uint32_t));
+            if (w != 0 && h != 0) {
+                this->mLargeur = w;
+                this->mHauteur = h;
+            }
+        }
     } else {
         // No header. Fall back to a cached Huffman table if available.
         if (!cCompression::loadHuffmanTable(Donnee, Frequence, nbSym)) {
@@ -435,6 +455,11 @@ unsigned char **cCompression::Decompression_JPEG(const char *Nom_Fichier_compres
         }
         payload = filedata.data();
         payload_size = filedata.size();
+    }
+
+    // Empty payload cannot produce blocks; treat as failure to let callers fall back gracefully.
+    if (payload_bits == 0 && payload_size == 0) {
+        return nullptr;
     }
 
     // 3. Build the Huffman decoding tree.
@@ -510,19 +535,29 @@ unsigned char **cCompression::Decompression_JPEG(const char *Nom_Fichier_compres
     // 6. Reconstruct the image from the quantized blocks.
     size_t nblocks = quantBlocks.size();
     // Try to infer a rectangular block grid. Prefer a layout close to square.
-    size_t blocks_w = static_cast<size_t>(std::floor(std::sqrt(static_cast<double>(nblocks))));
-    if (blocks_w == 0) blocks_w = 1;
-    while (blocks_w > 1 && (nblocks % blocks_w) != 0) {
-        --blocks_w;
+    size_t blocks_w = 0, blocks_h = 0;
+    // If dimensions were stored in the header, trust them; otherwise infer.
+    if (this->mLargeur != 0 && this->mHauteur != 0) {
+        blocks_w = this->mLargeur / 8;
+        blocks_h = this->mHauteur / 8;
+    } else {
+        blocks_w = static_cast<size_t>(std::floor(std::sqrt(static_cast<double>(nblocks))));
+        if (blocks_w == 0) blocks_w = 1;
+        while (blocks_w > 1 && (nblocks % blocks_w) != 0) {
+            --blocks_w;
+        }
+        blocks_h = (nblocks + blocks_w - 1) / blocks_w; // ceil division
+        if (blocks_w * blocks_h < nblocks) blocks_h = (nblocks + blocks_w - 1) / blocks_w;
+        std::cerr << "[Decompression_JPEG] Inferred block grid: blocks_w=" << blocks_w << " blocks_h=" << blocks_h << " (nblocks=" << nblocks << ")\n";
+        this->mLargeur = static_cast<unsigned int>(blocks_w * 8);
+        this->mHauteur = static_cast<unsigned int>(blocks_h * 8);
     }
-    size_t blocks_h = (nblocks + blocks_w - 1) / blocks_w; // ceil division
-    if (blocks_w * blocks_h < nblocks) blocks_h = (nblocks + blocks_w - 1) / blocks_w;
-    std::cerr << "[Decompression_JPEG] Inferred block grid: blocks_w=" << blocks_w << " blocks_h=" << blocks_h << " (nblocks=" << nblocks << ")\n";
 
-    size_t width = blocks_w * 8;
-    size_t height = blocks_h * 8;
-    this->mLargeur = static_cast<unsigned int>(width);
-    this->mHauteur = static_cast<unsigned int>(height);
+    if (blocks_w == 0 || blocks_h == 0) return nullptr;
+
+    size_t width = static_cast<size_t>(this->mLargeur);
+    size_t height = static_cast<size_t>(this->mHauteur);
+    if (width == 0 || height == 0) return nullptr;
 
     unsigned char *buf = new unsigned char[width * height];
     unsigned char **rows = new unsigned char*[height];
@@ -548,11 +583,17 @@ unsigned char **cCompression::Decompression_JPEG(const char *Nom_Fichier_compres
 
         size_t block_row = i / blocks_w;
         size_t block_col = i % blocks_w;
+        if (block_row >= blocks_h || block_col >= blocks_w) continue; // safety
+
         for (int r = 0; r < 8; ++r) {
+            size_t ry = block_row * 8 + static_cast<size_t>(r);
+            if (ry >= height) continue;
             for (int c = 0; c < 8; ++c) {
+                size_t rx = block_col * 8 + static_cast<size_t>(c);
+                if (rx >= width) continue;
                 int val = reconstructed_block[r][c] + 128;
                 val = (val < 0) ? 0 : (val > 255) ? 255 : val;
-                rows[block_row * 8 + r][block_col * 8 + c] = static_cast<unsigned char>(val);
+                rows[ry][rx] = static_cast<unsigned char>(val);
             }
         }
     }

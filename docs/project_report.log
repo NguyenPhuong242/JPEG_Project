@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  8 DEC 2025 01:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  10 DEC 2025 22:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -336,48 +336,56 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layoutvoffset=\dimen174
 \Gm@dimlist=\toks26
 )
+(/usr/local/texlive/2025/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count307
+\float@exts=\toks27
+\float@box=\box54
+\@float@everytoks=\toks28
+\@floatcapt=\box55
+)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count307
-\l__pdf_internal_box=\box54
+\l__color_backend_stack_int=\count308
+\l__pdf_internal_box=\box56
 )
 (./project_report.aux)
 \openout1 = `project_report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Info: Redefining \degres on input line 24.
-LaTeX Info: Redefining \up on input line 24.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Info: Redefining \degres on input line 26.
+LaTeX Info: Redefining \up on input line 26.
 
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count308
+\scratchcounter=\count309
 \scratchdimen=\dimen175
-\scratchbox=\box55
-\nofMPsegments=\count309
-\nofMParguments=\count310
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count311
+\scratchbox=\box57
+\nofMPsegments=\count310
+\nofMParguments=\count311
+\everyMPshowfont=\toks29
+\MPscratchCnt=\count312
 \MPscratchDim=\dimen176
-\MPnumerator=\count312
-\makeMPintoPDFobject=\count313
-\everyMPtoPDFconversion=\toks28
+\MPnumerator=\count313
+\makeMPintoPDFobject=\count314
+\everyMPtoPDFconversion=\toks30
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -387,7 +395,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 24.
+Package hyperref Info: Link coloring OFF on input line 26.
 
 (./project_report.out) (./project_report.out)
 \@outlinefile=\write3
@@ -428,12 +436,12 @@ Package hyperref Info: Link coloring OFF on input line 24.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 27.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 29.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 27.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 29.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -456,7 +464,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.28 	\clearpage
+l.30 	\clearpage
                  [1
 
 ]
@@ -468,6 +476,16 @@ Chapitre 1.
 
 ]
 Chapitre 2.
+
+Overfull \hbox (10.48244pt too wide) detected at line 77
+\OML/cmm/m/it/10.95 F\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 u; v\OT1/cmr/m/n/1
+0.95 ) = []\OML/cmm/m/it/10.95 C\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 u\OT1/c
+mr/m/n/10.95 )\OML/cmm/m/it/10.95 C\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 v\OT
+1/cmr/m/n/10.95 ) [] [] \OML/cmm/m/it/10.95 I[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/i
+t/10.95 x; y\OT1/cmr/m/n/10.95 ) []  [] []  [] \OML/cmm/m/it/10.95 ;  C\OT1/cmr
+/m/n/10.95 (\OML/cmm/m/it/10.95 k\OT1/cmr/m/n/10.95 ) = []
+ []
+
 
 
 [3
@@ -486,7 +504,13 @@ Chapitre 4.
 
 [6
 
-]
+
+pdfTeX warning (ext4): destination with the same identifier (name{table.4.1}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.186 	\chapter
+               {Conclusion}]
 Chapitre 5.
 
 
@@ -502,16 +526,16 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `project_report.out' has not changed.
-(rerunfilecheck)             Checksum: 787984938C2BB0F54D0F4539BF4E626A;2718.
+(rerunfilecheck)             Checksum: E14E8652B6AB86404B23FD77F61DDA84;3517.
  ) 
 Here is how much of TeX's memory you used:
- 12414 strings out of 473190
- 194420 string characters out of 5715800
- 608344 words of memory out of 5000000
- 35467 multiletter control sequences out of 15000+600000
- 577796 words of font info for 80 fonts, out of 8000000 for 9000
+ 12495 strings out of 473190
+ 195717 string characters out of 5715800
+ 611829 words of memory out of 5000000
+ 35545 multiletter control sequences out of 15000+600000
+ 579985 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,9n,79p,391b,473s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,9n,79p,448b,473s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></
@@ -523,18 +547,19 @@ l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/
 texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/te
 xlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texl
 ive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texliv
-e/2025/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/
-2025/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/20
-25/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2025
-/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/t
-exmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2025/tex
-mf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf
--dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2025/texmf-d
-ist/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on project_report.pdf (9 pages, 302107 bytes).
+e/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/
+2025/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/20
+25/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2025
+/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2025/t
+exmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/public/cm-super/sfti1095.pfb></usr/local/texlive/2025/texmf-dis
+t/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on project_report.pdf (9 pages, 344562 bytes).
 PDF statistics:
- 263 PDF objects out of 1000 (max. 8388607)
- 205 compressed objects within 3 object streams
- 46 named destinations out of 1000 (max. 500000)
- 105 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 282 PDF objects out of 1000 (max. 8388607)
+ 223 compressed objects within 3 object streams
+ 41 named destinations out of 1000 (max. 500000)
+ 145 words of extra memory for PDF output out of 10000 (max. 10000000)
 

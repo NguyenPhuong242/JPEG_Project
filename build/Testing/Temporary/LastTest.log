@@ -1,30 +1,285 @@
-Start testing: Dec 08 02:24 CET
+Start testing: Dec 10 20:44 CET
 ----------------------------------------------------------
+1/6 Testing: testdct
+1/6 Test: testdct
+Command: "/Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build/tests/testdct"
+Directory: /Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build/tests
+"testdct" start time: Dec 10 20:44 CET
+Output:
+----------------------------------------------------------
+Original block:
+139	144	149	153	155	155	155	155	
+144	151	153	156	159	156	156	156	
+150	155	160	163	158	156	156	156	
+159	161	162	160	160	159	159	159	
+159	160	161	162	162	155	155	155	
+161	161	161	161	160	157	157	157	
+162	162	161	163	162	157	157	157	
+162	162	161	161	163	158	158	158	
+Level-shifted block (p):
+11	16	21	25	27	27	27	27	
+16	23	25	28	31	28	28	28	
+22	27	32	35	30	28	28	28	
+31	33	34	32	32	31	31	31	
+31	32	33	34	34	27	27	27	
+33	33	33	33	32	29	29	29	
+34	34	33	35	34	29	29	29	
+34	34	33	33	35	30	30	30	
+DCT Block:
+235.62500	-1.03333	-12.08090	-5.20290	2.12500	-1.67243	-2.70797	1.32384	
+-22.59044	-17.48418	-6.24048	-3.15738	-2.85567	-0.06946	0.43417	-1.18558	
+-10.94926	-9.26240	-1.57583	1.53009	0.20295	-0.94186	-0.56694	-0.06292	
+-7.08156	-1.90718	0.22479	1.45389	0.89625	-0.07987	-0.04229	0.33154	
+-0.62500	-0.83811	1.46988	1.55628	-0.12500	-0.66099	0.60885	1.27521	
+1.75408	-0.20286	1.62049	-0.34244	-0.77554	1.47594	1.04100	-0.99296	
+-1.28252	-0.35995	-0.31694	-1.46010	-0.48996	1.73484	1.07583	-0.76135	
+-2.59990	1.55185	-3.76278	-1.84476	1.87162	1.21395	-0.56788	-0.44564	
+Reconstructed block:
+139	144	149	153	155	155	155	155	
+144	151	153	156	159	156	156	156	
+150	155	160	163	158	156	156	156	
+159	161	162	160	160	159	159	159	
+159	160	161	162	162	155	155	155	
+161	161	161	161	160	157	157	157	
+162	162	161	163	162	157	157	157	
+162	162	161	161	163	158	158	158	
+test_dct: PASS
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"testdct" end time: Dec 10 20:44 CET
+"testdct" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/6 Testing: testquant
+2/6 Test: testquant
+Command: "/Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build/tests/testquant"
+Directory: /Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build/tests
+"testquant" start time: Dec 10 20:44 CET
+Output:
+----------------------------------------------------------
+Original block:
+139	144	149	153	155	155	155	155	
+144	151	153	156	159	156	156	156	
+150	155	160	163	158	156	156	156	
+159	161	162	160	160	159	159	159	
+159	160	161	162	162	155	155	155	
+161	161	161	161	160	157	157	157	
+162	162	161	163	162	157	157	157	
+162	162	161	161	163	158	158	158	
+Level-shifted block (p):
+11	16	21	25	27	27	27	27	
+16	23	25	28	31	28	28	28	
+22	27	32	35	30	28	28	28	
+31	33	34	32	32	31	31	31	
+31	32	33	34	34	27	27	27	
+33	33	33	33	32	29	29	29	
+34	34	33	35	34	29	29	29	
+34	34	33	33	35	30	30	30	
+DCT coefficients:
+235.62	-1.03	-12.08	-5.20	2.13	-1.67	-2.71	1.32	
+-22.59	-17.48	-6.24	-3.16	-2.86	-0.07	0.43	-1.19	
+-10.95	-9.26	-1.58	1.53	0.20	-0.94	-0.57	-0.06	
+-7.08	-1.91	0.22	1.45	0.90	-0.08	-0.04	0.33	
+-0.62	-0.84	1.47	1.56	-0.13	-0.66	0.61	1.28	
+1.75	-0.20	1.62	-0.34	-0.78	1.48	1.04	-0.99	
+-1.28	-0.36	-0.32	-1.46	-0.49	1.73	1.08	-0.76	
+-2.60	1.55	-3.76	-1.84	1.87	1.21	-0.57	-0.45	
+Quantized coefficients:
+15	0	-1	0	0	0	0	0	
+-2	-1	0	0	0	0	0	0	
+-1	-1	0	0	0	0	0	0	
+-1	0	0	0	0	0	0	0	
+0	0	0	0	0	0	0	0	
+0	0	0	0	0	0	0	0	
+0	0	0	0	0	0	0	0	
+0	0	0	0	0	0	0	0	
+Dequantized DCT coefficients (P'):
+240	0	-10	0	0	0	0	0	
+-24	-12	0	0	0	0	0	0	
+-14	-13	0	0	0	0	0	0	
+-14	0	0	0	0	0	0	0	
+0	0	0	0	0	0	0	0	
+0	0	0	0	0	0	0	0	
+0	0	0	0	0	0	0	0	
+0	0	0	0	0	0	0	0	
+Reconstructed block after dequant+IDCT:
+142	144	147	150	152	153	154	154	
+149	150	153	155	156	157	156	156	
+157	158	159	161	161	160	159	158	
+162	162	163	163	162	160	158	157	
+162	162	162	162	161	158	156	155	
+160	161	161	161	160	158	156	154	
+160	160	161	162	161	160	158	157	
+160	161	163	164	164	163	161	160	
+MSE between original and reconstructed (EQM): 4.98
+Compression rate (fraction of zeros): 0.89
+Quantization table (quality=50):
+16	11	10	16	24	40	51	61	
+12	12	14	19	26	58	60	55	
+14	13	16	24	40	57	69	56	
+14	17	22	29	51	87	80	62	
+18	22	37	56	68	109	103	77	
+24	35	55	64	81	104	113	92	
+49	64	78	87	103	121	120	101	
+72	92	95	98	112	100	103	99	
+Quantized coefficients Img_Quant:
+15	0	-1	0	0	0	0	0	
+-2	-1	0	0	0	0	0	0	
+-1	-1	0	0	0	0	0	0	
+-1	0	0	0	0	0	0	0	
+0	0	0	0	0	0	0	0	
+0	0	0	0	0	0	0	0	
+0	0	0	0	0	0	0	0	
+0	0	0	0	0	0	0	0	
+test_quantification: PASS
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"testquant" end time: Dec 10 20:44 CET
+"testquant" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/6 Testing: testrle
+3/6 Test: testrle
+Command: "/Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build/tests/testrle"
+Directory: /Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build/tests
+"testrle" start time: Dec 10 20:44 CET
+Output:
+----------------------------------------------------------
+RLE trame length: 16
+Trame bytes (as signed ints):
+15, 1, -2, 0, -1, 0, -1, 0, -1, 2, -1, 0, -1, 0, 0, 0
+test_rle: DONE
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"testrle" end time: Dec 10 20:44 CET
+"testrle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/6 Testing: testhuffman
+4/6 Test: testhuffman
+Command: "/Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build/tests/testhuffman"
+Directory: /Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build/tests
+"testhuffman" start time: Dec 10 20:44 CET
+Output:
+----------------------------------------------------------
+Test Huffman
+Symbols and frequencies:
+  'A' : 5
+  'B' : 9
+  'C' : 12
+  'D' : 13
+  'E' : 16
+  'F' : 45
+
+Building Huffman tree and printing codes:
+
+'F' : 0
+'C' : 100
+'D' : 101
+'A' : 1100
+'B' : 1101
+'E' : 111
+
+Done.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"testhuffman" end time: Dec 10 20:44 CET
+"testhuffman" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/6 Testing: testcompression
+5/6 Test: testcompression
+Command: "/Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build/tests/testcompression"
+Directory: /Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build/tests
+"testcompression" start time: Dec 10 20:44 CET
+Output:
+----------------------------------------------------------
+Original Block (8x8):
+139 144 149 153 155 155 155 155
+144 151 153 156 159 156 156 156
+150 155 160 163 158 156 156 156
+159 161 162 160 160 159 159 159
+159 160 161 162 162 155 155 155
+161 161 161 161 160 157 157 157
+162 162 161 163 162 157 157 157
+162 162 161 161 163 158 158 158
+EQM (MSE) = 4.98438
+Taux de compression (fraction zeros) = 0.890625
+Quantized coefficients (8x8):
+15 0 -1 0 0 0 0 0
+-2 -1 0 0 0 0 0 0
+-1 -1 0 0 0 0 0 0
+-1 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+Zigzag linear order:
+15 0 -2 -1 -1 -1 0 0
+-1 -1 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+RLE block trame (pairs until EOB):
+(15,1) (254,0) (255,0) (255,0) (255,2) (255,0) (255,0) (0,0) <EOB>
+Wrote Huffman file: block_sample.huff
+[Decompression_JPEG] Parsed HUF1 header: nbSym=6 payload_bytes=5 payload_bits=33
+[Decompression_JPEG] Built Huffman tree, root=0x13b704270
+[Decompression_JPEG] Decoded 16 symbols into trameDec
+[Decompression_JPEG] Parsed 2 quant blocks
+[Decompression_JPEG] Inferred block grid: blocks_w=1 blocks_h=2 (nblocks=2)
+Decompressed image size (library): 8x16
+Recovered block (8x8) (used_lib=yes):
+142 144 147 150 152 153 154 154
+149 150 153 155 156 157 156 156
+157 158 159 161 161 160 159 158
+162 162 163 163 162 160 158 157
+162 162 162 162 161 158 156 155
+160 161 161 161 160 158 156 154
+160 160 161 162 161 160 158 157
+160 161 163 164 164 163 161 160
+Recovered block MSE = 4.98438
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"testcompression" end time: Dec 10 20:44 CET
+"testcompression" time elapsed: 00:00:00
+----------------------------------------------------------
+
 6/6 Testing: testcolor
 6/6 Test: testcolor
 Command: "/Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build/tests/testcolor"
 Directory: /Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build
-"testcolor" start time: Dec 08 02:24 CET
+"testcolor" start time: Dec 10 20:44 CET
 Output:
 ----------------------------------------------------------
 [Decompression_JPEG] Parsed HUF1 header: nbSym=82 payload_bytes=2843 payload_bits=22742
-[Decompression_JPEG] Built Huffman tree, root=0x12be05580
+[Decompression_JPEG] Built Huffman tree, root=0x130e07470
 [Decompression_JPEG] Decoded 7120 symbols into trameDec
 [Decompression_JPEG] Parsed 486 quant blocks
-[Decompression_JPEG] Inferred block grid: blocks_w=18 blocks_h=27 (nblocks=486)
 [Decompression_JPEG] Parsed HUF1 header: nbSym=1 payload_bytes=0 payload_bits=0
-[Decompression_JPEG] Built Huffman tree, root=0x12be040c0
 [Decompression_JPEG] Parsed HUF1 header: nbSym=1 payload_bytes=0 payload_bits=0
-[Decompression_JPEG] Built Huffman tree, root=0x12be040c0
 [DecompressToPPM] Cb plane empty, using neutral 128 values
 [DecompressToPPM] Cr plane empty, using neutral 128 values
 testcolor: OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.09 sec
 ----------------------------------------------------------
 Test Passed.
-"testcolor" end time: Dec 08 02:24 CET
+"testcolor" end time: Dec 10 20:44 CET
 "testcolor" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Dec 08 02:24 CET
+End testing: Dec 10 20:44 CET

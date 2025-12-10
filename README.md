@@ -25,7 +25,6 @@ sudo apt update
 sudo apt install build-essential cmake g++ doxygen graphviz
 ```
 
-
 ---
 
 
@@ -62,53 +61,71 @@ After a successful build, the main executable will be located at `build/jpeg_cli
 
 The `build/jpeg_cli` executable is the main command-line interface (CLI) for this program.
 
-#### a. Grayscale Image Processing
+#### a. Grayscale Workflow (text .img → .pgm/.huff)
 
-This is the program's default mode.
-
--   **Grayscale Compression:**
-    The program reads a text-based image file (e.g., `lenna.img`), calculates metrics, and generates 3 output files:
-    -   `recon_lenna.pgm`: The reconstructed image for verification.
-    -   `lenna.rle`: Data after RLE encoding.
-    -   `lenna.huff`: The final data after Huffman encoding.
+-   **Compress:** takes an ASCII grayscale `.img` (one pixel per line, 0-255). Outputs:
+    -   `<name>.huff`: Huffman stream with width/height trailer.
+    -   `<name>.rle`: RLE intermediate (optional to keep).
+    -   `recon_<name>.pgm`: Reconstructed image for quick visual check.
 
     ```bash
-    # Syntax: ./build/jpeg_cli [image_file_path] [quality]
-    # Example: Compress lenna.img with a quality of 50 (default)
+    # Syntax: ./build/jpeg_cli <image.img> [quality]
+    # Example with the provided sample (128x128):
     ./build/jpeg_cli lenna.img 50
+    # Produces lenna.huff, lenna.rle, recon_lenna.pgm in the current dir
     ```
 
--   **Grayscale Decompression:**
-    Decompresses a `.huff` file created by this program.
-
+-   **Decompress:** reads a `.huff` produced by this tool and writes `decomp_<name>.pgm`.
     ```bash
     # Syntax: ./build/jpeg_cli --decompress <file.huff>
-    # The output will be saved to decomp_lenna.pgm
-    ./build/jpeg_cli --decompress build/lenna.huff
+    ./build/jpeg_cli --decompress lenna.huff
+    # Produces decomp_lenna.pgm (dimensions taken from trailer). Legacy files without
+    # trailer fall back to size inference and may be wrong; prefer re-compressing.
     ```
 
-#### b. Color Image Processing (PPM Format)
-
--   **Color Compression:**
-    Compresses a PPM (P6) image into three separate compressed components (Y, Cb, Cr).
-    -   `<basename>_Y.huff`, `<basename>_Cb.huff`, `<basename>_Cr.huff`
-    -   `<basename>.meta`: A file containing metadata (dimensions, quality, subsampling mode).
-
+-   **Round-trip sanity check:**
     ```bash
-    # Syntax: ./build/jpeg_cli --color-compress <input.ppm> <basename> [quality] [subsampling]
-    # Example: Compress color.ppm with quality 75 and 4:2:0 subsampling
-    ./build/jpeg_cli --color-compress path/to/color.ppm my_image 75 420
+    ./build/jpeg_cli lenna.img 50
+    ./build/jpeg_cli --decompress lenna.huff
+    # Compare recon_lenna.pgm and decomp_lenna.pgm (they should match)
     ```
-    -   `quality`: 1-100 (affects the quantization matrix).
-    -   `subsampling`: `444` (no subsampling), `422`, `420`.
 
--   **Color Decompression:**
-    Reconstructs a PPM file from the component files (`.huff`) and the metadata file (`.meta`).
+#### b. Color Workflow (PPM P6 → Y/Cb/Cr bitstreams → PPM)
+
+-   **Compress:** takes a binary PPM (P6) and splits Y, Cb, Cr, applying optional subsampling.
+    Outputs `<base>_Y.huff`, `<base>_Cb.huff`, `<base>_Cr.huff`, and `<base>.meta` (stores width/height, quality, subsampling).
 
     ```bash
-    # Syntax: ./build/jpeg_cli --color-decompress <basename> <output.ppm>
-    # Example: Decompress from my_image_* files and save to final_image.ppm
-    ./build/jpeg_cli --color-decompress my_image final_image.ppm
+    # Syntax: ./build/jpeg_cli --color-compress <input.ppm> <base> [quality] [subsampling]
+    # Subsampling: 444 (default), 422, or 420
+
+    # Example 1: no subsampling
+    ./build/jpeg_cli --color-compress lenna_color.ppm lenna_color 75 444
+
+    # Example 2: 4:2:0 subsampling for higher compression
+    ./build/jpeg_cli --color-compress lenna_color.ppm lenna_color 75 420
+    # Produces lenna_color_Y.huff, lenna_color_Cb.huff, lenna_color_Cr.huff, lenna_color.meta
+    ```
+
+-   **Decompress:** reconstructs a PPM using the three component streams plus metadata.
+    ```bash
+    # Syntax: ./build/jpeg_cli --color-decompress <base> <output.ppm>
+    ./build/jpeg_cli --color-decompress lenna_color recon_lenna_color.ppm
+    # Reads lenna_color_*.huff and lenna_color.meta from the working directory
+    ```
+
+-   **Round-trip sanity check (color):**
+    ```bash
+    ./build/jpeg_cli --color-compress lenna_color.ppm demo 75 420
+    ./build/jpeg_cli --color-decompress demo demo_out.ppm
+    # Inspect demo_out.ppm; PSNR depends on quality/subsampling
+    ```
+
+-   **Need a sample PPM?** Generate a tiny one (8x8 gradient) and reuse it:
+    ```bash
+    python3 tools/make_sample_ppm.py tests/sample_color.ppm --width 8 --height 8
+    ./build/jpeg_cli --color-compress tests/sample_color.ppm sample 75 444
+    ./build/jpeg_cli --color-decompress sample sample_out.ppm
     ```
 
 #### c. Other Utilities
