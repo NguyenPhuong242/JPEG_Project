@@ -1,342 +1,378 @@
+/**
+ * @file cCompressionCouleur.cpp
+ * @author Khanh-Phuong NGUYEN
+ * @date 2025-12-08
+ * @brief Implements the cCompressionCouleur class for color image compression.
+ */
+
 #include "core/cCompressionCouleur.h"
+#include "core/cCompression.h"
 
-#include <algorithm>
-#include <array>
-#include <cmath>
-#include <cstdint>
+#include <vector>
 #include <fstream>
-#include <stdexcept>
+#include <cmath>
+#include <cstring>
+#include <string>
 
-namespace
+// --- Static Helper Functions for Color Image Processing ---
+
+/**
+ * @brief Reads a binary (P6) PPM file.
+ * @param[in] path Path to the PPM file.
+ * @param[out] w Width of the image.
+ * @param[out] h Height of the image.
+ * @param[out] rgb A vector to be filled with the raw RGB pixel data.
+ * @return True on success, false on failure.
+ */
+static bool readPPM(const char *path, unsigned int &w, unsigned int &h, std::vector<unsigned char> &rgb)
 {
- using jpeg::ChromaSubsampling;
-
- /** @brief Lightweight record describing one encoded chroma channel. */
- struct ChannelMetadata
- {
- 	std::uint8_t id;                  /**< Channel identifier (0=Y,1=Cb,2=Cr). */
- 	unsigned int width;               /**< Channel width in pixels. */
- 	unsigned int height;              /**< Channel height in pixels. */
- 	std::string filename;             /**< Huffman bitstream filename. */
- 	std::vector<char> symbols;        /**< Cached Huffman symbols. */
- 	std::vector<double> frequencies;  /**< Cached Huffman frequencies. */
- };
-
- /** @brief Horizontal/vertical decimation factors for chroma planes. */
- struct SubsampleFactors
- {
- 	unsigned int horizontal;
- 	unsigned int vertical;
- };
-
- /** @brief Translate subsampling mode to per-axis decimation factors. */
- SubsampleFactors factorsFor(ChromaSubsampling mode)
- {
-		switch (mode)
-		{
-		case ChromaSubsampling::Sampling444:
-			return {1U, 1U};
-		case ChromaSubsampling::Sampling422:
-			return {2U, 1U};
-		case ChromaSubsampling::Sampling420:
-			return {2U, 2U};
-		case ChromaSubsampling::Sampling411:
-			return {4U, 1U};
-		}
-		return {1U, 1U};
-	}
-
-	 /**
-	  * @brief Ensure image dimensions align with 8x8 blocks after subsampling.
-	  * @return true when width/height are compatible with the requested factors.
-	  */
-	 bool ensureCompatibility(unsigned int width,
-	 			unsigned int height,
-	 			const SubsampleFactors &fac)
-	{
-		if ((width % (8U * fac.horizontal)) != 0U)
-			return false;
-		if ((height % (8U * fac.vertical)) != 0U)
-			return false;
-		return true;
-	}
-
-	 /**
-	  * @brief Convert interleaved RGB pixels to planar YCbCr.
-	  * @param rgb Source RGB buffer (size width * height * 3).
-	  * @param width Image width.
-	  * @param height Image height.
-	  * @param Y Output luma plane.
-	  * @param Cb Output blue-difference chroma plane.
-	  * @param Cr Output red-difference chroma plane.
-	  */
-	 void rgbToYCbCr(const std::vector<unsigned char> &rgb,
-	 		unsigned int width,
-	 		unsigned int height,
-	 		std::vector<unsigned char> &Y,
-	 		std::vector<unsigned char> &Cb,
-	 		std::vector<unsigned char> &Cr)
-	{
-		const std::size_t pixelCount = static_cast<std::size_t>(width) * static_cast<std::size_t>(height);
-		Y.resize(pixelCount);
-		Cb.resize(pixelCount);
-		Cr.resize(pixelCount);
-
-		for (std::size_t idx = 0; idx < pixelCount; ++idx)
-		{
-			const double r = static_cast<double>(rgb[idx * 3 + 0]);
-			const double g = static_cast<double>(rgb[idx * 3 + 1]);
-			const double b = static_cast<double>(rgb[idx * 3 + 2]);
-
-			const double y = 0.299 * r + 0.587 * g + 0.114 * b;
-			const double cb = -0.168736 * r - 0.331264 * g + 0.5 * b + 128.0;
-			const double cr = 0.5 * r - 0.418688 * g - 0.081312 * b + 128.0;
-
-			Y[idx] = static_cast<unsigned char>(std::clamp(std::lround(y), 0L, 255L));
-			Cb[idx] = static_cast<unsigned char>(std::clamp(std::lround(cb), 0L, 255L));
-			Cr[idx] = static_cast<unsigned char>(std::clamp(std::lround(cr), 0L, 255L));
-		}
-	}
-
-	 /**
-	  * @brief Average down a chroma plane according to the sampling factors.
-	  * @param src Source plane at full resolution.
-	  * @param width Source width.
-	  * @param height Source height.
-	  * @param fac Horizontal/vertical subsampling factors.
-	  * @param outWidth Receives resulting width.
-	  * @param outHeight Receives resulting height.
-	  * @return New subsampled plane stored in a vector.
-	  */
-	 std::vector<unsigned char> subsamplePlane(const std::vector<unsigned char> &src,
-	 				 unsigned int width,
-	 				 unsigned int height,
-	 				 const SubsampleFactors &fac,
-	 				 unsigned int &outWidth,
-	 				 unsigned int &outHeight)
-	{
-		outWidth = width / fac.horizontal;
-		outHeight = height / fac.vertical;
-		std::vector<unsigned char> dst(static_cast<std::size_t>(outWidth) * static_cast<std::size_t>(outHeight));
-
-		for (unsigned int y = 0; y < outHeight; ++y)
-		{
-			for (unsigned int x = 0; x < outWidth; ++x)
-			{
-				double acc = 0.0;
-				unsigned int samples = 0;
-				for (unsigned int v = 0; v < fac.vertical; ++v)
-				{
-					for (unsigned int h = 0; h < fac.horizontal; ++h)
-					{
-						const unsigned int srcX = x * fac.horizontal + h;
-						const unsigned int srcY = y * fac.vertical + v;
-						const std::size_t srcIdx = static_cast<std::size_t>(srcY) * width + srcX;
-						acc += static_cast<double>(src[srcIdx]);
-						++samples;
-					}
-				}
-				const double avg = acc / static_cast<double>(samples);
-				dst[static_cast<std::size_t>(y) * outWidth + x] = static_cast<unsigned char>(std::clamp(std::lround(avg), 0L, 255L));
-			}
-		}
-
-		return dst;
-	}
-
-	 /** @brief Copy cached Huffman data into the channel metadata structure. */
-	 void collectHuffmanMetadata(ChannelMetadata &meta)
-	{
-		char symbols[256];
-		double freqs[256];
-		unsigned int count = 0;
-		if (!cCompression::loadHuffmanTable(symbols, freqs, count))
-		{
-			meta.symbols.clear();
-			meta.frequencies.clear();
-			return;
-		}
-		meta.symbols.assign(symbols, symbols + count);
-		meta.frequencies.assign(freqs, freqs + count);
-	}
-
-	 /**
-	  * @brief Serialize color metadata describing the encoded channels.
-	  * @throws std::runtime_error when the file cannot be written.
-	  */
-	 void writeMetadata(const std::string &path,
-	 		  unsigned int width,
-	 		  unsigned int height,
-	 		  unsigned int quality,
-	 		  ChromaSubsampling mode,
-	 		  const std::vector<ChannelMetadata> &channels)
-	{
-		std::ofstream out(path, std::ios::binary);
-		if (!out)
-		{
-			throw std::runtime_error("Cannot write color metadata: " + path);
-		}
-
-		const std::uint32_t magic = jpeg::kColorMetaMagic;
-		const std::uint32_t version = jpeg::kColorMetaVersion;
-		const std::uint32_t channelCount = static_cast<std::uint32_t>(channels.size());
-		const std::uint32_t subsampling = static_cast<std::uint32_t>(mode);
-
-		out.write(reinterpret_cast<const char *>(&magic), sizeof(magic));
-		out.write(reinterpret_cast<const char *>(&version), sizeof(version));
-		out.write(reinterpret_cast<const char *>(&width), sizeof(width));
-		out.write(reinterpret_cast<const char *>(&height), sizeof(height));
-		out.write(reinterpret_cast<const char *>(&quality), sizeof(quality));
-		out.write(reinterpret_cast<const char *>(&subsampling), sizeof(subsampling));
-		out.write(reinterpret_cast<const char *>(&channelCount), sizeof(channelCount));
-
-		for (const ChannelMetadata &meta : channels)
-		{
-			out.write(reinterpret_cast<const char *>(&meta.id), sizeof(meta.id));
-			out.write(reinterpret_cast<const char *>(&meta.width), sizeof(meta.width));
-			out.write(reinterpret_cast<const char *>(&meta.height), sizeof(meta.height));
-
-			const std::uint32_t nameLen = static_cast<std::uint32_t>(meta.filename.size());
-			out.write(reinterpret_cast<const char *>(&nameLen), sizeof(nameLen));
-			out.write(meta.filename.data(), nameLen);
-
-			const std::uint32_t symbolCount = static_cast<std::uint32_t>(meta.symbols.size());
-			out.write(reinterpret_cast<const char *>(&symbolCount), sizeof(symbolCount));
-			for (std::uint32_t i = 0; i < symbolCount; ++i)
-			{
-				const std::int8_t sym = static_cast<std::int8_t>(meta.symbols[i]);
-				out.write(reinterpret_cast<const char *>(&sym), sizeof(sym));
-				const double freq = meta.frequencies[i];
-				out.write(reinterpret_cast<const char *>(&freq), sizeof(freq));
-			}
-		}
-	}
-
-	 /**
-	  * @brief Compress a single planar channel and gather Huffman metadata.
-	  * @param plane Input plane data (row-major).
-	  * @param width Plane width.
-	  * @param height Plane height.
-	  * @param quality Compression quality factor.
-	  * @param filename Output Huffman filename.
-	  * @param channelId Channel identifier stored in metadata.
-	  * @return Filled metadata record for the channel.
-	  */
-	 ChannelMetadata compressChannel(const std::vector<unsigned char> &plane,
-	 		     unsigned int width,
-	 		     unsigned int height,
-	 		     unsigned int quality,
-	 		     const std::string &filename,
-	 		     std::uint8_t channelId)
-	{
-		std::vector<unsigned char *> rows(height);
-		for (unsigned int y = 0; y < height; ++y)
-		{
-			rows[y] = const_cast<unsigned char *>(&plane[static_cast<std::size_t>(y) * width]);
-		}
-
-		cCompression comp(width, height, quality, rows.data());
-		cCompression::setQualiteGlobale(quality);
-
-		const unsigned int blockCount = (width / 8U) * (height / 8U);
-		std::vector<int> trame(1 + blockCount * 128U, 0);
-		comp.RLE(trame.data());
-		comp.Compression_JPEG(trame.data(), filename.c_str());
-
-		ChannelMetadata meta;
-		meta.id = channelId;
-		meta.width = width;
-		meta.height = height;
-		meta.filename = filename;
-		collectHuffmanMetadata(meta);
-		return meta;
-	}
+    std::ifstream in(path, std::ios::binary);
+    if (!in) return false;
+    std::string magic; in >> magic; if (magic != "P6") return false;
+    while (in.peek() == '#') { std::string line; std::getline(in, line); }
+    in >> w >> h;
+    int maxv; in >> maxv;
+    in.get(); // Consume whitespace
+    size_t n = static_cast<size_t>(w) * static_cast<size_t>(h) * 3;
+    rgb.resize(n);
+    in.read(reinterpret_cast<char*>(rgb.data()), n);
+    return static_cast<size_t>(in.gcount()) == n;
 }
 
 /**
- * @brief Construct a color compressor with quality and subsampling settings.
+ * @brief Writes a binary (P6) PPM file.
+ * @param[in] path Path for the output PPM file.
+ * @param[in] w Width of the image.
+ * @param[in] h Height of the image.
+ * @param[in] rgb A vector containing the raw RGB pixel data.
+ * @return True on success, false on failure.
  */
-cCompressionCouleur::cCompressionCouleur(unsigned int qualite,
-		   jpeg::ChromaSubsampling mode)
-	: cCompression(0, 0, qualite, nullptr), mSubsampling(mode)
+static bool writePPM(const char *path, unsigned int w, unsigned int h, const std::vector<unsigned char> &rgb)
 {
-}
-
-/** @brief Modify the chroma subsampling mode. */
-void cCompressionCouleur::setSubsampling(jpeg::ChromaSubsampling mode)
-{
-	mSubsampling = mode;
-}
-
-/** @brief Inspect the current chroma subsampling mode. */
-jpeg::ChromaSubsampling cCompressionCouleur::getSubsampling() const
-{
-	return mSubsampling;
+    std::ofstream out(path, std::ios::binary);
+    if (!out) return false;
+    out << "P6\n" << w << " " << h << "\n255\n";
+    out.write(reinterpret_cast<const char*>(rgb.data()), rgb.size());
+    return true;
 }
 
 /**
- * @brief Compress an RGB image into per-channel Huffman bitstreams plus metadata.
+ * @brief Converts a pixel from RGB to YCbCr color space.
+ * @param[in] R Red component (0-255).
+ * @param[in] G Green component (0-255).
+ * @param[in] B Blue component (0-255).
+ * @param[out] Y Luma component (0-255).
+ * @param[out] Cb Blue-difference chroma (0-255).
+ * @param[out] Cr Red-difference chroma (0-255).
  */
-bool cCompressionCouleur::compressRGB(const std::vector<unsigned char> &rgb,
-		 unsigned int width,
-		 unsigned int height,
-		 const std::string &outputPrefix) const
+static inline void rgb_to_ycbcr(unsigned char R, unsigned char G, unsigned char B, unsigned char &Y, unsigned char &Cb, unsigned char &Cr)
 {
-	if (rgb.size() != static_cast<std::size_t>(width) * height * 3ULL)
-	{
-		return false;
-	}
+    double r = static_cast<double>(R), g = static_cast<double>(G), b = static_cast<double>(B);
+    double y  =  0.299 * r + 0.587 * g + 0.114 * b;
+    double cb = -0.168736 * r - 0.331264 * g + 0.5 * b + 128.0;
+    double cr =  0.5 * r - 0.418688 * g - 0.081312 * b + 128.0;
+    Y = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(y)))));
+    Cb = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(cb)))));
+    Cr = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(cr)))));
+}
 
-	const SubsampleFactors fac = factorsFor(mSubsampling);
-	if (!ensureCompatibility(width, height, fac))
-	{
-		return false;
-	}
+/**
+ * @brief Converts a pixel from YCbCr to RGB color space.
+ * @param[in] Y Luma component (0-255).
+ * @param[in] Cb Blue-difference chroma (0-255).
+ * @param[in] Cr Red-difference chroma (0-255).
+ * @param[out] R Red component (0-255).
+ * @param[out] G Green component (0-255).
+ * @param[out] B Blue component (0-255).
+ */
+static inline void ycbcr_to_rgb(unsigned char Y, unsigned char Cb, unsigned char Cr, unsigned char &R, unsigned char &G, unsigned char &B)
+{
+    double y = static_cast<double>(Y), cb = static_cast<double>(Cb) - 128.0, cr = static_cast<double>(Cr) - 128.0;
+    double r = y + 1.402 * cr;
+    double g = y - 0.344136 * cb - 0.714136 * cr;
+    double b = y + 1.772 * cb;
+    R = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(r)))));
+    G = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(g)))));
+    B = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(b)))));
+}
 
-	std::vector<unsigned char> Y;
-	std::vector<unsigned char> Cb;
-	std::vector<unsigned char> Cr;
-	rgbToYCbCr(rgb, width, height, Y, Cb, Cr);
+/**
+ * @brief Subsamples a chroma plane using 4:2:0 scheme (averages a 2x2 block).
+ * @param[in] src The source chroma plane.
+ * @param[in] w Width of the source plane.
+ * @param[in] h Height of the source plane.
+ * @param[out] dst The destination vector for the subsampled data.
+ * @param[out] cw The new width of the subsampled plane.
+ * @param[out] ch The new height of the subsampled plane.
+ */
+static void subsample420(const std::vector<unsigned char> &src, unsigned int w, unsigned int h, std::vector<unsigned char> &dst, unsigned int &cw, unsigned int &ch)
+{
+    cw = (w + 1) / 2; ch = (h + 1) / 2;
+    dst.assign(static_cast<size_t>(cw) * ch, 0);
+    for (unsigned int y = 0; y < ch; ++y) {
+        for (unsigned int x = 0; x < cw; ++x) {
+            int sum = 0, count = 0;
+            for (int yy = 0; yy < 2; ++yy) for (int xx = 0; xx < 2; ++xx) {
+                if (x*2 + xx < w && y*2 + yy < h) {
+                    sum += src[(y*2 + yy) * w + (x*2 + xx)];
+                    ++count;
+                }
+            }
+            dst[y * cw + x] = static_cast<unsigned char>((count > 0) ? (sum / count) : 0);
+        }
+    }
+}
 
-	unsigned int chromaWidth = width;
-	unsigned int chromaHeight = height;
-	std::vector<unsigned char> CbSub;
-	std::vector<unsigned char> CrSub;
+/**
+ * @brief Subsamples a chroma plane using 4:2:2 scheme (averages 2 horizontal pixels).
+ */
+static void subsample422(const std::vector<unsigned char> &src, unsigned int w, unsigned int h, std::vector<unsigned char> &dst, unsigned int &cw, unsigned int &ch)
+{
+    cw = (w + 1) / 2; ch = h;
+    dst.assign(static_cast<size_t>(cw) * ch, 0);
+    for (unsigned int y = 0; y < ch; ++y) {
+        for (unsigned int x = 0; x < cw; ++x) {
+            int sum = 0, count = 0;
+            for (int xx = 0; xx < 2; ++xx) {
+                if (x*2 + xx < w) {
+                    sum += src[y * w + (x*2 + xx)];
+                    ++count;
+                }
+            }
+            dst[y * cw + x] = static_cast<unsigned char>((count > 0) ? (sum / count) : 0);
+        }
+    }
+}
 
-	if (fac.horizontal == 1U && fac.vertical == 1U)
-	{
-		CbSub = Cb;
-		CrSub = Cr;
-	}
-	else
-	{
-		CbSub = subsamplePlane(Cb, width, height, fac, chromaWidth, chromaHeight);
-		CrSub = subsamplePlane(Cr, width, height, fac, chromaWidth, chromaHeight);
-	}
+/**
+ * @brief Performs bilinear upsampling on a single channel.
+ * @param[in] src The source (smaller) data plane.
+ * @param[in] cw Width of the source plane.
+ * @param[in] ch Height of the source plane.
+ * @param[out] dst The destination vector for the upsampled data.
+ * @param[in] w The target width.
+ * @param[in] h The target height.
+ */
+static void upsample_bilinear(const std::vector<unsigned char> &src, unsigned int cw, unsigned int ch, std::vector<unsigned char> &dst, unsigned int w, unsigned int h)
+{
+    dst.assign(static_cast<size_t>(w) * h, 0);
+    if (cw == 0 || ch == 0) return;
+    double sx_ratio = (cw > 1) ? (double)(cw - 1) / (w - 1) : 0;
+    double sy_ratio = (ch > 1) ? (double)(ch - 1) / (h - 1) : 0;
 
-	std::vector<ChannelMetadata> channels;
-	channels.reserve(3);
+    for (unsigned int j = 0; j < h; ++j) {
+        double sy = sy_ratio * j;
+        unsigned int y0 = static_cast<unsigned int>(sy);
+        unsigned int y1 = std::min(y0 + 1, ch - 1);
+        double v = sy - y0;
 
-	const std::string yFile = outputPrefix + "_Y.huff";
-	const ChannelMetadata yMeta = compressChannel(Y, width, height, getQualite(), yFile, 0U);
-	channels.push_back(yMeta);
+        for (unsigned int i = 0; i < w; ++i) {
+            double sx = sx_ratio * i;
+            unsigned int x0 = static_cast<unsigned int>(sx);
+            unsigned int x1 = std::min(x0 + 1, cw - 1);
+            double u = sx - x0;
 
-	const std::string cbFile = outputPrefix + "_Cb.huff";
-	const ChannelMetadata cbMeta = compressChannel(CbSub, chromaWidth, chromaHeight, getQualite(), cbFile, 1U);
-	channels.push_back(cbMeta);
+            double p00 = src[y0 * cw + x0];
+            double p01 = src[y0 * cw + x1];
+            double p10 = src[y1 * cw + x0];
+            double p11 = src[y1 * cw + x1];
+            
+            double val = p00 * (1-u)*(1-v) + p01 * u*(1-v) + p10 * (1-u)*v + p11 * u*v;
+            dst[j * w + i] = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(val)))));
+        }
+    }
+}
 
-	const std::string crFile = outputPrefix + "_Cr.huff";
-	const ChannelMetadata crMeta = compressChannel(CrSub, chromaWidth, chromaHeight, getQualite(), crFile, 2U);
-	channels.push_back(crMeta);
+/**
+ * @brief Pads a single-channel image to be a multiple of 8x8 blocks by replicating border pixels.
+ * @param[in] src Source image data.
+ * @param[in] w Width of source.
+ * @param[in] h Height of source.
+ * @param[out] dst Destination vector for padded data.
+ * @param[out] pw New padded width.
+ * @param[out] ph New padded height.
+ */
+static void padToMultipleOf8(const std::vector<unsigned char> &src, unsigned int w, unsigned int h, std::vector<unsigned char> &dst, unsigned int &pw, unsigned int &ph)
+{
+    pw = ((w + 7) / 8) * 8;
+    ph = ((h + 7) / 8) * 8;
+    if (pw == w && ph == h) {
+        dst = src;
+        return;
+    }
+    dst.assign(static_cast<size_t>(pw) * ph, 0);
+    for (unsigned int y = 0; y < ph; ++y) {
+        unsigned int sy = std::min(y, h - 1);
+        for (unsigned int x = 0; x < pw; ++x) {
+            unsigned int sx = std::min(x, w - 1);
+            dst[y * pw + x] = src[sy * w + sx];
+        }
+    }
+}
 
-	try
-	{
-		writeMetadata(outputPrefix + ".meta", width, height, getQualite(), mSubsampling, channels);
-	}
-	catch (const std::exception &)
-	{
-		return false;
-	}
+/**
+ * @brief Creates a 2D array of row pointers from a flat image buffer.
+ * @param[in] buf The flat vector containing the image data.
+ * @param[in] w Width of the image.
+ * @param[in] h Height of the image.
+ * @return A newly allocated array of row pointers (unsigned char**).
+ * @note The caller is responsible for deleting the returned array of pointers.
+ */
+static unsigned char **makeRowPointers(std::vector<unsigned char> &buf, unsigned int w, unsigned int h)
+{
+    unsigned char **rows = new unsigned char*[h];
+    for (unsigned int y = 0; y < h; ++y) rows[y] = buf.data() + static_cast<size_t>(y) * w;
+    return rows;
+}
 
-	return true;
+
+// --- cCompressionCouleur Method Implementations ---
+
+cCompressionCouleur::cCompressionCouleur() : cCompression(), mSubsamplingH(1), mSubsamplingV(1) {}
+
+cCompressionCouleur::cCompressionCouleur(unsigned int largeur, unsigned int hauteur, unsigned int qualite, unsigned int subsamplingH, unsigned int subsamplingV, unsigned char **buffer)
+    : cCompression(largeur, hauteur, qualite, buffer), mSubsamplingH(subsamplingH), mSubsamplingV(subsamplingV) {}
+
+cCompressionCouleur::~cCompressionCouleur() {}
+
+void cCompressionCouleur::setSubsamplingH(unsigned int subsamplingH) { mSubsamplingH = subsamplingH; }
+void cCompressionCouleur::setSubsamplingV(unsigned int subsamplingV) { mSubsamplingV = subsamplingV; }
+unsigned int cCompressionCouleur::getSubsamplingH() const { return mSubsamplingH; }
+unsigned int cCompressionCouleur::getSubsamplingV() const { return mSubsamplingV; }
+
+bool cCompressionCouleur::CompressPPM(const char *ppmPath, const char *basename, unsigned int qual, unsigned int subsamplingMode)
+{
+    // 1. Read PPM file
+    unsigned int w=0, h=0;
+    std::vector<unsigned char> rgb;
+    if (!readPPM(ppmPath, w, h, rgb)) return false;
+
+    // 2. Convert RGB to YCbCr color space
+    std::vector<unsigned char> Y(w*h), Cb_full(w*h), Cr_full(w*h);
+    for (unsigned int i = 0; i < h; ++i) {
+        for (unsigned int j = 0; j < w; ++j) {
+            size_t idx = (static_cast<size_t>(i) * w + j) * 3;
+            rgb_to_ycbcr(rgb[idx], rgb[idx+1], rgb[idx+2], Y[i*w+j], Cb_full[i*w+j], Cr_full[i*w+j]);
+        }
+    }
+
+    // 3. Perform chroma subsampling
+    std::vector<unsigned char> Cb_sub, Cr_sub;
+    unsigned int cw=w, ch=h;
+    if (subsamplingMode == 420) {
+        subsample420(Cb_full, w, h, Cb_sub, cw, ch);
+        subsample420(Cr_full, w, h, Cr_sub, cw, ch);
+    } else if (subsamplingMode == 422) {
+        subsample422(Cb_full, w, h, Cb_sub, cw, ch);
+        subsample422(Cr_full, w, h, Cr_sub, cw, ch);
+    } else { // 444
+        Cb_sub = Cb_full; Cr_sub = Cr_full;
+    }
+
+    // 4. Pad each color plane to be a multiple of 8x8
+    std::vector<unsigned char> Y_pad, Cb_pad, Cr_pad;
+    unsigned int Ypw, Yph, Cbpw, Cbph, Crpw, Crph;
+    padToMultipleOf8(Y, w, h, Y_pad, Ypw, Yph);
+    padToMultipleOf8(Cb_sub, cw, ch, Cb_pad, Cbpw, Cbph);
+    padToMultipleOf8(Cr_sub, cw, ch, Cr_pad, Crpw, Crph);
+
+    // 5. Compress each plane individually
+    cCompression::setQualiteGlobale(qual);
+    auto compress_plane = [&](std::vector<unsigned char>& data, unsigned int pw, unsigned int ph, const char* suffix) {
+        unsigned char **rows = makeRowPointers(data, pw, ph);
+        cCompression comp(pw, ph, qual, rows);
+        std::vector<int> trame(1 + (pw/8)*(ph/8)*128);
+        comp.RLE(trame.data());
+        std::string filename = std::string(basename) + suffix;
+        comp.Compression_JPEG(trame.data(), filename.c_str());
+        delete[] rows;
+    };
+    compress_plane(Y_pad, Ypw, Yph, "_Y.huff");
+    compress_plane(Cb_pad, Cbpw, Cbph, "_Cb.huff");
+    compress_plane(Cr_pad, Crpw, Crph, "_Cr.huff");
+
+    // 6. Write metadata file
+    std::string meta_path = std::string(basename) + ".meta";
+    std::ofstream m(meta_path, std::ios::binary);
+    if (m) {
+        uint32_t val;
+        val = w; m.write(reinterpret_cast<const char*>(&val), sizeof(val));
+        val = h; m.write(reinterpret_cast<const char*>(&val), sizeof(val));
+        val = cw; m.write(reinterpret_cast<const char*>(&val), sizeof(val));
+        val = ch; m.write(reinterpret_cast<const char*>(&val), sizeof(val));
+        val = subsamplingMode; m.write(reinterpret_cast<const char*>(&val), sizeof(val));
+        val = qual; m.write(reinterpret_cast<const char*>(&val), sizeof(val));
+    }
+    return true;
+}
+
+bool cCompressionCouleur::DecompressToPPM(const char *basename, const char *outppm)
+{
+    // 1. Read metadata
+    std::string meta_path = std::string(basename) + ".meta";
+    std::ifstream m(meta_path, std::ios::binary);
+    if (!m) return false;
+    uint32_t w, h, cw, ch, sm, q;
+    m.read(reinterpret_cast<char*>(&w), sizeof(w)); m.read(reinterpret_cast<char*>(&h), sizeof(h));
+    m.read(reinterpret_cast<char*>(&cw), sizeof(cw)); m.read(reinterpret_cast<char*>(&ch), sizeof(ch));
+    m.read(reinterpret_cast<char*>(&sm), sizeof(sm)); m.read(reinterpret_cast<char*>(&q), sizeof(q));
+    m.close();
+
+    cCompression::setQualiteGlobale(q);
+
+    // 2. Decompress each color plane
+    auto decompress_plane = [&](const char* suffix, unsigned int& pw, unsigned int& ph) -> std::vector<unsigned char> {
+        std::string filename = std::string(basename) + suffix;
+        cCompression comp;
+        unsigned char** rows = comp.Decompression_JPEG(filename.c_str());
+        if (!rows) return {};
+        pw = comp.getLargeur();
+        ph = comp.getHauteur();
+        std::vector<unsigned char> data(pw * ph);
+        for(unsigned int y=0; y<ph; ++y) std::memcpy(data.data() + y*pw, rows[y], pw);
+        delete[] rows[0]; // Free buffer
+        delete[] rows;    // Free row pointers
+        return data;
+    };
+    unsigned int Ypw, Yph, Cbpw, Cbph, Crpw, Crph;
+    std::vector<unsigned char> Y_pad = decompress_plane("_Y.huff", Ypw, Yph);
+    std::vector<unsigned char> Cb_pad = decompress_plane("_Cb.huff", Cbpw, Cbph);
+    std::vector<unsigned char> Cr_pad = decompress_plane("_Cr.huff", Crpw, Crph);
+    if (Y_pad.empty()) return false;
+    // If chroma planes are empty (very small files), fallback to neutral chroma (128)
+    if (Cb_pad.empty()) {
+        std::cerr << "[DecompressToPPM] Cb plane empty, using neutral 128 values\n";
+        Cbpw = cw; Cbph = ch;
+        Cb_pad.assign(static_cast<size_t>(Cbpw) * Cbph, 128);
+    }
+    if (Cr_pad.empty()) {
+        std::cerr << "[DecompressToPPM] Cr plane empty, using neutral 128 values\n";
+        Crpw = cw; Crph = ch;
+        Cr_pad.assign(static_cast<size_t>(Crpw) * Crph, 128);
+    }
+
+    // 3. Upsample chroma planes if they were subsampled
+    std::vector<unsigned char> Cb_full, Cr_full;
+    if (cw != w || ch != h) {
+        upsample_bilinear(Cb_pad, Cbpw, Cbph, Cb_full, w, h);
+        upsample_bilinear(Cr_pad, Crpw, Crph, Cr_full, w, h);
+    } else {
+        Cb_full = Cb_pad;
+        Cr_full = Cr_pad;
+    }
+
+    // 4. Convert YCbCr back to RGB, cropping any padding
+    std::vector<unsigned char> rgb(static_cast<size_t>(w) * h * 3);
+    for (unsigned int y=0; y<h; ++y) {
+        for (unsigned int x=0; x<w; ++x) {
+            unsigned char Yv = Y_pad[y*Ypw + x];
+            unsigned char Cbv = Cb_full[y*w + x];
+            unsigned char Crv = Cr_full[y*w + x];
+            size_t idx = (static_cast<size_t>(y) * w + x) * 3;
+            ycbcr_to_rgb(Yv, Cbv, Crv, rgb[idx], rgb[idx+1], rgb[idx+2]);
+        }
+    }
+
+    // 5. Write the final PPM file
+    return writePPM(outppm, w, h, rgb);
 }

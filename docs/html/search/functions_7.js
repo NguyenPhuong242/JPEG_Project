@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['inverse_5frle_0',['Inverse_RLE',['../classcDecompression.html#a14be24716af4b8709ffe99d2ecc152f8',1,'cDecompression']]]
+  ['loadhuffmantable_0',['loadHuffmanTable',['../classc_compression.html#ad7165e2bc5c2deb15bc7e2cf7dc9d265',1,'cCompression']]]
 ];

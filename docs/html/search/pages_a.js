@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['ubuntu_0',['Prerequisites (Debian/Ubuntu)',['../index.html#autotoc_md3',1,'']]],
-  ['usage_1',['CLI Usage',['../index.html#autotoc_md5',1,'']]]
+  ['grayscale_20image_20processing_0',['a. Grayscale Image Processing',['../index.html#autotoc_md9',1,'']]],
+  ['guide_1',['JPEG Compressor — User Guide',['../index.html',1,'']]]
 ];

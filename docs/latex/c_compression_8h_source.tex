@@ -1,0 +1,69 @@
+\doxysection{c\+Compression.\+h}
+\hypertarget{c_compression_8h_source}{}\label{c_compression_8h_source}\index{include/core/cCompression.h@{include/core/cCompression.h}}
+\mbox{\hyperlink{c_compression_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ JPEG\_COMPRESSOR\_CCOMPRESSION\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ JPEG\_COMPRESSOR\_CCOMPRESSION\_H}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{c_huffman_8h}{cHuffman.h}}"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classc_compression_adc5f208bc6974089fea85fec29964be5}{cCompression}}\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classc_compression_ada5a0cc8bd3a43420cc85b27f6c3652a}{mLargeur}};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classc_compression_a1a18b17ac1e9fcc50080f13cbbfbddc7}{mHauteur}};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{classc_compression_a676a807814329e53fdea6bcfb2191e4c}{mBuffer}};}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classc_compression_ab04177da010ea0887a075186166e080f}{mQualite}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{classc_compression_adc5f208bc6974089fea85fec29964be5}{cCompression}}();}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{classc_compression_adc5f208bc6974089fea85fec29964be5}{cCompression}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ largeur,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ hauteur,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ qualite\ =\ 50,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **buffer=\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{classc_compression_a9bc895fb3efd36315891b6e179f09c87}{\string~cCompression}}();}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classc_compression_a86bae0e51a1607b87467560e8e2c3bbd}{setLargeur}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ largeur);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classc_compression_a9f3b424df287aaeb5924ed505b848b9e}{setHauteur}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ hauteur);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classc_compression_a16720d26c29def34f724066455da1ecf}{setQualite}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ qualite);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classc_compression_ae94612d3efd236e71d1c73c84d3a1685}{setBuffer}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **buffer);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classc_compression_a42ce4e36474774a54bf01d404cf59360}{getLargeur}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classc_compression_ae0f6e3eadd7aa11fd6825f2fd53a4a1c}{getHauteur}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classc_compression_a2674e4a02b0f39da23681071f7055e58}{getQualite}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}**\ \mbox{\hyperlink{classc_compression_a517f94ea07c7b07aebb99fee7f5fb4b1}{getBuffer}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classc_compression_aa7fe57390f7e2f2532e3389dcef33889}{getQualiteGlobale}}();}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classc_compression_ae2b173d0aebc50cedba7e9ac34aafa21}{setQualiteGlobale}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ qualite);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classc_compression_aa9cfa8fa6c95559a27de177a67f0a5f3}{storeHuffmanTable}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *symbols,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *frequencies,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ count);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classc_compression_ad7165e2bc5c2deb15bc7e2cf7dc9d265}{loadHuffmanTable}}(\textcolor{keywordtype}{char}\ *symbols,\ \textcolor{keywordtype}{double}\ *frequencies,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \&count);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classc_compression_a2e7e1d8e0dff94f10bed1573df09f732}{hasStoredHuffmanTable}}();}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classc_compression_a89e51610adbb915e857a914cd6a81173}{EQM}}(\textcolor{keywordtype}{int}\ **Bloc8x8);}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classc_compression_ac7ff6275e8f31e29d0ca10ce0baeee75}{Taux\_Compression}}(\textcolor{keywordtype}{int}\ **Bloc8x8);}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classc_compression_a2e220b16455ed12bfae6d66549d61306}{RLE\_Block}}(\textcolor{keywordtype}{int}\ **Img\_Quant,\ \textcolor{keywordtype}{int}\ DC\_precedent,\ \textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{char}\ *Trame);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classc_compression_a9965020a2ae4099448e1f22a44ea1e30}{RLE}}(\textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{int}\ *Trame);}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classc_compression_a0720225210ef1d484f50d25af1586753}{Histogramme}}(\textcolor{keywordtype}{char}\ *Trame,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ Longueur\_Trame,\ \textcolor{keywordtype}{char}\ *Donnee,\ \textcolor{keywordtype}{double}\ *Frequence);}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classc_compression_aee2599c101378e562edf5e2eaed48c52}{Compression\_JPEG}}(\textcolor{keywordtype}{int}\ *Trame\_RLE,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *Nom\_Fichier);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{classc_compression_a66b859d7eff31e3ba9e2337cb63cc807}{Decompression\_JPEG}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *Nom\_Fichier\_compresse);}
+\DoxyCodeLine{00194\ \};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//JPEG\_COMPRESSOR\_CCOMPRESSION\_H}}
+
+\end{DoxyCode}

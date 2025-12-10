@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['debian_20ubuntu_0',['Prerequisites (Debian/Ubuntu)',['../index.html#autotoc_md3',1,'']]],
-  ['documentation_1',['Documentation',['../index.html#autotoc_md6',1,'']]]
+  ['4_20usage_0',['4. Usage',['../index.html#autotoc_md8',1,'']]]
 ];

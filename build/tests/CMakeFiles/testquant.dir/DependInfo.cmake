@@ -8,12 +8,15 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/tests/test_quantification.cpp" "tests/CMakeFiles/testquant.dir/test_quantification.cpp.o" "gcc" "tests/CMakeFiles/testquant.dir/test_quantification.cpp.o.d"
+  "/Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/tests/test_quantification.cpp" "tests/CMakeFiles/testquant.dir/test_quantification.cpp.o" "gcc" "tests/CMakeFiles/testquant.dir/test_quantification.cpp.o.d"
   )
 
-# Targets to which this target links.
-set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/CMakeFiles/jpeg_core.dir/DependInfo.cmake"
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_FORWARD_LINKED_INFO_FILES
   )
 
 # Fortran module output directory.

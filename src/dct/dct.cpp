@@ -1,94 +1,75 @@
-//
-// Created by nguyenphuong on 06/10/2025.
-//
+/**
+ * @file dct.cpp
+ * @author Khanh-Phuong NGUYEN
+ * @date 2025-12-08
+ * @brief Implements the 2D Discrete Cosine Transform (DCT) functions.
+ */
 
 #include "dct/dct.h"
 #include <cmath>
 #include <iostream>
 
-/**
- * @brief Compute the 2D DCT of an 8x8 block.
- * @param Bloc8x8 8x8 input block (integers, typically level-shifted by -128).
- * @param DCT_Img 8x8 output buffer of DCT coefficients (double).
- */
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 void Calcul_DCT_Block(int **Bloc8x8, double **DCT_Img) {
     const int N = 8;
+    // For each frequency coefficient (u,v) in the output DCT matrix...
     for (int u = 0; u < N; ++u) {
         for (int v = 0; v < N; ++v) {
             double sum = 0.0;
+            // ...sum over all spatial coordinates (x,y) in the input block.
             for (int x = 0; x < N; ++x) {
                 for (int y = 0; y < N; ++y) {
                     sum += Bloc8x8[x][y] *
-                           cos((2 * x + 1) * u * M_PI / (2 * N)) *
-                           cos((2 * y + 1) * v * M_PI / (2 * N));
+                           cos((2 * x + 1) * u * M_PI / (2.0 * N)) *
+                           cos((2 * y + 1) * v * M_PI / (2.0 * N));
                 }
             }
-            double Cu;
-            double Cv;
-            if (u == 0) {
-                Cu = 1.0 / sqrt(2.0);
-            } else {
-                Cu = 1.0;
-            }
 
-            if (v == 0) {
-                Cv = 1.0 / sqrt(2.0);
-            } else {
-                Cv = 1.0;
-            }
+            // Define the normalization coefficients Cu and Cv.
+            double Cu = (u == 0) ? (1.0 / sqrt(2.0)) : 1.0;
+            double Cv = (v == 0) ? (1.0 / sqrt(2.0)) : 1.0;
+            
+            // Apply the normalization factors to get the final DCT coefficient.
             DCT_Img[u][v] = 0.25 * Cu * Cv * sum;
         }
     }
 }
 
-/**
- * @brief Compute the inverse 2D DCT of an 8x8 block.
- * @param DCT_Img 8x8 input buffer of DCT coefficients (double).
- * @param Bloc8x8 8x8 output block (integers, values rounded by the caller).
- */
 void Calcul_IDCT_Block(double **DCT_Img, int **Bloc8x8) {
     const int N = 8;
+    // For each spatial coordinate (x,y) in the output block...
     for (int x = 0; x < N; ++x) {
         for (int y = 0; y < N; ++y) {
             double sum = 0.0;
+            // ...sum over all frequency coefficients (u,v) in the input DCT block.
             for (int u = 0; u < N; ++u) {
                 for (int v = 0; v < N; ++v) {
-                    double Cu;
-                    double Cv;
-                    if (u == 0) {
-                        Cu = 1.0 / sqrt(2.0);
-                    } else {
-                        Cu = 1.0;
-                    }
-
-                    if (v == 0) {
-                        Cv = 1.0 / sqrt(2.0);
-                    } else {
-                        Cv = 1.0;
-                    }
+                    // Define the normalization coefficients Cu and Cv.
+                    double Cu = (u == 0) ? (1.0 / sqrt(2.0)) : 1.0;
+                    double Cv = (v == 0) ? (1.0 / sqrt(2.0)) : 1.0;
 
                     sum += Cu * Cv * DCT_Img[u][v] *
-                           cos((2 * x + 1) * u * M_PI / (2 * N)) *
-                           cos((2 * y + 1) * v * M_PI / (2 * N));
+                           cos((2 * x + 1) * u * M_PI / (2.0 * N)) *
+                           cos((2 * y + 1) * v * M_PI / (2.0 * N));
                 }
             }
-            Bloc8x8[x][y] = static_cast<char>(round(0.25 * sum));
+            // Apply the normalization factor, round the result, and cast to an integer type.
+            Bloc8x8[x][y] = static_cast<int>(round(0.25 * sum));
         }
     }
 }
 
-/**
- * @brief Dump a DCT block to stdout (debug helper).
- * @param DCT_Img 8x8 input buffer of DCT coefficients (double).
- */
 void Show_DCT_Block(double **DCT_Img) {
     const int N = 8;
-    std::cout << "DCT Block:\n";
+    std::cout << "--- DCT Block Coefficients ---" << std::endl;
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
             std::cout << DCT_Img[i][j] << "\t";
         }
-        std::cout << "\n";
+        std::cout << std::endl;
     }
 }
 

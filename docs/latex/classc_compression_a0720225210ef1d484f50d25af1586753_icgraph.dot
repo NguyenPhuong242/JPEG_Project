@@ -1,0 +1,13 @@
+digraph "cCompression::Histogramme"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="cCompression::Histogramme",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Builds a frequency histogram from an RLE byte stream."];
+  Node1 -> Node2 [id="edge3_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="cCompression::Compression_JPEG",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classc_compression.html#aee2599c101378e562edf5e2eaed48c52",tooltip="Compresses an RLE stream using Huffman coding and writes it to a file."];
+  Node2 -> Node3 [id="edge4_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="cCompressionCouleur\l::CompressPPM",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classc_compression_couleur.html#a658d2cd62608b1185e535f9b9dca49a4",tooltip="Compresses a PPM (P6) image into three component Huffman files and a metadata file."];
+}

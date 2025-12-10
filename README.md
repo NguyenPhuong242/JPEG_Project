@@ -1,51 +1,35 @@
-# JPEG Compressor
+# JPEG Compressor — User Guide
 
-Educational grayscale JPEG pipeline that showcases every major step of the codec: block extraction, 8x8 DCT, quantization, zig-zag + run-length encoding, Huffman entropy coding, and a CLI that can compress and decompress sample images.
+This project is an educational implementation of a simplified JPEG compression/decompression chain. It covers the main steps: 8x8 block splitting, DCT, quantization, RLE, and Huffman coding.
 
-## Features
-- Baseline JPEG-style pipeline implemented in modern C++.
-- Modular headers under `include/` for reuse in other exercises.
-- CLI (`jpeg_cli`) able to compress, decompress, or run a full round trip.
-- Doxygen documentation with class and file overviews.
-- Lightweight test binaries covering DCT, quantization, Huffman, and RLE pieces.
+### Main Modules
 
-## Project Layout
-```
-include/          Public headers for the core, DCT, and quantization modules
-src/              Implementations plus the CLI entry point
-tests/            Simple regression tests and fixtures (run via CTest)
-docs/             Doxygen config (`Doxyfile`) and generated output under docs/docs/
-build/            Out-of-tree CMake build products
-```
+-   `src/dct/`: Implementation of the Discrete Cosine Transform (DCT) and its inverse (IDCT).
+-   `src/quantification/`: Quantization tables and related functions.
+-   `src/core/`:
+    -   `cCompression`: The main class for the grayscale pipeline (RLE, Huffman, EQM, Compression Ratio).
+    -   `cCompressionCouleur`: The main class for the color pipeline (PPM → YCbCr → component-wise compression).
+-   `include/`: Contains the public header files.
+-   `tests/`: Unit tests for DCT, quantization, RLE, and Huffman.
 
-## Prerequisites (Debian/Ubuntu)
+---
+
+### 1. Prerequisites
+
+-   **CMake** (version >= 3.10)
+-   **A C++ Compiler** with C++17 support (e.g., g++, clang++)
+-   **(Optional)** `doxygen` and `graphviz` for source code documentation generation.
+
 ```bash
 sudo apt update
 sudo apt install build-essential cmake g++ doxygen graphviz
 ```
 
-## Build and Test
-```bash
-# Configure & build
-cmake -S . -B build
-cmake --build build -j
 
-# Run unit tests
-ctest --test-dir build -V
-```
+---
 
-## CLI Usage
-The build outputs `build/jpeg_cli`. Run it without arguments to open the interactive menu that guides you through compression, decompression, or the full pipeline.
 
-```bash
-# Show a short usage summary
-./build/jpeg_cli --help
-
-# Start the interactive workflow
-./build/jpeg_cli
-```
-
-## Documentation
+### 2. Documentation
 Generate or refresh the API reference with Doxygen:
 
 ```bash
@@ -57,10 +41,102 @@ xdg-open docs/docs/html/index.html   # open the HTML entry point
 
 The main page of the HTML output mirrors this README, and navigation exposes the annotated headers, implementation files, and directory diagrams.
 
-## Roadmap / Contributions
-1. Expand coverage for color images and chroma subsampling modes.
-2. Produce minimal valid `.jpg` files instead of the custom `.huff` bitstream.
-3. Flesh out automated unit tests and CI.
-4. Document remaining internals that still trigger Doxygen `@param` duplication warnings.
+### 3. Build Instructions
 
-Feel free to open issues or submit pull requests if you extend or fix the pipeline.
+Use CMake to build the project. The following commands should be executed from the project's root directory.
+
+```bash
+# 1. Create a build directory to store compilation files
+cmake -S . -B build
+
+# 2. Compile the project
+# The -j flag automatically uses multiple CPU cores to speed up compilation
+cmake --build build -j
+```
+
+After a successful build, the main executable will be located at `build/jpeg_cli`.
+
+---
+
+### 4. Usage
+
+The `build/jpeg_cli` executable is the main command-line interface (CLI) for this program.
+
+#### a. Grayscale Image Processing
+
+This is the program's default mode.
+
+-   **Grayscale Compression:**
+    The program reads a text-based image file (e.g., `lenna.img`), calculates metrics, and generates 3 output files:
+    -   `recon_lenna.pgm`: The reconstructed image for verification.
+    -   `lenna.rle`: Data after RLE encoding.
+    -   `lenna.huff`: The final data after Huffman encoding.
+
+    ```bash
+    # Syntax: ./build/jpeg_cli [image_file_path] [quality]
+    # Example: Compress lenna.img with a quality of 50 (default)
+    ./build/jpeg_cli lenna.img 50
+    ```
+
+-   **Grayscale Decompression:**
+    Decompresses a `.huff` file created by this program.
+
+    ```bash
+    # Syntax: ./build/jpeg_cli --decompress <file.huff>
+    # The output will be saved to decomp_lenna.pgm
+    ./build/jpeg_cli --decompress build/lenna.huff
+    ```
+
+#### b. Color Image Processing (PPM Format)
+
+-   **Color Compression:**
+    Compresses a PPM (P6) image into three separate compressed components (Y, Cb, Cr).
+    -   `<basename>_Y.huff`, `<basename>_Cb.huff`, `<basename>_Cr.huff`
+    -   `<basename>.meta`: A file containing metadata (dimensions, quality, subsampling mode).
+
+    ```bash
+    # Syntax: ./build/jpeg_cli --color-compress <input.ppm> <basename> [quality] [subsampling]
+    # Example: Compress color.ppm with quality 75 and 4:2:0 subsampling
+    ./build/jpeg_cli --color-compress path/to/color.ppm my_image 75 420
+    ```
+    -   `quality`: 1-100 (affects the quantization matrix).
+    -   `subsampling`: `444` (no subsampling), `422`, `420`.
+
+-   **Color Decompression:**
+    Reconstructs a PPM file from the component files (`.huff`) and the metadata file (`.meta`).
+
+    ```bash
+    # Syntax: ./build/jpeg_cli --color-decompress <basename> <output.ppm>
+    # Example: Decompress from my_image_* files and save to final_image.ppm
+    ./build/jpeg_cli --color-decompress my_image final_image.ppm
+    ```
+
+#### c. Other Utilities
+
+-   **View Frequency Histogram:**
+    Analyzes an RLE-encoded file to show the frequency of each symbol.
+
+    ```bash
+    # Syntax: ./build/jpeg_cli --histogram <file.rle>
+    ./build/jpeg_cli --histogram build/lenna.rle
+    ```
+
+---
+
+### 5. Running Tests
+
+The project includes a test suite to verify the correctness of the core modules.
+
+```bash
+# Run all tests from the build directory
+ctest --test-dir build -V
+```
+
+The `-V` flag enables verbose output to show detailed test results.
+
+---
+
+### Important Notes
+
+-   **Educational Purpose**: The `.huff` file format is a custom format and is **not** a standard JPEG file. It was designed to make the encoding steps (RLE, Huffman) transparent and easy to debug.
+-   **Quality**: This parameter controls the level of compression and information loss. A lower quality value results in higher compression but a lower-quality image.

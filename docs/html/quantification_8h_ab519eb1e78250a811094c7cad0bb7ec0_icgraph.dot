@@ -1,0 +1,15 @@
+digraph "dequant_JPEG"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="dequant_JPEG",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="De-quantizes an 8x8 block of coefficients."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="cCompression::Decompression_JPEG",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classc_compression.html#a66b859d7eff31e3ba9e2337cb63cc807",tooltip="Decompresses an image from a file and reconstructs the pixel data."];
+  Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="cCompressionCouleur\l::DecompressToPPM",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classc_compression_couleur.html#aa9eea42fb059fa85121faeb9a7f10987",tooltip="Decompresses three component Huffman files and reconstructs a PPM (P6) image."];
+  Node1 -> Node4 [id="edge3_Node000001_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="cCompression::EQM",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classc_compression.html#a89e51610adbb915e857a914cd6a81173",tooltip="Calculates the Mean Squared Error (MSE) between an original 8x8 block and its compressed-decompressed..."];
+}

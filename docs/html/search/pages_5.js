@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jpeg_20compressor_0',['JPEG Compressor',['../index.html',1,'']]]
+  ['a_20grayscale_20image_20processing_0',['a. Grayscale Image Processing',['../index.html#autotoc_md9',1,'']]]
 ];

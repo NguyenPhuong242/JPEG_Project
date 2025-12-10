@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/testquant.dir/test_quantification.cpp.o -o testquant  ../libjpeg_core.a 
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/testquant.dir/test_quantification.cpp.o -o testquant  ../libjpeg_core.a

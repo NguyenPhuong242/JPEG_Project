@@ -1,0 +1,560 @@
+\doxysection{c\+Compression Class Reference}
+\hypertarget{classc_compression}{}\label{classc_compression}\index{cCompression@{cCompression}}
+
+
+Manages the core pipeline for a simplified grayscale JPEG-\/like compression.  
+
+
+
+
+{\ttfamily \#include $<$c\+Compression.\+h$>$}
+
+
+
+Inheritance diagram for c\+Compression\+:
+% FIG 0
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classc_compression_adc5f208bc6974089fea85fec29964be5}{c\+Compression}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. Initializes members to zero/nullptr. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classc_compression_a322dad3ba64953aaf53e24a2d392175e}{c\+Compression}} (unsigned int largeur, unsigned int hauteur, unsigned int qualite=50, unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}buffer=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classc_compression}{c\+Compression} object with given parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classc_compression_a9bc895fb3efd36315891b6e179f09c87}{\texorpdfstring{$\sim$}{\string~}c\+Compression}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_a86bae0e51a1607b87467560e8e2c3bbd}{set\+Largeur}} (unsigned int largeur)
+\begin{DoxyCompactList}\small\item\em Sets the image width. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_a9f3b424df287aaeb5924ed505b848b9e}{set\+Hauteur}} (unsigned int hauteur)
+\begin{DoxyCompactList}\small\item\em Sets the image height. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_a16720d26c29def34f724066455da1ecf}{set\+Qualite}} (unsigned int qualite)
+\begin{DoxyCompactList}\small\item\em Sets the per-\/instance quality factor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_ae94612d3efd236e71d1c73c84d3a1685}{set\+Buffer}} (unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Attaches a caller-\/provided image buffer. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classc_compression_a42ce4e36474774a54bf01d404cf59360}{get\+Largeur}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current image width. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classc_compression_ae0f6e3eadd7aa11fd6825f2fd53a4a1c}{get\+Hauteur}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current image height. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classc_compression_a2674e4a02b0f39da23681071f7055e58}{get\+Qualite}} () const
+\begin{DoxyCompactList}\small\item\em Gets the per-\/instance quality factor. \end{DoxyCompactList}\item 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classc_compression_a517f94ea07c7b07aebb99fee7f5fb4b1}{get\+Buffer}} () const
+\begin{DoxyCompactList}\small\item\em Gets the attached image buffer. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classc_compression_a89e51610adbb915e857a914cd6a81173}{EQM}} (int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Bloc8x8)
+\begin{DoxyCompactList}\small\item\em Calculates the Mean Squared Error (MSE) between an original 8x8 block and its compressed-\/decompressed version. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classc_compression_ac7ff6275e8f31e29d0ca10ce0baeee75}{Taux\+\_\+\+Compression}} (int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Bloc8x8)
+\begin{DoxyCompactList}\small\item\em Calculates the compression ratio for a single 8x8 block. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_a2e220b16455ed12bfae6d66549d61306}{RLE\+\_\+\+Block}} (int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Img\+\_\+\+Quant, int DC\+\_\+precedent, signed char \texorpdfstring{$\ast$}{*}Trame)
+\begin{DoxyCompactList}\small\item\em Performs Run-\/\+Length Encoding on a single quantized 8x8 block. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_a9965020a2ae4099448e1f22a44ea1e30}{RLE}} (signed int \texorpdfstring{$\ast$}{*}Trame)
+\begin{DoxyCompactList}\small\item\em Performs RLE on all 8x8 blocks of the attached image buffer. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classc_compression_a0720225210ef1d484f50d25af1586753}{Histogramme}} (char \texorpdfstring{$\ast$}{*}Trame, unsigned int Longueur\+\_\+\+Trame, char \texorpdfstring{$\ast$}{*}Donnee, double \texorpdfstring{$\ast$}{*}Frequence)
+\begin{DoxyCompactList}\small\item\em Builds a frequency histogram from an RLE byte stream. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_aee2599c101378e562edf5e2eaed48c52}{Compression\+\_\+\+JPEG}} (int \texorpdfstring{$\ast$}{*}Trame\+\_\+\+RLE, const char \texorpdfstring{$\ast$}{*}Nom\+\_\+\+Fichier)
+\begin{DoxyCompactList}\small\item\em Compresses an RLE stream using Huffman coding and writes it to a file. \end{DoxyCompactList}\item 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classc_compression_a66b859d7eff31e3ba9e2337cb63cc807}{Decompression\+\_\+\+JPEG}} (const char \texorpdfstring{$\ast$}{*}Nom\+\_\+\+Fichier\+\_\+compresse)
+\begin{DoxyCompactList}\small\item\em Decompresses an image from a file and reconstructs the pixel data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static unsigned int \mbox{\hyperlink{classc_compression_aa7fe57390f7e2f2532e3389dcef33889}{get\+Qualite\+Globale}} ()
+\begin{DoxyCompactList}\small\item\em Gets the global quality factor used by static quantization helpers. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classc_compression_ae2b173d0aebc50cedba7e9ac34aafa21}{set\+Qualite\+Globale}} (unsigned int qualite)
+\begin{DoxyCompactList}\small\item\em Sets the global quality factor used by static quantization helpers. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classc_compression_aa9cfa8fa6c95559a27de177a67f0a5f3}{store\+Huffman\+Table}} (const char \texorpdfstring{$\ast$}{*}symbols, const double \texorpdfstring{$\ast$}{*}frequencies, unsigned int count)
+\begin{DoxyCompactList}\small\item\em Caches a Huffman table for later use (e.\+g., by the decompressor). \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{classc_compression_ad7165e2bc5c2deb15bc7e2cf7dc9d265}{load\+Huffman\+Table}} (char \texorpdfstring{$\ast$}{*}symbols, double \texorpdfstring{$\ast$}{*}frequencies, unsigned int \&count)
+\begin{DoxyCompactList}\small\item\em Retrieves the cached Huffman table. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{classc_compression_a2e7e1d8e0dff94f10bed1573df09f732}{has\+Stored\+Huffman\+Table}} ()
+\begin{DoxyCompactList}\small\item\em Checks if a Huffman table is currently cached. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{classc_compression_ada5a0cc8bd3a43420cc85b27f6c3652a}{m\+Largeur}}
+\begin{DoxyCompactList}\small\item\em The width of the image in pixels. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classc_compression_a1a18b17ac1e9fcc50080f13cbbfbddc7}{m\+Hauteur}}
+\begin{DoxyCompactList}\small\item\em The height of the image in pixels. \end{DoxyCompactList}\item 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classc_compression_a676a807814329e53fdea6bcfb2191e4c}{m\+Buffer}}
+\begin{DoxyCompactList}\small\item\em A buffer of row pointers for the raw image data. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classc_compression_ab04177da010ea0887a075186166e080f}{m\+Qualite}}
+\begin{DoxyCompactList}\small\item\em The per-\/instance quality setting (0-\/100), not directly used by static helpers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the core pipeline for a simplified grayscale JPEG-\/like compression. 
+
+This class encapsulates the main stages of the compression and decompression process for grayscale images. It handles Run-\/\+Length Encoding (RLE), Huffman coding integration, quality metrics (EQM, compression ratio), and file I/O for the custom compressed format. 
+
+\label{doc-constructors}
+\Hypertarget{classc_compression_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classc_compression_adc5f208bc6974089fea85fec29964be5}\index{cCompression@{cCompression}!cCompression@{cCompression}}
+\index{cCompression@{cCompression}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{cCompression()}{cCompression()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classc_compression_adc5f208bc6974089fea85fec29964be5} 
+c\+Compression\+::c\+Compression (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Default constructor. Initializes members to zero/nullptr. 
+
+Here is the caller graph for this function\+:
+% FIG 1
+\Hypertarget{classc_compression_a322dad3ba64953aaf53e24a2d392175e}\index{cCompression@{cCompression}!cCompression@{cCompression}}
+\index{cCompression@{cCompression}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{cCompression()}{cCompression()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classc_compression_a322dad3ba64953aaf53e24a2d392175e} 
+c\+Compression\+::c\+Compression (\begin{DoxyParamCaption}\item[{unsigned int}]{largeur}{, }\item[{unsigned int}]{hauteur}{, }\item[{unsigned int}]{qualite}{ = {\ttfamily 50}, }\item[{unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{buffer}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{classc_compression}{c\+Compression} object with given parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em largeur} & The width of the image. \\
+\hline
+{\em hauteur} & The height of the image. \\
+\hline
+{\em qualite} & The quality setting for this instance (0-\/100). \\
+\hline
+{\em buffer} & Optional pointer to an existing image buffer. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classc_compression_a9bc895fb3efd36315891b6e179f09c87}\index{cCompression@{cCompression}!````~cCompression@{\texorpdfstring{$\sim$}{\string~}cCompression}}
+\index{````~cCompression@{\texorpdfstring{$\sim$}{\string~}cCompression}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}cCompression()}{\string~cCompression()}}
+{\footnotesize\ttfamily \label{classc_compression_a9bc895fb3efd36315891b6e179f09c87} 
+c\+Compression\+::\texorpdfstring{$\sim$}{\string~}c\+Compression (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destructor. 
+
+\begin{DoxyNote}{Note}
+Does not free the image buffer itself, as ownership is not assumed. 
+\end{DoxyNote}
+
+
+\label{doc-func-members}
+\Hypertarget{classc_compression_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classc_compression_aee2599c101378e562edf5e2eaed48c52}\index{cCompression@{cCompression}!Compression\_JPEG@{Compression\_JPEG}}
+\index{Compression\_JPEG@{Compression\_JPEG}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{Compression\_JPEG()}{Compression\_JPEG()}}
+{\footnotesize\ttfamily \label{classc_compression_aee2599c101378e562edf5e2eaed48c52} 
+void c\+Compression\+::\+Compression\+\_\+\+JPEG (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{Trame\+\_\+\+RLE}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{Nom\+\_\+\+Fichier}{}\end{DoxyParamCaption})}
+
+
+
+Compresses an RLE stream using Huffman coding and writes it to a file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em Trame\+\_\+\+RLE} & The integer RLE stream from the \doxylink{classc_compression_a9965020a2ae4099448e1f22a44ea1e30}{RLE()} method. \\
+\hline
+\mbox{\texttt{in}}  & {\em Nom\+\_\+\+Fichier} & The name of the output file. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\Hypertarget{classc_compression_a66b859d7eff31e3ba9e2337cb63cc807}\index{cCompression@{cCompression}!Decompression\_JPEG@{Decompression\_JPEG}}
+\index{Decompression\_JPEG@{Decompression\_JPEG}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{Decompression\_JPEG()}{Decompression\_JPEG()}}
+{\footnotesize\ttfamily \label{classc_compression_a66b859d7eff31e3ba9e2337cb63cc807} 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} c\+Compression\+::\+Decompression\+\_\+\+JPEG (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{Nom\+\_\+\+Fichier\+\_\+compresse}{}\end{DoxyParamCaption})}
+
+
+
+Decompresses an image from a file and reconstructs the pixel data. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em Nom\+\_\+\+Fichier\+\_\+compresse} & The path to the compressed file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A newly allocated 2D array (unsigned char\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}) containing the image data. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The caller is responsible for freeing the allocated memory. 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\Hypertarget{classc_compression_a89e51610adbb915e857a914cd6a81173}\index{cCompression@{cCompression}!EQM@{EQM}}
+\index{EQM@{EQM}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{EQM()}{EQM()}}
+{\footnotesize\ttfamily \label{classc_compression_a89e51610adbb915e857a914cd6a81173} 
+double c\+Compression\+::\+EQM (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{Bloc8x8}{}\end{DoxyParamCaption})}
+
+
+
+Calculates the Mean Squared Error (MSE) between an original 8x8 block and its compressed-\/decompressed version. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em Bloc8x8} & An 8x8 integer block of original pixel data (0-\/255). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The calculated Mean Squared Error as a double. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 6
+\Hypertarget{classc_compression_a517f94ea07c7b07aebb99fee7f5fb4b1}\index{cCompression@{cCompression}!getBuffer@{getBuffer}}
+\index{getBuffer@{getBuffer}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{getBuffer()}{getBuffer()}}
+{\footnotesize\ttfamily \label{classc_compression_a517f94ea07c7b07aebb99fee7f5fb4b1} 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} c\+Compression\+::get\+Buffer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the attached image buffer. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the 2D image buffer, or nullptr if not set. 
+\end{DoxyReturn}
+\Hypertarget{classc_compression_ae0f6e3eadd7aa11fd6825f2fd53a4a1c}\index{cCompression@{cCompression}!getHauteur@{getHauteur}}
+\index{getHauteur@{getHauteur}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{getHauteur()}{getHauteur()}}
+{\footnotesize\ttfamily \label{classc_compression_ae0f6e3eadd7aa11fd6825f2fd53a4a1c} 
+unsigned int c\+Compression\+::get\+Hauteur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the current image height. 
+
+\begin{DoxyReturn}{Returns}
+The height in pixels. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 7
+\Hypertarget{classc_compression_a42ce4e36474774a54bf01d404cf59360}\index{cCompression@{cCompression}!getLargeur@{getLargeur}}
+\index{getLargeur@{getLargeur}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{getLargeur()}{getLargeur()}}
+{\footnotesize\ttfamily \label{classc_compression_a42ce4e36474774a54bf01d404cf59360} 
+unsigned int c\+Compression\+::get\+Largeur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the current image width. 
+
+\begin{DoxyReturn}{Returns}
+The width in pixels. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 8
+\Hypertarget{classc_compression_a2674e4a02b0f39da23681071f7055e58}\index{cCompression@{cCompression}!getQualite@{getQualite}}
+\index{getQualite@{getQualite}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{getQualite()}{getQualite()}}
+{\footnotesize\ttfamily \label{classc_compression_a2674e4a02b0f39da23681071f7055e58} 
+unsigned int c\+Compression\+::get\+Qualite (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the per-\/instance quality factor. 
+
+\begin{DoxyReturn}{Returns}
+The quality factor (0-\/100). 
+\end{DoxyReturn}
+\Hypertarget{classc_compression_aa7fe57390f7e2f2532e3389dcef33889}\index{cCompression@{cCompression}!getQualiteGlobale@{getQualiteGlobale}}
+\index{getQualiteGlobale@{getQualiteGlobale}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{getQualiteGlobale()}{getQualiteGlobale()}}
+{\footnotesize\ttfamily \label{classc_compression_aa7fe57390f7e2f2532e3389dcef33889} 
+unsigned int c\+Compression\+::get\+Qualite\+Globale (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Gets the global quality factor used by static quantization helpers. 
+
+\begin{DoxyReturn}{Returns}
+The global quality setting (0-\/100). 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 9
+\Hypertarget{classc_compression_a2e7e1d8e0dff94f10bed1573df09f732}\index{cCompression@{cCompression}!hasStoredHuffmanTable@{hasStoredHuffmanTable}}
+\index{hasStoredHuffmanTable@{hasStoredHuffmanTable}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{hasStoredHuffmanTable()}{hasStoredHuffmanTable()}}
+{\footnotesize\ttfamily \label{classc_compression_a2e7e1d8e0dff94f10bed1573df09f732} 
+bool c\+Compression\+::has\+Stored\+Huffman\+Table (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Checks if a Huffman table is currently cached. 
+
+\begin{DoxyReturn}{Returns}
+True if a table is cached, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{classc_compression_a0720225210ef1d484f50d25af1586753}\index{cCompression@{cCompression}!Histogramme@{Histogramme}}
+\index{Histogramme@{Histogramme}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{Histogramme()}{Histogramme()}}
+{\footnotesize\ttfamily \label{classc_compression_a0720225210ef1d484f50d25af1586753} 
+unsigned int c\+Compression\+::\+Histogramme (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{Trame}{, }\item[{unsigned int}]{Longueur\+\_\+\+Trame}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{Donnee}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{Frequence}{}\end{DoxyParamCaption})}
+
+
+
+Builds a frequency histogram from an RLE byte stream. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em Trame} & The input RLE byte stream. \\
+\hline
+\mbox{\texttt{in}}  & {\em Longueur\+\_\+\+Trame} & The number of bytes in the stream. \\
+\hline
+\mbox{\texttt{out}}  & {\em Donnee} & An array to be filled with the unique symbols found. \\
+\hline
+\mbox{\texttt{out}}  & {\em Frequence} & An array to be filled with the corresponding frequencies. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of unique symbols found. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 10
+\Hypertarget{classc_compression_ad7165e2bc5c2deb15bc7e2cf7dc9d265}\index{cCompression@{cCompression}!loadHuffmanTable@{loadHuffmanTable}}
+\index{loadHuffmanTable@{loadHuffmanTable}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{loadHuffmanTable()}{loadHuffmanTable()}}
+{\footnotesize\ttfamily \label{classc_compression_ad7165e2bc5c2deb15bc7e2cf7dc9d265} 
+bool c\+Compression\+::load\+Huffman\+Table (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{symbols}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{frequencies}{, }\item[{unsigned int \&}]{count}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Retrieves the cached Huffman table. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{out}}  & {\em symbols} & A buffer to store the symbol values. \\
+\hline
+\mbox{\texttt{out}}  & {\em frequencies} & A buffer to store the frequency values. \\
+\hline
+\mbox{\texttt{out}}  & {\em count} & The number of entries copied. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if a cached table was successfully loaded, false otherwise. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 11
+\Hypertarget{classc_compression_a9965020a2ae4099448e1f22a44ea1e30}\index{cCompression@{cCompression}!RLE@{RLE}}
+\index{RLE@{RLE}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{RLE()}{RLE()}}
+{\footnotesize\ttfamily \label{classc_compression_a9965020a2ae4099448e1f22a44ea1e30} 
+void c\+Compression\+::\+RLE (\begin{DoxyParamCaption}\item[{signed int \texorpdfstring{$\ast$}{*}}]{Trame}{}\end{DoxyParamCaption})}
+
+
+
+Performs RLE on all 8x8 blocks of the attached image buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{out}}  & {\em Trame} & An integer array where Trame\mbox{[}0\mbox{]} will be the total length, followed by the RLE data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+The image buffer must be set via \doxylink{classc_compression_ae94612d3efd236e71d1c73c84d3a1685}{set\+Buffer()} before calling. 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+% FIG 12
+Here is the caller graph for this function\+:
+% FIG 13
+\Hypertarget{classc_compression_a2e220b16455ed12bfae6d66549d61306}\index{cCompression@{cCompression}!RLE\_Block@{RLE\_Block}}
+\index{RLE\_Block@{RLE\_Block}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{RLE\_Block()}{RLE\_Block()}}
+{\footnotesize\ttfamily \label{classc_compression_a2e220b16455ed12bfae6d66549d61306} 
+void c\+Compression\+::\+RLE\+\_\+\+Block (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{Img\+\_\+\+Quant}{, }\item[{int}]{DC\+\_\+precedent}{, }\item[{signed char \texorpdfstring{$\ast$}{*}}]{Trame}{}\end{DoxyParamCaption})}
+
+
+
+Performs Run-\/\+Length Encoding on a single quantized 8x8 block. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em Img\+\_\+\+Quant} & An 8x8 block of quantized DCT coefficients. \\
+\hline
+\mbox{\texttt{in}}  & {\em DC\+\_\+precedent} & The DC coefficient from the previous block for differential coding. \\
+\hline
+\mbox{\texttt{out}}  & {\em Trame} & A buffer to receive the RLE-\/encoded byte stream. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 14
+\Hypertarget{classc_compression_ae94612d3efd236e71d1c73c84d3a1685}\index{cCompression@{cCompression}!setBuffer@{setBuffer}}
+\index{setBuffer@{setBuffer}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{setBuffer()}{setBuffer()}}
+{\footnotesize\ttfamily \label{classc_compression_ae94612d3efd236e71d1c73c84d3a1685} 
+void c\+Compression\+::set\+Buffer (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{buffer}{}\end{DoxyParamCaption})}
+
+
+
+Attaches a caller-\/provided image buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & A 2D array (unsigned char\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}) representing the image. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+The class does not take ownership or copy the data. 
+\end{DoxyNote}
+\Hypertarget{classc_compression_a9f3b424df287aaeb5924ed505b848b9e}\index{cCompression@{cCompression}!setHauteur@{setHauteur}}
+\index{setHauteur@{setHauteur}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{setHauteur()}{setHauteur()}}
+{\footnotesize\ttfamily \label{classc_compression_a9f3b424df287aaeb5924ed505b848b9e} 
+void c\+Compression\+::set\+Hauteur (\begin{DoxyParamCaption}\item[{unsigned int}]{hauteur}{}\end{DoxyParamCaption})}
+
+
+
+Sets the image height. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hauteur} & The height in pixels. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classc_compression_a86bae0e51a1607b87467560e8e2c3bbd}\index{cCompression@{cCompression}!setLargeur@{setLargeur}}
+\index{setLargeur@{setLargeur}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{setLargeur()}{setLargeur()}}
+{\footnotesize\ttfamily \label{classc_compression_a86bae0e51a1607b87467560e8e2c3bbd} 
+void c\+Compression\+::set\+Largeur (\begin{DoxyParamCaption}\item[{unsigned int}]{largeur}{}\end{DoxyParamCaption})}
+
+
+
+Sets the image width. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em largeur} & The width in pixels. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classc_compression_a16720d26c29def34f724066455da1ecf}\index{cCompression@{cCompression}!setQualite@{setQualite}}
+\index{setQualite@{setQualite}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{setQualite()}{setQualite()}}
+{\footnotesize\ttfamily \label{classc_compression_a16720d26c29def34f724066455da1ecf} 
+void c\+Compression\+::set\+Qualite (\begin{DoxyParamCaption}\item[{unsigned int}]{qualite}{}\end{DoxyParamCaption})}
+
+
+
+Sets the per-\/instance quality factor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em qualite} & The quality factor (0-\/100). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classc_compression_ae2b173d0aebc50cedba7e9ac34aafa21}\index{cCompression@{cCompression}!setQualiteGlobale@{setQualiteGlobale}}
+\index{setQualiteGlobale@{setQualiteGlobale}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{setQualiteGlobale()}{setQualiteGlobale()}}
+{\footnotesize\ttfamily \label{classc_compression_ae2b173d0aebc50cedba7e9ac34aafa21} 
+void c\+Compression\+::set\+Qualite\+Globale (\begin{DoxyParamCaption}\item[{unsigned int}]{qualite}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Sets the global quality factor used by static quantization helpers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em qualite} & The new global quality setting (0-\/100). \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 15
+\Hypertarget{classc_compression_aa9cfa8fa6c95559a27de177a67f0a5f3}\index{cCompression@{cCompression}!storeHuffmanTable@{storeHuffmanTable}}
+\index{storeHuffmanTable@{storeHuffmanTable}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{storeHuffmanTable()}{storeHuffmanTable()}}
+{\footnotesize\ttfamily \label{classc_compression_aa9cfa8fa6c95559a27de177a67f0a5f3} 
+void c\+Compression\+::store\+Huffman\+Table (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{symbols}{, }\item[{const double \texorpdfstring{$\ast$}{*}}]{frequencies}{, }\item[{unsigned int}]{count}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Caches a Huffman table for later use (e.\+g., by the decompressor). 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em symbols} & An array of symbol values. \\
+\hline
+\mbox{\texttt{in}}  & {\em frequencies} & An array of corresponding frequencies. \\
+\hline
+\mbox{\texttt{in}}  & {\em count} & The number of entries in the arrays. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 16
+\Hypertarget{classc_compression_ac7ff6275e8f31e29d0ca10ce0baeee75}\index{cCompression@{cCompression}!Taux\_Compression@{Taux\_Compression}}
+\index{Taux\_Compression@{Taux\_Compression}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{Taux\_Compression()}{Taux\_Compression()}}
+{\footnotesize\ttfamily \label{classc_compression_ac7ff6275e8f31e29d0ca10ce0baeee75} 
+double c\+Compression\+::\+Taux\+\_\+\+Compression (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{Bloc8x8}{}\end{DoxyParamCaption})}
+
+
+
+Calculates the compression ratio for a single 8x8 block. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em Bloc8x8} & An 8x8 integer block of original pixel data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The compression ratio. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+This ratio is based on the number of zero vs. non-\/zero coefficients after quantization. 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+% FIG 17
+
+
+\label{doc-variable-members}
+\Hypertarget{classc_compression_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classc_compression_a676a807814329e53fdea6bcfb2191e4c}\index{cCompression@{cCompression}!mBuffer@{mBuffer}}
+\index{mBuffer@{mBuffer}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{mBuffer}{mBuffer}}
+{\footnotesize\ttfamily \label{classc_compression_a676a807814329e53fdea6bcfb2191e4c} 
+unsigned char\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} c\+Compression\+::m\+Buffer\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A buffer of row pointers for the raw image data. 
+
+\begin{DoxyNote}{Note}
+The class does not own the data buffer itself, only the pointers, unless allocated by it. 
+\end{DoxyNote}
+\Hypertarget{classc_compression_a1a18b17ac1e9fcc50080f13cbbfbddc7}\index{cCompression@{cCompression}!mHauteur@{mHauteur}}
+\index{mHauteur@{mHauteur}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{mHauteur}{mHauteur}}
+{\footnotesize\ttfamily \label{classc_compression_a1a18b17ac1e9fcc50080f13cbbfbddc7} 
+unsigned int c\+Compression\+::m\+Hauteur\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The height of the image in pixels. 
+
+\Hypertarget{classc_compression_ada5a0cc8bd3a43420cc85b27f6c3652a}\index{cCompression@{cCompression}!mLargeur@{mLargeur}}
+\index{mLargeur@{mLargeur}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{mLargeur}{mLargeur}}
+{\footnotesize\ttfamily \label{classc_compression_ada5a0cc8bd3a43420cc85b27f6c3652a} 
+unsigned int c\+Compression\+::m\+Largeur\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The width of the image in pixels. 
+
+\Hypertarget{classc_compression_ab04177da010ea0887a075186166e080f}\index{cCompression@{cCompression}!mQualite@{mQualite}}
+\index{mQualite@{mQualite}!cCompression@{cCompression}}
+\doxysubsubsection{\texorpdfstring{mQualite}{mQualite}}
+{\footnotesize\ttfamily \label{classc_compression_ab04177da010ea0887a075186166e080f} 
+unsigned int c\+Compression\+::m\+Qualite\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The per-\/instance quality setting (0-\/100), not directly used by static helpers. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/core/\mbox{\hyperlink{c_compression_8h}{c\+Compression.\+h}}\item 
+src/core/\mbox{\hyperlink{c_compression_8cpp}{c\+Compression.\+cpp}}\end{DoxyCompactItemize}

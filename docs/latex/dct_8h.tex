@@ -2,31 +2,32 @@
 \hypertarget{dct_8h}{}\label{dct_8h}\index{include/dct/dct.h@{include/dct/dct.h}}
 
 
-Discrete Cosine Transform helpers for 8x8 blocks.  
+Declares functions for the 2D Discrete Cosine Transform (DCT) on 8x8 blocks.  
 
 
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{dct_8h__dep__incl}
-\end{center}
-\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{dct_8h_aaac66b35e6dbe85d21d08606f862082d}{Calcul\+\_\+\+DCT\+\_\+\+Block}} (int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Bloc8x8, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}DCT\+\_\+\+Img)
-\begin{DoxyCompactList}\small\item\em Compute the 2D DCT of an 8x8 block. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Computes the forward 2D-\/\+DCT of an 8x8 block. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{dct_8h_ab7f82a52baba806350bbcf41a50f9db1}{Calcul\+\_\+\+IDCT\+\_\+\+Block}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}DCT\+\_\+\+Img, int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Bloc8x8)
-\begin{DoxyCompactList}\small\item\em Compute the inverse 2D DCT of an 8x8 block. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Computes the inverse 2D-\/\+DCT of an 8x8 block. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{dct_8h_ac829e621307408e71a8ea5d683e4da0d}{Show\+\_\+\+DCT\+\_\+\+Block}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}DCT\+\_\+\+Img)
-\begin{DoxyCompactList}\small\item\em Dump DCT coefficients to stdout for debugging. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A debugging utility to print the contents of an 8x8 DCT block to the console. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Discrete Cosine Transform helpers for 8x8 blocks. 
+Declares functions for the 2D Discrete Cosine Transform (DCT) on 8x8 blocks. 
 
-These functions compute the forward and inverse 2D DCT on 8x8 blocks. The API uses double buffers for the transformed coefficients. 
+\begin{DoxyAuthor}{Author}
+Khanh-\/\+Phuong NGUYEN 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/12-\/08 
+\end{DoxyDate}
+
 
 \label{doc-func-members}
 \Hypertarget{dct_8h_doc-func-members}
@@ -39,22 +40,20 @@ void Calcul\+\_\+\+DCT\+\_\+\+Block (\begin{DoxyParamCaption}\item[{int \texorpd
 
 
 
-Compute the 2D DCT of an 8x8 block. 
+Computes the forward 2D-\/\+DCT of an 8x8 block. 
 
+This function transforms an 8x8 block from the spatial domain to the frequency domain. \begin{DoxyNote}{Note}
+"{}\+Calcul"{} is French for "{}\+Calculation"{}.
+\end{DoxyNote}
 
-\begin{DoxyParams}{Parameters}
-{\em Bloc8x8} & 8x8 input block (integers, typically level-\/shifted by -\/128). \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em Bloc8x8} & An 8x8 input block of pixel data (typically level-\/shifted by -\/128). \\
 \hline
-{\em DCT\+\_\+\+Img} & 8x8 output buffer of DCT coefficients (double). \\
+\mbox{\texttt{out}}  & {\em DCT\+\_\+\+Img} & An 8x8 output block to be filled with the resulting DCT coefficients. \\
 \hline
 \end{DoxyParams}
-Here is the caller graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=330pt]{dct_8h_aaac66b35e6dbe85d21d08606f862082d_icgraph}
-\end{center}
-\end{figure}
+Here is the caller graph for this function\+:
+% FIG 1
 \Hypertarget{dct_8h_ab7f82a52baba806350bbcf41a50f9db1}\index{dct.h@{dct.h}!Calcul\_IDCT\_Block@{Calcul\_IDCT\_Block}}
 \index{Calcul\_IDCT\_Block@{Calcul\_IDCT\_Block}!dct.h@{dct.h}}
 \doxysubsubsection{\texorpdfstring{Calcul\_IDCT\_Block()}{Calcul\_IDCT\_Block()}}
@@ -63,26 +62,20 @@ void Calcul\+\_\+\+IDCT\+\_\+\+Block (\begin{DoxyParamCaption}\item[{double \tex
 
 
 
-Compute the inverse 2D DCT of an 8x8 block. 
+Computes the inverse 2D-\/\+DCT of an 8x8 block. 
 
+This function transforms an 8x8 block of DCT coefficients from the frequency domain back to the spatial domain. \begin{DoxyNote}{Note}
+"{}\+Calcul"{} is French for "{}\+Calculation"{}.
+\end{DoxyNote}
 
-\begin{DoxyParams}{Parameters}
-{\em DCT\+\_\+\+Img} & 8x8 input buffer of DCT coefficients (double). \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em DCT\+\_\+\+Img} & An 8x8 input block of DCT coefficients. \\
 \hline
-{\em Bloc8x8} & 8x8 output block (integers, values will be rounded/clamped by the caller).\\
-\hline
-{\em DCT\+\_\+\+Img} & 8x8 input buffer of DCT coefficients (double). \\
-\hline
-{\em Bloc8x8} & 8x8 output block (integers, values rounded by the caller). \\
+\mbox{\texttt{out}}  & {\em Bloc8x8} & An 8x8 output block to be filled with the reconstructed spatial data. \\
 \hline
 \end{DoxyParams}
-Here is the caller graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{dct_8h_ab7f82a52baba806350bbcf41a50f9db1_icgraph}
-\end{center}
-\end{figure}
+Here is the caller graph for this function\+:
+% FIG 2
 \Hypertarget{dct_8h_ac829e621307408e71a8ea5d683e4da0d}\index{dct.h@{dct.h}!Show\_DCT\_Block@{Show\_DCT\_Block}}
 \index{Show\_DCT\_Block@{Show\_DCT\_Block}!dct.h@{dct.h}}
 \doxysubsubsection{\texorpdfstring{Show\_DCT\_Block()}{Show\_DCT\_Block()}}
@@ -91,17 +84,10 @@ void Show\+\_\+\+DCT\+\_\+\+Block (\begin{DoxyParamCaption}\item[{double \texorp
 
 
 
-Dump DCT coefficients to stdout for debugging. 
+A debugging utility to print the contents of an 8x8 DCT block to the console. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em DCT\+\_\+\+Img} & 8x8 input buffer of DCT coefficients (double).\\
-\hline
-\end{DoxyParams}
-Dump DCT coefficients to stdout for debugging.
-
-
-\begin{DoxyParams}{Parameters}
-{\em DCT\+\_\+\+Img} & 8x8 input buffer of DCT coefficients (double). \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em DCT\+\_\+\+Img} & The 8x8 block of DCT coefficients to display. \\
 \hline
 \end{DoxyParams}

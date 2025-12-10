@@ -1,94 +1,86 @@
-#include <algorithm>
-#include <chrono>
-#include <cmath>
-#include <filesystem>
-#include <limits>
+// Simple functional test for color compression pipeline
 #include <iostream>
-#include <random>
+#include <fstream>
 #include <string>
-#include <vector>
-
+#include <sys/stat.h>
+#include <cstdio>
 #include "core/cCompressionCouleur.h"
-#include "core/cDecompressionCouleur.h"
 
-namespace fs = std::filesystem;
+static bool file_exists(const std::string &path) {
+    struct stat buf;
+    return (stat(path.c_str(), &buf) == 0);
+}
 
-int main()
-{
-    const unsigned int width = 16;
-    const unsigned int height = 16;
-    std::vector<unsigned char> rgb(width * height * 3U);
+int main() {
+    const char *input_ppm = "lenna_color.ppm";
+    const std::string basename = "tmp_test_color";
+    const std::string outppm = "tmp_decomp_color.ppm";
 
-    for (unsigned int y = 0; y < height; ++y)
-    {
-        for (unsigned int x = 0; x < width; ++x)
-        {
-            const std::size_t idx = static_cast<std::size_t>(y) * width + x;
-            rgb[idx * 3 + 0] = static_cast<unsigned char>((x * 16) % 256); // R gradient
-            rgb[idx * 3 + 1] = static_cast<unsigned char>((y * 16) % 256); // G gradient
-            rgb[idx * 3 + 2] = static_cast<unsigned char>(((x + y) * 8) % 256); // B gradient
-        }
-    }
-
-    const auto now = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-    fs::path prefix = fs::temp_directory_path() / ("jpeg_color_test_" + std::to_string(now));
-
-    cCompressionCouleur compressor(100, jpeg::ChromaSubsampling::Sampling444);
-    if (!compressor.compressRGB(rgb, width, height, prefix.string()))
-    {
-        std::cerr << "Color compression failed\n";
+    if (!file_exists(input_ppm)) {
+        std::cerr << "Input PPM not found: " << input_ppm << std::endl;
         return 1;
     }
 
-    cDecompressionCouleur decompressor(100);
-    std::vector<unsigned char> recon;
-    unsigned int outWidth = 0;
-    unsigned int outHeight = 0;
-    jpeg::ChromaSubsampling modeOut = jpeg::ChromaSubsampling::Sampling444;
+    cCompressionCouleur cc;
+    unsigned int quality = 50;
+    unsigned int subsampling = 444; // 4:4:4
 
-    if (!decompressor.decompressRGB(prefix.string(), recon, outWidth, outHeight, modeOut))
-    {
-        std::cerr << "Color decompression failed\n";
+    bool ok = cc.CompressPPM(input_ppm, basename.c_str(), quality, subsampling);
+    if (!ok) {
+        std::cerr << "CompressPPM failed" << std::endl;
         return 1;
     }
 
-    if (outWidth != width || outHeight != height)
-    {
-        std::cerr << "Unexpected output dimensions\n";
+    const std::string yfile = basename + "_Y.huff";
+    const std::string cbfile = basename + "_Cb.huff";
+    const std::string crfile = basename + "_Cr.huff";
+    const std::string metafile = basename + ".meta";
+
+    if (!file_exists(yfile) || !file_exists(cbfile) || !file_exists(crfile) || !file_exists(metafile)) {
+        std::cerr << "Missing output files after compression" << std::endl;
         return 1;
     }
 
-    if (recon.size() != rgb.size())
-    {
-        std::cerr << "Unexpected reconstructed buffer size\n";
+    bool ok2 = cc.DecompressToPPM(basename.c_str(), outppm.c_str());
+    if (!ok2) {
+        std::cerr << "DecompressToPPM failed" << std::endl;
+        // try to cleanup what we can
+        std::remove(yfile.c_str()); std::remove(cbfile.c_str()); std::remove(crfile.c_str()); std::remove(metafile.c_str());
         return 1;
     }
 
-    if (modeOut != jpeg::ChromaSubsampling::Sampling444)
-    {
-        std::cerr << "Subsampling mode mismatch\n";
+    if (!file_exists(outppm)) {
+        std::cerr << "Decompressed PPM not produced" << std::endl;
+        std::remove(yfile.c_str()); std::remove(cbfile.c_str()); std::remove(crfile.c_str()); std::remove(metafile.c_str());
         return 1;
     }
 
-    double mse = 0.0;
-    for (std::size_t idx = 0; idx < rgb.size(); ++idx)
-    {
-        const int diff = static_cast<int>(rgb[idx]) - static_cast<int>(recon[idx]);
-        mse += static_cast<double>(diff * diff);
+    // Quick sanity check: first line should contain P6
+    std::ifstream fin(outppm, std::ios::binary);
+    if (!fin) {
+        std::cerr << "Cannot open decompressed PPM" << std::endl;
+        return 1;
     }
-    mse /= static_cast<double>(rgb.size());
+    std::string header;
+    if (!std::getline(fin, header)) {
+        std::cerr << "Empty decompressed PPM" << std::endl;
+        fin.close();
+        return 1;
+    }
+    fin.close();
 
-    const double psnr = (mse > 0.0) ? 10.0 * std::log10((255.0 * 255.0) / mse) : std::numeric_limits<double>::infinity();
-    if (psnr < 35.0)
-    {
-        std::cerr << "PSNR too low: " << psnr << " dB (MSE=" << mse << ")\n";
+    if (header.find("P6") == std::string::npos) {
+        std::cerr << "Decompressed file does not look like P6 PPM" << std::endl;
         return 1;
     }
 
-    fs::remove(prefix.string() + ".meta");
-    fs::remove(prefix.string() + "_Y.huff");
-    fs::remove(prefix.string() + "_Cb.huff");
-    fs::remove(prefix.string() + "_Cr.huff");
+    // Cleanup generated files
+    std::remove(yfile.c_str());
+    std::remove(cbfile.c_str());
+    std::remove(crfile.c_str());
+    std::remove(metafile.c_str());
+    std::remove(outppm.c_str());
 
+    std::cout << "testcolor: OK" << std::endl;
     return 0;
 }

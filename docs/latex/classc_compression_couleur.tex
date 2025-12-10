@@ -1,0 +1,303 @@
+\doxysection{c\+Compression\+Couleur Class Reference}
+\hypertarget{classc_compression_couleur}{}\label{classc_compression_couleur}\index{cCompressionCouleur@{cCompressionCouleur}}
+
+
+Extends \doxylink{classc_compression}{c\+Compression} to handle color image compression (PPM format).  
+
+
+
+
+{\ttfamily \#include $<$c\+Compression\+Couleur.\+h$>$}
+
+
+
+Inheritance diagram for c\+Compression\+Couleur\+:
+% FIG 0
+
+
+Collaboration diagram for c\+Compression\+Couleur\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classc_compression_couleur_ab8746a17cfc4c7cb4364b4f1e4b4db56}{c\+Compression\+Couleur}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classc_compression_couleur_a1aa7c602cfe8f2e500f52e1a96454b57}{c\+Compression\+Couleur}} (unsigned int largeur, unsigned int hauteur, unsigned int qualite=50, unsigned int subsamplingH=1, unsigned int subsamplingV=1, unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}buffer=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classc_compression_couleur}{c\+Compression\+Couleur} object with given parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classc_compression_couleur_ad5a283b7957b9ea4cd5cc59eb94bfeec}{\texorpdfstring{$\sim$}{\string~}c\+Compression\+Couleur}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classc_compression_couleur_a658d2cd62608b1185e535f9b9dca49a4}{Compress\+PPM}} (const char \texorpdfstring{$\ast$}{*}ppm\+Path, const char \texorpdfstring{$\ast$}{*}basename, unsigned int qual, unsigned int subsampling\+Mode=444)
+\begin{DoxyCompactList}\small\item\em Compresses a PPM (P6) image into three component Huffman files and a metadata file. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classc_compression_couleur_aa9eea42fb059fa85121faeb9a7f10987}{Decompress\+To\+PPM}} (const char \texorpdfstring{$\ast$}{*}basename, const char \texorpdfstring{$\ast$}{*}outppm)
+\begin{DoxyCompactList}\small\item\em Decompresses three component Huffman files and reconstructs a PPM (P6) image. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_couleur_a75c450c2207d737be0a47cbe27287f7f}{set\+SubsamplingH}} (unsigned int subsamplingH)
+\begin{DoxyCompactList}\small\item\em Sets the horizontal chroma subsampling factor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_couleur_aa17b235b80f2f8a971db8ba459318735}{set\+SubsamplingV}} (unsigned int subsamplingV)
+\begin{DoxyCompactList}\small\item\em Sets the vertical chroma subsampling factor. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classc_compression_couleur_a09ece2cc4ff38b03d07f2fb6531f86cc}{get\+SubsamplingH}} () const
+\begin{DoxyCompactList}\small\item\em Gets the horizontal chroma subsampling factor. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classc_compression_couleur_a07352532802092bda525874b1bedd2c2}{get\+SubsamplingV}} () const
+\begin{DoxyCompactList}\small\item\em Gets the vertical chroma subsampling factor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classc_compression}{c\+Compression}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classc_compression_adc5f208bc6974089fea85fec29964be5}{c\+Compression}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. Initializes members to zero/nullptr. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classc_compression_a322dad3ba64953aaf53e24a2d392175e}{c\+Compression}} (unsigned int largeur, unsigned int hauteur, unsigned int qualite=50, unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}buffer=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classc_compression}{c\+Compression} object with given parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classc_compression_a9bc895fb3efd36315891b6e179f09c87}{\texorpdfstring{$\sim$}{\string~}c\+Compression}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_a86bae0e51a1607b87467560e8e2c3bbd}{set\+Largeur}} (unsigned int largeur)
+\begin{DoxyCompactList}\small\item\em Sets the image width. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_a9f3b424df287aaeb5924ed505b848b9e}{set\+Hauteur}} (unsigned int hauteur)
+\begin{DoxyCompactList}\small\item\em Sets the image height. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_a16720d26c29def34f724066455da1ecf}{set\+Qualite}} (unsigned int qualite)
+\begin{DoxyCompactList}\small\item\em Sets the per-\/instance quality factor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_ae94612d3efd236e71d1c73c84d3a1685}{set\+Buffer}} (unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Attaches a caller-\/provided image buffer. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classc_compression_a42ce4e36474774a54bf01d404cf59360}{get\+Largeur}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current image width. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classc_compression_ae0f6e3eadd7aa11fd6825f2fd53a4a1c}{get\+Hauteur}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current image height. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classc_compression_a2674e4a02b0f39da23681071f7055e58}{get\+Qualite}} () const
+\begin{DoxyCompactList}\small\item\em Gets the per-\/instance quality factor. \end{DoxyCompactList}\item 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classc_compression_a517f94ea07c7b07aebb99fee7f5fb4b1}{get\+Buffer}} () const
+\begin{DoxyCompactList}\small\item\em Gets the attached image buffer. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classc_compression_a89e51610adbb915e857a914cd6a81173}{EQM}} (int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Bloc8x8)
+\begin{DoxyCompactList}\small\item\em Calculates the Mean Squared Error (MSE) between an original 8x8 block and its compressed-\/decompressed version. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classc_compression_ac7ff6275e8f31e29d0ca10ce0baeee75}{Taux\+\_\+\+Compression}} (int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Bloc8x8)
+\begin{DoxyCompactList}\small\item\em Calculates the compression ratio for a single 8x8 block. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_a2e220b16455ed12bfae6d66549d61306}{RLE\+\_\+\+Block}} (int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}Img\+\_\+\+Quant, int DC\+\_\+precedent, signed char \texorpdfstring{$\ast$}{*}Trame)
+\begin{DoxyCompactList}\small\item\em Performs Run-\/\+Length Encoding on a single quantized 8x8 block. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_a9965020a2ae4099448e1f22a44ea1e30}{RLE}} (signed int \texorpdfstring{$\ast$}{*}Trame)
+\begin{DoxyCompactList}\small\item\em Performs RLE on all 8x8 blocks of the attached image buffer. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classc_compression_a0720225210ef1d484f50d25af1586753}{Histogramme}} (char \texorpdfstring{$\ast$}{*}Trame, unsigned int Longueur\+\_\+\+Trame, char \texorpdfstring{$\ast$}{*}Donnee, double \texorpdfstring{$\ast$}{*}Frequence)
+\begin{DoxyCompactList}\small\item\em Builds a frequency histogram from an RLE byte stream. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classc_compression_aee2599c101378e562edf5e2eaed48c52}{Compression\+\_\+\+JPEG}} (int \texorpdfstring{$\ast$}{*}Trame\+\_\+\+RLE, const char \texorpdfstring{$\ast$}{*}Nom\+\_\+\+Fichier)
+\begin{DoxyCompactList}\small\item\em Compresses an RLE stream using Huffman coding and writes it to a file. \end{DoxyCompactList}\item 
+unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classc_compression_a66b859d7eff31e3ba9e2337cb63cc807}{Decompression\+\_\+\+JPEG}} (const char \texorpdfstring{$\ast$}{*}Nom\+\_\+\+Fichier\+\_\+compresse)
+\begin{DoxyCompactList}\small\item\em Decompresses an image from a file and reconstructs the pixel data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{classc_compression_couleur_a639748100d7ba82563db378144fad92a}{m\+SubsamplingH}}
+\begin{DoxyCompactList}\small\item\em Chroma subsampling factor for the horizontal direction. (e.\+g., 2 for 4\+:2\+:2 and 4\+:2\+:0). \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classc_compression_couleur_a1d16bef8dcfa484d16c74b7ebd125796}{m\+SubsamplingV}}
+\begin{DoxyCompactList}\small\item\em Chroma subsampling factor for the vertical direction. (e.\+g., 2 for 4\+:2\+:0). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classc_compression}{c\+Compression}}}
+\begin{DoxyCompactItemize}
+\item 
+static unsigned int \mbox{\hyperlink{classc_compression_aa7fe57390f7e2f2532e3389dcef33889}{get\+Qualite\+Globale}} ()
+\begin{DoxyCompactList}\small\item\em Gets the global quality factor used by static quantization helpers. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classc_compression_ae2b173d0aebc50cedba7e9ac34aafa21}{set\+Qualite\+Globale}} (unsigned int qualite)
+\begin{DoxyCompactList}\small\item\em Sets the global quality factor used by static quantization helpers. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classc_compression_aa9cfa8fa6c95559a27de177a67f0a5f3}{store\+Huffman\+Table}} (const char \texorpdfstring{$\ast$}{*}symbols, const double \texorpdfstring{$\ast$}{*}frequencies, unsigned int count)
+\begin{DoxyCompactList}\small\item\em Caches a Huffman table for later use (e.\+g., by the decompressor). \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{classc_compression_ad7165e2bc5c2deb15bc7e2cf7dc9d265}{load\+Huffman\+Table}} (char \texorpdfstring{$\ast$}{*}symbols, double \texorpdfstring{$\ast$}{*}frequencies, unsigned int \&count)
+\begin{DoxyCompactList}\small\item\em Retrieves the cached Huffman table. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{classc_compression_a2e7e1d8e0dff94f10bed1573df09f732}{has\+Stored\+Huffman\+Table}} ()
+\begin{DoxyCompactList}\small\item\em Checks if a Huffman table is currently cached. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Extends \doxylink{classc_compression}{c\+Compression} to handle color image compression (PPM format). 
+
+This class manages the pipeline for compressing and decompressing P6 (binary) PPM color images. It handles reading the PPM file, converting from RGB to YCb\+Cr color space, performing chroma subsampling (4\+:4\+:4, 4\+:2\+:2, 4\+:2\+:0), and then uses the base \doxylink{classc_compression}{c\+Compression} functionality to compress each color component (Y, Cb, Cr) into a separate file. 
+
+\label{doc-constructors}
+\Hypertarget{classc_compression_couleur_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classc_compression_couleur_ab8746a17cfc4c7cb4364b4f1e4b4db56}\index{cCompressionCouleur@{cCompressionCouleur}!cCompressionCouleur@{cCompressionCouleur}}
+\index{cCompressionCouleur@{cCompressionCouleur}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{cCompressionCouleur()}{cCompressionCouleur()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classc_compression_couleur_ab8746a17cfc4c7cb4364b4f1e4b4db56} 
+c\+Compression\+Couleur\+::c\+Compression\+Couleur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Default constructor. 
+
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{classc_compression_couleur_a1aa7c602cfe8f2e500f52e1a96454b57}\index{cCompressionCouleur@{cCompressionCouleur}!cCompressionCouleur@{cCompressionCouleur}}
+\index{cCompressionCouleur@{cCompressionCouleur}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{cCompressionCouleur()}{cCompressionCouleur()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classc_compression_couleur_a1aa7c602cfe8f2e500f52e1a96454b57} 
+c\+Compression\+Couleur\+::c\+Compression\+Couleur (\begin{DoxyParamCaption}\item[{unsigned int}]{largeur}{, }\item[{unsigned int}]{hauteur}{, }\item[{unsigned int}]{qualite}{ = {\ttfamily 50}, }\item[{unsigned int}]{subsamplingH}{ = {\ttfamily 1}, }\item[{unsigned int}]{subsamplingV}{ = {\ttfamily 1}, }\item[{unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{buffer}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{classc_compression_couleur}{c\+Compression\+Couleur} object with given parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em largeur} & The width of the image. \\
+\hline
+{\em hauteur} & The height of the image. \\
+\hline
+{\em qualite} & The quality setting for compression (0-\/100). \\
+\hline
+{\em subsamplingH} & Horizontal subsampling factor. \\
+\hline
+{\em subsamplingV} & Vertical subsampling factor. \\
+\hline
+{\em buffer} & Optional pointer to an existing image buffer. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 3
+\Hypertarget{classc_compression_couleur_ad5a283b7957b9ea4cd5cc59eb94bfeec}\index{cCompressionCouleur@{cCompressionCouleur}!````~cCompressionCouleur@{\texorpdfstring{$\sim$}{\string~}cCompressionCouleur}}
+\index{````~cCompressionCouleur@{\texorpdfstring{$\sim$}{\string~}cCompressionCouleur}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}cCompressionCouleur()}{\string~cCompressionCouleur()}}
+{\footnotesize\ttfamily \label{classc_compression_couleur_ad5a283b7957b9ea4cd5cc59eb94bfeec} 
+c\+Compression\+Couleur\+::\texorpdfstring{$\sim$}{\string~}c\+Compression\+Couleur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destructor. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{classc_compression_couleur_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classc_compression_couleur_a658d2cd62608b1185e535f9b9dca49a4}\index{cCompressionCouleur@{cCompressionCouleur}!CompressPPM@{CompressPPM}}
+\index{CompressPPM@{CompressPPM}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{CompressPPM()}{CompressPPM()}}
+{\footnotesize\ttfamily \label{classc_compression_couleur_a658d2cd62608b1185e535f9b9dca49a4} 
+bool c\+Compression\+Couleur\+::\+Compress\+PPM (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{ppm\+Path}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{basename}{, }\item[{unsigned int}]{qual}{, }\item[{unsigned int}]{subsampling\+Mode}{ = {\ttfamily 444}}\end{DoxyParamCaption})}
+
+
+
+Compresses a PPM (P6) image into three component Huffman files and a metadata file. 
+
+The process involves reading the PPM, converting RGB to YCb\+Cr, optionally subsampling the Cb and Cr channels, and compressing each channel independently.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em ppm\+Path} & Path to the input PPM (P6) file. \\
+\hline
+\mbox{\texttt{in}}  & {\em basename} & The base name for the output files (e.\+g., "{}image"{}). This will produce "{}image\+\_\+\+Y.\+huff"{}, "{}image\+\_\+\+Cb.\+huff"{}, etc. \\
+\hline
+\mbox{\texttt{in}}  & {\em qual} & The quality setting (1-\/100) for the JPEG quantization stage. \\
+\hline
+\mbox{\texttt{in}}  & {\em subsampling\+Mode} & The chroma subsampling mode. Supported values\+: 444, 422, 420. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True on success, false on failure. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 4
+\Hypertarget{classc_compression_couleur_aa9eea42fb059fa85121faeb9a7f10987}\index{cCompressionCouleur@{cCompressionCouleur}!DecompressToPPM@{DecompressToPPM}}
+\index{DecompressToPPM@{DecompressToPPM}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{DecompressToPPM()}{DecompressToPPM()}}
+{\footnotesize\ttfamily \label{classc_compression_couleur_aa9eea42fb059fa85121faeb9a7f10987} 
+bool c\+Compression\+Couleur\+::\+Decompress\+To\+PPM (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{basename}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{outppm}{}\end{DoxyParamCaption})}
+
+
+
+Decompresses three component Huffman files and reconstructs a PPM (P6) image. 
+
+This method reads the metadata file to determine image dimensions and subsampling, then decompresses each color channel, upsamples the chroma channels if necessary, converts YCb\+Cr back to RGB, and writes the output PPM file.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em basename} & The base name used during compression (e.\+g., "{}image"{}). It expects to find "{}image.\+meta"{}, "{}image\+\_\+\+Y.\+huff"{}, etc. \\
+\hline
+\mbox{\texttt{in}}  & {\em outppm} & The path for the output PPM file to be created. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True on success, false on failure. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 5
+\Hypertarget{classc_compression_couleur_a09ece2cc4ff38b03d07f2fb6531f86cc}\index{cCompressionCouleur@{cCompressionCouleur}!getSubsamplingH@{getSubsamplingH}}
+\index{getSubsamplingH@{getSubsamplingH}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{getSubsamplingH()}{getSubsamplingH()}}
+{\footnotesize\ttfamily \label{classc_compression_couleur_a09ece2cc4ff38b03d07f2fb6531f86cc} 
+unsigned int c\+Compression\+Couleur\+::get\+SubsamplingH (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the horizontal chroma subsampling factor. 
+
+\begin{DoxyReturn}{Returns}
+The horizontal factor. 
+\end{DoxyReturn}
+\Hypertarget{classc_compression_couleur_a07352532802092bda525874b1bedd2c2}\index{cCompressionCouleur@{cCompressionCouleur}!getSubsamplingV@{getSubsamplingV}}
+\index{getSubsamplingV@{getSubsamplingV}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{getSubsamplingV()}{getSubsamplingV()}}
+{\footnotesize\ttfamily \label{classc_compression_couleur_a07352532802092bda525874b1bedd2c2} 
+unsigned int c\+Compression\+Couleur\+::get\+SubsamplingV (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the vertical chroma subsampling factor. 
+
+\begin{DoxyReturn}{Returns}
+The vertical factor. 
+\end{DoxyReturn}
+\Hypertarget{classc_compression_couleur_a75c450c2207d737be0a47cbe27287f7f}\index{cCompressionCouleur@{cCompressionCouleur}!setSubsamplingH@{setSubsamplingH}}
+\index{setSubsamplingH@{setSubsamplingH}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{setSubsamplingH()}{setSubsamplingH()}}
+{\footnotesize\ttfamily \label{classc_compression_couleur_a75c450c2207d737be0a47cbe27287f7f} 
+void c\+Compression\+Couleur\+::set\+SubsamplingH (\begin{DoxyParamCaption}\item[{unsigned int}]{subsamplingH}{}\end{DoxyParamCaption})}
+
+
+
+Sets the horizontal chroma subsampling factor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em subsamplingH} & The horizontal factor (e.\+g., 1, 2). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classc_compression_couleur_aa17b235b80f2f8a971db8ba459318735}\index{cCompressionCouleur@{cCompressionCouleur}!setSubsamplingV@{setSubsamplingV}}
+\index{setSubsamplingV@{setSubsamplingV}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{setSubsamplingV()}{setSubsamplingV()}}
+{\footnotesize\ttfamily \label{classc_compression_couleur_aa17b235b80f2f8a971db8ba459318735} 
+void c\+Compression\+Couleur\+::set\+SubsamplingV (\begin{DoxyParamCaption}\item[{unsigned int}]{subsamplingV}{}\end{DoxyParamCaption})}
+
+
+
+Sets the vertical chroma subsampling factor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em subsamplingV} & The vertical factor (e.\+g., 1, 2). \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-variable-members}
+\Hypertarget{classc_compression_couleur_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classc_compression_couleur_a639748100d7ba82563db378144fad92a}\index{cCompressionCouleur@{cCompressionCouleur}!mSubsamplingH@{mSubsamplingH}}
+\index{mSubsamplingH@{mSubsamplingH}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{mSubsamplingH}{mSubsamplingH}}
+{\footnotesize\ttfamily \label{classc_compression_couleur_a639748100d7ba82563db378144fad92a} 
+unsigned int c\+Compression\+Couleur\+::m\+SubsamplingH\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Chroma subsampling factor for the horizontal direction. (e.\+g., 2 for 4\+:2\+:2 and 4\+:2\+:0). 
+
+\Hypertarget{classc_compression_couleur_a1d16bef8dcfa484d16c74b7ebd125796}\index{cCompressionCouleur@{cCompressionCouleur}!mSubsamplingV@{mSubsamplingV}}
+\index{mSubsamplingV@{mSubsamplingV}!cCompressionCouleur@{cCompressionCouleur}}
+\doxysubsubsection{\texorpdfstring{mSubsamplingV}{mSubsamplingV}}
+{\footnotesize\ttfamily \label{classc_compression_couleur_a1d16bef8dcfa484d16c74b7ebd125796} 
+unsigned int c\+Compression\+Couleur\+::m\+SubsamplingV\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Chroma subsampling factor for the vertical direction. (e.\+g., 2 for 4\+:2\+:0). 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/core/\mbox{\hyperlink{c_compression_couleur_8h}{c\+Compression\+Couleur.\+h}}\item 
+src/core/\mbox{\hyperlink{c_compression_couleur_8cpp}{c\+Compression\+Couleur.\+cpp}}\end{DoxyCompactItemize}

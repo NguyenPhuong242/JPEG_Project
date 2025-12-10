@@ -1,0 +1,108 @@
+\doxysection{s\+Noeud Struct Reference}
+\hypertarget{structs_noeud}{}\label{structs_noeud}\index{sNoeud@{sNoeud}}
+
+
+A node in the Huffman binary tree.  
+
+
+
+
+{\ttfamily \#include $<$c\+Huffman.\+h$>$}
+
+
+
+Collaboration diagram for s\+Noeud\+:
+% FIG 0
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structs_noeud_a4159abaca506ae5c4bc293a65cc25516}{s\+Noeud}} (char d, double f)
+\begin{DoxyCompactList}\small\item\em Constructs a leaf node with a symbol and its frequency. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{structs_noeud_afb8beebdb47f5749baf384aa397b6dba}{mdonnee}}
+\begin{DoxyCompactList}\small\item\em The character/symbol for this node (if it\textquotesingle{}s a leaf). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structs_noeud_a1d4c243bc55e98c68e0614b7f743ba48}{mfreq}}
+\begin{DoxyCompactList}\small\item\em The frequency of the symbol or the combined frequency of its children. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structs_noeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structs_noeud_a66b579266d53f46c02268b12237623ed}{mgauche}}
+\begin{DoxyCompactList}\small\item\em Pointer to the left child node (for bits \textquotesingle{}0\textquotesingle{}). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structs_noeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structs_noeud_a920037192f261344e42996fece27e43c}{mdroit}}
+\begin{DoxyCompactList}\small\item\em Pointer to the right child node (for bits \textquotesingle{}1\textquotesingle{}). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A node in the Huffman binary tree. 
+
+This structure represents a single node, which can be a leaf (containing a symbol) or an internal node. It stores the character, its frequency, and pointers to its left and right children. 
+
+\label{doc-constructors}
+\Hypertarget{structs_noeud_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structs_noeud_a4159abaca506ae5c4bc293a65cc25516}\index{sNoeud@{sNoeud}!sNoeud@{sNoeud}}
+\index{sNoeud@{sNoeud}!sNoeud@{sNoeud}}
+\doxysubsubsection{\texorpdfstring{sNoeud()}{sNoeud()}}
+{\footnotesize\ttfamily \label{structs_noeud_a4159abaca506ae5c4bc293a65cc25516} 
+s\+Noeud\+::s\+Noeud (\begin{DoxyParamCaption}\item[{char}]{d}{, }\item[{double}]{f}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a leaf node with a symbol and its frequency. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d} & The character/symbol. \\
+\hline
+{\em f} & The frequency of the character. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-variable-members}
+\Hypertarget{structs_noeud_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structs_noeud_afb8beebdb47f5749baf384aa397b6dba}\index{sNoeud@{sNoeud}!mdonnee@{mdonnee}}
+\index{mdonnee@{mdonnee}!sNoeud@{sNoeud}}
+\doxysubsubsection{\texorpdfstring{mdonnee}{mdonnee}}
+{\footnotesize\ttfamily \label{structs_noeud_afb8beebdb47f5749baf384aa397b6dba} 
+char s\+Noeud\+::mdonnee}
+
+
+
+The character/symbol for this node (if it\textquotesingle{}s a leaf). 
+
+\Hypertarget{structs_noeud_a920037192f261344e42996fece27e43c}\index{sNoeud@{sNoeud}!mdroit@{mdroit}}
+\index{mdroit@{mdroit}!sNoeud@{sNoeud}}
+\doxysubsubsection{\texorpdfstring{mdroit}{mdroit}}
+{\footnotesize\ttfamily \label{structs_noeud_a920037192f261344e42996fece27e43c} 
+\mbox{\hyperlink{structs_noeud}{s\+Noeud}}\texorpdfstring{$\ast$}{*} s\+Noeud\+::mdroit}
+
+
+
+Pointer to the right child node (for bits \textquotesingle{}1\textquotesingle{}). 
+
+\Hypertarget{structs_noeud_a1d4c243bc55e98c68e0614b7f743ba48}\index{sNoeud@{sNoeud}!mfreq@{mfreq}}
+\index{mfreq@{mfreq}!sNoeud@{sNoeud}}
+\doxysubsubsection{\texorpdfstring{mfreq}{mfreq}}
+{\footnotesize\ttfamily \label{structs_noeud_a1d4c243bc55e98c68e0614b7f743ba48} 
+double s\+Noeud\+::mfreq}
+
+
+
+The frequency of the symbol or the combined frequency of its children. 
+
+\Hypertarget{structs_noeud_a66b579266d53f46c02268b12237623ed}\index{sNoeud@{sNoeud}!mgauche@{mgauche}}
+\index{mgauche@{mgauche}!sNoeud@{sNoeud}}
+\doxysubsubsection{\texorpdfstring{mgauche}{mgauche}}
+{\footnotesize\ttfamily \label{structs_noeud_a66b579266d53f46c02268b12237623ed} 
+\mbox{\hyperlink{structs_noeud}{s\+Noeud}}\texorpdfstring{$\ast$}{*} s\+Noeud\+::mgauche}
+
+
+
+Pointer to the left child node (for bits \textquotesingle{}0\textquotesingle{}). 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/core/\mbox{\hyperlink{c_huffman_8h}{c\+Huffman.\+h}}\end{DoxyCompactItemize}

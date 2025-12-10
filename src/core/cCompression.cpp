@@ -1,26 +1,37 @@
+/**
+ * @file cCompression.cpp
+ * @author Khanh-Phuong NGUYEN
+ * @date 2025-12-08
+ * @brief Implements the cCompression class for the grayscale JPEG pipeline.
+ */
+
 #include "core/cCompression.h"
 #include <vector>
 #include <cstring>
 #include <fstream>
 #include <map>
 #include <string>
-#include <functional>
 #include <cmath>
 
 #include "dct/dct.h"
 #include "quantification/quantification.h"
+#include <iostream>
 
-/**
- * @file cCompression.cpp
- * @brief Implementation of the cCompression class.
- */
 
-/**
- * @brief Default constructor initializing members to safe defaults.
- *
- * Width/height start at zero, quality defaults to 50, and the buffer pointer
- * is nulled until an image is attached.
- */
+// --- Static Member Definitions ---
+
+/** @brief Global quality parameter backing the static quantization helpers. */
+static unsigned int gQualiteGlobale = 50;
+/** @brief Cached Huffman symbols from the most recent encoding operation. */
+static char   gHuffSymbols[256];
+/** @brief Cached Huffman frequencies corresponding to gHuffSymbols. */
+static double gHuffFreqs[256];
+/** @brief Number of valid entries in the cached Huffman table. */
+static unsigned int gHuffCount = 0;
+
+
+// --- cCompression Method Implementations ---
+
 cCompression::cCompression()
 {
     this->mLargeur = 0;
@@ -29,13 +40,6 @@ cCompression::cCompression()
     this->mBuffer = nullptr;
 }
 
-/**
- * @brief Construct a compressor tied to image dimensions and optional buffer.
- * @param largeur Image width in pixels.
- * @param hauteur Image height in pixels.
- * @param qualite Quality factor in [0,100].
- * @param buffer Optional image buffer (row pointers). Ownership stays with caller.
- */
 cCompression::cCompression(unsigned int largeur, unsigned int hauteur, unsigned int qualite, unsigned char **buffer)
 {
     this->mLargeur = largeur;
@@ -43,15 +47,14 @@ cCompression::cCompression(unsigned int largeur, unsigned int hauteur, unsigned 
     this->mQualite = qualite;
     this->mBuffer = buffer;
 }
-/** @brief Destructor; no ownership unless a buffer was attached explicitly. */
+
 cCompression::~cCompression()
 {
+    // Destructor is empty as the class does not assume ownership of the mBuffer data.
 }
 
-/** @brief Set the image width managed by the compressor. */
-/** @brief Set the image height managed by the compressor. */
-/** @brief Set the per-instance quality factor. */
-/** @brief Attach a caller-provided row buffer (no copy performed). */
+
+
 void cCompression::setLargeur(unsigned int largeur)
 {
     this->mLargeur = largeur;
@@ -72,10 +75,6 @@ void cCompression::setBuffer(unsigned char **buffer)
     this->mBuffer = buffer;
 }
 
-/** @brief Read back the configured image width. */
-/** @brief Read back the configured image height. */
-/** @brief Read the per-instance quality factor. */
-/** @brief Access the attached row buffer pointer (may be nullptr). */
 unsigned int cCompression::getLargeur() const
 {
     return this->mLargeur;
@@ -96,376 +95,467 @@ unsigned char **cCompression::getBuffer() const
     return this->mBuffer;
 }
 
-/** @brief Global quality parameter backing quantization helpers. */
-static unsigned int gQualiteGlobale = 50;
-/** @brief Cached Huffman symbols from the most recent encode. */
-static char   gHuffSymbols[256];
-/** @brief Cached Huffman frequencies from the most recent encode. */
-static double gHuffFreqs[256];
-/** @brief Number of cached Huffman entries. */
-static unsigned int gHuffCount = 0;
-
-/**
- * @brief Get the process-wide quality parameter used in quantization helpers.
- * @return Global quality clamped to [1,100].
- */
 unsigned int cCompression::getQualiteGlobale()
 {
     return gQualiteGlobale;
 }
 
-/**
- * @brief Set the process-wide quality parameter used in quantization helpers.
- * @param qualite Desired quality; internally clamped to [1,100].
- */
 void cCompression::setQualiteGlobale(unsigned int qualite)
 {
-    // clamp to 1..100
-    if (qualite < 1)
-        qualite = 1;
-    if (qualite > 100)
-        qualite = 100;
-    gQualiteGlobale = qualite;
+    gQualiteGlobale = (qualite < 1) ? 1 : (qualite > 100) ? 100 : qualite;
 }
 
-/**
- * @brief Persist a Huffman table so future encode/decode stages can reuse it.
- * @param symbols Input symbol array.
- * @param frequencies Input frequency array.
- * @param count Number of valid entries in the arrays.
- */
 void cCompression::storeHuffmanTable(const char *symbols, const double *frequencies, unsigned int count)
 {
-    if (!symbols || !frequencies) {
+    if (!symbols || !frequencies || count == 0) {
         gHuffCount = 0;
         return;
     }
-
-    if (count > 256) count = 256;
-    gHuffCount = count;
+    gHuffCount = (count > 256) ? 256 : count;
+    std::memcpy(gHuffSymbols, symbols, gHuffCount);
     for (unsigned int i = 0; i < gHuffCount; ++i) {
-        gHuffSymbols[i] = symbols[i];
         gHuffFreqs[i] = frequencies[i];
     }
 }
 
-/**
- * @brief Retrieve the cached Huffman table, if available.
- * @param symbols Output buffer for symbols (must have capacity for cached data).
- * @param frequencies Output buffer for frequencies.
- * @param count Receives the number of entries copied.
- * @return true when a table was available and copied.
- */
 bool cCompression::loadHuffmanTable(char *symbols, double *frequencies, unsigned int &count)
 {
     if (!symbols || !frequencies || gHuffCount == 0) {
         count = 0;
         return false;
     }
-
+    std::memcpy(symbols, gHuffSymbols, gHuffCount);
     for (unsigned int i = 0; i < gHuffCount; ++i) {
-        symbols[i] = gHuffSymbols[i];
         frequencies[i] = gHuffFreqs[i];
     }
     count = gHuffCount;
     return true;
 }
 
-/** @brief Indicate whether a Huffman table is currently cached. */
 bool cCompression::hasStoredHuffmanTable()
 {
     return gHuffCount != 0;
 }
 
-/**
- * @brief Encode a single quantized 8x8 block using run-length encoding.
- *
- * Zigzag traversal is generated on the fly so no static table is required.
- */
+double cCompression::EQM(int **Bloc8x8)
+{
+    if (!Bloc8x8) return 0.0;
+
+    // Buffers for the pipeline
+    int shifted[8][8];      int* shifted_ptrs[8];
+    double dct[8][8];       double* dct_ptrs[8];
+    int quant[8][8];        int* quant_ptrs[8];
+    double dequant[8][8];   double* dequant_ptrs[8];
+    int recon[8][8];        int* recon_ptrs[8];
+    for (int i=0; i<8; ++i) {
+        shifted_ptrs[i] = shifted[i]; dct_ptrs[i] = dct[i]; quant_ptrs[i] = quant[i];
+        dequant_ptrs[i] = dequant[i]; recon_ptrs[i] = recon[i];
+    }
+
+    // Pipeline: Shift -> DCT -> Quant -> Dequant -> IDCT
+    for (int i = 0; i < 8; ++i) for (int j = 0; j < 8; ++j) shifted[i][j] = Bloc8x8[i][j] - 128;
+    Calcul_DCT_Block(shifted_ptrs, dct_ptrs);
+    quant_JPEG(dct_ptrs, quant_ptrs);
+    dequant_JPEG(quant_ptrs, dequant_ptrs);
+    Calcul_IDCT_Block(dequant_ptrs, recon_ptrs);
+
+    // Calculate sum of squared differences
+    double sum_sq_err = 0.0;
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            int reconstructed_val = recon[i][j] + 128;
+            reconstructed_val = (reconstructed_val < 0) ? 0 : (reconstructed_val > 255) ? 255 : reconstructed_val;
+            double diff = static_cast<double>(Bloc8x8[i][j] - reconstructed_val);
+            sum_sq_err += diff * diff;
+        }
+    }
+    return sum_sq_err / 64.0;
+}
+
+double cCompression::Taux_Compression(int **Bloc8x8)
+{
+    if (!Bloc8x8) return 0.0;
+
+    // Buffers
+    int shifted[8][8];      int* shifted_ptrs[8];
+    double dct[8][8];       double* dct_ptrs[8];
+    int quant[8][8];        int* quant_ptrs[8];
+    for (int i=0; i<8; ++i) {
+        shifted_ptrs[i] = shifted[i]; dct_ptrs[i] = dct[i]; quant_ptrs[i] = quant[i];
+    }
+
+    // Pipeline: Shift -> DCT -> Quant
+    for (int i = 0; i < 8; ++i) for (int j = 0; j < 8; ++j) shifted[i][j] = Bloc8x8[i][j] - 128;
+    Calcul_DCT_Block(shifted_ptrs, dct_ptrs);
+    quant_JPEG(dct_ptrs, quant_ptrs);
+
+    // Count zero coefficients
+    int zero_count = 0;
+    for (int i = 0; i < 8; ++i) for (int j = 0; j < 8; ++j) if (quant[i][j] == 0) ++zero_count;
+
+    return static_cast<double>(zero_count) / 64.0;
+}
+
 void cCompression::RLE_Block(int **Img_Quant, int DC_precedent, signed char *Trame)
 {
-    if (!Img_Quant || !Trame)
-        return;
+    if (!Img_Quant || !Trame) return;
 
-    constexpr int N = 8;
-    constexpr int OUT_CAP = 128;
+    // Zigzag scan order
+    static const int zigzag[64] = {
+         0,  1,  8, 16,  9,  2,  3, 10, 17, 24, 32, 25, 18, 11,  4,  5,
+        12, 19, 26, 33, 40, 48, 41, 34, 27, 20, 13,  6,  7, 14, 21, 28,
+        35, 42, 49, 56, 57, 50, 43, 36, 29, 22, 15, 23, 30, 37, 44, 51,
+        58, 59, 52, 45, 38, 31, 39, 46, 53, 60, 61, 54, 47, 55, 62, 63
+    };
+
+    int linear_quant[64];
+    for(int i=0; i<64; ++i) {
+        linear_quant[i] = Img_Quant[zigzag[i]/8][zigzag[i]%8];
+    }
 
     int pos = 0;
+    // DC coefficient is differentially coded
+    int dc_diff = linear_quant[0] - DC_precedent;
+    Trame[pos++] = static_cast<signed char>(dc_diff);
 
-    // DC coefficient: differential coding
-    int DC = Img_Quant[0][0] - DC_precedent;
-    Trame[pos++] = static_cast<signed char>(DC);
-
+    // AC coefficients are run-length encoded
     int zero_run = 0;
-
-    // Zigzag traversal, generated dynamically
-    int i = 0;
-    int j = 0;
-    bool up = true;
-
-    for (int k = 1; k < N * N && pos + 2 < OUT_CAP; ++k)
-    {
-
-        if (up)
-        {
-            if (j == N - 1)
-            {
-                ++i;
-                up = false;
+    for (int k = 1; k < 64; ++k) {
+        if (linear_quant[k] == 0) {
+            zero_run++;
+        } else {
+            while (zero_run > 15) { // Max run length is 15
+                Trame[pos++] = 0x0F; // (15, 0)
+                Trame[pos++] = 0x00;
+                zero_run -= 16;
             }
-            else if (i == 0)
-            {
-                ++j;
-                up = false;
-            }
-            else
-            {
-                --i;
-                ++j;
-            }
+            Trame[pos++] = static_cast<signed char>(zero_run);
+            Trame[pos++] = static_cast<signed char>(linear_quant[k]);
+            zero_run = 0;
         }
-        else
-        {
-            if (i == N - 1)
-            {
-                ++j;
-                up = true;
-            }
-            else if (j == 0)
-            {
-                ++i;
-                up = true;
-            }
-            else
-            {
-                ++i;
-                --j;
-            }
-        }
-
-        int v = Img_Quant[i][j];
-
-        if (v == 0)
-        {
-            ++zero_run;
-            continue;
-        }
-
-        if (zero_run > 255)
-            zero_run = 255;
-
-        Trame[pos++] = static_cast<signed char>(zero_run); // run
-        Trame[pos++] = static_cast<signed char>(v);        // coeff
-
-        zero_run = 0;
     }
 
-    // End-of-block marker: the special pair (0, 0)
-    if (pos + 2 <= OUT_CAP)
-    {
-        Trame[pos++] = static_cast<signed char>(0); // run = 0
-        Trame[pos++] = static_cast<signed char>(0); // coeff = 0 (EOB)
-    }
-
-    // (Optional) pad the rest of the buffer; not logically used
-    if (pos < OUT_CAP)
-    {
-        std::memset(Trame + pos, 0, OUT_CAP - pos);
+    // End-of-Block marker
+    if (pos < 128) {
+        Trame[pos++] = 0x00; // (0, 0)
+        Trame[pos++] = 0x00;
     }
 }
 
-/**
- * @brief Concatenate every block RLE stream into the pedagogic integer trame.
- * @param Trame Caller-provided integer buffer receiving length + data bytes.
- */
 void cCompression::RLE(signed int *Trame)
 {
-    if (!Trame || !mBuffer || mLargeur == 0 || mHauteur == 0)
-        return;
-    if ((mLargeur % 8) || (mHauteur % 8))
-        return;
+    if (!Trame || !mBuffer || mLargeur == 0 || mHauteur == 0) return;
+    if ((mLargeur % 8) || (mHauteur % 8)) return;
 
-    std::vector<signed char> out;
-    out.reserve((mLargeur / 8) * (mHauteur / 8) * 20);
-
-    int block[8][8];
-    double dct[8][8];
-    int quant[8][8];
-
-    int *block_rows[8];
-    double *dct_rows[8];
-    int *quant_rows[8];
-
-    for (int i = 0; i < 8; ++i)
-    {
-        block_rows[i] = block[i];
-        dct_rows[i] = dct[i];
-        quant_rows[i] = quant[i];
-    }
-
+    std::vector<signed char> out_stream;
     int previous_DC = 0;
 
-    for (unsigned int by = 0; by < mHauteur; by += 8)
-    {
-        for (unsigned int bx = 0; bx < mLargeur; bx += 8)
-        {
+    // Buffers for block processing
+    int block[8][8];        int* block_ptrs[8];
+    double dct[8][8];       double* dct_ptrs[8];
+    int quant[8][8];        int* quant_ptrs[8];
+    for (int i=0; i<8; ++i) {
+        block_ptrs[i] = block[i]; dct_ptrs[i] = dct[i]; quant_ptrs[i] = quant[i];
+    }
 
-            // Copy 8x8 block with level shift
-            for (int r = 0; r < 8; ++r)
-                for (int c = 0; c < 8; ++c)
-                    block[r][c] = static_cast<int>(mBuffer[by + r][bx + c]) - 128;
+    for (unsigned int by = 0; by < mHauteur; by += 8) {
+        for (unsigned int bx = 0; bx < mLargeur; bx += 8) {
+            // Level-shift and copy block
+            for (int r = 0; r < 8; ++r) for (int c = 0; c < 8; ++c) {
+                block[r][c] = static_cast<int>(mBuffer[by + r][bx + c]) - 128;
+            }
 
-            // DCT + quantization
-            Calcul_DCT_Block(block_rows, dct_rows);
-            quant_JPEG(dct_rows, quant_rows);
+            // DCT and Quantization
+            Calcul_DCT_Block(block_ptrs, dct_ptrs);
+            quant_JPEG(dct_ptrs, quant_ptrs);
 
-            // RLE for this block
-            signed char blockTrame[128] = {0};
-            RLE_Block(quant_rows, previous_DC, blockTrame);
+            // RLE encoding for the block
+            signed char block_trame[128] = {0};
+            RLE_Block(quant_ptrs, previous_DC, block_trame);
+            previous_DC = quant[0][0]; // Update previous DC for next block
 
-            previous_DC = quant[0][0]; // save DC for next block
-
-            // Append DC
-            out.push_back(blockTrame[0]);
-
-            // Append (run, coeff) pairs until we see (0,0), inclusive
-            int pos = 1;
-            while (pos + 1 < 128)
-            {
-                signed char run = blockTrame[pos++];
-                signed char val = blockTrame[pos++];
-
-                out.push_back(run);
-                out.push_back(val);
-
-                if (run == 0 && val == 0)
-                {
-                    break; // end-of-block
+            // Append RLE data to the main stream until EOB is found
+            for(int i=0; i<128; i+=2) {
+                out_stream.push_back(block_trame[i]);
+                out_stream.push_back(block_trame[i+1]);
+                if (block_trame[i] == 0 && block_trame[i+1] == 0) {
+                    break;
                 }
             }
         }
     }
 
-    // Export to integer trame, preserving sign
-    Trame[0] = static_cast<int>(out.size());
-    for (int i = 0; i < Trame[0]; ++i)
-    {
-        Trame[i + 1] = static_cast<int>(out[i]);
+    // Copy to the output integer array format
+    Trame[0] = static_cast<int>(out_stream.size());
+    for (size_t i = 0; i < out_stream.size(); ++i) {
+        Trame[i + 1] = static_cast<int>(out_stream[i]);
     }
 }
 
-/**
- * @brief Compute the symbol histogram for an RLE byte stream.
- * @param Trame Input byte stream.
- * @param Longueur_Trame Number of bytes in @p Trame.
- * @param Donnee Output array receiving distinct symbols.
- * @param Frequence Output array receiving counts per symbol.
- * @return Number of unique symbols discovered.
- */
 unsigned int cCompression::Histogramme(char *Trame, unsigned int Longueur_Trame, char *Donnee, double *Frequence)
 {
-    if (!Trame || !Donnee || !Frequence)
-        return 0;
+    if (!Trame || !Donnee || !Frequence) return 0;
 
-    // Count occurrences for each possible byte value
     unsigned int counts[256] = {0};
-
-    for (unsigned int i = 0; i < Longueur_Trame; ++i)
-    {
-        unsigned char sym = static_cast<unsigned char>(Trame[i]);
-        counts[sym]++;
+    for (unsigned int i = 0; i < Longueur_Trame; ++i) {
+        counts[static_cast<unsigned char>(Trame[i])]++;
     }
 
-    // Build Donnee / Frequence arrays only for used symbols
     unsigned int nbSymboles = 0;
-    for (int s = 0; s < 256; ++s)
-    {
-        if (counts[s] != 0)
-        {
+    for (int s = 0; s < 256; ++s) {
+        if (counts[s] > 0) {
             Donnee[nbSymboles] = static_cast<char>(s);
-            Frequence[nbSymboles] = static_cast<double>(counts[s]); // or /Longueur_Trame
-            ++nbSymboles;
+            Frequence[nbSymboles] = static_cast<double>(counts[s]);
+            nbSymboles++;
         }
     }
-
     return nbSymboles;
 }
 
-/**
- * @brief Execute the full JPEG-like compression and write the bitstream to disk.
- * @param Trame_RLE Integer trame produced by RLE().
- * @param Nom_Fichier Destination filename.
- */
 void cCompression::Compression_JPEG(int *Trame_RLE, const char *Nom_Fichier)
 {
-    if (!Trame_RLE || !Nom_Fichier)
-        return;
+    if (!Trame_RLE || !Nom_Fichier) return;
 
-    // 1) length is stored in Trame_RLE[0]
+    // 1. Convert integer RLE trame to a byte stream.
     unsigned int len = static_cast<unsigned int>(Trame_RLE[0]);
-
-    // 2) convert to char trame (the actual bytes)
     std::vector<char> trame(len);
-    for (unsigned int i = 0; i < len; ++i)
-    {
+    for (unsigned int i = 0; i < len; ++i) {
         trame[i] = static_cast<char>(Trame_RLE[i + 1]);
     }
 
-    // 3) build histogram
+    // 2. Build frequency histogram and cache the Huffman table.
     char Donnee[256];
     double Frequence[256];
-    unsigned int nbSym =
-        Histogramme(trame.data(), len, Donnee, Frequence);
-
+    unsigned int nbSym = Histogramme(trame.data(), len, Donnee, Frequence);
     storeHuffmanTable(Donnee, Frequence, nbSym);
 
-    // 4) build Huffman tree
+    // 3. Generate Huffman codes.
     cHuffman h(trame.data(), len);
     h.HuffmanCodes(Donnee, Frequence, nbSym);
-
-    // 5) build code table
     std::map<char, std::string> codeTable;
-    h.BuildTableCodes(codeTable); // or your own equivalent
+    h.BuildTableCodes(codeTable);
 
-    // 6) open output file and write Huffman bitstream
-    std::ofstream out(Nom_Fichier, std::ios::binary);
-    if (!out)
-    {
-        std::cerr << "Cannot open " << Nom_Fichier << " for writing\n";
-        return;
+    // 4. Encode the byte stream into a bitstream.
+    std::vector<unsigned char> bitBytes;
+    uint32_t payload_bits = 0;
+    unsigned char current_byte = 0;
+    int bit_pos = 7;
+
+    for (char sym : trame) {
+        const std::string& code = codeTable[sym];
+        for (char bit : code) {
+            if (bit == '1') {
+                current_byte |= (1u << bit_pos);
+            }
+            bit_pos--;
+            payload_bits++;
+            if (bit_pos < 0) {
+                bitBytes.push_back(current_byte);
+                current_byte = 0;
+                bit_pos = 7;
+            }
+        }
+    }
+    if (bit_pos != 7) { // Push the last partially filled byte
+        bitBytes.push_back(current_byte);
     }
 
-    unsigned char currentByte = 0;
-    int bitPos = 7;
+    // 5. Write the custom 'HUF1' file format.
+    std::ofstream out(Nom_Fichier, std::ios::binary);
+    if (!out) return;
 
-    for (unsigned int i = 0; i < len; ++i)
-    {
-        char sym = trame[i];
-        const std::string &code = codeTable[sym];
+    out.write("HUF1", 4); // Magic number
 
-        for (char b : code)
-        {
-            int bit = (b == '1') ? 1 : 0;
-            if (bit)
-            {
-                currentByte |= (1u << bitPos);
+    uint16_t nbSym16 = static_cast<uint16_t>(nbSym); // Symbol count
+    out.write(reinterpret_cast<const char*>(&nbSym16), sizeof(nbSym16));
+
+    for (unsigned int i = 0; i < nbSym; ++i) { // Symbol table
+        char sym = Donnee[i];
+        uint32_t cnt = static_cast<uint32_t>(Frequence[i]);
+        out.put(sym);
+        out.write(reinterpret_cast<const char*>(&cnt), sizeof(cnt));
+    }
+
+    uint32_t payload_bytes = static_cast<uint32_t>(bitBytes.size()); // Payload info
+    out.write(reinterpret_cast<const char*>(&payload_bytes), sizeof(payload_bytes));
+    out.write(reinterpret_cast<const char*>(&payload_bits), sizeof(payload_bits));
+
+    if (!bitBytes.empty()) { // Payload data
+        out.write(reinterpret_cast<const char*>(bitBytes.data()), bitBytes.size());
+    }
+    out.close();
+}
+
+unsigned char **cCompression::Decompression_JPEG(const char *Nom_Fichier_compresse)
+{
+    if (!Nom_Fichier_compresse) return nullptr;
+
+    // 1. Read the entire compressed file into a byte vector.
+    std::ifstream in(Nom_Fichier_compresse, std::ios::binary);
+    if (!in) return nullptr;
+    std::vector<unsigned char> filedata((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+    in.close();
+
+    // 2. Prepare the Huffman table.
+    // This involves either parsing our custom 'HUF1' header or using a previously cached table.
+    char Donnee[256];
+    double Frequence[256];
+    unsigned int nbSym = 0;
+    const unsigned char *payload = nullptr;
+    size_t payload_size = 0;
+    uint32_t payload_bits = 0;
+
+    if (filedata.size() >= 4 && filedata[0]=='H' && filedata[1]=='U' && filedata[2]=='F' && filedata[3]=='1') {
+        // Custom 'HUF1' header found. Parse it to extract the Huffman table and payload info.
+        size_t pos = 4;
+        if (pos + sizeof(uint16_t) > filedata.size()) return nullptr;
+        uint16_t nb = 0; std::memcpy(&nb, filedata.data()+pos, sizeof(nb)); pos += sizeof(nb);
+        nbSym = nb;
+        if (nbSym > 256) return nullptr;
+
+        for (unsigned int i = 0; i < nbSym; ++i) {
+            if (pos + 1 + sizeof(uint32_t) > filedata.size()) return nullptr;
+            Donnee[i] = static_cast<char>(filedata[pos++]);
+            uint32_t cnt = 0; std::memcpy(&cnt, filedata.data()+pos, sizeof(cnt)); pos += sizeof(cnt);
+            Frequence[i] = static_cast<double>(cnt);
+        }
+
+        if (pos + sizeof(uint32_t) * 2 > filedata.size()) return nullptr;
+        uint32_t payload_bytes = 0; std::memcpy(&payload_bytes, filedata.data()+pos, sizeof(payload_bytes)); pos += sizeof(payload_bytes);
+        std::memcpy(&payload_bits, filedata.data()+pos, sizeof(payload_bits)); pos += sizeof(payload_bits);
+
+        if (pos + payload_bytes > filedata.size()) return nullptr;
+        payload = filedata.data() + pos;
+        payload_size = payload_bytes;
+        std::cerr << "[Decompression_JPEG] Parsed HUF1 header: nbSym=" << nbSym << " payload_bytes=" << payload_bytes << " payload_bits=" << payload_bits << "\n";
+    } else {
+        // No header. Fall back to a cached Huffman table if available.
+        if (!cCompression::loadHuffmanTable(Donnee, Frequence, nbSym)) {
+            return nullptr; // No table available. Cannot decompress.
+        }
+        payload = filedata.data();
+        payload_size = filedata.size();
+    }
+
+    // 3. Build the Huffman decoding tree.
+    cHuffman h;
+    if (nbSym == 0) return nullptr;
+    h.HuffmanCodes(Donnee, Frequence, nbSym);
+    sNoeud *root = h.getRacine();
+    if (!root) return nullptr;
+    std::cerr << "[Decompression_JPEG] Built Huffman tree, root=" << root << "\n";
+
+    // 4. Decode the bitstream payload into an RLE byte stream.
+    std::vector<char> trameDec;
+    uint64_t valid_bits = (payload_bits > 0) ? payload_bits : static_cast<uint64_t>(payload_size) * 8ULL;
+
+    sNoeud *cursor = root;
+    for (uint64_t bitIndex = 0; bitIndex < valid_bits; ++bitIndex) {
+        int bit = 7 - static_cast<int>(bitIndex % 8ULL);
+        unsigned char byte = payload[bitIndex / 8ULL];
+        int val = ((byte >> bit) & 1);
+
+        cursor = (val == 0) ? cursor->mgauche : cursor->mdroit;
+        if (!cursor) return nullptr; // Invalid bitstream
+
+        if (!cursor->mgauche && !cursor->mdroit) { // Leaf node found
+            trameDec.push_back(cursor->mdonnee);
+            cursor = root; // Reset for next symbol
+        }
+    }
+    if (trameDec.empty()) return nullptr;
+    std::cerr << "[Decompression_JPEG] Decoded " << trameDec.size() << " symbols into trameDec\n";
+
+    // 5. Parse the RLE stream into 8x8 quantized blocks.
+    static const int zigzag[64] = { // Zigzag scan order
+         0,  1,  8, 16,  9,  2,  3, 10, 17, 24, 32, 25, 18, 11,  4,  5,
+        12, 19, 26, 33, 40, 48, 41, 34, 27, 20, 13,  6,  7, 14, 21, 28,
+        35, 42, 49, 56, 57, 50, 43, 36, 29, 22, 15, 23, 30, 37, 44, 51,
+        58, 59, 52, 45, 38, 31, 39, 46, 53, 60, 61, 54, 47, 55, 62, 63
+    };
+
+    std::vector<std::array<int,64>> quantBlocks;
+    int previous_DC = 0;
+    size_t p = 0;
+    while (p < trameDec.size()) {
+        std::array<int,64> q{};
+        q.fill(0);
+
+        signed char dc_diff = static_cast<signed char>(trameDec[p++]);
+        int DC = static_cast<int>(dc_diff) + previous_DC;
+        q[0] = DC;
+        previous_DC = DC;
+
+        int idx = 1;
+        // Need two bytes (run,val) to decode an AC pair. Ensure bounds strictly.
+        while ((p + 1) < trameDec.size() && idx < 64) {
+            unsigned char run_u = static_cast<unsigned char>(trameDec[p++]);
+            signed char val_s = static_cast<signed char>(trameDec[p++]);
+            if (run_u == 0 && static_cast<unsigned char>(val_s) == 0) break; // EOB
+            idx += static_cast<int>(run_u);
+            if (idx >= 64) break;
+            int zz = zigzag[idx];
+            if (zz < 0 || zz >= 64) {
+                std::cerr << "[Decompression_JPEG] Zigzag index out of range: idx=" << idx << " zz=" << zz << "\n";
+                break;
             }
-            --bitPos;
+            q[zz] = static_cast<int>(val_s);
+            idx++;
+        }
+        quantBlocks.push_back(q);
+    }
+    if (quantBlocks.empty()) return nullptr;
+    std::cerr << "[Decompression_JPEG] Parsed " << quantBlocks.size() << " quant blocks\n";
 
-            if (bitPos < 0)
-            {
-                out.put(static_cast<char>(currentByte));
-                currentByte = 0;
-                bitPos = 7;
+    // 6. Reconstruct the image from the quantized blocks.
+    size_t nblocks = quantBlocks.size();
+    // Try to infer a rectangular block grid. Prefer a layout close to square.
+    size_t blocks_w = static_cast<size_t>(std::floor(std::sqrt(static_cast<double>(nblocks))));
+    if (blocks_w == 0) blocks_w = 1;
+    while (blocks_w > 1 && (nblocks % blocks_w) != 0) {
+        --blocks_w;
+    }
+    size_t blocks_h = (nblocks + blocks_w - 1) / blocks_w; // ceil division
+    if (blocks_w * blocks_h < nblocks) blocks_h = (nblocks + blocks_w - 1) / blocks_w;
+    std::cerr << "[Decompression_JPEG] Inferred block grid: blocks_w=" << blocks_w << " blocks_h=" << blocks_h << " (nblocks=" << nblocks << ")\n";
+
+    size_t width = blocks_w * 8;
+    size_t height = blocks_h * 8;
+    this->mLargeur = static_cast<unsigned int>(width);
+    this->mHauteur = static_cast<unsigned int>(height);
+
+    unsigned char *buf = new unsigned char[width * height];
+    unsigned char **rows = new unsigned char*[height];
+    for (size_t r = 0; r < height; ++r) rows[r] = buf + r * width;
+
+    // Buffers for block processing
+    double dequantized_block[8][8]; double* dequantized_ptrs[8];
+    int reconstructed_block[8][8]; int* reconstructed_ptrs[8];
+    int quant_matrix[8][8]; int* quant_ptrs[8];
+    for (int i=0; i<8; ++i) {
+        dequantized_ptrs[i] = dequantized_block[i];
+        reconstructed_ptrs[i] = reconstructed_block[i];
+        quant_ptrs[i] = quant_matrix[i];
+    }
+
+    for (size_t i = 0; i < nblocks; ++i) {
+        for (int k = 0; k < 64; ++k) {
+            quant_matrix[k/8][k%8] = quantBlocks[i][k];
+        }
+
+        dequant_JPEG(quant_ptrs, dequantized_ptrs);
+        Calcul_IDCT_Block(dequantized_ptrs, reconstructed_ptrs);
+
+        size_t block_row = i / blocks_w;
+        size_t block_col = i % blocks_w;
+        for (int r = 0; r < 8; ++r) {
+            for (int c = 0; c < 8; ++c) {
+                int val = reconstructed_block[r][c] + 128;
+                val = (val < 0) ? 0 : (val > 255) ? 255 : val;
+                rows[block_row * 8 + r][block_col * 8 + c] = static_cast<unsigned char>(val);
             }
         }
     }
 
-    if (bitPos != 7)
-    {
-        out.put(static_cast<char>(currentByte));
-    }
-
-    out.close();
+    return rows;
 }
-

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quant_5fjpeg_0',['quant_JPEG',['../quantification_8h.html#a0728fb4c36f2e43ed3a843cd34b07a76',1,'quant_JPEG(double **img_DCT, int **Img_Quant):&#160;quantification.cpp'],['../quantification_8cpp.html#a0728fb4c36f2e43ed3a843cd34b07a76',1,'quant_JPEG(double **img_DCT, int **Img_Quant):&#160;quantification.cpp']]]
+  ['taux_5fcompression_0',['Taux_Compression',['../classc_compression.html#ac7ff6275e8f31e29d0ca10ce0baeee75',1,'cCompression::Taux_Compression()'],['../quantification_8h.html#ab60a0995c748bc7ce306adbfcaf213b2',1,'Taux_Compression(int **Bloc8x8):&#160;quantification.cpp'],['../quantification_8cpp.html#ab60a0995c748bc7ce306adbfcaf213b2',1,'Taux_Compression(int **Bloc8x8):&#160;quantification.cpp']]]
 ];

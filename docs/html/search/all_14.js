@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['_7eccompression_0',['~cCompression',['../classcCompression.html#a9bc895fb3efd36315891b6e179f09c87',1,'cCompression']]],
-  ['_7ecdecompression_1',['~cDecompression',['../classcDecompression.html#a559edd2feec4f655611482b36c31bef0',1,'cDecompression']]],
-  ['_7echuffman_2',['~cHuffman',['../classcHuffman.html#a020cbc1d60813593446b43534d038c83',1,'cHuffman']]]
+  ['quant_5fjpeg_0',['quant_JPEG',['../quantification_8h.html#a0728fb4c36f2e43ed3a843cd34b07a76',1,'quant_JPEG(double **img_DCT, int **Img_Quant):&#160;quantification.cpp'],['../quantification_8cpp.html#a0728fb4c36f2e43ed3a843cd34b07a76',1,'quant_JPEG(double **img_DCT, int **Img_Quant):&#160;quantification.cpp']]],
+  ['quantification_2ecpp_1',['quantification.cpp',['../quantification_8cpp.html',1,'']]],
+  ['quantification_2eh_2',['quantification.h',['../quantification_8h.html',1,'']]]
 ];

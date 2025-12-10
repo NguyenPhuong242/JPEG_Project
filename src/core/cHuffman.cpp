@@ -1,16 +1,25 @@
+/**
+ * @file cHuffman.cpp
+ * @author Khanh-Phuong NGUYEN
+ * @date 2025-12-08
+ * @brief Implements the cHuffman class for building a Huffman tree and codes.
+ */
+
 #include "core/cHuffman.h"
 #include <iostream>
 #include <queue>
 #include <vector>
 #include <string>
 
+// --- Anonymous Namespace for Local Helper Functions ---
+
 namespace {
 
 /**
- * @brief Recursively populate the Huffman lookup table.
- * @param node Current node.
- * @param prefix Accumulated code bits.
- * @param table Output map from symbol to code string.
+ * @brief Recursively traverses the Huffman tree to build a code table.
+ * @param[in] node The current node in the tree to process.
+ * @param[in] prefix The binary string representing the code to this point.
+ * @param[out] table The map to populate with symbol-to-code mappings.
  */
 void buildTableRec(sNoeud *node,
                    const std::string &prefix,
@@ -18,17 +27,21 @@ void buildTableRec(sNoeud *node,
 {
     if (!node) return;
 
+    // If it's a leaf node, we have found a code for a symbol.
     if (!node->mgauche && !node->mdroit) {
-        table[node->mdonnee] = prefix;    // leaf => final code
+        table[node->mdonnee] = prefix;
         return;
     }
 
+    // Recurse for left (0) and right (1) children.
     buildTableRec(node->mgauche, prefix + "0", table);
     buildTableRec(node->mdroit,  prefix + "1", table);
 }
-}
 
-/** @brief Recursively free all nodes in a Huffman tree. */
+/**
+ * @brief Recursively deletes all nodes in the Huffman tree.
+ * @param[in] node The root node of the tree (or subtree) to delete.
+ */
 void deleteTree(sNoeud *node)
 {
     if (!node) return;
@@ -37,29 +50,30 @@ void deleteTree(sNoeud *node)
     delete node;
 }
 
-/** @brief Recursively print codes for each leaf node. */
+/**
+ * @brief Recursively traverses the tree to print the Huffman codes.
+ * @param[in] node The current node to process.
+ * @param[in] prefix The binary string code accumulated so far.
+ */
 void printCodesRec(sNoeud *node, const std::string &prefix)
 {
     if (!node) return;
 
-    // Leaf node: has a symbol and no children
+    // A leaf node has a symbol to print.
     if (!node->mgauche && !node->mdroit) {
         std::cout << "'" << node->mdonnee << "' : " << prefix << '\n';
         return;
     }
 
-    // Traverse left with '0'
     printCodesRec(node->mgauche, prefix + "0");
-    // Traverse right with '1'
     printCodesRec(node->mdroit, prefix + "1");
 }
 
+} // namespace
 
-/* ======================================================================= */
-/*  Constructors / Destructor                                              */
-/* ======================================================================= */
 
-/** @brief Default constructor, initialises members to null. */
+// --- cHuffman Method Implementations ---
+
 cHuffman::cHuffman()
     : mtrame(nullptr),
       mLongueur(0),
@@ -67,11 +81,6 @@ cHuffman::cHuffman()
 {
 }
 
-/**
- * @brief Construct the helper with an optional raw trame buffer.
- * @param trame Pointer to raw data (not owned).
- * @param longueur Number of bytes referenced by @p trame.
- */
 cHuffman::cHuffman(char *trame, unsigned int longueur)
     : mtrame(trame),
       mLongueur(longueur),
@@ -79,90 +88,74 @@ cHuffman::cHuffman(char *trame, unsigned int longueur)
 {
 }
 
-/** @brief Destructor releases the current Huffman tree (but not mtrame). */
 cHuffman::~cHuffman()
 {
-    // The trame pointer is not owned by this class (pedagogic choice),
-    // so we do NOT delete mtrame here.
+    // The trame pointer is not owned by this class, so it is not deleted here.
+    // The tree, however, is owned and must be freed.
     deleteTree(mRacine);
     mRacine = nullptr;
 }
 
-/* ======================================================================= */
-/*  Getters / Setters                                                      */
-/* ======================================================================= */
 
-/** @brief Return the raw trame pointer. */
+// --- Getters / Setters ---
+
 char *cHuffman::getTrame() const
 {
     return mtrame;
 }
 
-/** @brief Return the trame length. */
 unsigned int cHuffman::getLongueur() const
 {
     return mLongueur;
 }
 
-/** @brief Return the root node of the Huffman tree. */
 sNoeud *cHuffman::getRacine() const
 {
     return mRacine;
 }
 
-/** @brief Update the raw trame pointer and its length. */
 void cHuffman::setTrame(char *trame, unsigned int longueur)
 {
     mtrame    = trame;
     mLongueur = longueur;
 }
 
-/** @brief Assign a new Huffman tree root, deleting any existing tree. */
 void cHuffman::setRacine(sNoeud *racine)
 {
-    // Free the previous tree, if any
-    deleteTree(mRacine);
+    if (mRacine != racine) {
+        deleteTree(mRacine); // Free the previous tree if it's different.
+    }
     mRacine = racine;
 }
 
-/* ======================================================================= */
-/*  Huffman building                                                       */
-/* ======================================================================= */
 
-/**
- * @brief Build the Huffman tree from symbol statistics.
- * @param Donnee Symbol array.
- * @param Frequence Matching frequencies.
- * @param Taille Number of symbols.
- */
+// --- Core Huffman Logic ---
+
 void cHuffman::HuffmanCodes(char *Donnee, double *Frequence, unsigned int Taille)
 {
     if (!Donnee || !Frequence || Taille == 0) {
-        // nothing to build
         deleteTree(mRacine);
         mRacine = nullptr;
         return;
     }
 
-    std::priority_queue<
-        sNoeud*,
-        std::vector<sNoeud*>,
-        compare
-    > minHeap;
+    // A min-heap to store tree nodes, ordered by frequency.
+    std::priority_queue<sNoeud*, std::vector<sNoeud*>, compare> minHeap;
 
-    // 1) create a leaf node for each symbol and push it in the queue
+    // 1. Create a leaf node for each symbol and add it to the min-heap.
     for (unsigned int i = 0; i < Taille; ++i) {
-        sNoeud *n = new sNoeud(Donnee[i], Frequence[i]);
-        minHeap.push(n);
+        minHeap.push(new sNoeud(Donnee[i], Frequence[i]));
     }
 
-    // 2) build the tree
+    // 2. Build the tree by merging nodes.
+    // The loop continues until only one node remains in the heap (the root).
     while (minHeap.size() > 1) {
-        // Take two nodes with smallest frequency
+        // Extract the two nodes with the lowest frequencies.
         sNoeud *gauche = minHeap.top(); minHeap.pop();
         sNoeud *droit  = minHeap.top(); minHeap.pop();
 
-        // Internal node has no symbol, freq = sum
+        // Create a new internal node with these two nodes as children.
+        // The new node's frequency is the sum of its children's frequencies.
         sNoeud *parent = new sNoeud('\0', gauche->mfreq + droit->mfreq);
         parent->mgauche = gauche;
         parent->mdroit  = droit;
@@ -170,30 +163,23 @@ void cHuffman::HuffmanCodes(char *Donnee, double *Frequence, unsigned int Taille
         minHeap.push(parent);
     }
 
-    // 3) final remaining node is the root
-    deleteTree(mRacine);   // free old tree if any
+    // 3. The last remaining node is the root of the Huffman tree.
+    deleteTree(mRacine); // Free any pre-existing tree.
     mRacine = minHeap.top();
 }
 
-/** @brief Generate the code table from the built Huffman tree. */
 void cHuffman::BuildTableCodes(std::map<char, std::string> &table)
 {
     table.clear();
     buildTableRec(mRacine, "", table);
 }
 
-/* ======================================================================= */
-/*  Printing the codes                                                     */
-/* ======================================================================= */
-
-/** @brief Print all Huffman codes starting from the provided root. */
 void cHuffman::AfficherHuffman(sNoeud *Racine)
 {
     if (!Racine) {
-        std::cout << "(arbre Huffman vide)\n";
+        std::cout << "(Empty Huffman Tree)\n";
         return;
     }
-
     printCodesRec(Racine, "");
 }
 

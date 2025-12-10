@@ -1,58 +1,42 @@
-\chapter{JPEG Compressor }
-\hypertarget{index}{}\label{index}\index{JPEG Compressor@{JPEG Compressor}}
-\label{index_md_README}%
-\Hypertarget{index_md_README}%
+\chapter{JPEG Compressor — User Guide }
+\hypertarget{index}{}\label{index}\index{JPEG Compressor — User Guide@{JPEG Compressor — User Guide}}
+\label{index_md__r_e_a_d_m_e}%
+\Hypertarget{index_md__r_e_a_d_m_e}%
 
 
-Educational grayscale JPEG pipeline that showcases every major step of the codec\+: block extraction, 8x8 DCT, quantization, zig-\/zag + run-\/length encoding, Huffman entropy coding, and a CLI that can compress and decompress sample images.\hypertarget{index_autotoc_md1}{}\doxysection{\texorpdfstring{Features}{Features}}\label{index_autotoc_md1}
+This project is an educational implementation of a simplified JPEG compression/decompression chain. It covers the main steps\+: 8x8 block splitting, DCT, quantization, RLE, and Huffman coding.\hypertarget{index_autotoc_md1}{}\doxysubsection{\texorpdfstring{Main Modules}{Main Modules}}\label{index_autotoc_md1}
 
 \begin{DoxyItemize}
-\item Baseline JPEG-\/style pipeline implemented in modern C++.
-\item Modular headers under {\ttfamily include/} for reuse in other exercises.
-\item CLI ({\ttfamily jpeg\+\_\+cli}) able to compress, decompress, or run a full round trip.
-\item Doxygen documentation with class and file overviews.
-\item Lightweight test binaries covering DCT, quantization, Huffman, and RLE pieces.
-\end{DoxyItemize}\hypertarget{index_autotoc_md2}{}\doxysection{\texorpdfstring{Project Layout}{Project Layout}}\label{index_autotoc_md2}
+\item {\ttfamily src/dct/}\+: Implementation of the Discrete Cosine Transform (DCT) and its inverse (IDCT).
+\item {\ttfamily src/quantification/}\+: Quantization tables and related functions.
+\item {\ttfamily src/core/}\+:
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{classc_compression}{c\+Compression}}\+: The main class for the grayscale pipeline (RLE, Huffman, EQM, Compression Ratio).
+\item {\ttfamily \doxylink{classc_compression_couleur}{c\+Compression\+Couleur}}\+: The main class for the color pipeline (PPM → YCb\+Cr → component-\/wise compression).
+\end{DoxyItemize}
+\item {\ttfamily include/}\+: Contains the public header files.
+\item {\ttfamily tests/}\+: Unit tests for DCT, quantization, RLE, and Huffman.
+\end{DoxyItemize}
 
-\begin{DoxyCode}{0}
-\DoxyCodeLine{include/\ \ \ \ \ \ \ \ \ \ Public\ headers\ for\ the\ core,\ DCT,\ and\ quantization\ modules}
-\DoxyCodeLine{src/\ \ \ \ \ \ \ \ \ \ \ \ \ \ Implementations\ plus\ the\ CLI\ entry\ point}
-\DoxyCodeLine{tests/\ \ \ \ \ \ \ \ \ \ \ \ Simple\ regression\ tests\ and\ fixtures\ (run\ via\ CTest)}
-\DoxyCodeLine{docs/\ \ \ \ \ \ \ \ \ \ \ \ \ Doxygen\ config\ (`Doxyfile`)\ and\ generated\ output\ under\ docs/docs/}
-\DoxyCodeLine{build/\ \ \ \ \ \ \ \ \ \ \ \ Out-\/of-\/tree\ CMake\ build\ products}
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md3}{}\doxysubsection{\texorpdfstring{1. Prerequisites}{1. Prerequisites}}\label{index_autotoc_md3}
 
-\end{DoxyCode}
-\hypertarget{index_autotoc_md3}{}\doxysection{\texorpdfstring{Prerequisites (Debian/\+Ubuntu)}{Prerequisites (Debian/\+Ubuntu)}}\label{index_autotoc_md3}
+\begin{DoxyItemize}
+\item {\bfseries{CMake}} (version \texorpdfstring{$>$}{>}= 3.\+10)
+\item {\bfseries{A C++ Compiler}} with C++17 support (e.\+g., g++, clang++)
+\item {\bfseries{(Optional)}} {\ttfamily doxygen} and {\ttfamily graphviz} for source code documentation generation.
+\end{DoxyItemize}
+
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{sudo\ apt\ update}
 \DoxyCodeLine{sudo\ apt\ install\ build-\/essential\ cmake\ g++\ doxygen\ graphviz}
 
 \end{DoxyCode}
-\hypertarget{index_autotoc_md4}{}\doxysection{\texorpdfstring{Build and Test}{Build and Test}}\label{index_autotoc_md4}
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\#\ Configure\ \&\ build}
-\DoxyCodeLine{cmake\ -\/S\ .\ -\/B\ build}
-\DoxyCodeLine{cmake\ -\/-\/build\ build\ -\/j}
-\DoxyCodeLine{}
-\DoxyCodeLine{\#\ Run\ unit\ tests}
-\DoxyCodeLine{ctest\ -\/-\/test-\/dir\ build\ -\/V}
-
-\end{DoxyCode}
-\hypertarget{index_autotoc_md5}{}\doxysection{\texorpdfstring{CLI Usage}{CLI Usage}}\label{index_autotoc_md5}
-The build outputs {\ttfamily build/jpeg\+\_\+cli}. Run it without arguments to open the interactive menu that guides you through compression, decompression, or the full pipeline.
 
 
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\#\ Show\ a\ short\ usage\ summary}
-\DoxyCodeLine{./build/jpeg\_cli\ -\/-\/help}
-\DoxyCodeLine{}
-\DoxyCodeLine{\#\ Start\ the\ interactive\ workflow}
-\DoxyCodeLine{./build/jpeg\_cli}
-
-\end{DoxyCode}
-\hypertarget{index_autotoc_md6}{}\doxysection{\texorpdfstring{Documentation}{Documentation}}\label{index_autotoc_md6}
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md5}{}\doxysubsection{\texorpdfstring{2. Documentation}{2. Documentation}}\label{index_autotoc_md5}
 Generate or refresh the API reference with Doxygen\+:
 
 
@@ -67,13 +51,84 @@ Generate or refresh the API reference with Doxygen\+:
 Graph visualizations require {\ttfamily graphviz}. Disable them by flipping the relevant {\ttfamily HAVE\+\_\+\+DOT} tags in {\ttfamily docs/\+Doxyfile} if you prefer faster runs. \end{quote}
 
 
-The main page of the HTML output mirrors this README, and navigation exposes the annotated headers, implementation files, and directory diagrams.\hypertarget{index_autotoc_md7}{}\doxysection{\texorpdfstring{Roadmap / Contributions}{Roadmap / Contributions}}\label{index_autotoc_md7}
+The main page of the HTML output mirrors this README, and navigation exposes the annotated headers, implementation files, and directory diagrams.\hypertarget{index_autotoc_md6}{}\doxysubsection{\texorpdfstring{3. Build Instructions}{3. Build Instructions}}\label{index_autotoc_md6}
+Use CMake to build the project. The following commands should be executed from the project\textquotesingle{}s root directory.
 
-\begin{DoxyEnumerate}
-\item Expand coverage for color images and chroma subsampling modes.
-\item Produce minimal valid {\ttfamily .jpg} files instead of the custom {\ttfamily .huff} bitstream.
-\item Flesh out automated unit tests and CI.
-\item Document remaining internals that still trigger Doxygen {\ttfamily @param} duplication warnings.
-\end{DoxyEnumerate}
 
-Feel free to open issues or submit pull requests if you extend or fix the pipeline. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ 1.\ Create\ a\ build\ directory\ to\ store\ compilation\ files}
+\DoxyCodeLine{cmake\ -\/S\ .\ -\/B\ build}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ 2.\ Compile\ the\ project}
+\DoxyCodeLine{\#\ The\ -\/j\ flag\ automatically\ uses\ multiple\ CPU\ cores\ to\ speed\ up\ compilation}
+\DoxyCodeLine{cmake\ -\/-\/build\ build\ -\/j}
+
+\end{DoxyCode}
+
+
+After a successful build, the main executable will be located at {\ttfamily build/jpeg\+\_\+cli}.
+
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md8}{}\doxysubsection{\texorpdfstring{4. Usage}{4. Usage}}\label{index_autotoc_md8}
+The {\ttfamily build/jpeg\+\_\+cli} executable is the main command-\/line interface (CLI) for this program.\hypertarget{index_autotoc_md9}{}\doxysubsubsection{\texorpdfstring{a. Grayscale Image Processing}{a. Grayscale Image Processing}}\label{index_autotoc_md9}
+This is the program\textquotesingle{}s default mode.
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Grayscale Compression\+:}} The program reads a text-\/based image file (e.\+g., {\ttfamily lenna.\+img}), calculates metrics, and generates 3 output files\+:
+\begin{DoxyItemize}
+\item {\ttfamily recon\+\_\+lenna.\+pgm}\+: The reconstructed image for verification.
+\item {\ttfamily lenna.\+rle}\+: Data after RLE encoding.
+\item {\ttfamily lenna.\+huff}\+: The final data after Huffman encoding.
+\end{DoxyItemize}
+
+{\ttfamily bash @section autotoc\+\_\+md10 Syntax\+: ./build/jpeg\+\_\+cli \mbox{[}image\+\_\+file\+\_\+path\mbox{]} \mbox{[}quality\mbox{]} @section autotoc\+\_\+md11 Example\+: Compress lenna.\+img with a quality of 50 (default) ./build/jpeg\+\_\+cli lenna.\+img 50 }
+\item {\bfseries{Grayscale Decompression\+:}} Decompresses a {\ttfamily .huff} file created by this program.
+
+{\ttfamily bash @section autotoc\+\_\+md12 Syntax\+: ./build/jpeg\+\_\+cli -\/-\/decompress \texorpdfstring{$<$}{<}file.\+huff\texorpdfstring{$>$}{>} @section autotoc\+\_\+md13 The output will be saved to decomp\+\_\+lenna.\+pgm ./build/jpeg\+\_\+cli -\/-\/decompress build/lenna.\+huff }
+\end{DoxyItemize}\hypertarget{index_autotoc_md14}{}\doxysubsubsubsection{\texorpdfstring{b. Color Image Processing (PPM Format)}{b. Color Image Processing (PPM Format)}}\label{index_autotoc_md14}
+
+\begin{DoxyItemize}
+\item {\bfseries{Color Compression\+:}} Compresses a PPM (P6) image into three separate compressed components (Y, Cb, Cr).
+\begin{DoxyItemize}
+\item {\ttfamily \texorpdfstring{$<$}{<}basename\texorpdfstring{$>$}{>}\+\_\+\+Y.\+huff}, {\ttfamily \texorpdfstring{$<$}{<}basename\texorpdfstring{$>$}{>}\+\_\+\+Cb.\+huff}, {\ttfamily \texorpdfstring{$<$}{<}basename\texorpdfstring{$>$}{>}\+\_\+\+Cr.\+huff}
+\item {\ttfamily \texorpdfstring{$<$}{<}basename\texorpdfstring{$>$}{>}.meta}\+: A file containing metadata (dimensions, quality, subsampling mode).
+\end{DoxyItemize}
+
+{\ttfamily bash @section autotoc\+\_\+md15 Syntax\+: ./build/jpeg\+\_\+cli -\/-\/color-\/compress \texorpdfstring{$<$}{<}input.\+ppm\texorpdfstring{$>$}{>} \texorpdfstring{$<$}{<}basename\texorpdfstring{$>$}{>} \mbox{[}quality\mbox{]} \mbox{[}subsampling\mbox{]} @section autotoc\+\_\+md16 Example\+: Compress color.\+ppm with quality 75 and 4\+:2\+:0 subsampling ./build/jpeg\+\_\+cli -\/-\/color-\/compress path/to/color.\+ppm my\+\_\+image 75 420 }
+\begin{DoxyItemize}
+\item {\ttfamily quality}\+: 1-\/100 (affects the quantization matrix).
+\item {\ttfamily subsampling}\+: {\ttfamily 444} (no subsampling), {\ttfamily 422}, {\ttfamily 420}.
+\end{DoxyItemize}
+\item {\bfseries{Color Decompression\+:}} Reconstructs a PPM file from the component files ({\ttfamily .huff}) and the metadata file ({\ttfamily .meta}).
+
+{\ttfamily bash @section autotoc\+\_\+md17 Syntax\+: ./build/jpeg\+\_\+cli -\/-\/color-\/decompress \texorpdfstring{$<$}{<}basename\texorpdfstring{$>$}{>} \texorpdfstring{$<$}{<}output.\+ppm\texorpdfstring{$>$}{>} @section autotoc\+\_\+md18 Example\+: Decompress from my\+\_\+image\+\_\+\texorpdfstring{$\ast$}{*} files and save to final\+\_\+image.\+ppm ./build/jpeg\+\_\+cli -\/-\/color-\/decompress my\+\_\+image final\+\_\+image.\+ppm }
+\end{DoxyItemize}\hypertarget{index_autotoc_md19}{}\doxysubsubsubsection{\texorpdfstring{c. Other Utilities}{c. Other Utilities}}\label{index_autotoc_md19}
+
+\begin{DoxyItemize}
+\item {\bfseries{View Frequency Histogram\+:}} Analyzes an RLE-\/encoded file to show the frequency of each symbol.
+
+{\ttfamily bash @section autotoc\+\_\+md20 Syntax\+: ./build/jpeg\+\_\+cli -\/-\/histogram \texorpdfstring{$<$}{<}file.\+rle\texorpdfstring{$>$}{>} ./build/jpeg\+\_\+cli -\/-\/histogram build/lenna.\+rle }
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md22}{}\doxysubsubsection{\texorpdfstring{5. Running Tests}{5. Running Tests}}\label{index_autotoc_md22}
+The project includes a test suite to verify the correctness of the core modules.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Run\ all\ tests\ from\ the\ build\ directory}
+\DoxyCodeLine{ctest\ -\/-\/test-\/dir\ build\ -\/V}
+
+\end{DoxyCode}
+
+
+The {\ttfamily -\/V} flag enables verbose output to show detailed test results.
+
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md24}{}\doxysubsubsection{\texorpdfstring{Important Notes}{Important Notes}}\label{index_autotoc_md24}
+
+\begin{DoxyItemize}
+\item {\bfseries{Educational Purpose}}\+: The {\ttfamily .huff} file format is a custom format and is {\bfseries{not}} a standard JPEG file. It was designed to make the encoding steps (RLE, Huffman) transparent and easy to debug.
+\item {\bfseries{Quality}}\+: This parameter controls the level of compression and information loss. A lower quality value results in higher compression but a lower-\/quality image. 
+\end{DoxyItemize}

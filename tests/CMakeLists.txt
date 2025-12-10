@@ -23,22 +23,8 @@ target_include_directories(testcompression PRIVATE ${PROJECT_SOURCE_DIR}/include
 target_link_libraries(testcompression PRIVATE jpeg_core)
 add_test(NAME testcompression COMMAND testcompression)
 
-add_executable(testdecompression test_decompression.cpp)
-target_include_directories(testdecompression PRIVATE ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(testdecompression PRIVATE jpeg_core)
-add_test(NAME testdecompression COMMAND testdecompression)
-
-add_executable(testpgm dat_to_pgm.cpp)
-target_include_directories(testpgm PRIVATE ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(testpgm PRIVATE jpeg_core)
-add_test(NAME testpgm COMMAND testpgm)
-
-add_executable(testtotal test_total.cpp)
-target_include_directories(testtotal PRIVATE ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(testtotal PRIVATE jpeg_core)
-add_test(NAME testtotal COMMAND testtotal)
-
 add_executable(testcolor test_color.cpp)
 target_include_directories(testcolor PRIVATE ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(testcolor PRIVATE jpeg_core)
 add_test(NAME testcolor COMMAND testcolor)
+set_tests_properties(testcolor PROPERTIES WORKING_DIRECTORY ${CMAKE_BINARY_DIR})

@@ -1,0 +1,17 @@
+digraph "cCompression::Compression_JPEG"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="cCompression::Compression_JPEG",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Compresses an RLE stream using Huffman coding and writes it to a file."];
+  Node1 -> Node2 [id="edge5_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="cHuffman::BuildTableCodes",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classc_huffman.html#ab001fac32fc01a08c38cfd35f1cfce2d",tooltip="Populates a map with symbol-to-code mappings by traversing the tree."];
+  Node1 -> Node3 [id="edge6_Node000001_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="cCompression::Histogramme",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classc_compression.html#a0720225210ef1d484f50d25af1586753",tooltip="Builds a frequency histogram from an RLE byte stream."];
+  Node1 -> Node4 [id="edge7_Node000001_Node000004",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="cHuffman::HuffmanCodes",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classc_huffman.html#af4e311bc5a00f1d769db38aabe647234",tooltip="Builds the Huffman tree from arrays of symbols and frequencies."];
+  Node1 -> Node5 [id="edge8_Node000001_Node000005",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="cCompression::storeHuffman\lTable",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classc_compression.html#aa9cfa8fa6c95559a27de177a67f0a5f3",tooltip="Caches a Huffman table for later use (e.g., by the decompressor)."];
+}

@@ -1,0 +1,39 @@
+\doxysection{c\+Compression\+Couleur.\+h}
+\hypertarget{c_compression_couleur_8h_source}{}\label{c_compression_couleur_8h_source}\index{include/core/cCompressionCouleur.h@{include/core/cCompressionCouleur.h}}
+\mbox{\hyperlink{c_compression_couleur_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ JPEG\_COMPRESSOR\_CCOMPRESSIONCOULEUR\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ JPEG\_COMPRESSOR\_CCOMPRESSIONCOULEUR\_H}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{c_compression_8h}{core/cCompression.h}}"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classc_compression_couleur_ab8746a17cfc4c7cb4364b4f1e4b4db56}{cCompressionCouleur}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classc_compression_adc5f208bc6974089fea85fec29964be5}{cCompression}}\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classc_compression_couleur_a639748100d7ba82563db378144fad92a}{mSubsamplingH}};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classc_compression_couleur_a1d16bef8dcfa484d16c74b7ebd125796}{mSubsamplingV}};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classc_compression_couleur_ab8746a17cfc4c7cb4364b4f1e4b4db56}{cCompressionCouleur}}();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{classc_compression_couleur_ab8746a17cfc4c7cb4364b4f1e4b4db56}{cCompressionCouleur}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ largeur,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ hauteur,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ qualite\ =\ 50,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ subsamplingH\ =\ 1,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ subsamplingV\ =\ 1,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **buffer=\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classc_compression_couleur_ad5a283b7957b9ea4cd5cc59eb94bfeec}{\string~cCompressionCouleur}}();}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classc_compression_couleur_a658d2cd62608b1185e535f9b9dca49a4}{CompressPPM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ppmPath,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *basename,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ qual,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ subsamplingMode\ =\ 444);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classc_compression_couleur_aa9eea42fb059fa85121faeb9a7f10987}{DecompressToPPM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *basename,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *outppm);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classc_compression_couleur_a75c450c2207d737be0a47cbe27287f7f}{setSubsamplingH}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ subsamplingH);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classc_compression_couleur_aa17b235b80f2f8a971db8ba459318735}{setSubsamplingV}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ subsamplingV);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classc_compression_couleur_a09ece2cc4ff38b03d07f2fb6531f86cc}{getSubsamplingH}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classc_compression_couleur_a07352532802092bda525874b1bedd2c2}{getSubsamplingV}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00104\ \};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ JPEG\_COMPRESSOR\_CCOMPRESSIONCOULEUR\_H}}
+
+\end{DoxyCode}

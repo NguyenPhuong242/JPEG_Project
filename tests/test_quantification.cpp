@@ -90,16 +90,17 @@ int main() {
         std::cout << "\n";
     }
 
-    // Compute mean squared error between original and reconstructed
-    double mse = 0.0;
+    // Use the project's EQM helper (cCompression::EQM) to compute MSE
+    // Build a dynamic int** representing the original 8x8 spatial block
+    int** originalBlock = new int*[8];
     for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
-            double diff = static_cast<double>( (reconShifted[i][j] + 128) - blockVals[i][j] );
-            mse += diff * diff;
-        }
+        originalBlock[i] = new int[8];
+        for (int j = 0; j < 8; ++j) originalBlock[i][j] = blockVals[i][j];
     }
-    mse /= 64.0;
-    std::cout << "MSE between original and reconstructed: " << mse << "\n";
+
+    cCompression compressor; // default instance to call EQM
+    double mse = compressor.EQM(originalBlock);
+    std::cout << "MSE between original and reconstructed (EQM): " << mse << "\n";
 
     // Compression rate (fraction of zeros in Img_Quant)
     double taux = Taux_Compression(Img_Quant);
@@ -150,6 +151,14 @@ int main() {
     delete[] Img_Quant;
     delete[] dctBlock;
     delete[] dequant;
+
+    // free reconShifted and originalBlock
+    for (int i = 0; i < 8; ++i) {
+        delete[] reconShifted[i];
+        delete[] originalBlock[i];
+    }
+    delete[] reconShifted;
+    delete[] originalBlock;
 
     if (ok) {
         std::cout << "test_quantification: PASS\n";

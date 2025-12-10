@@ -1,0 +1,25 @@
+var classc_compression =
+[
+    [ "cCompression", "classc_compression.html#adc5f208bc6974089fea85fec29964be5", null ],
+    [ "cCompression", "classc_compression.html#a322dad3ba64953aaf53e24a2d392175e", null ],
+    [ "~cCompression", "classc_compression.html#a9bc895fb3efd36315891b6e179f09c87", null ],
+    [ "Compression_JPEG", "classc_compression.html#aee2599c101378e562edf5e2eaed48c52", null ],
+    [ "Decompression_JPEG", "classc_compression.html#a66b859d7eff31e3ba9e2337cb63cc807", null ],
+    [ "EQM", "classc_compression.html#a89e51610adbb915e857a914cd6a81173", null ],
+    [ "getBuffer", "classc_compression.html#a517f94ea07c7b07aebb99fee7f5fb4b1", null ],
+    [ "getHauteur", "classc_compression.html#ae0f6e3eadd7aa11fd6825f2fd53a4a1c", null ],
+    [ "getLargeur", "classc_compression.html#a42ce4e36474774a54bf01d404cf59360", null ],
+    [ "getQualite", "classc_compression.html#a2674e4a02b0f39da23681071f7055e58", null ],
+    [ "Histogramme", "classc_compression.html#a0720225210ef1d484f50d25af1586753", null ],
+    [ "RLE", "classc_compression.html#a9965020a2ae4099448e1f22a44ea1e30", null ],
+    [ "RLE_Block", "classc_compression.html#a2e220b16455ed12bfae6d66549d61306", null ],
+    [ "setBuffer", "classc_compression.html#ae94612d3efd236e71d1c73c84d3a1685", null ],
+    [ "setHauteur", "classc_compression.html#a9f3b424df287aaeb5924ed505b848b9e", null ],
+    [ "setLargeur", "classc_compression.html#a86bae0e51a1607b87467560e8e2c3bbd", null ],
+    [ "setQualite", "classc_compression.html#a16720d26c29def34f724066455da1ecf", null ],
+    [ "Taux_Compression", "classc_compression.html#ac7ff6275e8f31e29d0ca10ce0baeee75", null ],
+    [ "mBuffer", "classc_compression.html#a676a807814329e53fdea6bcfb2191e4c", null ],
+    [ "mHauteur", "classc_compression.html#a1a18b17ac1e9fcc50080f13cbbfbddc7", null ],
+    [ "mLargeur", "classc_compression.html#ada5a0cc8bd3a43420cc85b27f6c3652a", null ],
+    [ "mQualite", "classc_compression.html#ab04177da010ea0887a075186166e080f", null ]
+];

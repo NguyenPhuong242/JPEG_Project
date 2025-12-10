@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/jpeg_cli.dir/src/main.cpp.o"
-  "CMakeFiles/jpeg_cli.dir/src/main.cpp.o.d"
+  "CMakeFiles/jpeg_cli.dir/main.cpp.o"
+  "CMakeFiles/jpeg_cli.dir/main.cpp.o.d"
   "jpeg_cli"
   "jpeg_cli.pdb"
 )

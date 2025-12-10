@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['cli_20usage_0',['CLI Usage',['../index.html#autotoc_md5',1,'']]],
-  ['compressor_1',['JPEG Compressor',['../index.html',1,'']]],
-  ['contributions_2',['Roadmap / Contributions',['../index.html#autotoc_md7',1,'']]]
+  ['3_20build_20instructions_0',['3. Build Instructions',['../index.html#autotoc_md6',1,'']]]
 ];

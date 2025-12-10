@@ -1,12 +1,9 @@
 var hierarchy =
 [
-    [ "cCompression", "classcCompression.html", [
-      [ "cCompressionCouleur", "classcCompressionCouleur.html", null ]
+    [ "cCompression", "classc_compression.html", [
+      [ "cCompressionCouleur", "classc_compression_couleur.html", null ]
     ] ],
-    [ "cDecompression", "classcDecompression.html", [
-      [ "cDecompressionCouleur", "classcDecompressionCouleur.html", null ]
-    ] ],
-    [ "cHuffman", "classcHuffman.html", null ],
+    [ "cHuffman", "classc_huffman.html", null ],
     [ "compare", "structcompare.html", null ],
-    [ "sNoeud", "structsNoeud.html", null ]
+    [ "sNoeud", "structs_noeud.html", null ]
 ];

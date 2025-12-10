@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/jpeg_cli.dir/src/main.cpp.o -o jpeg_cli  libjpeg_core.a 
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/jpeg_cli.dir/main.cpp.o -o jpeg_cli  libjpeg_core.a

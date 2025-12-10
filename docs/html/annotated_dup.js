@@ -1,10 +1,8 @@
 var annotated_dup =
 [
-    [ "cCompression", "classcCompression.html", "classcCompression" ],
-    [ "cCompressionCouleur", "classcCompressionCouleur.html", "classcCompressionCouleur" ],
-    [ "cDecompression", "classcDecompression.html", "classcDecompression" ],
-    [ "cDecompressionCouleur", "classcDecompressionCouleur.html", "classcDecompressionCouleur" ],
-    [ "cHuffman", "classcHuffman.html", "classcHuffman" ],
+    [ "cCompression", "classc_compression.html", "classc_compression" ],
+    [ "cCompressionCouleur", "classc_compression_couleur.html", "classc_compression_couleur" ],
+    [ "cHuffman", "classc_huffman.html", "classc_huffman" ],
     [ "compare", "structcompare.html", "structcompare" ],
-    [ "sNoeud", "structsNoeud.html", "structsNoeud" ]
+    [ "sNoeud", "structs_noeud.html", "structs_noeud" ]
 ];

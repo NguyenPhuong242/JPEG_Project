@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/testpgm.dir/dat_to_pgm.cpp.o -o testpgm  ../libjpeg_core.a 
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/testpgm.dir/dat_to_pgm.cpp.o -o testpgm  ../libjpeg_core.a

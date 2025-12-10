@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/testrle.dir/test_rle.cpp.o -o testrle  ../libjpeg_core.a 
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/testrle.dir/test_rle.cpp.o -o testrle  ../libjpeg_core.a

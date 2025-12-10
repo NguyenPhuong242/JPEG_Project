@@ -1,19 +1,30 @@
-Start testing: Nov 27 03:27 CET
+Start testing: Dec 08 02:24 CET
 ----------------------------------------------------------
-9/9 Testing: testcolor
-9/9 Test: testcolor
-Command: "/home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests/testcolor"
-Directory: /home/nguyenphuong/Desktop/Pratiques_et_outils_de_programmation/Projet/JPEG_Project/build/tests
-"testcolor" start time: Nov 27 03:27 CET
+6/6 Testing: testcolor
+6/6 Test: testcolor
+Command: "/Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build/tests/testcolor"
+Directory: /Users/nguyenphuong/Desktop/Pratique-C/Project/JPEG_Project/build
+"testcolor" start time: Dec 08 02:24 CET
 Output:
 ----------------------------------------------------------
-PSNR too low: 10.6506 dB (MSE=5597.82)
+[Decompression_JPEG] Parsed HUF1 header: nbSym=82 payload_bytes=2843 payload_bits=22742
+[Decompression_JPEG] Built Huffman tree, root=0x12be05580
+[Decompression_JPEG] Decoded 7120 symbols into trameDec
+[Decompression_JPEG] Parsed 486 quant blocks
+[Decompression_JPEG] Inferred block grid: blocks_w=18 blocks_h=27 (nblocks=486)
+[Decompression_JPEG] Parsed HUF1 header: nbSym=1 payload_bytes=0 payload_bits=0
+[Decompression_JPEG] Built Huffman tree, root=0x12be040c0
+[Decompression_JPEG] Parsed HUF1 header: nbSym=1 payload_bytes=0 payload_bits=0
+[Decompression_JPEG] Built Huffman tree, root=0x12be040c0
+[DecompressToPPM] Cb plane empty, using neutral 128 values
+[DecompressToPPM] Cr plane empty, using neutral 128 values
+testcolor: OK
 <end of output>
-Test time =   0.01 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"testcolor" end time: Nov 27 03:27 CET
+Test Passed.
+"testcolor" end time: Dec 08 02:24 CET
 "testcolor" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Nov 27 03:27 CET
+End testing: Dec 08 02:24 CET

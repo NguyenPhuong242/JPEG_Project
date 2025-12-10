@@ -1,0 +1,14 @@
+\babel@toc {french}{}\relax 
+\contentsline {chapter}{\numberline {1}Introduction : Problématique de la compression d\textquotesingle {}images}{2}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Cadre théorique et outils mathématiques}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Modèle de l\textquotesingle {}image}{3}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Transformée en cosinus discrète (DCT) 2D}{3}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Quantification}{4}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Réduction de redondance : zig--zag, RLE, Huffman}{4}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Chaîne de traitement JPEG}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Encodage}{5}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Décodage}{5}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Évaluation de la qualité et du taux de compression}{6}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Métriques objectives}{6}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Influence du facteur de qualité}{6}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Discussion et conclusion}{7}{chapter.5}%

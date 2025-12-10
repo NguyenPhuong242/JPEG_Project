@@ -2,7 +2,7 @@
 \hypertarget{structcompare}{}\label{structcompare}\index{compare@{compare}}
 
 
-Comparison functor for priority queue of \doxylink{structsNoeud}{s\+Noeud} pointers.  
+Functor for comparing two \doxylink{structs_noeud}{s\+Noeud} pointers based on frequency.  
 
 
 
@@ -12,14 +12,14 @@ Comparison functor for priority queue of \doxylink{structsNoeud}{s\+Noeud} point
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \mbox{\hyperlink{structcompare_a1a5e301348caa74e28ef67cb0af553a6}{operator()}} (\mbox{\hyperlink{structsNoeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*}gauche, \mbox{\hyperlink{structsNoeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*}droit) const
-\end{DoxyCompactItemize}
+bool \mbox{\hyperlink{structcompare_a1a5e301348caa74e28ef67cb0af553a6}{operator()}} (\mbox{\hyperlink{structs_noeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*}gauche, \mbox{\hyperlink{structs_noeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*}droit) const
+\begin{DoxyCompactList}\small\item\em Overloaded operator() to perform the comparison. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Comparison functor for priority queue of \doxylink{structsNoeud}{s\+Noeud} pointers. 
+Functor for comparing two \doxylink{structs_noeud}{s\+Noeud} pointers based on frequency. 
 
-Used to build the Huffman tree by ordering nodes by frequency. Lower frequency nodes have higher priority. 
+This is used by the {\ttfamily std\+::priority\+\_\+queue} to build the Huffman tree. It ensures that nodes with lower frequencies have higher priority, which is essential for the Huffman algorithm. 
 
 \label{doc-func-members}
 \Hypertarget{structcompare_doc-func-members}
@@ -28,10 +28,24 @@ Used to build the Huffman tree by ordering nodes by frequency. Lower frequency n
 \index{operator()@{operator()}!compare@{compare}}
 \doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
 {\footnotesize\ttfamily \label{structcompare_a1a5e301348caa74e28ef67cb0af553a6} 
-bool compare\+::operator() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsNoeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*}}]{gauche}{, }\item[{\mbox{\hyperlink{structsNoeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*}}]{droit}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+bool compare\+::operator() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structs_noeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*}}]{gauche}{, }\item[{\mbox{\hyperlink{structs_noeud}{s\+Noeud}} \texorpdfstring{$\ast$}{*}}]{droit}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Overloaded operator() to perform the comparison. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gauche} & The left node to compare. \\
+\hline
+{\em droit} & The right node to compare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the left node\textquotesingle{}s frequency is greater than the right\textquotesingle{}s. 
+\end{DoxyReturn}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/core/\mbox{\hyperlink{cHuffman_8h}{c\+Huffman.\+h}}\end{DoxyCompactItemize}
+include/core/\mbox{\hyperlink{c_huffman_8h}{c\+Huffman.\+h}}\end{DoxyCompactItemize}
