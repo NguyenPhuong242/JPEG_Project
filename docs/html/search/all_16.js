@@ -1,19 +1,6 @@
 var searchData=
 [
-  ['setbuffer_0',['setBuffer',['../classc_compression.html#ae94612d3efd236e71d1c73c84d3a1685',1,'cCompression']]],
-  ['sethauteur_1',['setHauteur',['../classc_compression.html#a9f3b424df287aaeb5924ed505b848b9e',1,'cCompression']]],
-  ['setlargeur_2',['setLargeur',['../classc_compression.html#a86bae0e51a1607b87467560e8e2c3bbd',1,'cCompression']]],
-  ['setqualite_3',['setQualite',['../classc_compression.html#a16720d26c29def34f724066455da1ecf',1,'cCompression']]],
-  ['setqualiteglobale_4',['setQualiteGlobale',['../classc_compression.html#ae2b173d0aebc50cedba7e9ac34aafa21',1,'cCompression']]],
-  ['setracine_5',['setRacine',['../classc_huffman.html#ae4bf4f86320d428b13a91b2c87c9a056',1,'cHuffman']]],
-  ['setsubsamplingh_6',['setSubsamplingH',['../classc_compression_couleur.html#a75c450c2207d737be0a47cbe27287f7f',1,'cCompressionCouleur']]],
-  ['setsubsamplingv_7',['setSubsamplingV',['../classc_compression_couleur.html#aa17b235b80f2f8a971db8ba459318735',1,'cCompressionCouleur']]],
-  ['settrame_8',['setTrame',['../classc_huffman.html#afe4efb5d1cb9c8291942cb4dbf21a645',1,'cHuffman']]],
-  ['show_5fdct_5fblock_9',['Show_DCT_Block',['../dct_8h.html#ac829e621307408e71a8ea5d683e4da0d',1,'Show_DCT_Block(double **DCT_Img):&#160;dct.cpp'],['../dct_8cpp.html#ac829e621307408e71a8ea5d683e4da0d',1,'Show_DCT_Block(double **DCT_Img):&#160;dct.cpp']]],
-  ['snoeud_10',['sNoeud',['../structs_noeud.html',1,'sNoeud'],['../structs_noeud.html#a4159abaca506ae5c4bc293a65cc25516',1,'sNoeud::sNoeud()']]],
-  ['storehuffmantable_11',['storeHuffmanTable',['../classc_compression.html#aa9cfa8fa6c95559a27de177a67f0a5f3',1,'cCompression']]],
-  ['subsampling_12',['subsampling',['../index.html#autotoc_md20',1,'Example 1: no subsampling'],['../index.html#autotoc_md18',1,'Syntax: ./build/jpeg_cli &amp;ndash;color-compress &amp;lt;input.ppm&amp;gt; &amp;lt;base&amp;gt; [quality] [subsampling]']]],
-  ['subsampling_20for_20higher_20compression_13',['Example 2: 4:2:0 subsampling for higher compression',['../index.html#autotoc_md21',1,'']]],
-  ['subsampling_3a_20444_20default_20422_20or_20420_14',['Subsampling: 444 (default), 422, or 420',['../index.html#autotoc_md19',1,'']]],
-  ['syntax_3a_20build_20jpeg_5fcli_20ndash_20color_20compress_20quality_20subsampling_15',['Syntax: ./build/jpeg_cli &amp;ndash;color-compress &amp;lt;input.ppm&amp;gt; &amp;lt;base&amp;gt; [quality] [subsampling]',['../index.html#autotoc_md18',1,'']]]
+  ['quant_5fjpeg_0',['quant_JPEG',['../quantification_8h.html#a0728fb4c36f2e43ed3a843cd34b07a76',1,'quant_JPEG(double **img_DCT, int **Img_Quant):&#160;quantification.cpp'],['../quantification_8cpp.html#a0728fb4c36f2e43ed3a843cd34b07a76',1,'quant_JPEG(double **img_DCT, int **Img_Quant):&#160;quantification.cpp']]],
+  ['quantification_2ecpp_1',['quantification.cpp',['../quantification_8cpp.html',1,'']]],
+  ['quantification_2eh_2',['quantification.h',['../quantification_8h.html',1,'']]]
 ];

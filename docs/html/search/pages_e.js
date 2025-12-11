@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['jpeg_20compressor_20—_20user_20guide_0',['JPEG Compressor — User Guide',['../index.html',1,'']]],
-  ['jpeg_5fcli_20ndash_20color_20compress_20quality_20subsampling_1',['Syntax: ./build/jpeg_cli &amp;ndash;color-compress &amp;lt;input.ppm&amp;gt; &amp;lt;base&amp;gt; [quality] [subsampling]',['../index.html#autotoc_md18',1,'']]]
+  ['important_20notes_0',['7. Important Notes',['../index.html#autotoc_md26',1,'']]],
+  ['instructions_1',['5. Build Instructions',['../index.html#autotoc_md10',1,'']]]
 ];

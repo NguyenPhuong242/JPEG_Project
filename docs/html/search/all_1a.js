@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['y_20cb_20cr_20bitstreams_20→_20ppm_0',['b. Color Workflow (PPM P6 → Y/Cb/Cr bitstreams → PPM)',['../index.html#autotoc_md17',1,'']]]
+  ['usage_0',['6. Usage',['../index.html#autotoc_md12',1,'']]],
+  ['user_20guide_1',['JPEG Compressor — User Guide',['../index.html',1,'']]],
+  ['utilities_2',['C. Utilities',['../index.html#autotoc_md21',1,'']]]
 ];

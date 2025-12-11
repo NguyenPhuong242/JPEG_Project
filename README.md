@@ -1,33 +1,59 @@
 # JPEG Compressor — User Guide
 
+**An educational implementation of a simplified JPEG-like compression pipeline (grayscale and color).**
 
-Github Repository: [Github](https://github.com/NguyenPhuong242/JPEG_Project.git)
-
-Author: Khanh-Phuong NGUYEN (NguyenPhuong242)
-
-Licensed under the MIT License. See `LICENSE` for details.
-
-## Overview
-
-This project is an educational implementation of a simplified JPEG compression/decompression chain. It covers the main steps: 8x8 block splitting, DCT, quantization, RLE, and Huffman coding.
-
-### Main Modules
-
--   `src/dct/`: Implementation of the Discrete Cosine Transform (DCT) and its inverse (IDCT).
--   `src/quantification/`: Quantization tables and related functions.
--   `src/core/`:
-    -   `cCompression`: The main class for the grayscale pipeline (RLE, Huffman, EQM, Compression Ratio).
-    -   `cCompressionCouleur`: The main class for the color pipeline (PPM → YCbCr → component-wise compression).
--   `include/`: Contains the public header files.
--   `tests/`: Unit tests for DCT, quantization, RLE, and Huffman.
+- **Repository:** [https://github.com/NguyenPhuong242/JPEG_Project](https://github.com/NguyenPhuong242/JPEG_Project)
+- **Author:** Khanh-Phuong NGUYEN (NguyenPhuong242)
+- **License:** MIT (see `LICENSE`)
 
 ---
 
-### 1. Prerequisites
+## 1. Overview
 
--   **CMake** (version >= 3.10)
--   **A C++ Compiler** with C++17 support (e.g., g++, clang++)
--   **(Optional)** `doxygen` and `graphviz` for source code documentation generation.
+This project provides a modular and pedagogical implementation of the essential steps of a JPEG-style compression/decompression chain. It is designed to demonstrate:
+
+- 8×8 block splitting
+- DCT (Discrete Cosine Transform) / IDCT
+- Quantization
+- RLE (Run-Length Encoding)
+- Huffman entropy coding
+- Optional YCbCr color pipeline with subsampling
+
+**Note:** The produced `*.huff` files are a custom, transparent format for educational purposes and are not standard JPEG files.
+
+---
+
+## 2. Features
+
+- **Grayscale pipeline:** Compression of ASCII pixel maps to custom bitstreams.
+- **Color pipeline:** Full support for PPM (P6) images converted to Y/Cb/Cr streams.
+- **Chroma Subsampling:** Supports 4:4:4 (no subsampling), 4:2:2, and 4:2:0.
+- **Modular Design:** Distinct modules for DCT, Quantization, RLE, and Huffman.
+- **Analysis Tools:** Frequency histogram generation and unit tests.
+- **Documentation:** Doxygen-ready comments.
+
+---
+
+## 3. Repository Structure
+
+| Directory | Description |
+| :--- | :--- |
+| `src/` | Source code (DCT, Quantization, RLE, Huffman, Core logic) |
+| `include/` | Public header files |
+| `tests/` | Unit tests |
+| `tools/` | Helper scripts (e.g., sample PPM generator) |
+| `docs/` | Doxygen configuration and generated documentation |
+| `build/` | Out-of-source build directory (ignored by git) |
+
+---
+
+## 4. Prerequisites
+
+- **CMake** ≥ 3.10
+- **C++17 compiler** (g++ or clang++)
+- **Optional:** `doxygen` and `graphviz` (for generating documentation)
+
+**Installation (Debian/Ubuntu):**
 
 ```bash
 sudo apt update
@@ -36,133 +62,133 @@ sudo apt install build-essential cmake g++ doxygen graphviz
 
 ---
 
+## 5. Build Instructions
 
-### 2. Documentation
-Generate or refresh the API reference with Doxygen:
-
-```bash
-doxygen docs/Doxyfile
-xdg-open docs/docs/html/index.html   # open the HTML entry point
-```
-
-> Graph visualizations require `graphviz`. Disable them by flipping the relevant `HAVE_DOT` tags in `docs/Doxyfile` if you prefer faster runs.
-
-The main page of the HTML output mirrors this README, and navigation exposes the annotated headers, implementation files, and directory diagrams.
-
-### 3. Build Instructions
-
-Use CMake to build the project. The following commands should be executed from the project's root directory.
+Perform an out-of-source build from the project root. The `-j` flag utilizes multiple CPU cores for faster compilation.
 
 ```bash
-# 1. Create a build directory to store compilation files
-cmake -S . -B build
+# 1. Clean previous builds (optional)
+rm -rf build
 
-# 2. Compile the project
-# The -j flag automatically uses multiple CPU cores to speed up compilation
-cmake --build build -j
-```
+# 2. Configure project
+mkdir build && cd build
+cmake ..
 
-After a successful build, the main executable will be located at `build/jpeg_cli`.
+# 3. Compile
+cmake --build . -- -j
 
----
-
-### 4. Usage
-
-The `build/jpeg_cli` executable is the main command-line interface (CLI) for this program.
-
-#### a. Grayscale Workflow (text .img → .pgm/.huff)
-
--   **Compress:** takes an ASCII grayscale `.img` (one pixel per line, 0-255). Outputs:
-    -   `<name>.huff`: Huffman stream with width/height trailer.
-    -   `<name>.rle`: RLE intermediate (optional to keep).
-    -   `recon_<name>.pgm`: Reconstructed image for quick visual check.
-
-    ```bash
-    # Syntax: ./build/jpeg_cli <image.img> [quality]
-    # Example with the provided sample (128x128):
-    ./build/jpeg_cli lenna.img 50
-    # Produces lenna.huff, lenna.rle, recon_lenna.pgm in the current dir
-    ```
-
--   **Decompress:** reads a `.huff` produced by this tool and writes `decomp_<name>.pgm`.
-    ```bash
-    # Syntax: ./build/jpeg_cli --decompress <file.huff>
-    ./build/jpeg_cli --decompress lenna.huff
-    # Produces decomp_lenna.pgm (dimensions taken from trailer). Legacy files without
-    # trailer fall back to size inference and may be wrong; prefer re-compressing.
-    ```
-
--   **Round-trip sanity check:**
-    ```bash
-    ./build/jpeg_cli lenna.img 50
-    ./build/jpeg_cli --decompress lenna.huff
-    # Compare recon_lenna.pgm and decomp_lenna.pgm (they should match)
-    ```
-
-#### b. Color Workflow (PPM P6 → Y/Cb/Cr bitstreams → PPM)
-
--   **Compress:** takes a binary PPM (P6) and splits Y, Cb, Cr, applying optional subsampling.
-    Outputs `<base>_Y.huff`, `<base>_Cb.huff`, `<base>_Cr.huff`, and `<base>.meta` (stores width/height, quality, subsampling).
-
-    ```bash
-    # Syntax: ./build/jpeg_cli --color-compress <input.ppm> <base> [quality] [subsampling]
-    # Subsampling: 444 (default), 422, or 420
-
-    # Example 1: no subsampling
-    ./build/jpeg_cli --color-compress lenna_color.ppm lenna_color 75 444
-
-    # Example 2: 4:2:0 subsampling for higher compression
-    ./build/jpeg_cli --color-compress lenna_color.ppm lenna_color 75 420
-    # Produces lenna_color_Y.huff, lenna_color_Cb.huff, lenna_color_Cr.huff, lenna_color.meta
-    ```
-
--   **Decompress:** reconstructs a PPM using the three component streams plus metadata.
-    ```bash
-    # Syntax: ./build/jpeg_cli --color-decompress <base> <output.ppm>
-    ./build/jpeg_cli --color-decompress lenna_color recon_lenna_color.ppm
-    # Reads lenna_color_*.huff and lenna_color.meta from the working directory
-    ```
-
--   **Round-trip sanity check (color):**
-    ```bash
-    ./build/jpeg_cli --color-compress lenna_color.ppm demo 75 420
-    ./build/jpeg_cli --color-decompress demo demo_out.ppm
-    # Inspect demo_out.ppm; PSNR depends on quality/subsampling
-    ```
-
--   **Need a sample PPM?** Generate a tiny one (8x8 gradient) and reuse it:
-    ```bash
-    python3 tools/make_sample_ppm.py tests/sample_color.ppm --width 8 --height 8
-    ./build/jpeg_cli --color-compress tests/sample_color.ppm sample 75 444
-    ./build/jpeg_cli --color-decompress sample sample_out.ppm
-    ```
-
-#### c. Other Utilities
-
--   **View Frequency Histogram:**
-    Analyzes an RLE-encoded file to show the frequency of each symbol.
-
-    ```bash
-    # Syntax: ./build/jpeg_cli --histogram <file.rle>
-    ./build/jpeg_cli --histogram build/lenna.rle
-    ```
-
----
-
-### 5. Running Tests
-
-The project includes a test suite to verify the correctness of the core modules.
-
-```bash
-# Run all tests from the build directory
+# 4. Test (optional)
 ctest --test-dir build -V
 ```
 
-The `-V` flag enables verbose output to show detailed test results.
+After a successful build, the main executable is located at `build/jpeg_cli`.
 
 ---
 
-### Important Notes
+## 6. Usage
 
--   **Educational Purpose**: The `.huff` file format is a custom format and is **not** a standard JPEG file. It was designed to make the encoding steps (RLE, Huffman) transparent and easy to debug.
--   **Quality**: This parameter controls the level of compression and information loss. A lower quality value results in higher compression but a lower-quality image.
+The `jpeg_cli` tool handles both grayscale and color workflows.
+
+### A. Grayscale Workflow
+
+Input is an ASCII grayscale `.img` file (one pixel value 0–255 per line) or PGM.
+
+#### 1. Compress
+```bash
+# Syntax: ./build/jpeg_cli <input.img> [quality]
+./build/jpeg_cli lenna.img 50
+```
+**Outputs:**
+- `lenna.huff`: The compressed Huffman stream.
+- `lenna.rle`: Intermediate RLE data (optional).
+- `recon_lenna.pgm`: Reconstructed image for immediate verification.
+
+#### 2. Decompress
+```bash
+# Syntax: ./build/jpeg_cli --decompress <file.huff>
+./build/jpeg_cli --decompress lenna.huff
+```
+**Outputs:**
+- `decomp_lenna.pgm`
+
+#### 3. Round-trip Check
+```bash
+./build/jpeg_cli lenna.img 50
+./build/jpeg_cli --decompress lenna.huff
+# You can now compare recon_lenna.pgm and decomp_lenna.pgm
+```
+
+### B. Color Workflow (YCbCr)
+
+Input is a standard PPM (P6 format) image.
+
+#### 1. Compress
+```bash
+# Syntax: ./build/jpeg_cli --color-compress <input.ppm> <base_name> [quality] [subsampling]
+# Subsampling options: 444 (default), 422, 420
+
+# Example: 4:2:0 subsampling (high compression)
+./build/jpeg_cli --color-compress lenna_color.ppm lenna_output 75 420
+```
+**Outputs:**
+- `lenna_output_Y.huff`, `lenna_output_Cb.huff`, `lenna_output_Cr.huff`
+- `lenna_output.meta` (Contains dimensions and sampling factors)
+
+#### 2. Decompress
+```bash
+# Syntax: ./build/jpeg_cli --color-decompress <base_name> <output.ppm>
+./build/jpeg_cli --color-decompress lenna_output recon_final.ppm
+```
+
+#### 3. Test with a generated sample
+```bash
+# Generate a tiny 8x8 PPM
+python3 tools/make_sample_ppm.py tests/sample_color.ppm --width 8 --height 8
+
+# Compress and Decompress
+./build/jpeg_cli --color-compress tests/sample_color.ppm sample 75 444
+./build/jpeg_cli --color-decompress sample sample_out.ppm
+```
+
+### C. Utilities
+
+#### Histogram Analysis
+Analyze the frequency distribution of the RLE stream.
+```bash
+./build/jpeg_cli --histogram <file.rle>
+```
+
+#### Verbose Testing
+Enable verbose output to view detailed test logs (if running test suites).
+```bash
+./build/test<name> --verbose
+```
+
+### D. Help Command
+For a summary of commands and options:
+```bash
+./build/jpeg_cli --help
+```
+
+---
+
+## 7. Important Notes
+
+1.  **File Format:** The `.huff` format used here is **custom**. It is designed to make the RLE and Huffman encoding steps transparent for debugging and learning. It is **not** compatible with standard `.jpg` viewers.
+2.  **Quality Factor:** The quality argument (1–100) controls the quantization matrix.
+    -   **Low value:** High compression, lower quality (more data loss).
+    -   **High value:** Low compression, higher quality.
+
+## 8. Generating Documentation
+If `doxygen` and `graphviz` are installed, generate the documentation as follows:
+
+```bash
+cd docs
+doxygen Doxyfile
+```
+The generated documentation will be located in `docs/html/index.html`. Open this file in a web browser to explore the code structure and comments.
+
+The small report is in the docs folder as `project_report.pdf`.
+
+## 9. Contributing
+Contributions are welcome! Please fork the repository and submit pull requests for any enhancements or bug fixes. Make sure to follow the existing coding style and include tests for new features.

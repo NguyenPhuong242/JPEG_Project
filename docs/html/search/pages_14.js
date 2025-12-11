@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['quality_20subsampling_0',['Syntax: ./build/jpeg_cli &amp;ndash;color-compress &amp;lt;input.ppm&amp;gt; &amp;lt;base&amp;gt; [quality] [subsampling]',['../index.html#autotoc_md18',1,'']]]
+  ['sample_0',['3. Test with a generated sample',['../index.html#autotoc_md20',1,'']]],
+  ['structure_1',['3. Repository Structure',['../index.html#autotoc_md6',1,'']]]
 ];
