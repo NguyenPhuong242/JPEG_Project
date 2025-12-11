@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['grayscale_20image_20processing_0',['a. Grayscale Image Processing',['../index.html#autotoc_md9',1,'']]],
-  ['guide_1',['JPEG Compressor — User Guide',['../index.html',1,'']]]
+  ['for_20higher_20compression_0',['Example 2: 4:2:0 subsampling for higher compression',['../index.html#autotoc_md21',1,'']]]
 ];

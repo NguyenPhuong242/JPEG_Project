@@ -25,7 +25,7 @@
 var NAVTREE =
 [
   [ "JPEG Compressor", "index.html", [
-    [ "JPEG Compressor — User Guide", "index.html", null ],
+    [ "JPEG Compressor — User Guide", "index.html", "index" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],

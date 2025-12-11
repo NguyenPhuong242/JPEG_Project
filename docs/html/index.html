@@ -141,71 +141,88 @@ Main Modules</h2>
 4. Usage</h2>
 <p>The <span class="tt">build/jpeg_cli</span> executable is the main command-line interface (CLI) for this program.</p>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
-a. Grayscale Image Processing</h3>
-<p>This is the program's default mode.</p>
+a. Grayscale Workflow (text .img → .pgm/.huff)</h3>
 <ul>
-<li><p class="startli"><b>Grayscale Compression:</b> The program reads a text-based image file (e.g., <span class="tt">lenna.img</span>), calculates metrics, and generates 3 output files:</p><ul>
-<li><span class="tt">recon_lenna.pgm</span>: The reconstructed image for verification.</li>
-<li><span class="tt">lenna.rle</span>: Data after RLE encoding.</li>
-<li><span class="tt">lenna.huff</span>: The final data after Huffman encoding.</li>
+<li><p class="startli"><b>Compress:</b> takes an ASCII grayscale <span class="tt">.img</span> (one pixel per line, 0-255). Outputs:</p><ul>
+<li><span class="tt">&lt;name&gt;.huff</span>: Huffman stream with width/height trailer.</li>
+<li><span class="tt">&lt;name&gt;.rle</span>: RLE intermediate (optional to keep).</li>
+<li><span class="tt">recon_&lt;name&gt;.pgm</span>: Reconstructed image for quick visual check.</li>
 </ul>
 <p class="startli"><span class="tt">bash
-@section autotoc_md10 Syntax: ./build/jpeg_cli [image_file_path] [quality]
-@section autotoc_md11 Example: Compress lenna.img with a quality of 50 (default)
+@section autotoc_md10 Syntax: ./build/jpeg_cli &lt;image.img&gt; [quality]
+@section autotoc_md11 Example with the provided sample (128x128):
     ./build/jpeg_cli lenna.img 50
+@section autotoc_md12 Produces lenna.huff, lenna.rle, recon_lenna.pgm in the current dir
     </span></p>
 </li>
-<li><p class="startli"><b>Grayscale Decompression:</b> Decompresses a <span class="tt">.huff</span> file created by this program.</p>
-<p class="startli"><span class="tt">bash
-@section autotoc_md12 Syntax: ./build/jpeg_cli --decompress &lt;file.huff&gt;
-@section autotoc_md13 The output will be saved to decomp_lenna.pgm
-    ./build/jpeg_cli --decompress build/lenna.huff
-    </span></p>
-</li>
+<li><b>Decompress:</b> reads a <span class="tt">.huff</span> produced by this tool and writes <span class="tt">decomp_&lt;name&gt;.pgm</span>. <span class="tt">bash
+@section autotoc_md13 Syntax: ./build/jpeg_cli --decompress &lt;file.huff&gt;
+    ./build/jpeg_cli --decompress lenna.huff
+@section autotoc_md14 Produces decomp_lenna.pgm (dimensions taken from trailer). Legacy files without
+@section autotoc_md15 trailer fall back to size inference and may be wrong; prefer re-compressing.
+    </span></li>
+<li><b>Round-trip sanity check:</b> <span class="tt">bash
+    ./build/jpeg_cli lenna.img 50
+    ./build/jpeg_cli --decompress lenna.huff
+@section autotoc_md16 Compare recon_lenna.pgm and decomp_lenna.pgm (they should match)
+    </span></li>
 </ul>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
-b. Color Image Processing (PPM Format)</h4>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+b. Color Workflow (PPM P6 → Y/Cb/Cr bitstreams → PPM)</h4>
 <ul>
-<li><p class="startli"><b>Color Compression:</b> Compresses a PPM (P6) image into three separate compressed components (Y, Cb, Cr).</p><ul>
-<li><span class="tt">&lt;basename&gt;_Y.huff</span>, <span class="tt">&lt;basename&gt;_Cb.huff</span>, <span class="tt">&lt;basename&gt;_Cr.huff</span></li>
-<li><span class="tt">&lt;basename&gt;.meta</span>: A file containing metadata (dimensions, quality, subsampling mode).</li>
-</ul>
-<p class="startli"><span class="tt">bash
-@section autotoc_md15 Syntax: ./build/jpeg_cli --color-compress &lt;input.ppm&gt; &lt;basename&gt; [quality] [subsampling]
-@section autotoc_md16 Example: Compress color.ppm with quality 75 and 4:2:0 subsampling
-    ./build/jpeg_cli --color-compress path/to/color.ppm my_image 75 420
-    </span></p><ul>
-<li><span class="tt">quality</span>: 1-100 (affects the quantization matrix).</li>
-<li><span class="tt">subsampling</span>: <span class="tt">444</span> (no subsampling), <span class="tt">422</span>, <span class="tt">420</span>.</li>
-</ul>
-</li>
-<li><p class="startli"><b>Color Decompression:</b> Reconstructs a PPM file from the component files (<span class="tt">.huff</span>) and the metadata file (<span class="tt">.meta</span>).</p>
-<p class="startli"><span class="tt">bash
-@section autotoc_md17 Syntax: ./build/jpeg_cli --color-decompress &lt;basename&gt; &lt;output.ppm&gt;
-@section autotoc_md18 Example: Decompress from my_image_* files and save to final_image.ppm
-    ./build/jpeg_cli --color-decompress my_image final_image.ppm
-    </span></p>
+<li><p class="startli"><b>Compress:</b> takes a binary PPM (P6) and splits Y, Cb, Cr, applying optional subsampling. Outputs <span class="tt">&lt;base&gt;_Y.huff</span>, <span class="tt">&lt;base&gt;_Cb.huff</span>, <span class="tt">&lt;base&gt;_Cr.huff</span>, and <span class="tt">&lt;base&gt;.meta</span> (stores width/height, quality, subsampling).</p>
+<p class="startli">```bash </p>
 </li>
 </ul>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
+Syntax: ./build/jpeg_cli &ndash;color-compress &lt;input.ppm&gt; &lt;base&gt; [quality] [subsampling]</h1>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+Subsampling: 444 (default), 422, or 420</h1>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
+Example 1: no subsampling</h1>
+<p>./build/jpeg_cli &ndash;color-compress lenna_color.ppm lenna_color 75 444</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+Example 2: 4:2:0 subsampling for higher compression</h1>
+<p>./build/jpeg_cli &ndash;color-compress lenna_color.ppm lenna_color 75 420 </p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
+Produces lenna_color_Y.huff, lenna_color_Cb.huff, lenna_color_Cr.huff, lenna_color.meta</h1>
+<p>```</p>
+<ul>
+<li><b>Decompress:</b> reconstructs a PPM using the three component streams plus metadata. <span class="tt">bash
+@section autotoc_md23 Syntax: ./build/jpeg_cli --color-decompress &lt;base&gt; &lt;output.ppm&gt;
+    ./build/jpeg_cli --color-decompress lenna_color recon_lenna_color.ppm
+@section autotoc_md24 Reads lenna_color_*.huff and lenna_color.meta from the working directory
+    </span></li>
+<li><b>Round-trip sanity check (color):</b> <span class="tt">bash
+    ./build/jpeg_cli --color-compress lenna_color.ppm demo 75 420
+    ./build/jpeg_cli --color-decompress demo demo_out.ppm
+@section autotoc_md25 Inspect demo_out.ppm; PSNR depends on quality/subsampling
+    </span></li>
+<li><b>Need a sample PPM?</b> Generate a tiny one (8x8 gradient) and reuse it: <span class="tt">bash
+    python3 tools/make_sample_ppm.py tests/sample_color.ppm --width 8 --height 8
+    ./build/jpeg_cli --color-compress tests/sample_color.ppm sample 75 444
+    ./build/jpeg_cli --color-decompress sample sample_out.ppm
+    </span></li>
+</ul>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
 c. Other Utilities</h4>
 <ul>
 <li><p class="startli"><b>View Frequency Histogram:</b> Analyzes an RLE-encoded file to show the frequency of each symbol.</p>
 <p class="startli"><span class="tt">bash
-@section autotoc_md20 Syntax: ./build/jpeg_cli --histogram &lt;file.rle&gt;
+@section autotoc_md27 Syntax: ./build/jpeg_cli --histogram &lt;file.rle&gt;
     ./build/jpeg_cli --histogram build/lenna.rle
     </span></p>
 </li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md29"></a>
 5. Running Tests</h3>
 <p>The project includes a test suite to verify the correctness of the core modules.</p>
 <div class="fragment"><div class="line"># Run all tests from the build directory</div>
 <div class="line">ctest --test-dir build -V</div>
 </div><!-- fragment --><p>The <span class="tt">-V</span> flag enables verbose output to show detailed test results.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md31"></a>
 Important Notes</h3>
 <ul>
 <li><b>Educational Purpose</b>: The <span class="tt">.huff</span> file format is a custom format and is <b>not</b> a standard JPEG file. It was designed to make the encoding steps (RLE, Huffman) transparent and easy to debug.</li>

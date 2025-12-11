@@ -1,5 +1,14 @@
 # JPEG Compressor — User Guide
 
+
+Github Repository: [Github](https://github.com/NguyenPhuong242/JPEG_Project.git)
+
+Author: Khanh-Phuong NGUYEN (NguyenPhuong242)
+
+Licensed under the MIT License. See `LICENSE` for details.
+
+## Overview
+
 This project is an educational implementation of a simplified JPEG compression/decompression chain. It covers the main steps: 8x8 block splitting, DCT, quantization, RLE, and Huffman coding.
 
 ### Main Modules

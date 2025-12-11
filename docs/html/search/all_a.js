@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['format_0',['b. Color Image Processing (PPM Format)',['../index.html#autotoc_md14',1,'']]]
+  ['for_20higher_20compression_0',['Example 2: 4:2:0 subsampling for higher compression',['../index.html#autotoc_md21',1,'']]]
 ];

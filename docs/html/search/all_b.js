@@ -10,6 +10,6 @@ var searchData=
   ['getsubsamplingh_7',['getSubsamplingH',['../classc_compression_couleur.html#a09ece2cc4ff38b03d07f2fb6531f86cc',1,'cCompressionCouleur']]],
   ['getsubsamplingv_8',['getSubsamplingV',['../classc_compression_couleur.html#a07352532802092bda525874b1bedd2c2',1,'cCompressionCouleur']]],
   ['gettrame_9',['getTrame',['../classc_huffman.html#a8302add3dc2dff75e99a49e466ce59fb',1,'cHuffman']]],
-  ['grayscale_20image_20processing_10',['a. Grayscale Image Processing',['../index.html#autotoc_md9',1,'']]],
+  ['grayscale_20workflow_20text_20img_20→_20pgm_20huff_10',['a. Grayscale Workflow (text .img → .pgm/.huff)',['../index.html#autotoc_md9',1,'']]],
   ['guide_11',['JPEG Compressor — User Guide',['../index.html',1,'']]]
 ];

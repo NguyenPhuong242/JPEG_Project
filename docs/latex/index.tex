@@ -70,49 +70,47 @@ After a successful build, the main executable will be located at {\ttfamily buil
 
 \DoxyHorRuler{0}
 \hypertarget{index_autotoc_md8}{}\doxysubsection{\texorpdfstring{4. Usage}{4. Usage}}\label{index_autotoc_md8}
-The {\ttfamily build/jpeg\+\_\+cli} executable is the main command-\/line interface (CLI) for this program.\hypertarget{index_autotoc_md9}{}\doxysubsubsection{\texorpdfstring{a. Grayscale Image Processing}{a. Grayscale Image Processing}}\label{index_autotoc_md9}
-This is the program\textquotesingle{}s default mode.
-
+The {\ttfamily build/jpeg\+\_\+cli} executable is the main command-\/line interface (CLI) for this program.\hypertarget{index_autotoc_md9}{}\doxysubsubsection{\texorpdfstring{a. Grayscale Workflow (text .img → .pgm/.huff)}{a. Grayscale Workflow (text .img → .pgm/.huff)}}\label{index_autotoc_md9}
 
 \begin{DoxyItemize}
-\item {\bfseries{Grayscale Compression\+:}} The program reads a text-\/based image file (e.\+g., {\ttfamily lenna.\+img}), calculates metrics, and generates 3 output files\+:
+\item {\bfseries{Compress\+:}} takes an ASCII grayscale {\ttfamily .img} (one pixel per line, 0-\/255). Outputs\+:
 \begin{DoxyItemize}
-\item {\ttfamily recon\+\_\+lenna.\+pgm}\+: The reconstructed image for verification.
-\item {\ttfamily lenna.\+rle}\+: Data after RLE encoding.
-\item {\ttfamily lenna.\+huff}\+: The final data after Huffman encoding.
+\item {\ttfamily \texorpdfstring{$<$}{<}name\texorpdfstring{$>$}{>}.huff}\+: Huffman stream with width/height trailer.
+\item {\ttfamily \texorpdfstring{$<$}{<}name\texorpdfstring{$>$}{>}.rle}\+: RLE intermediate (optional to keep).
+\item {\ttfamily recon\+\_\+\texorpdfstring{$<$}{<}name\texorpdfstring{$>$}{>}.pgm}\+: Reconstructed image for quick visual check.
 \end{DoxyItemize}
 
-{\ttfamily bash @section autotoc\+\_\+md10 Syntax\+: ./build/jpeg\+\_\+cli \mbox{[}image\+\_\+file\+\_\+path\mbox{]} \mbox{[}quality\mbox{]} @section autotoc\+\_\+md11 Example\+: Compress lenna.\+img with a quality of 50 (default) ./build/jpeg\+\_\+cli lenna.\+img 50 }
-\item {\bfseries{Grayscale Decompression\+:}} Decompresses a {\ttfamily .huff} file created by this program.
-
-{\ttfamily bash @section autotoc\+\_\+md12 Syntax\+: ./build/jpeg\+\_\+cli -\/-\/decompress \texorpdfstring{$<$}{<}file.\+huff\texorpdfstring{$>$}{>} @section autotoc\+\_\+md13 The output will be saved to decomp\+\_\+lenna.\+pgm ./build/jpeg\+\_\+cli -\/-\/decompress build/lenna.\+huff }
-\end{DoxyItemize}\hypertarget{index_autotoc_md14}{}\doxysubsubsubsection{\texorpdfstring{b. Color Image Processing (PPM Format)}{b. Color Image Processing (PPM Format)}}\label{index_autotoc_md14}
+{\ttfamily bash @section autotoc\+\_\+md10 Syntax\+: ./build/jpeg\+\_\+cli \texorpdfstring{$<$}{<}image.\+img\texorpdfstring{$>$}{>} \mbox{[}quality\mbox{]} @section autotoc\+\_\+md11 Example with the provided sample (128x128)\+: ./build/jpeg\+\_\+cli lenna.\+img 50 @section autotoc\+\_\+md12 Produces lenna.\+huff, lenna.\+rle, recon\+\_\+lenna.\+pgm in the current dir }
+\item {\bfseries{Decompress\+:}} reads a {\ttfamily .huff} produced by this tool and writes {\ttfamily decomp\+\_\+\texorpdfstring{$<$}{<}name\texorpdfstring{$>$}{>}.pgm}. {\ttfamily bash @section autotoc\+\_\+md13 Syntax\+: ./build/jpeg\+\_\+cli -\/-\/decompress \texorpdfstring{$<$}{<}file.\+huff\texorpdfstring{$>$}{>} ./build/jpeg\+\_\+cli -\/-\/decompress lenna.\+huff @section autotoc\+\_\+md14 Produces decomp\+\_\+lenna.\+pgm (dimensions taken from trailer). Legacy files without @section autotoc\+\_\+md15 trailer fall back to size inference and may be wrong; prefer re-\/compressing. }
+\item {\bfseries{Round-\/trip sanity check\+:}} {\ttfamily bash ./build/jpeg\+\_\+cli lenna.\+img 50 ./build/jpeg\+\_\+cli -\/-\/decompress lenna.\+huff @section autotoc\+\_\+md16 Compare recon\+\_\+lenna.\+pgm and decomp\+\_\+lenna.\+pgm (they should match) }
+\end{DoxyItemize}\hypertarget{index_autotoc_md17}{}\doxysubsubsubsection{\texorpdfstring{b. Color Workflow (PPM P6 → Y/\+Cb/\+Cr bitstreams → PPM)}{b. Color Workflow (PPM P6 → Y/\+Cb/\+Cr bitstreams → PPM)}}\label{index_autotoc_md17}
 
 \begin{DoxyItemize}
-\item {\bfseries{Color Compression\+:}} Compresses a PPM (P6) image into three separate compressed components (Y, Cb, Cr).
-\begin{DoxyItemize}
-\item {\ttfamily \texorpdfstring{$<$}{<}basename\texorpdfstring{$>$}{>}\+\_\+\+Y.\+huff}, {\ttfamily \texorpdfstring{$<$}{<}basename\texorpdfstring{$>$}{>}\+\_\+\+Cb.\+huff}, {\ttfamily \texorpdfstring{$<$}{<}basename\texorpdfstring{$>$}{>}\+\_\+\+Cr.\+huff}
-\item {\ttfamily \texorpdfstring{$<$}{<}basename\texorpdfstring{$>$}{>}.meta}\+: A file containing metadata (dimensions, quality, subsampling mode).
-\end{DoxyItemize}
+\item {\bfseries{Compress\+:}} takes a binary PPM (P6) and splits Y, Cb, Cr, applying optional subsampling. Outputs {\ttfamily \texorpdfstring{$<$}{<}base\texorpdfstring{$>$}{>}\+\_\+\+Y.\+huff}, {\ttfamily \texorpdfstring{$<$}{<}base\texorpdfstring{$>$}{>}\+\_\+\+Cb.\+huff}, {\ttfamily \texorpdfstring{$<$}{<}base\texorpdfstring{$>$}{>}\+\_\+\+Cr.\+huff}, and {\ttfamily \texorpdfstring{$<$}{<}base\texorpdfstring{$>$}{>}.meta} (stores width/height, quality, subsampling).
 
-{\ttfamily bash @section autotoc\+\_\+md15 Syntax\+: ./build/jpeg\+\_\+cli -\/-\/color-\/compress \texorpdfstring{$<$}{<}input.\+ppm\texorpdfstring{$>$}{>} \texorpdfstring{$<$}{<}basename\texorpdfstring{$>$}{>} \mbox{[}quality\mbox{]} \mbox{[}subsampling\mbox{]} @section autotoc\+\_\+md16 Example\+: Compress color.\+ppm with quality 75 and 4\+:2\+:0 subsampling ./build/jpeg\+\_\+cli -\/-\/color-\/compress path/to/color.\+ppm my\+\_\+image 75 420 }
-\begin{DoxyItemize}
-\item {\ttfamily quality}\+: 1-\/100 (affects the quantization matrix).
-\item {\ttfamily subsampling}\+: {\ttfamily 444} (no subsampling), {\ttfamily 422}, {\ttfamily 420}.
-\end{DoxyItemize}
-\item {\bfseries{Color Decompression\+:}} Reconstructs a PPM file from the component files ({\ttfamily .huff}) and the metadata file ({\ttfamily .meta}).
+\`{}\`{}\`{}bash 
+\end{DoxyItemize}\hypertarget{index_autotoc_md18}{}\doxysection{\texorpdfstring{Syntax\+: ./build/jpeg\+\_\+cli --color-\/compress \texorpdfstring{$<$}{<}input.\+ppm\texorpdfstring{$>$}{>} $<$base$>$ \mbox{[}quality\mbox{]} \mbox{[}subsampling\mbox{]}}{Syntax\+: ./build/jpeg\+\_\+cli --color-\/compress \texorpdfstring{$<$}{<}input.\+ppm\texorpdfstring{$>$}{>} $<$base$>$ \mbox{[}quality\mbox{]} \mbox{[}subsampling\mbox{]}}}\label{index_autotoc_md18}
+\hypertarget{index_autotoc_md19}{}\doxysection{\texorpdfstring{Subsampling\+: 444 (default), 422, or 420}{Subsampling\+: 444 (default), 422, or 420}}\label{index_autotoc_md19}
+\hypertarget{index_autotoc_md20}{}\doxysection{\texorpdfstring{Example 1\+: no subsampling}{Example 1\+: no subsampling}}\label{index_autotoc_md20}
+./build/jpeg\+\_\+cli --color-\/compress lenna\+\_\+color.\+ppm lenna\+\_\+color 75 444\hypertarget{index_autotoc_md21}{}\doxysection{\texorpdfstring{Example 2\+: 4\+:2\+:0 subsampling for higher compression}{Example 2\+: 4\+:2\+:0 subsampling for higher compression}}\label{index_autotoc_md21}
+./build/jpeg\+\_\+cli --color-\/compress lenna\+\_\+color.\+ppm lenna\+\_\+color 75 420 \hypertarget{index_autotoc_md22}{}\doxysection{\texorpdfstring{Produces lenna\+\_\+color\+\_\+\+Y.\+huff, lenna\+\_\+color\+\_\+\+Cb.\+huff, lenna\+\_\+color\+\_\+\+Cr.\+huff, lenna\+\_\+color.\+meta}{Produces lenna\+\_\+color\+\_\+\+Y.\+huff, lenna\+\_\+color\+\_\+\+Cb.\+huff, lenna\+\_\+color\+\_\+\+Cr.\+huff, lenna\+\_\+color.\+meta}}\label{index_autotoc_md22}
+\`{}\`{}\`{}
 
-{\ttfamily bash @section autotoc\+\_\+md17 Syntax\+: ./build/jpeg\+\_\+cli -\/-\/color-\/decompress \texorpdfstring{$<$}{<}basename\texorpdfstring{$>$}{>} \texorpdfstring{$<$}{<}output.\+ppm\texorpdfstring{$>$}{>} @section autotoc\+\_\+md18 Example\+: Decompress from my\+\_\+image\+\_\+\texorpdfstring{$\ast$}{*} files and save to final\+\_\+image.\+ppm ./build/jpeg\+\_\+cli -\/-\/color-\/decompress my\+\_\+image final\+\_\+image.\+ppm }
-\end{DoxyItemize}\hypertarget{index_autotoc_md19}{}\doxysubsubsubsection{\texorpdfstring{c. Other Utilities}{c. Other Utilities}}\label{index_autotoc_md19}
+
+\begin{DoxyItemize}
+\item {\bfseries{Decompress\+:}} reconstructs a PPM using the three component streams plus metadata. {\ttfamily bash @section autotoc\+\_\+md23 Syntax\+: ./build/jpeg\+\_\+cli -\/-\/color-\/decompress \texorpdfstring{$<$}{<}base\texorpdfstring{$>$}{>} \texorpdfstring{$<$}{<}output.\+ppm\texorpdfstring{$>$}{>} ./build/jpeg\+\_\+cli -\/-\/color-\/decompress lenna\+\_\+color recon\+\_\+lenna\+\_\+color.\+ppm @section autotoc\+\_\+md24 Reads lenna\+\_\+color\+\_\+\texorpdfstring{$\ast$}{*}.huff and lenna\+\_\+color.\+meta from the working directory }
+\item {\bfseries{Round-\/trip sanity check (color)\+:}} {\ttfamily bash ./build/jpeg\+\_\+cli -\/-\/color-\/compress lenna\+\_\+color.\+ppm demo 75 420 ./build/jpeg\+\_\+cli -\/-\/color-\/decompress demo demo\+\_\+out.\+ppm @section autotoc\+\_\+md25 Inspect demo\+\_\+out.\+ppm; PSNR depends on quality/subsampling }
+\item {\bfseries{Need a sample PPM?}} Generate a tiny one (8x8 gradient) and reuse it\+: {\ttfamily bash python3 tools/make\+\_\+sample\+\_\+ppm.\+py tests/sample\+\_\+color.\+ppm -\/-\/width 8 -\/-\/height 8 ./build/jpeg\+\_\+cli -\/-\/color-\/compress tests/sample\+\_\+color.\+ppm sample 75 444 ./build/jpeg\+\_\+cli -\/-\/color-\/decompress sample sample\+\_\+out.\+ppm }
+\end{DoxyItemize}\hypertarget{index_autotoc_md26}{}\doxysubsubsubsection{\texorpdfstring{c. Other Utilities}{c. Other Utilities}}\label{index_autotoc_md26}
 
 \begin{DoxyItemize}
 \item {\bfseries{View Frequency Histogram\+:}} Analyzes an RLE-\/encoded file to show the frequency of each symbol.
 
-{\ttfamily bash @section autotoc\+\_\+md20 Syntax\+: ./build/jpeg\+\_\+cli -\/-\/histogram \texorpdfstring{$<$}{<}file.\+rle\texorpdfstring{$>$}{>} ./build/jpeg\+\_\+cli -\/-\/histogram build/lenna.\+rle }
+{\ttfamily bash @section autotoc\+\_\+md27 Syntax\+: ./build/jpeg\+\_\+cli -\/-\/histogram \texorpdfstring{$<$}{<}file.\+rle\texorpdfstring{$>$}{>} ./build/jpeg\+\_\+cli -\/-\/histogram build/lenna.\+rle }
 \end{DoxyItemize}
 
 \DoxyHorRuler{0}
-\hypertarget{index_autotoc_md22}{}\doxysubsubsection{\texorpdfstring{5. Running Tests}{5. Running Tests}}\label{index_autotoc_md22}
+\hypertarget{index_autotoc_md29}{}\doxysubsubsection{\texorpdfstring{5. Running Tests}{5. Running Tests}}\label{index_autotoc_md29}
 The project includes a test suite to verify the correctness of the core modules.
 
 
@@ -126,7 +124,7 @@ The project includes a test suite to verify the correctness of the core modules.
 The {\ttfamily -\/V} flag enables verbose output to show detailed test results.
 
 \DoxyHorRuler{0}
-\hypertarget{index_autotoc_md24}{}\doxysubsubsection{\texorpdfstring{Important Notes}{Important Notes}}\label{index_autotoc_md24}
+\hypertarget{index_autotoc_md31}{}\doxysubsubsection{\texorpdfstring{Important Notes}{Important Notes}}\label{index_autotoc_md31}
 
 \begin{DoxyItemize}
 \item {\bfseries{Educational Purpose}}\+: The {\ttfamily .huff} file format is a custom format and is {\bfseries{not}} a standard JPEG file. It was designed to make the encoding steps (RLE, Huffman) transparent and easy to debug.

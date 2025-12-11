@@ -4,6 +4,7 @@ var searchData=
   ['dct_2eh_1',['dct.h',['../dct_8h.html',1,'']]],
   ['decompression_5fjpeg_2',['Decompression_JPEG',['../classc_compression.html#a66b859d7eff31e3ba9e2337cb63cc807',1,'cCompression']]],
   ['decompresstoppm_3',['DecompressToPPM',['../classc_compression_couleur.html#aa9eea42fb059fa85121faeb9a7f10987',1,'cCompressionCouleur']]],
-  ['dequant_5fjpeg_4',['dequant_JPEG',['../quantification_8h.html#ab519eb1e78250a811094c7cad0bb7ec0',1,'dequant_JPEG(int **Img_Quant, double **img_DCT):&#160;quantification.cpp'],['../quantification_8cpp.html#ab519eb1e78250a811094c7cad0bb7ec0',1,'dequant_JPEG(int **Img_Quant, double **img_DCT):&#160;quantification.cpp']]],
-  ['documentation_5',['2. Documentation',['../index.html#autotoc_md5',1,'']]]
+  ['default_20422_20or_20420_4',['Subsampling: 444 (default), 422, or 420',['../index.html#autotoc_md19',1,'']]],
+  ['dequant_5fjpeg_5',['dequant_JPEG',['../quantification_8h.html#ab519eb1e78250a811094c7cad0bb7ec0',1,'dequant_JPEG(int **Img_Quant, double **img_DCT):&#160;quantification.cpp'],['../quantification_8cpp.html#ab519eb1e78250a811094c7cad0bb7ec0',1,'dequant_JPEG(int **Img_Quant, double **img_DCT):&#160;quantification.cpp']]],
+  ['documentation_6',['2. Documentation',['../index.html#autotoc_md5',1,'']]]
 ];

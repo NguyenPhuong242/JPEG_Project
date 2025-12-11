@@ -11,5 +11,9 @@ var searchData=
   ['settrame_8',['setTrame',['../classc_huffman.html#afe4efb5d1cb9c8291942cb4dbf21a645',1,'cHuffman']]],
   ['show_5fdct_5fblock_9',['Show_DCT_Block',['../dct_8h.html#ac829e621307408e71a8ea5d683e4da0d',1,'Show_DCT_Block(double **DCT_Img):&#160;dct.cpp'],['../dct_8cpp.html#ac829e621307408e71a8ea5d683e4da0d',1,'Show_DCT_Block(double **DCT_Img):&#160;dct.cpp']]],
   ['snoeud_10',['sNoeud',['../structs_noeud.html',1,'sNoeud'],['../structs_noeud.html#a4159abaca506ae5c4bc293a65cc25516',1,'sNoeud::sNoeud()']]],
-  ['storehuffmantable_11',['storeHuffmanTable',['../classc_compression.html#aa9cfa8fa6c95559a27de177a67f0a5f3',1,'cCompression']]]
+  ['storehuffmantable_11',['storeHuffmanTable',['../classc_compression.html#aa9cfa8fa6c95559a27de177a67f0a5f3',1,'cCompression']]],
+  ['subsampling_12',['subsampling',['../index.html#autotoc_md20',1,'Example 1: no subsampling'],['../index.html#autotoc_md18',1,'Syntax: ./build/jpeg_cli &amp;ndash;color-compress &amp;lt;input.ppm&amp;gt; &amp;lt;base&amp;gt; [quality] [subsampling]']]],
+  ['subsampling_20for_20higher_20compression_13',['Example 2: 4:2:0 subsampling for higher compression',['../index.html#autotoc_md21',1,'']]],
+  ['subsampling_3a_20444_20default_20422_20or_20420_14',['Subsampling: 444 (default), 422, or 420',['../index.html#autotoc_md19',1,'']]],
+  ['syntax_3a_20build_20jpeg_5fcli_20ndash_20color_20compress_20quality_20subsampling_15',['Syntax: ./build/jpeg_cli &amp;ndash;color-compress &amp;lt;input.ppm&amp;gt; &amp;lt;base&amp;gt; [quality] [subsampling]',['../index.html#autotoc_md18',1,'']]]
 ];
