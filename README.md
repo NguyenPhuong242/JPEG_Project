@@ -161,7 +161,7 @@ Analyze the frequency distribution of the RLE stream.
 #### Verbose Testing
 Enable verbose output to view detailed test logs (if running test suites).
 ```bash
-./build/test<name> --verbose
+./build/tests/test<name> --verbose
 ```
 
 ### D. Help Command
