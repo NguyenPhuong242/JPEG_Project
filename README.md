@@ -188,6 +188,10 @@ doxygen Doxyfile
 ```
 The generated documentation will be located in `docs/html/index.html`. Open this file in a web browser to explore the code structure and comments.
 
+````bash
+xdg-open docs/html/index.html
+````
+
 The small report is in the docs folder as `project_report.pdf`.
 
 ## 9. Contributing
