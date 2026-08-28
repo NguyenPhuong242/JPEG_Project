@@ -14,10 +14,10 @@
  * @class cCompression
  * @brief Manages the core pipeline for a simplified grayscale JPEG-like compression.
  *
- * This class encapsulates the main stages of the compression and decompression
- * process for grayscale images. It handles Run-Length Encoding (RLE), Huffman
- * coding integration, quality metrics (EQM, compression ratio), and file I/O for
- * the custom compressed format.
+ * This class encapsulates the main stages of the compression process for grayscale
+ * images. It handles Run-Length Encoding (RLE), Huffman coding integration,
+ * quality metrics (EQM, compression ratio), and file output for the custom
+ * compressed format. Decompression is handled by cDecompression.
  */
 class cCompression {
 private:
@@ -51,7 +51,7 @@ public:
      * @brief Destructor.
      * @note Does not free the image buffer itself, as ownership is not assumed.
      */
-    ~cCompression();
+    virtual ~cCompression();
 
     /**
      * @brief Sets the image width.
@@ -184,13 +184,6 @@ public:
      */
     void Compression_JPEG(int *Trame_RLE, const char *Nom_Fichier);
 
-    /**
-     * @brief Decompresses an image from a file and reconstructs the pixel data.
-     * @param[in] Nom_Fichier_compresse The path to the compressed file.
-     * @return A newly allocated 2D array (unsigned char**) containing the image data.
-     * @note The caller is responsible for freeing the allocated memory.
-     */
-    unsigned char **Decompression_JPEG(const char *Nom_Fichier_compresse);
 };
 
 #endif //JPEG_COMPRESSOR_CCOMPRESSION_H

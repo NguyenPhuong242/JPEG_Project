@@ -8,12 +8,13 @@
 #include "core/cCompressionCouleur.h"
 #include "core/cCompression.h"
 
-#include <vector>
-#include <fstream>
+#include <algorithm>
+#include <cstdint>
 #include <cmath>
-#include <cstring>
-#include <string>
+#include <fstream>
 #include <limits>
+#include <string>
+#include <vector>
 
 // --- Static Helper Functions for Color Image Processing ---
 
@@ -56,23 +57,6 @@ static bool readPPM(const char *path, unsigned int &w, unsigned int &h, std::vec
 }
 
 /**
- * @brief Writes a binary (P6) PPM file.
- * @param[in] path Path for the output PPM file.
- * @param[in] w Width of the image.
- * @param[in] h Height of the image.
- * @param[in] rgb A vector containing the raw RGB pixel data.
- * @return True on success, false on failure.
- */
-static bool writePPM(const char *path, unsigned int w, unsigned int h, const std::vector<unsigned char> &rgb)
-{
-    std::ofstream out(path, std::ios::binary);
-    if (!out) return false;
-    out << "P6\n" << w << " " << h << "\n255\n";
-    out.write(reinterpret_cast<const char*>(rgb.data()), rgb.size());
-    return true;
-}
-
-/**
  * @brief Converts a pixel from RGB to YCbCr color space.
  * @param[in] R Red component (0-255).
  * @param[in] G Green component (0-255).
@@ -90,26 +74,6 @@ static inline void rgb_to_ycbcr(unsigned char R, unsigned char G, unsigned char 
     Y = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(y)))));
     Cb = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(cb)))));
     Cr = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(cr)))));
-}
-
-/**
- * @brief Converts a pixel from YCbCr to RGB color space.
- * @param[in] Y Luma component (0-255).
- * @param[in] Cb Blue-difference chroma (0-255).
- * @param[in] Cr Red-difference chroma (0-255).
- * @param[out] R Red component (0-255).
- * @param[out] G Green component (0-255).
- * @param[out] B Blue component (0-255).
- */
-static inline void ycbcr_to_rgb(unsigned char Y, unsigned char Cb, unsigned char Cr, unsigned char &R, unsigned char &G, unsigned char &B)
-{
-    double y = static_cast<double>(Y), cb = static_cast<double>(Cb) - 128.0, cr = static_cast<double>(Cr) - 128.0;
-    double r = y + 1.402 * cr;
-    double g = y - 0.344136 * cb - 0.714136 * cr;
-    double b = y + 1.772 * cb;
-    R = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(r)))));
-    G = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(g)))));
-    B = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(b)))));
 }
 
 /**
@@ -156,45 +120,6 @@ static void subsample422(const std::vector<unsigned char> &src, unsigned int w, 
                 }
             }
             dst[y * cw + x] = static_cast<unsigned char>((count > 0) ? (sum / count) : 0);
-        }
-    }
-}
-
-/**
- * @brief Performs bilinear upsampling on a single channel.
- * @param[in] src The source (smaller) data plane.
- * @param[in] cw Width of the source plane.
- * @param[in] ch Height of the source plane.
- * @param[out] dst The destination vector for the upsampled data.
- * @param[in] w The target width.
- * @param[in] h The target height.
- */
-static void upsample_bilinear(const std::vector<unsigned char> &src, unsigned int cw, unsigned int ch, std::vector<unsigned char> &dst, unsigned int w, unsigned int h)
-{
-    dst.assign(static_cast<size_t>(w) * h, 0);
-    if (cw == 0 || ch == 0) return;
-    double sx_ratio = (cw > 1) ? (double)(cw - 1) / (w - 1) : 0;
-    double sy_ratio = (ch > 1) ? (double)(ch - 1) / (h - 1) : 0;
-
-    for (unsigned int j = 0; j < h; ++j) {
-        double sy = sy_ratio * j;
-        unsigned int y0 = static_cast<unsigned int>(sy);
-        unsigned int y1 = std::min(y0 + 1, ch - 1);
-        double v = sy - y0;
-
-        for (unsigned int i = 0; i < w; ++i) {
-            double sx = sx_ratio * i;
-            unsigned int x0 = static_cast<unsigned int>(sx);
-            unsigned int x1 = std::min(x0 + 1, cw - 1);
-            double u = sx - x0;
-
-            double p00 = src[y0 * cw + x0];
-            double p01 = src[y0 * cw + x1];
-            double p10 = src[y1 * cw + x0];
-            double p11 = src[y1 * cw + x1];
-            
-            double val = p00 * (1-u)*(1-v) + p01 * u*(1-v) + p10 * (1-u)*v + p11 * u*v;
-            dst[j * w + i] = static_cast<unsigned char>(std::max(0, std::min(255, static_cast<int>(std::round(val)))));
         }
     }
 }
@@ -320,64 +245,4 @@ bool cCompressionCouleur::CompressPPM(const char *ppmPath, const char *basename,
         val = qual; m.write(reinterpret_cast<const char*>(&val), sizeof(val));
     }
     return true;
-}
-
-bool cCompressionCouleur::DecompressToPPM(const char *basename, const char *outppm)
-{
-    // 1. Read metadata
-    std::string meta_path = std::string(basename) + ".meta";
-    std::ifstream m(meta_path, std::ios::binary);
-    if (!m) return false;
-    uint32_t w, h, cw, ch, sm, q;
-    m.read(reinterpret_cast<char*>(&w), sizeof(w)); m.read(reinterpret_cast<char*>(&h), sizeof(h));
-    m.read(reinterpret_cast<char*>(&cw), sizeof(cw)); m.read(reinterpret_cast<char*>(&ch), sizeof(ch));
-    m.read(reinterpret_cast<char*>(&sm), sizeof(sm)); m.read(reinterpret_cast<char*>(&q), sizeof(q));
-    m.close();
-
-    cCompression::setQualiteGlobale(q);
-
-    // 2. Decompress each color plane
-    auto decompress_plane = [&](const char* suffix, unsigned int& pw, unsigned int& ph) -> std::vector<unsigned char> {
-        std::string filename = std::string(basename) + suffix;
-        cCompression comp;
-        unsigned char** rows = comp.Decompression_JPEG(filename.c_str());
-        if (!rows) return {};
-        pw = comp.getLargeur();
-        ph = comp.getHauteur();
-        std::vector<unsigned char> data(pw * ph);
-        for(unsigned int y=0; y<ph; ++y) std::memcpy(data.data() + y*pw, rows[y], pw);
-        delete[] rows[0]; // Free buffer
-        delete[] rows;    // Free row pointers
-        return data;
-    };
-    unsigned int Ypw, Yph, Cbpw, Cbph, Crpw, Crph;
-    std::vector<unsigned char> Y_pad = decompress_plane("_Y.huff", Ypw, Yph);
-    std::vector<unsigned char> Cb_pad = decompress_plane("_Cb.huff", Cbpw, Cbph);
-    std::vector<unsigned char> Cr_pad = decompress_plane("_Cr.huff", Crpw, Crph);
-    if (Y_pad.empty() || Cb_pad.empty() || Cr_pad.empty()) return false;
-
-    // 3. Upsample chroma planes if they were subsampled
-    std::vector<unsigned char> Cb_full, Cr_full;
-    if (cw != w || ch != h) {
-        upsample_bilinear(Cb_pad, Cbpw, Cbph, Cb_full, w, h);
-        upsample_bilinear(Cr_pad, Crpw, Crph, Cr_full, w, h);
-    } else {
-        Cb_full = Cb_pad;
-        Cr_full = Cr_pad;
-    }
-
-    // 4. Convert YCbCr back to RGB, cropping any padding
-    std::vector<unsigned char> rgb(static_cast<size_t>(w) * h * 3);
-    for (unsigned int y=0; y<h; ++y) {
-        for (unsigned int x=0; x<w; ++x) {
-            unsigned char Yv = Y_pad[y*Ypw + x];
-            unsigned char Cbv = Cb_full[y*w + x];
-            unsigned char Crv = Cr_full[y*w + x];
-            size_t idx = (static_cast<size_t>(y) * w + x) * 3;
-            ycbcr_to_rgb(Yv, Cbv, Crv, rgb[idx], rgb[idx+1], rgb[idx+2]);
-        }
-    }
-
-    // 5. Write the final PPM file
-    return writePPM(outppm, w, h, rgb);
 }

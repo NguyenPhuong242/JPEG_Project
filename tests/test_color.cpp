@@ -6,6 +6,7 @@
 #include <cstdio>
 #include <vector>
 #include "core/cCompressionCouleur.h"
+#include "core/cDecompressionCouleur.h"
 
 static bool file_exists(const std::string &path) {
     struct stat buf;
@@ -55,7 +56,8 @@ int main() {
         return 1;
     }
 
-    bool ok2 = cc.DecompressToPPM(basename.c_str(), outppm.c_str());
+    cDecompressionCouleur dc;
+    bool ok2 = dc.DecompressToPPM(basename.c_str(), outppm.c_str());
     if (!ok2) {
         std::cerr << "DecompressToPPM failed" << std::endl;
         // try to cleanup what we can

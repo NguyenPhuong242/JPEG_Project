@@ -15,6 +15,8 @@
 #include "dct/dct.h"
 #include "quantification/quantification.h"
 #include "core/cCompressionCouleur.h"
+#include "core/cDecompression.h"
+#include "core/cDecompressionCouleur.h"
 
 using namespace std;
 
@@ -199,12 +201,12 @@ int main(int argc, char** argv) {
 
 	if (argc > 1 && std::string(argv[1]) == "--decompress") {
 		const char *inpath = (argc > 2) ? argv[2] : "lenna.huff";
-		cCompression compressor;
-		unsigned char **rows = compressor.Decompression_JPEG(inpath);
+		cDecompression decompressor;
+		unsigned char **rows = decompressor.Decompression_JPEG(inpath);
 		if (!rows) { std::cerr << "Decompression failed\n"; return 1; }
 		// write output PGM using stored dimensions
-		unsigned int w = compressor.getLargeur();
-		unsigned int h = compressor.getHauteur();
+		unsigned int w = decompressor.getLargeur();
+		unsigned int h = decompressor.getHauteur();
 		std::ofstream fout("decomp_lenna.pgm", std::ios::binary);
 		if (!fout) { std::cerr << "Cannot write output file\n"; return 1; }
 		fout << "P5\n" << w << " " << h << "\n255\n";
@@ -232,8 +234,8 @@ int main(int argc, char** argv) {
 		// usage: --color-decompress basename out.ppm
 		const char *basename = (argc > 2) ? argv[2] : "lenna_color";
 		const char *outppm = (argc > 3) ? argv[3] : "decomp_color.ppm";
-		cCompressionCouleur cc;
-		bool ok = cc.DecompressToPPM(basename, outppm);
+		cDecompressionCouleur dc;
+		bool ok = dc.DecompressToPPM(basename, outppm);
 		std::cout << "Decompress color result: " << (ok?"OK":"FAIL") << std::endl;
 		return ok ? 0 : 1;
 	}

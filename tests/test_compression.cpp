@@ -1,5 +1,6 @@
 #include <iostream>
 #include "core/cCompression.h"
+#include "core/cDecompression.h"
 #include "dct/dct.h"
 #include "quantification/quantification.h"
 #include <fstream>
@@ -115,7 +116,7 @@ int main()
 	delete[] Trame_RLE;
 
 	// Attempt to use library decompression first
-	cCompression comp2;
+	cDecompression comp2;
 	unsigned char **rows_out = comp2.Decompression_JPEG(outname);
 	int rec[8][8]; bool used_lib = false;
 	if (rows_out) {
@@ -155,7 +156,7 @@ int main()
 	cCompression single_symbol_comp(8, 8, 50, nullptr);
 	single_symbol_comp.Compression_JPEG(single_symbol_trame, "single_symbol_block.huff");
 
-	cCompression single_symbol_dec;
+	cDecompression single_symbol_dec;
 	unsigned char **single_rows = single_symbol_dec.Decompression_JPEG("single_symbol_block.huff");
 	if (!single_rows || single_symbol_dec.getLargeur() != 8 || single_symbol_dec.getHauteur() != 8) {
 		std::cerr << "Single-symbol Huffman round-trip failed" << std::endl;
