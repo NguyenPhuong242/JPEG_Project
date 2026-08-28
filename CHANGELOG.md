@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Remove tracked generated build artifacts and ignore local output files.
+
 ## 0.2.0 - 2026-08-28
 
 - Fix grayscale JPEG round-trip decoding for complete 8x8 block streams.
