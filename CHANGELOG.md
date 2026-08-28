@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 - Unreleased
+## 0.2.0 - 2026-08-28
 
 - Fix grayscale JPEG round-trip decoding for complete 8x8 block streams.
 - Fix RLE/Huffman handling, including single-symbol Huffman streams.
