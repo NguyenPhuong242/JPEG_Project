@@ -1,5 +1,6 @@
 #include <iostream>
 #include "core/cCompression.h"
+#include "core/cDecompression.h"
 #include "dct/dct.h"
 #include "quantification/quantification.h"
 #include <fstream>
@@ -7,6 +8,8 @@
 #include <iterator>
 #include <array>
 #include <cstring>
+#include <cstdint>
+#include <cstdio>
 
 int main()
 {
@@ -86,10 +89,11 @@ int main()
 	for (int k=0;k<64;++k) { std::cout << linear[k] << (k%8==7?"\n":" "); }
 
 	// RLE the block using cCompression::RLE_Block
-	signed char block_trame[128]; for (int i=0;i<128;++i) block_trame[i]=0;
+	signed char block_trame[129]; for (int i=0;i<129;++i) block_trame[i]=0;
 	comp.RLE_Block(quant_ptrs, 0, block_trame);
 	std::cout << "RLE block trame (pairs until EOB):\n";
-	for (int i=0;i<128;i+=2) {
+	std::cout << static_cast<int>(block_trame[0]) << " ";
+	for (int i=1;i+1<129;i+=2) {
 		int a = static_cast<unsigned char>(block_trame[i]);
 		int b = static_cast<signed char>(block_trame[i+1]);
 		std::cout << "(" << a << "," << b << ") ";
@@ -98,7 +102,8 @@ int main()
 
 	// Build a Trame_RLE int[] and call Compression_JPEG to produce a .huff file
 	int trame_len = 0;
-	for (int i=0;i<128;i+=2) {
+	trame_len += 1;
+	for (int i=1;i+1<129;i+=2) {
 		trame_len += 2;
 		if (block_trame[i]==0 && block_trame[i+1]==0) break;
 	}
@@ -112,7 +117,7 @@ int main()
 	delete[] Trame_RLE;
 
 	// Attempt to use library decompression first
-	cCompression comp2;
+	cDecompression comp2;
 	unsigned char **rows_out = comp2.Decompression_JPEG(outname);
 	int rec[8][8]; bool used_lib = false;
 	if (rows_out) {
@@ -127,86 +132,8 @@ int main()
 		delete[] rows_out[0]; delete[] rows_out;
 		used_lib = true;
 	} else {
-		// Fallback: manually parse header and decode Huffman payload
-		std::ifstream in(outname, std::ios::binary);
-		if (!in) { std::cerr << "Cannot open " << outname << std::endl; return 0; }
-		// Read full file into vector
-		std::vector<unsigned char> filedata((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
-		size_t pos = 0;
-		if (filedata.size() < 4) { std::cerr << "Invalid file" << std::endl; return 0; }
-		std::string magic(reinterpret_cast<char*>(filedata.data()), 4);
-		if (magic != "HUF1") { std::cerr << "Unknown format: " << magic << std::endl; return 0; }
-		pos += 4;
-		uint16_t nbSym16 = 0; std::memcpy(&nbSym16, filedata.data()+pos, sizeof(nbSym16)); pos += sizeof(nbSym16);
-		unsigned int nbSym = nbSym16;
-		std::vector<char> symbols(nbSym);
-		std::vector<double> freqs(nbSym);
-		for (unsigned int i=0;i<nbSym;++i) {
-			symbols[i] = static_cast<char>(filedata[pos]); pos += 1;
-			uint32_t cnt=0; std::memcpy(&cnt, filedata.data()+pos, sizeof(cnt)); pos += sizeof(cnt);
-			freqs[i] = static_cast<double>(cnt);
-		}
-		uint32_t payload_bytes = 0; std::memcpy(&payload_bytes, filedata.data()+pos, sizeof(payload_bytes)); pos += sizeof(payload_bytes);
-		uint32_t payload_bits32 = 0; std::memcpy(&payload_bits32, filedata.data()+pos, sizeof(payload_bits32)); pos += sizeof(payload_bits32);
-		uint64_t payload_bits = static_cast<uint64_t>(payload_bits32);
-		if (pos + payload_bytes > filedata.size()) { std::cerr << "Truncated payload" << std::endl; return 0; }
-		unsigned char *payload = filedata.data() + pos;
-
-		// Build Huffman tree
-		cHuffman h;
-		h.HuffmanCodes(symbols.data(), freqs.data(), nbSym);
-		sNoeud *root = h.getRacine(); if (!root) { std::cerr << "Failed to build Huffman tree" << std::endl; return 0; }
-
-		// Decode bits into trameDec
-		std::vector<char> trameDec;
-		sNoeud *cursor = root;
-		uint64_t valid_bits = (payload_bits > 0) ? payload_bits : static_cast<uint64_t>(payload_bytes) * 8ULL;
-		for (uint64_t bitIndex = 0; bitIndex < valid_bits; ++bitIndex) {
-			int bit = 7 - static_cast<int>(bitIndex % 8ULL);
-			unsigned char byte = payload[bitIndex / 8ULL];
-			int val = ((byte >> bit) & 1);
-			cursor = (val == 0) ? cursor->mgauche : cursor->mdroit;
-			if (!cursor) { std::cerr << "Invalid bitstream during manual decode" << std::endl; return 0; }
-			if (!cursor->mgauche && !cursor->mdroit) {
-				trameDec.push_back(cursor->mdonnee);
-				cursor = root;
-			}
-		}
-		if (trameDec.empty()) { std::cerr << "Empty decoded RLE" << std::endl; return 0; }
-
-		// Parse RLE into quant block(s)
-		static const int zigzag[64] = {
-			 0,  1,  8, 16,  9,  2,  3, 10, 17, 24, 32, 25, 18, 11,  4,  5,
-			12, 19, 26, 33, 40, 48, 41, 34, 27, 20, 13,  6,  7, 14, 21, 28,
-			35, 42, 49, 56, 57, 50, 43, 36, 29, 22, 15, 23, 30, 37, 44, 51,
-			58, 59, 52, 45, 38, 31, 39, 46, 53, 60, 61, 54, 47, 55, 62, 63
-		};
-		size_t p2 = 0; std::array<int,64> q; q.fill(0); int previous_DC = 0;
-		signed char dc_diff = static_cast<signed char>(trameDec[p2++]);
-		int DC = static_cast<int>(dc_diff) + previous_DC; q[0] = DC; previous_DC = DC;
-		int idx = 1;
-		while (p2 + 1 <= trameDec.size() && idx < 64) {
-			signed char run = static_cast<signed char>(trameDec[p2++]);
-			signed char val = static_cast<signed char>(trameDec[p2++]);
-			if (run == 0 && val == 0) break;
-			idx += static_cast<int>(run);
-			if (idx >= 64) break;
-			q[zigzag[idx]] = static_cast<int>(val);
-			idx++;
-		}
-
-		// Convert q (linear) to quant matrix
-		int quant_matrix[8][8]; for (int k=0;k<64;++k) quant_matrix[k/8][k%8] = q[k];
-
-		// Dequantize + IDCT to reconstruct
-		double dequant_block[8][8]; double* dequant_ptrs[8];
-		int recon_block[8][8]; int* recon_ptrs[8]; int* quant_ptrs_local[8];
-		for (int i=0;i<8;++i) { dequant_ptrs[i]=dequant_block[i]; recon_ptrs[i]=recon_block[i]; quant_ptrs_local[i]=quant_matrix[i]; }
-		dequant_JPEG(quant_ptrs_local, dequant_ptrs);
-		Calcul_IDCT_Block(dequant_ptrs, recon_ptrs);
-		for (int r=0;r<8;++r) for (int c=0;c<8;++c) {
-			int val = recon_block[r][c] + 128; if (val<0) val=0; if (val>255) val=255; rec[r][c]=val;
-		}
+		std::cerr << "Library decompression failed" << std::endl;
+		return 1;
 	}
 
 	// Print recovered block and MSE
@@ -221,6 +148,68 @@ int main()
 	}
 	mse_rec /= 64.0;
 	std::cout << "Recovered block MSE = " << mse_rec << std::endl;
+	if (mse_rec > 10.0) {
+		std::cerr << "Recovered block MSE too high" << std::endl;
+		return 1;
+	}
+
+	int single_symbol_trame[] = {3, 0, 0, 0};
+	cCompression single_symbol_comp(8, 8, 50, nullptr);
+	single_symbol_comp.Compression_JPEG(single_symbol_trame, "single_symbol_block.huff");
+
+	cDecompression single_symbol_dec;
+	unsigned char **single_rows = single_symbol_dec.Decompression_JPEG("single_symbol_block.huff");
+	if (!single_rows || single_symbol_dec.getLargeur() != 8 || single_symbol_dec.getHauteur() != 8) {
+		std::cerr << "Single-symbol Huffman round-trip failed" << std::endl;
+		if (single_rows) {
+			delete[] single_rows[0];
+			delete[] single_rows;
+		}
+		std::remove("single_symbol_block.huff");
+		return 1;
+	}
+	for (int r = 0; r < 8; ++r) {
+		for (int c = 0; c < 8; ++c) {
+			if (single_rows[r][c] != 128) {
+				std::cerr << "Unexpected single-symbol reconstruction value" << std::endl;
+				delete[] single_rows[0];
+				delete[] single_rows;
+				std::remove("single_symbol_block.huff");
+				return 1;
+			}
+		}
+	}
+	delete[] single_rows[0];
+	delete[] single_rows;
+	std::remove("single_symbol_block.huff");
+
+	const char *bad_payload_file = "bad_payload_bits.huff";
+	{
+		std::ofstream bad(bad_payload_file, std::ios::binary);
+		uint16_t nb = 1;
+		unsigned char symbol = 0;
+		uint32_t count = 3;
+		uint32_t payload_bytes = 1;
+		uint32_t payload_bits = 9;
+		unsigned char payload = 0;
+		bad.write("HUF1", 4);
+		bad.write(reinterpret_cast<const char*>(&nb), sizeof(nb));
+		bad.write(reinterpret_cast<const char*>(&symbol), sizeof(symbol));
+		bad.write(reinterpret_cast<const char*>(&count), sizeof(count));
+		bad.write(reinterpret_cast<const char*>(&payload_bytes), sizeof(payload_bytes));
+		bad.write(reinterpret_cast<const char*>(&payload_bits), sizeof(payload_bits));
+		bad.write(reinterpret_cast<const char*>(&payload), sizeof(payload));
+	}
+	cDecompression bad_payload_dec;
+	unsigned char **bad_payload_rows = bad_payload_dec.Decompression_JPEG(bad_payload_file);
+	if (bad_payload_rows) {
+		std::cerr << "Invalid payload_bits was accepted" << std::endl;
+		delete[] bad_payload_rows[0];
+		delete[] bad_payload_rows;
+		std::remove(bad_payload_file);
+		return 1;
+	}
+	std::remove(bad_payload_file);
 
 	return 0;
 }

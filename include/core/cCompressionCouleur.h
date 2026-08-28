@@ -14,11 +14,11 @@
  * @class cCompressionCouleur
  * @brief Extends cCompression to handle color image compression (PPM format).
  *
- * This class manages the pipeline for compressing and decompressing P6 (binary)
- * PPM color images. It handles reading the PPM file, converting from RGB to
- * YCbCr color space, performing chroma subsampling (4:4:4, 4:2:2, 4:2:0), and
- * then uses the base cCompression functionality to compress each color component
- * (Y, Cb, Cr) into a separate file.
+ * This class manages the pipeline for compressing P6 (binary) PPM color images.
+ * It handles reading the PPM file, converting from RGB to YCbCr color space,
+ * performing chroma subsampling (4:4:4, 4:2:2, 4:2:0), and then uses the base
+ * cCompression functionality to compress each color component (Y, Cb, Cr) into
+ * a separate file. Color decompression is handled by cDecompressionCouleur.
  */
 class cCompressionCouleur : public cCompression {
 private:
@@ -47,7 +47,7 @@ public:
     /**
      * @brief Destructor.
      */
-    ~cCompressionCouleur();
+    ~cCompressionCouleur() override;
 
     /**
      * @brief Compresses a PPM (P6) image into three component Huffman files and a metadata file.
@@ -63,20 +63,6 @@ public:
      * @return True on success, false on failure.
      */
     bool CompressPPM(const char *ppmPath, const char *basename, unsigned int qual, unsigned int subsamplingMode = 444);
-
-    /**
-     * @brief Decompresses three component Huffman files and reconstructs a PPM (P6) image.
-     *
-     * This method reads the metadata file to determine image dimensions and subsampling,
-     * then decompresses each color channel, upsamples the chroma channels if necessary,
-     * converts YCbCr back to RGB, and writes the output PPM file.
-     *
-     * @param[in] basename The base name used during compression (e.g., "image").
-     *                     It expects to find "image.meta", "image_Y.huff", etc.
-     * @param[in] outppm The path for the output PPM file to be created.
-     * @return True on success, false on failure.
-     */
-    bool DecompressToPPM(const char *basename, const char *outppm);
 
     /**
      * @brief Sets the horizontal chroma subsampling factor.

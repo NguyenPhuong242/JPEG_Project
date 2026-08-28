@@ -23,6 +23,24 @@ int main() {
     // Print codes starting from the root
     h.AfficherHuffman(h.getRacine());
 
+    std::map<char, std::string> codes;
+    h.BuildTableCodes(codes);
+    if (codes.size() != Taille) {
+        std::cerr << "Unexpected number of Huffman codes\n";
+        return 1;
+    }
+
+    char singleSymbol[] = { 'Z' };
+    double singleFreq[] = { 42.0 };
+    cHuffman single;
+    single.HuffmanCodes(singleSymbol, singleFreq, 1);
+    std::map<char, std::string> singleCodes;
+    single.BuildTableCodes(singleCodes);
+    if (singleCodes['Z'] != "0") {
+        std::cerr << "Single-symbol Huffman code should be 0\n";
+        return 1;
+    }
+
     std::cout << "\nDone.\n";
     return 0;
 }
