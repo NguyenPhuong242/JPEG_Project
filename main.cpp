@@ -375,7 +375,7 @@ int main(int argc, char** argv) {
 	compressor.setBuffer(rows.data());
 
 	size_t maxBlocks = blocks_w * blocks_h;
-	size_t maxBytes = maxBlocks * 128; // safe upper bound
+	size_t maxBytes = maxBlocks * 129; // DC + 63 AC pairs + EOB
 	int *Trame_RLE = new int[1 + maxBytes];
 	compressor.RLE(Trame_RLE);
 	int trameLen = Trame_RLE[0];
@@ -402,4 +402,3 @@ int main(int argc, char** argv) {
 
 	return 0;
 }
-

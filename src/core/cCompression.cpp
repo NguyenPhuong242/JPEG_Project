@@ -7,6 +7,8 @@
 
 #include "core/cCompression.h"
 #include <vector>
+#include <array>
+#include <cstdint>
 #include <cstring>
 #include <fstream>
 #include <map>
@@ -233,8 +235,8 @@ void cCompression::RLE_Block(int **Img_Quant, int DC_precedent, signed char *Tra
         }
     }
 
-    // End-of-Block marker
-    if (pos < 128) {
+    // End-of-Block marker. A block can take up to 1 + 63*2 + 2 bytes.
+    if (pos + 1 < 129) {
         Trame[pos++] = 0x00; // (0, 0)
         Trame[pos++] = 0x00;
     }
@@ -268,12 +270,13 @@ void cCompression::RLE(signed int *Trame)
             quant_JPEG(dct_ptrs, quant_ptrs);
 
             // RLE encoding for the block
-            signed char block_trame[128] = {0};
+            signed char block_trame[129] = {0};
             RLE_Block(quant_ptrs, previous_DC, block_trame);
             previous_DC = quant[0][0]; // Update previous DC for next block
 
-            // Append RLE data to the main stream until EOB is found
-            for(int i=0; i<128; i+=2) {
+            // Append DC first, then AC pairs until EOB is found.
+            out_stream.push_back(block_trame[0]);
+            for(int i=1; i + 1 < 129; i+=2) {
                 out_stream.push_back(block_trame[i]);
                 out_stream.push_back(block_trame[i+1]);
                 if (block_trame[i] == 0 && block_trame[i+1] == 0) {
@@ -382,13 +385,15 @@ void cCompression::Compression_JPEG(int *Trame_RLE, const char *Nom_Fichier)
         out.write(reinterpret_cast<const char*>(bitBytes.data()), bitBytes.size());
     }
 
-    // Optional width/height trailer to avoid guessing during decompression.
+    // Optional width/height/quality trailer to avoid guessing during decompression.
     // Old files do not include this, so the reader treats it as optional.
     if (mLargeur != 0 && mHauteur != 0) {
         uint32_t w = mLargeur;
         uint32_t h = mHauteur;
+        uint32_t q = cCompression::getQualiteGlobale();
         out.write(reinterpret_cast<const char*>(&w), sizeof(w));
         out.write(reinterpret_cast<const char*>(&h), sizeof(h));
+        out.write(reinterpret_cast<const char*>(&q), sizeof(q));
     }
 
     out.close();
@@ -437,7 +442,7 @@ unsigned char **cCompression::Decompression_JPEG(const char *Nom_Fichier_compres
         payload_size = payload_bytes;
         std::cerr << "[Decompression_JPEG] Parsed HUF1 header: nbSym=" << nbSym << " payload_bytes=" << payload_bytes << " payload_bits=" << payload_bits << "\n";
 
-        // Optional width/height trailer (added for correctness). If absent, fall back to inference later.
+        // Optional width/height/quality trailer. If absent, fall back to inference and current quality.
         size_t trailer_pos = pos + payload_bytes;
         if (trailer_pos + sizeof(uint32_t) * 2 <= filedata.size()) {
             uint32_t w = 0, h = 0;
@@ -446,6 +451,14 @@ unsigned char **cCompression::Decompression_JPEG(const char *Nom_Fichier_compres
             if (w != 0 && h != 0) {
                 this->mLargeur = w;
                 this->mHauteur = h;
+            }
+        }
+        if (trailer_pos + sizeof(uint32_t) * 3 <= filedata.size()) {
+            uint32_t q = 0;
+            std::memcpy(&q, filedata.data() + trailer_pos + sizeof(uint32_t) * 2, sizeof(uint32_t));
+            if (q >= 1 && q <= 100) {
+                this->mQualite = q;
+                cCompression::setQualiteGlobale(q);
             }
         }
     } else {
@@ -474,18 +487,22 @@ unsigned char **cCompression::Decompression_JPEG(const char *Nom_Fichier_compres
     std::vector<char> trameDec;
     uint64_t valid_bits = (payload_bits > 0) ? payload_bits : static_cast<uint64_t>(payload_size) * 8ULL;
 
-    sNoeud *cursor = root;
-    for (uint64_t bitIndex = 0; bitIndex < valid_bits; ++bitIndex) {
-        int bit = 7 - static_cast<int>(bitIndex % 8ULL);
-        unsigned char byte = payload[bitIndex / 8ULL];
-        int val = ((byte >> bit) & 1);
+    if (!root->mgauche && !root->mdroit) {
+        trameDec.assign(static_cast<size_t>(valid_bits), root->mdonnee);
+    } else {
+        sNoeud *cursor = root;
+        for (uint64_t bitIndex = 0; bitIndex < valid_bits; ++bitIndex) {
+            int bit = 7 - static_cast<int>(bitIndex % 8ULL);
+            unsigned char byte = payload[bitIndex / 8ULL];
+            int val = ((byte >> bit) & 1);
 
-        cursor = (val == 0) ? cursor->mgauche : cursor->mdroit;
-        if (!cursor) return nullptr; // Invalid bitstream
+            cursor = (val == 0) ? cursor->mgauche : cursor->mdroit;
+            if (!cursor) return nullptr; // Invalid bitstream
 
-        if (!cursor->mgauche && !cursor->mdroit) { // Leaf node found
-            trameDec.push_back(cursor->mdonnee);
-            cursor = root; // Reset for next symbol
+            if (!cursor->mgauche && !cursor->mdroit) { // Leaf node found
+                trameDec.push_back(cursor->mdonnee);
+                cursor = root; // Reset for next symbol
+            }
         }
     }
     if (trameDec.empty()) return nullptr;
@@ -499,10 +516,16 @@ unsigned char **cCompression::Decompression_JPEG(const char *Nom_Fichier_compres
         58, 59, 52, 45, 38, 31, 39, 46, 53, 60, 61, 54, 47, 55, 62, 63
     };
 
+    size_t expected_blocks = 0;
+    if (this->mLargeur != 0 && this->mHauteur != 0 &&
+        (this->mLargeur % 8) == 0 && (this->mHauteur % 8) == 0) {
+        expected_blocks = static_cast<size_t>(this->mLargeur / 8) * static_cast<size_t>(this->mHauteur / 8);
+    }
+
     std::vector<std::array<int,64>> quantBlocks;
     int previous_DC = 0;
     size_t p = 0;
-    while (p < trameDec.size()) {
+    while (p < trameDec.size() && (expected_blocks == 0 || quantBlocks.size() < expected_blocks)) {
         std::array<int,64> q{};
         q.fill(0);
 
@@ -512,24 +535,36 @@ unsigned char **cCompression::Decompression_JPEG(const char *Nom_Fichier_compres
         previous_DC = DC;
 
         int idx = 1;
+        bool saw_eob = false;
         // Need two bytes (run,val) to decode an AC pair. Ensure bounds strictly.
-        while ((p + 1) < trameDec.size() && idx < 64) {
+        while ((p + 1) < trameDec.size()) {
             unsigned char run_u = static_cast<unsigned char>(trameDec[p++]);
             signed char val_s = static_cast<signed char>(trameDec[p++]);
-            if (run_u == 0 && static_cast<unsigned char>(val_s) == 0) break; // EOB
+            if (run_u == 0 && val_s == 0) {
+                saw_eob = true;
+                break; // EOB
+            }
+            if (run_u == 15 && val_s == 0) {
+                idx += 16; // ZRL: sixteen zero coefficients.
+                if (idx > 64) return nullptr;
+                continue;
+            }
             idx += static_cast<int>(run_u);
-            if (idx >= 64) break;
+            if (idx >= 64) return nullptr;
             int zz = zigzag[idx];
             if (zz < 0 || zz >= 64) {
                 std::cerr << "[Decompression_JPEG] Zigzag index out of range: idx=" << idx << " zz=" << zz << "\n";
-                break;
+                return nullptr;
             }
             q[zz] = static_cast<int>(val_s);
             idx++;
         }
+        if (!saw_eob) return nullptr;
         quantBlocks.push_back(q);
     }
     if (quantBlocks.empty()) return nullptr;
+    if (expected_blocks != 0 && quantBlocks.size() != expected_blocks) return nullptr;
+    if (expected_blocks != 0 && p != trameDec.size()) return nullptr;
     std::cerr << "[Decompression_JPEG] Parsed " << quantBlocks.size() << " quant blocks\n";
 
     // 6. Reconstruct the image from the quantized blocks.

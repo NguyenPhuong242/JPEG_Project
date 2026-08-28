@@ -13,6 +13,7 @@
 #include <cmath>
 #include <cstring>
 #include <string>
+#include <limits>
 
 // --- Static Helper Functions for Color Image Processing ---
 
@@ -28,10 +29,25 @@ static bool readPPM(const char *path, unsigned int &w, unsigned int &h, std::vec
 {
     std::ifstream in(path, std::ios::binary);
     if (!in) return false;
-    std::string magic; in >> magic; if (magic != "P6") return false;
-    while (in.peek() == '#') { std::string line; std::getline(in, line); }
-    in >> w >> h;
-    int maxv; in >> maxv;
+    auto skip_ws_and_comments = [&]() {
+        while (true) {
+            in >> std::ws;
+            if (in.peek() != '#') break;
+            in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    };
+
+    std::string magic;
+    in >> magic;
+    if (magic != "P6") return false;
+    skip_ws_and_comments();
+    in >> w;
+    skip_ws_and_comments();
+    in >> h;
+    skip_ws_and_comments();
+    int maxv;
+    in >> maxv;
+    if (!in || maxv != 255 || w == 0 || h == 0) return false;
     in.get(); // Consume whitespace
     size_t n = static_cast<size_t>(w) * static_cast<size_t>(h) * 3;
     rgb.resize(n);
@@ -281,7 +297,7 @@ bool cCompressionCouleur::CompressPPM(const char *ppmPath, const char *basename,
     auto compress_plane = [&](std::vector<unsigned char>& data, unsigned int pw, unsigned int ph, const char* suffix) {
         unsigned char **rows = makeRowPointers(data, pw, ph);
         cCompression comp(pw, ph, qual, rows);
-        std::vector<int> trame(1 + (pw/8)*(ph/8)*128);
+        std::vector<int> trame(1 + (pw/8)*(ph/8)*129);
         comp.RLE(trame.data());
         std::string filename = std::string(basename) + suffix;
         comp.Compression_JPEG(trame.data(), filename.c_str());
@@ -338,18 +354,7 @@ bool cCompressionCouleur::DecompressToPPM(const char *basename, const char *outp
     std::vector<unsigned char> Y_pad = decompress_plane("_Y.huff", Ypw, Yph);
     std::vector<unsigned char> Cb_pad = decompress_plane("_Cb.huff", Cbpw, Cbph);
     std::vector<unsigned char> Cr_pad = decompress_plane("_Cr.huff", Crpw, Crph);
-    if (Y_pad.empty()) return false;
-    // If chroma planes are empty (very small files), fallback to neutral chroma (128)
-    if (Cb_pad.empty()) {
-        std::cerr << "[DecompressToPPM] Cb plane empty, using neutral 128 values\n";
-        Cbpw = cw; Cbph = ch;
-        Cb_pad.assign(static_cast<size_t>(Cbpw) * Cbph, 128);
-    }
-    if (Cr_pad.empty()) {
-        std::cerr << "[DecompressToPPM] Cr plane empty, using neutral 128 values\n";
-        Crpw = cw; Crph = ch;
-        Cr_pad.assign(static_cast<size_t>(Crpw) * Crph, 128);
-    }
+    if (Y_pad.empty() || Cb_pad.empty() || Cr_pad.empty()) return false;
 
     // 3. Upsample chroma planes if they were subsampled
     std::vector<unsigned char> Cb_full, Cr_full;

@@ -29,7 +29,7 @@ void buildTableRec(sNoeud *node,
 
     // If it's a leaf node, we have found a code for a symbol.
     if (!node->mgauche && !node->mdroit) {
-        table[node->mdonnee] = prefix;
+        table[node->mdonnee] = prefix.empty() ? "0" : prefix;
         return;
     }
 
@@ -61,7 +61,7 @@ void printCodesRec(sNoeud *node, const std::string &prefix)
 
     // A leaf node has a symbol to print.
     if (!node->mgauche && !node->mdroit) {
-        std::cout << "'" << node->mdonnee << "' : " << prefix << '\n';
+        std::cout << "'" << node->mdonnee << "' : " << (prefix.empty() ? "0" : prefix) << '\n';
         return;
     }
 
@@ -182,4 +182,3 @@ void cHuffman::AfficherHuffman(sNoeud *Racine)
     }
     printCodesRec(Racine, "");
 }
-

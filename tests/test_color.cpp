@@ -4,6 +4,7 @@
 #include <string>
 #include <sys/stat.h>
 #include <cstdio>
+#include <vector>
 #include "core/cCompressionCouleur.h"
 
 static bool file_exists(const std::string &path) {
@@ -11,8 +12,21 @@ static bool file_exists(const std::string &path) {
     return (stat(path.c_str(), &buf) == 0);
 }
 
+static bool read_ppm(const std::string &path, unsigned int &w, unsigned int &h, std::vector<unsigned char> &rgb) {
+    std::ifstream in(path, std::ios::binary);
+    if (!in) return false;
+    std::string magic;
+    int maxv = 0;
+    in >> magic >> w >> h >> maxv;
+    in.get();
+    if (!in || magic != "P6" || maxv != 255 || w == 0 || h == 0) return false;
+    rgb.resize(static_cast<size_t>(w) * h * 3);
+    in.read(reinterpret_cast<char *>(rgb.data()), rgb.size());
+    return static_cast<size_t>(in.gcount()) == rgb.size();
+}
+
 int main() {
-    const char *input_ppm = "lenna_color.ppm";
+    const char *input_ppm = "sample_color.ppm";
     const std::string basename = "tmp_test_color";
     const std::string outppm = "tmp_decomp_color.ppm";
 
@@ -22,7 +36,7 @@ int main() {
     }
 
     cCompressionCouleur cc;
-    unsigned int quality = 50;
+    unsigned int quality = 90;
     unsigned int subsampling = 444; // 4:4:4
 
     bool ok = cc.CompressPPM(input_ppm, basename.c_str(), quality, subsampling);
@@ -55,22 +69,28 @@ int main() {
         return 1;
     }
 
-    // Quick sanity check: first line should contain P6
-    std::ifstream fin(outppm, std::ios::binary);
-    if (!fin) {
-        std::cerr << "Cannot open decompressed PPM" << std::endl;
+    unsigned int in_w = 0, in_h = 0, out_w = 0, out_h = 0;
+    std::vector<unsigned char> input_rgb, output_rgb;
+    if (!read_ppm(input_ppm, in_w, in_h, input_rgb) ||
+        !read_ppm(outppm, out_w, out_h, output_rgb)) {
+        std::cerr << "Failed to read input or decompressed PPM" << std::endl;
         return 1;
     }
-    std::string header;
-    if (!std::getline(fin, header)) {
-        std::cerr << "Empty decompressed PPM" << std::endl;
-        fin.close();
-        return 1;
-    }
-    fin.close();
 
-    if (header.find("P6") == std::string::npos) {
-        std::cerr << "Decompressed file does not look like P6 PPM" << std::endl;
+    if (in_w != out_w || in_h != out_h || input_rgb.size() != output_rgb.size()) {
+        std::cerr << "Decompressed PPM dimensions/data size mismatch" << std::endl;
+        return 1;
+    }
+
+    bool has_color = false;
+    for (size_t i = 0; i + 2 < output_rgb.size(); i += 3) {
+        if (output_rgb[i] != output_rgb[i + 1] || output_rgb[i] != output_rgb[i + 2]) {
+            has_color = true;
+            break;
+        }
+    }
+    if (!has_color) {
+        std::cerr << "Decompressed image lost chroma information" << std::endl;
         return 1;
     }
 
