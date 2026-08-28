@@ -15,7 +15,8 @@
 #include <cstdint>
 #include <cstring>
 #include <fstream>
-#include <iostream>
+#include <limits>
+#include <new>
 #include <vector>
 
 cDecompression::cDecompression() : cCompression()
@@ -71,13 +72,11 @@ unsigned char **cDecompression::Decompression_JPEG(const char *Nom_Fichier_compr
         pos += sizeof(payload_bytes);
         std::memcpy(&payload_bits, filedata.data() + pos, sizeof(payload_bits));
         pos += sizeof(payload_bits);
+        if (static_cast<uint64_t>(payload_bits) > static_cast<uint64_t>(payload_bytes) * 8ULL) return nullptr;
 
         if (pos + payload_bytes > filedata.size()) return nullptr;
         payload = filedata.data() + pos;
         payload_size = payload_bytes;
-        std::cerr << "[Decompression_JPEG] Parsed HUF1 header: nbSym=" << nbSym
-                  << " payload_bytes=" << payload_bytes
-                  << " payload_bits=" << payload_bits << "\n";
 
         size_t trailer_pos = pos + payload_bytes;
         if (trailer_pos + sizeof(uint32_t) * 2 <= filedata.size()) {
@@ -114,7 +113,6 @@ unsigned char **cDecompression::Decompression_JPEG(const char *Nom_Fichier_compr
     h.HuffmanCodes(Donnee, Frequence, nbSym);
     sNoeud *root = h.getRacine();
     if (!root) return nullptr;
-    std::cerr << "[Decompression_JPEG] Built Huffman tree, root=" << root << "\n";
 
     std::vector<char> trameDec;
     uint64_t valid_bits = (payload_bits > 0) ? payload_bits : static_cast<uint64_t>(payload_size) * 8ULL;
@@ -138,7 +136,6 @@ unsigned char **cDecompression::Decompression_JPEG(const char *Nom_Fichier_compr
         }
     }
     if (trameDec.empty()) return nullptr;
-    std::cerr << "[Decompression_JPEG] Decoded " << trameDec.size() << " symbols into trameDec\n";
 
     static const int zigzag[64] = {
          0,  1,  8, 16,  9,  2,  3, 10, 17, 24, 32, 25, 18, 11,  4,  5,
@@ -185,7 +182,6 @@ unsigned char **cDecompression::Decompression_JPEG(const char *Nom_Fichier_compr
             if (idx >= 64) return nullptr;
             int zz = zigzag[idx];
             if (zz < 0 || zz >= 64) {
-                std::cerr << "[Decompression_JPEG] Zigzag index out of range: idx=" << idx << " zz=" << zz << "\n";
                 return nullptr;
             }
             q[zz] = static_cast<int>(val_s);
@@ -197,7 +193,6 @@ unsigned char **cDecompression::Decompression_JPEG(const char *Nom_Fichier_compr
     if (quantBlocks.empty()) return nullptr;
     if (expected_blocks != 0 && quantBlocks.size() != expected_blocks) return nullptr;
     if (expected_blocks != 0 && p != trameDec.size()) return nullptr;
-    std::cerr << "[Decompression_JPEG] Parsed " << quantBlocks.size() << " quant blocks\n";
 
     size_t nblocks = quantBlocks.size();
     size_t blocks_w = 0, blocks_h = 0;
@@ -212,8 +207,6 @@ unsigned char **cDecompression::Decompression_JPEG(const char *Nom_Fichier_compr
         }
         blocks_h = (nblocks + blocks_w - 1) / blocks_w;
         if (blocks_w * blocks_h < nblocks) blocks_h = (nblocks + blocks_w - 1) / blocks_w;
-        std::cerr << "[Decompression_JPEG] Inferred block grid: blocks_w=" << blocks_w
-                  << " blocks_h=" << blocks_h << " (nblocks=" << nblocks << ")\n";
         setLargeur(static_cast<unsigned int>(blocks_w * 8));
         setHauteur(static_cast<unsigned int>(blocks_h * 8));
     }
@@ -223,9 +216,16 @@ unsigned char **cDecompression::Decompression_JPEG(const char *Nom_Fichier_compr
     size_t width = static_cast<size_t>(getLargeur());
     size_t height = static_cast<size_t>(getHauteur());
     if (width == 0 || height == 0) return nullptr;
+    if (height > std::numeric_limits<size_t>::max() / width) return nullptr;
+    size_t pixel_count = width * height;
 
-    unsigned char *buf = new unsigned char[width * height];
-    unsigned char **rows = new unsigned char*[height];
+    unsigned char *buf = new (std::nothrow) unsigned char[pixel_count]();
+    if (!buf) return nullptr;
+    unsigned char **rows = new (std::nothrow) unsigned char*[height];
+    if (!rows) {
+        delete[] buf;
+        return nullptr;
+    }
     for (size_t r = 0; r < height; ++r) rows[r] = buf + r * width;
 
     double dequantized_block[8][8];

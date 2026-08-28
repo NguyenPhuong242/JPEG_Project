@@ -8,6 +8,7 @@
 #include <iterator>
 #include <array>
 #include <cstring>
+#include <cstdint>
 #include <cstdio>
 
 int main()
@@ -160,6 +161,11 @@ int main()
 	unsigned char **single_rows = single_symbol_dec.Decompression_JPEG("single_symbol_block.huff");
 	if (!single_rows || single_symbol_dec.getLargeur() != 8 || single_symbol_dec.getHauteur() != 8) {
 		std::cerr << "Single-symbol Huffman round-trip failed" << std::endl;
+		if (single_rows) {
+			delete[] single_rows[0];
+			delete[] single_rows;
+		}
+		std::remove("single_symbol_block.huff");
 		return 1;
 	}
 	for (int r = 0; r < 8; ++r) {
@@ -168,6 +174,7 @@ int main()
 				std::cerr << "Unexpected single-symbol reconstruction value" << std::endl;
 				delete[] single_rows[0];
 				delete[] single_rows;
+				std::remove("single_symbol_block.huff");
 				return 1;
 			}
 		}
@@ -175,6 +182,34 @@ int main()
 	delete[] single_rows[0];
 	delete[] single_rows;
 	std::remove("single_symbol_block.huff");
+
+	const char *bad_payload_file = "bad_payload_bits.huff";
+	{
+		std::ofstream bad(bad_payload_file, std::ios::binary);
+		uint16_t nb = 1;
+		unsigned char symbol = 0;
+		uint32_t count = 3;
+		uint32_t payload_bytes = 1;
+		uint32_t payload_bits = 9;
+		unsigned char payload = 0;
+		bad.write("HUF1", 4);
+		bad.write(reinterpret_cast<const char*>(&nb), sizeof(nb));
+		bad.write(reinterpret_cast<const char*>(&symbol), sizeof(symbol));
+		bad.write(reinterpret_cast<const char*>(&count), sizeof(count));
+		bad.write(reinterpret_cast<const char*>(&payload_bytes), sizeof(payload_bytes));
+		bad.write(reinterpret_cast<const char*>(&payload_bits), sizeof(payload_bits));
+		bad.write(reinterpret_cast<const char*>(&payload), sizeof(payload));
+	}
+	cDecompression bad_payload_dec;
+	unsigned char **bad_payload_rows = bad_payload_dec.Decompression_JPEG(bad_payload_file);
+	if (bad_payload_rows) {
+		std::cerr << "Invalid payload_bits was accepted" << std::endl;
+		delete[] bad_payload_rows[0];
+		delete[] bad_payload_rows;
+		std::remove(bad_payload_file);
+		return 1;
+	}
+	std::remove(bad_payload_file);
 
 	return 0;
 }

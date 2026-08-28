@@ -20,8 +20,11 @@ static bool writePPM(const char *path, unsigned int w, unsigned int h, const std
     std::ofstream out(path, std::ios::binary);
     if (!out) return false;
     out << "P6\n" << w << " " << h << "\n255\n";
+    if (!out) return false;
     out.write(reinterpret_cast<const char*>(rgb.data()), rgb.size());
-    return true;
+    if (!out) return false;
+    out.flush();
+    return static_cast<bool>(out);
 }
 
 static inline void ycbcr_to_rgb(unsigned char Y, unsigned char Cb, unsigned char Cr, unsigned char &R, unsigned char &G, unsigned char &B)
@@ -125,6 +128,7 @@ bool cDecompressionCouleur::DecompressToPPM(const char *basename, const char *ou
     m.read(reinterpret_cast<char*>(&q), sizeof(q));
     if (!m || w == 0 || h == 0 || cw == 0 || ch == 0) return false;
     if (sm != 444 && sm != 422 && sm != 420) return false;
+    if (q < 1 || q > 100) return false;
 
     cCompression::setQualiteGlobale(q);
     setQualite(q);
