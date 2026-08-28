@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+
+# CMake build outputs
+/build/
+/cmake-build-*/
+/CMakeFiles/
+/CMakeCache.txt
+/CTestTestfile.cmake
+/cmake_install.cmake
+/Makefile
+/Testing/
+
+# Local compiler outputs
+*.o
+*.d
+*.a
+*.out
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Generated JPEG demo outputs
+/lenna.huff
+/lenna.rle
+/recon_lenna.pgm
+/decomp_lenna.pgm
+/lenna_color.ppm
+/block_sample.huff
+/single_symbol_block.huff
+/bad_payload_bits.huff
+/tmp_*
